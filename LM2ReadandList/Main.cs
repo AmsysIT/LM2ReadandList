@@ -34,7 +34,7 @@ namespace LM2ReadandList
 
         string PalletNoString = "-";
         string Ebb = "";
-        public int time=300;
+        public int time=420;
 
         //資料庫宣告
         string myConnectionString, myConnectionString21;
@@ -8393,7 +8393,7 @@ namespace LM2ReadandList
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(time>60)
+            if(time>0)
             {
                 DialogResult dr = MessageBox.Show("是否確定要關閉程式? \n Do you really want to exit?", "關閉程式  Exit", MessageBoxButtons.YesNo);
 
@@ -8472,7 +8472,7 @@ namespace LM2ReadandList
                     e.Cancel = true;
                 }
             }
-            else if(time<59)
+            else if(time<=0)
             {
                 e.Cancel = false;
             }
@@ -8563,84 +8563,7 @@ namespace LM2ReadandList
                 time=time-1;
             }
 
-            if(time==60)
-            {
-                DialogResult dr = MessageBox.Show("系統將於60秒後自動結束  是否繼續使用? \n System will automatically end after 60 seconds Do you want to continue to use?", "即將關閉 Closing soon", MessageBoxButtons.YesNo); ;
-                
-                if (dr==DialogResult.Yes)
-                {
-                    time = 300; 
-                    return;
-                }
-                else if(dr==DialogResult.No)
-                {
-                    try
-                    {
-                        //更新登出時間
-                        selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-
-                        //計算工時
-                        selectCmd = "SELECT [OperatorId],[LoginTime], [LogoutTime]  FROM [LoginPackage] where [ID] ='" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        reader = cmd.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                starttime = reader.GetDateTime(1);
-                                endtime = reader.GetDateTime(2);
-                                TimeSpan worktime = new TimeSpan(endtime.Ticks - starttime.Ticks);
-                                selectCmd1 = "SELECT COUNT([Id]) FROM [WorkTimePackage] WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                                conn1 = new SqlConnection(myConnectionString);
-                                conn1.Open();
-                                cmd1 = new SqlCommand(selectCmd1, conn1);
-                                reader1 = cmd1.ExecuteReader();
-                                if (reader1.Read())
-                                {
-                                    if (reader1.GetInt32(0) != 0)
-                                    {
-                                        selectCmd2 = "UPDATE [WorkTimePackage] SET [WorkTime] = '" + ((decimal)(worktime.TotalMinutes) / (decimal)(reader1.GetInt32(0))) + "' WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                                        conn2 = new SqlConnection(myConnectionString);
-                                        conn2.Open();
-                                        cmd2 = new SqlCommand(selectCmd2, conn2);
-                                        cmd2.ExecuteNonQuery();
-                                        conn2.Close();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                            reader1.Close();
-                            conn1.Close();
-                        }
-                        reader.Close();
-                        conn.Close();
-
-                        selectCmd = "UPDATE [LoginPackage] SET  [WorkTime]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("" + ex);
-                    }
-                    this.Close();
-                }
-            }
-            else if(time==0)
+            if(time==0)
             {
                 try
                 {
