@@ -8454,7 +8454,7 @@ namespace LM2ReadandList
                         reader.Close();
                         conn.Close();
 
-                        selectCmd = "UPDATE [LoginPackage] SET  [WorkTime]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
+                        selectCmd = "UPDATE [LoginPackage] SET  [IsUpdate]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
                         conn = new SqlConnection(myConnectionString);
                         conn.Open();
                         cmd = new SqlCommand(selectCmd, conn);
@@ -8617,7 +8617,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
 
-                    selectCmd = "UPDATE [LoginPackage] SET  [WorkTime]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
+                    selectCmd = "UPDATE [LoginPackage] SET  [IsUpdate]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
