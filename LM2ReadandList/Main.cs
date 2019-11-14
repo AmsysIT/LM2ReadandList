@@ -5962,7 +5962,7 @@ namespace LM2ReadandList
                 conn.Close();
 
                 //更新登出時間
-                selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
+                selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime] = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , [IsUpdate]='0' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
@@ -6701,7 +6701,7 @@ namespace LM2ReadandList
             conn.Close();
 
             //更新登出時間
-            selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
+            selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , [IsUpdate]='0' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
