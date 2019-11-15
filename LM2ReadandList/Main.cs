@@ -5976,7 +5976,7 @@ namespace LM2ReadandList
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
-                time = 300;
+                time = 420;
 
                 if (LinkLMCheckBox.Checked == true)
                 {
@@ -6715,7 +6715,7 @@ namespace LM2ReadandList
             cmd.ExecuteNonQuery();
             conn.Close();
 
-            time = 300;
+            time = 420;
 
             if (CustomerBarCodeCheckBox.Checked == true)
             {
@@ -8397,9 +8397,6 @@ namespace LM2ReadandList
             {
                 DialogResult dr = MessageBox.Show("是否確定要關閉程式? \n Do you really want to exit?", "關閉程式  Exit", MessageBoxButtons.YesNo);
 
-                DateTime starttime;
-                DateTime endtime;
-
                 if (dr == DialogResult.Yes)
                 {
                     try
@@ -8411,59 +8408,10 @@ namespace LM2ReadandList
                         cmd = new SqlCommand(selectCmd, conn);
                         cmd.ExecuteNonQuery();
                         conn.Close();
-
-                        //計算工時
-                        selectCmd = "SELECT [OperatorId],[LoginTime], [LogoutTime]  FROM [LoginPackage] where [ID] ='" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        reader = cmd.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                starttime = reader.GetDateTime(1);
-                                endtime = reader.GetDateTime(2);
-                                TimeSpan worktime = new TimeSpan(endtime.Ticks - starttime.Ticks);
-                                selectCmd1 = "SELECT COUNT([Id]) FROM [WorkTimePackage] WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                                conn1 = new SqlConnection(myConnectionString);
-                                conn1.Open();
-                                cmd1 = new SqlCommand(selectCmd1, conn1);
-                                reader1 = cmd1.ExecuteReader();
-                                if (reader1.Read())
-                                {
-                                    if (reader1.GetInt32(0) != 0)
-                                    {
-                                        selectCmd2 = "UPDATE [WorkTimePackage] SET [WorkTime] = '" + ((decimal)(worktime.TotalMinutes) / (decimal)(reader1.GetInt32(0))) + "' WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                                        conn2 = new SqlConnection(myConnectionString);
-                                        conn2.Open();
-                                        cmd2 = new SqlCommand(selectCmd2, conn2);
-                                        cmd2.ExecuteNonQuery();
-                                        conn2.Close();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                            reader1.Close();
-                            conn1.Close();
-                        }
-                        reader.Close();
-                        conn.Close();
-
-                        selectCmd = "UPDATE [LoginPackage] SET  [IsUpdate]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("" + ex);
+                        MessageBox.Show(ex.ToString());
                     }
                     e.Cancel = false;
                 }
@@ -8555,9 +8503,6 @@ namespace LM2ReadandList
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            DateTime starttime;
-            DateTime endtime;
-
             if (time>0)
             {
                 time=time-1;
@@ -8574,59 +8519,10 @@ namespace LM2ReadandList
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
-
-                    //計算工時
-                    selectCmd = "SELECT [OperatorId],[LoginTime], [LogoutTime]  FROM [LoginPackage] where [ID] ='" + toolStripStatusLabel1.Text + "'";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            starttime = reader.GetDateTime(1);
-                            endtime = reader.GetDateTime(2);
-                            TimeSpan worktime = new TimeSpan(endtime.Ticks - starttime.Ticks);
-                            selectCmd1 = "SELECT COUNT([Id]) FROM [WorkTimePackage] WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                            conn1 = new SqlConnection(myConnectionString);
-                            conn1.Open();
-                            cmd1 = new SqlCommand(selectCmd1, conn1);
-                            reader1 = cmd1.ExecuteReader();
-                            if (reader1.Read())
-                            {
-                                if (reader1.GetInt32(0) != 0)
-                                {
-                                    selectCmd2 = "UPDATE [WorkTimePackage] SET [WorkTime] = '" + ((decimal)(worktime.TotalMinutes) / (decimal)(reader1.GetInt32(0))) + "' WHERE [OperatorId] = '" + ID + "' and [AddTime] >= '" + reader.GetDateTime(1).ToString("yyyy-MM-dd HH:mm:ss") + "' and [AddTime] <= '" + reader.GetDateTime(2).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                                    conn2 = new SqlConnection(myConnectionString);
-                                    conn2.Open();
-                                    cmd2 = new SqlCommand(selectCmd2, conn2);
-                                    cmd2.ExecuteNonQuery();
-                                    conn2.Close();
-                                    break;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                        reader1.Close();
-                        conn1.Close();
-                    }
-                    reader.Close();
-                    conn.Close();
-
-                    selectCmd = "UPDATE [LoginPackage] SET  [IsUpdate]='T' WHERE [ID] ='" + toolStripStatusLabel1.Text + "'";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("" + ex);
+                    MessageBox.Show(ex.ToString());
                 }
                 this.Close();
             }

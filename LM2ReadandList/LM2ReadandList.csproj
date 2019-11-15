@@ -35,7 +35,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>嘜頭包裝程式-客製化</ProductName>
     <PublisherName>J.T Lin</PublisherName>
-    <ApplicationRevision>154</ApplicationRevision>
+    <ApplicationRevision>155</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
