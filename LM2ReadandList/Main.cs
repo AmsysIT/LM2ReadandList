@@ -5944,11 +5944,11 @@ namespace LM2ReadandList
                 //如果Pass=Y SQL系統記錄此事件
                 if (Pass == "Y")
                 {
-                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
+                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
                 }
                 else
                 {
-                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text + "'," + "'" + timeString +"','"+ LotNumber + "')";
+                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + timeString +"','"+ LotNumber + "')";
                 }
 
                 //雷刻掃描完確認瓶身瓶底相同後載入資料
@@ -6692,7 +6692,7 @@ namespace LM2ReadandList
 
             //雷刻掃描完確認瓶身瓶底相同後載入資料
             myConnection = new SqlConnection(myConnectionString);
-            selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text + "'," + "'" + NowTime() +"',"+"'"+ LotNumber + "')";
+            selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + NowTime() +"',"+"'"+ LotNumber + "')";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
