@@ -153,7 +153,7 @@
             this.KeyInGroupBox.Controls.Add(this.SQLBodyButton);
             this.KeyInGroupBox.Controls.Add(this.label1);
             this.KeyInGroupBox.Enabled = false;
-            this.KeyInGroupBox.Location = new System.Drawing.Point(594, 584);
+            this.KeyInGroupBox.Location = new System.Drawing.Point(600, 327);
             this.KeyInGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.KeyInGroupBox.Name = "KeyInGroupBox";
             this.KeyInGroupBox.Padding = new System.Windows.Forms.Padding(4);
