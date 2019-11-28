@@ -79,6 +79,7 @@ namespace LM2ReadandList
         public string ID=null;
         public string User=null;
         public string worktype;
+        public string ProcessNo=null;
 
         public Main()
         {
@@ -276,6 +277,16 @@ namespace LM2ReadandList
 
         private void ListDateComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //判斷做哪種瓶子
+            if (ProductComboBox.SelectedItem.ToString().Contains("Composite") == true)
+            {
+                ProcessNo = "P56";
+            }
+            else
+            {
+                ProcessNo = "P26";
+            }
+
             //載入產品Color  20190212
             LoadColor();
             //載入賣頭的DATE
@@ -293,6 +304,7 @@ namespace LM2ReadandList
             //    TodayDataButton.Enabled = false;
             //}
             //若選擇複合瓶，則將雷刻相關設定取消
+            
             if (ProductComboBox.SelectedIndex != -1)
             {
                 if (ProductComboBox.Text.Contains("Composite") == true)
@@ -5969,7 +5981,7 @@ namespace LM2ReadandList
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
-                selectCmd = "INSERT INTO [WorkTimePackage] ([CylinderNo],[Operator],[OperatorId],[AddTime],[Date],[WorkType])VALUES(" + "'" + CylinderNumbers + "','" + User + "','" + ID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + worktype + "')";
+                selectCmd = "INSERT INTO [WorkTimePackage] ([CylinderNo],[Operator],[OperatorId],[AddTime],[Date],[WorkType],[ProcessNO])VALUES(" + "'" + CylinderNumbers + "','" + User + "','" + ID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + worktype + "','" + ProcessNo + "')";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
@@ -6708,7 +6720,7 @@ namespace LM2ReadandList
             cmd.ExecuteNonQuery();
             conn.Close();
 
-            selectCmd = "INSERT INTO [WorkTimePackage] ([CylinderNo],[Operator],[OperatorId],[AddTime],[Date],[WorkType])VALUES(" + "'" + NoLMCylinderNOTextBox.Text + "','" + User + "','" + ID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + worktype + "')";
+            selectCmd = "INSERT INTO [WorkTimePackage] ([CylinderNo],[Operator],[OperatorId],[AddTime],[Date],[WorkType],[ProcessNO])VALUES(" + "'" + NoLMCylinderNOTextBox.Text + "','" + User + "','" + ID + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + worktype + "','" + ProcessNo + "')";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
