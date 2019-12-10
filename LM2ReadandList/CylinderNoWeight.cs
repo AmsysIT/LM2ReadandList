@@ -106,6 +106,14 @@ namespace LM2ReadandList
             }
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked==true)
+            {
+                WeightTextBox.Text = (Convert.ToDecimal(WeightTextBox.Text) - 125).ToString();
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
