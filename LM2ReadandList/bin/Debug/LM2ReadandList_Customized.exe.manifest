@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LM2ReadandList_Customized.exe" size="225792">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LM2ReadandList_Customized.exe" size="226752">
       <assemblyIdentity name="LM2ReadandList_Customized" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>w3PfoJrs41rp4uJTr9rJ17mm5z8=</dsig:DigestValue>
+        <dsig:DigestValue>t+1Rj2NqvxULY7pv3n/1+x1WI5Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
