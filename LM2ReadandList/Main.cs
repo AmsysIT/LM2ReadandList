@@ -4794,6 +4794,10 @@ namespace LM2ReadandList
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    //描述
+                    oSheet.Cells[5, 3] = reader.GetString(2);
+                    //品號
+                    oSheet.Cells[6, 3] = reader.GetString(3);
                     //載入P/O No.
                     oSheet.Cells[8, 3] = reader.GetString(1);
                     //載入一箱幾隻
