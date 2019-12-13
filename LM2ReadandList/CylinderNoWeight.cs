@@ -12,7 +12,6 @@ namespace LM2ReadandList
 {
     public partial class CylinderNoWeight : Form
     {
-
         //資料庫宣告
         string myConnectionString;
         SqlConnection myConnection;
@@ -108,9 +107,19 @@ namespace LM2ReadandList
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox1.Checked==true && WeightTextBox.Text!="" && WeightTextBox.Text!=null)
+            if(WeightTextBox.Text != "" || WeightTextBox.Text == null)
+            {
+                MessageBox.Show("請先秤重");
+                return;
+            }
+
+            if (checkBox1.Checked == true) 
             {
                 WeightTextBox.Text = (Convert.ToDecimal(WeightTextBox.Text) - 125).ToString();
+            }
+            else if (checkBox1.Checked == false) 
+            {
+                WeightTextBox.Text = (Convert.ToDecimal(WeightTextBox.Text) + 125).ToString();
             }
         }
 
