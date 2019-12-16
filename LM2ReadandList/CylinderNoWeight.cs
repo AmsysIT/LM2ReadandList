@@ -20,8 +20,9 @@ namespace LM2ReadandList
         SqlCommand cmd;
         SqlDataReader reader;
 
-        public string ComPort = "", CylinderNo="",ListDate="",ProductName="",Boxs="",Location="";
+        public string ComPort = "", CylinderNo="",ListDate="",ProductName="",Boxs="",Location="",check="";
         string ReadWeight = "";
+        int i = 0;
 
         public CylinderNoWeight()
         {
@@ -105,24 +106,6 @@ namespace LM2ReadandList
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if(WeightTextBox.Text != "" || WeightTextBox.Text == null)
-            {
-                MessageBox.Show("請先秤重");
-                return;
-            }
-
-            if (checkBox1.Checked == true) 
-            {
-                WeightTextBox.Text = (Convert.ToDecimal(WeightTextBox.Text) - 125).ToString();
-            }
-            else if (checkBox1.Checked == false) 
-            {
-                WeightTextBox.Text = (Convert.ToDecimal(WeightTextBox.Text) + 125).ToString();
-            }
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
@@ -143,7 +126,15 @@ namespace LM2ReadandList
                 ReadWeight = ReadWeight.Split(',')[1].Split(' ')[0].ToString();
                 if (ReadWeight.Substring(0, 1) == "+")
                 {
-                    WeightTextBox.Text = Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)).ToString();
+                    if(check=="True")
+                    {
+                        WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 125).ToString();
+                    }
+                    else
+                    {
+                        WeightTextBox.Text = Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)).ToString();
+                    }
+
                     if (WeightTextBox.Text.ToString().CompareTo("0") == 1)
                     {
                         timer1.Enabled = false;

@@ -6751,6 +6751,8 @@ namespace LM2ReadandList
                 CNW.Boxs = BoxsListBox.SelectedItem.ToString();
                 CNW.Location = (Convert.ToInt32(NowSeat) + 1).ToString();
                 CNW.CylinderNo = NoLMCylinderNOTextBox.Text.ToString();
+                CNW.check = checkBox1.Checked.ToString();
+
                 CNW.ShowDialog();
             }
 

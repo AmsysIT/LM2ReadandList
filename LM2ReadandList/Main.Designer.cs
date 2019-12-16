@@ -126,6 +126,7 @@
             this.TodayDataButton = new System.Windows.Forms.Button();
             this.BarCodePictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.KeyInGroupBox.SuspendLayout();
             this.ReadyGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -153,7 +154,7 @@
             this.KeyInGroupBox.Controls.Add(this.SQLBodyButton);
             this.KeyInGroupBox.Controls.Add(this.label1);
             this.KeyInGroupBox.Enabled = false;
-            this.KeyInGroupBox.Location = new System.Drawing.Point(600, 327);
+            this.KeyInGroupBox.Location = new System.Drawing.Point(600, 326);
             this.KeyInGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.KeyInGroupBox.Name = "KeyInGroupBox";
             this.KeyInGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1190,6 +1191,7 @@
             // 
             // NoLMGroupBox
             // 
+            this.NoLMGroupBox.Controls.Add(this.checkBox1);
             this.NoLMGroupBox.Controls.Add(this.WhereSeatLabel);
             this.NoLMGroupBox.Controls.Add(this.label3);
             this.NoLMGroupBox.Controls.Add(this.NoLMCylinderNOTextBox);
@@ -1235,7 +1237,7 @@
             this.NoLMCylinderNOTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMCylinderNOTextBox.MaxLength = 10;
             this.NoLMCylinderNOTextBox.Name = "NoLMCylinderNOTextBox";
-            this.NoLMCylinderNOTextBox.Size = new System.Drawing.Size(400, 67);
+            this.NoLMCylinderNOTextBox.Size = new System.Drawing.Size(333, 67);
             this.NoLMCylinderNOTextBox.TabIndex = 1;
             this.NoLMCylinderNOTextBox.TabStop = false;
             this.NoLMCylinderNOTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NoLMCylinderNOTextBox_KeyDown);
@@ -1320,6 +1322,17 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("新細明體", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.checkBox1.Location = new System.Drawing.Point(356, 90);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(115, 42);
+            this.checkBox1.TabIndex = 55;
+            this.checkBox1.Text = "鎖閥";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1331,13 +1344,13 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.HistoryListBox);
             this.Controls.Add(this.RefreshhButton);
+            this.Controls.Add(this.KeyInGroupBox);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.LuckButton);
             this.Controls.Add(this.ListINFOGroupBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ReadyGroupBox);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.KeyInGroupBox);
             this.Controls.Add(this.NoLMGroupBox);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1467,6 +1480,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

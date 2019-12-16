@@ -41,7 +41,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // OKButton
@@ -49,7 +48,7 @@
             this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.OKButton.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.OKButton.Location = new System.Drawing.Point(175, 218);
-            this.OKButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OKButton.Margin = new System.Windows.Forms.Padding(4);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(171, 55);
             this.OKButton.TabIndex = 0;
@@ -62,7 +61,7 @@
             this.WeightTextBox.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WeightTextBox.ForeColor = System.Drawing.Color.Black;
             this.WeightTextBox.Location = new System.Drawing.Point(175, 150);
-            this.WeightTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WeightTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.WeightTextBox.Name = "WeightTextBox";
             this.WeightTextBox.ReadOnly = true;
             this.WeightTextBox.Size = new System.Drawing.Size(193, 48);
@@ -96,7 +95,7 @@
             this.ReLoadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ReLoadButton.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ReLoadButton.Location = new System.Drawing.Point(377, 150);
-            this.ReLoadButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ReLoadButton.Margin = new System.Windows.Forms.Padding(4);
             this.ReLoadButton.Name = "ReLoadButton";
             this.ReLoadButton.Size = new System.Drawing.Size(101, 50);
             this.ReLoadButton.TabIndex = 48;
@@ -108,7 +107,7 @@
             // 
             this.ReflashComportButton.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ReflashComportButton.Location = new System.Drawing.Point(307, 59);
-            this.ReflashComportButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ReflashComportButton.Margin = new System.Windows.Forms.Padding(4);
             this.ReflashComportButton.Name = "ReflashComportButton";
             this.ReflashComportButton.Size = new System.Drawing.Size(173, 41);
             this.ReflashComportButton.TabIndex = 51;
@@ -124,7 +123,7 @@
             this.ComPortcomboBox.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ComPortcomboBox.FormattingEnabled = true;
             this.ComPortcomboBox.Location = new System.Drawing.Point(179, 56);
-            this.ComPortcomboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ComPortcomboBox.Margin = new System.Windows.Forms.Padding(4);
             this.ComPortcomboBox.Name = "ComPortcomboBox";
             this.ComPortcomboBox.Size = new System.Drawing.Size(119, 42);
             this.ComPortcomboBox.TabIndex = 50;
@@ -167,24 +166,11 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("新細明體", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBox1.Location = new System.Drawing.Point(377, 109);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 32);
-            this.checkBox1.TabIndex = 54;
-            this.checkBox1.Text = "鎖閥";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // CylinderNoWeight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 294);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.CylinderNoLabel);
             this.Controls.Add(this.ReflashComportButton);
@@ -196,7 +182,7 @@
             this.Controls.Add(this.WeightTextBox);
             this.Controls.Add(this.OKButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CylinderNoWeight";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "氣瓶重量量測";
@@ -220,6 +206,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
         private System.IO.Ports.SerialPort SerialPort1;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
