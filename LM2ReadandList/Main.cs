@@ -3423,7 +3423,9 @@ namespace LM2ReadandList
                             oSheet.Cells[8, 9] = reader.GetString(3);
                             break;
                     }
-                    serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 5) * 127;
+                    int i = Convert.ToInt32(reader.GetString(5));
+                    i = i > 5 ? i - 5 : i;
+                    serialnooneX =  35+ (i-1)   *127;
                     serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 111;
                     oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 110, 25);
