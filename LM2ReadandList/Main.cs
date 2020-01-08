@@ -34,7 +34,7 @@ namespace LM2ReadandList
 
         string PalletNoString = "-";
         string Ebb = "";
-        public int time=420;
+        public int time = 420;
 
         //資料庫宣告
         string myConnectionString, myConnectionString21;
@@ -76,10 +76,10 @@ namespace LM2ReadandList
 
         int Getcount = 0;
         bool IsChangePrinter = false;
-        public string ID=null;
-        public string User=null;
+        public string ID = null;
+        public string User = null;
         public string worktype;
-        public string ProcessNo=null;
+        public string ProcessNo = null;
 
         public Main()
         {
@@ -107,9 +107,9 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
-                UserListComboBox.Items.Add(reader.GetString(0) +" "+ reader.GetString(1));
+                UserListComboBox.Items.Add(reader.GetString(0) + " " + reader.GetString(1));
             }
             reader.Close();
             conn.Close();
@@ -127,7 +127,7 @@ namespace LM2ReadandList
             String sDefaultPrinter = printDoc.PrinterSettings.PrinterName; // 取得預設的印表機名稱
 
             // 取得安裝於電腦上的所有印表機名稱，加入 ListBox (Name : lbInstalledPrinters) 中
-            foreach (String strPrinter in PrinterSettings.InstalledPrinters)
+            foreach(String strPrinter in PrinterSettings.InstalledPrinters)
             {
                 PrinterList.Add(strPrinter);
             }
@@ -156,7 +156,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 ColorListBox.Items.Add(reader.GetString(0));
             }
@@ -177,7 +177,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 ListDateListBox.Items.Add(reader.GetString(0));
             }
@@ -197,7 +197,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 ProductComboBox.Items.Add(reader.GetString(0));
             }
@@ -221,7 +221,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 BoxMin = Convert.ToInt32(reader.GetString(3));
             }
@@ -235,7 +235,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 BoxMax = Convert.ToInt32(reader.GetString(3));
             }
@@ -251,7 +251,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 BoxsListBox.Items.Add(reader.GetString(3));
             }
@@ -262,7 +262,7 @@ namespace LM2ReadandList
 
             ListDateLabel.Text = "嘜頭日期：" + ListDateListBox.SelectedItem;
 
-            if (this.ListDateListBox.SelectedIndex != -1)
+            if(this.ListDateListBox.SelectedIndex != -1)
             {
                 TodayDataButton.Enabled = true;
             }
@@ -278,7 +278,7 @@ namespace LM2ReadandList
         private void ListDateComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //判斷做哪種瓶子
-            if (ProductComboBox.SelectedItem.ToString().Contains("Composite") == true)
+            if(ProductComboBox.SelectedItem.ToString().Contains("Composite") == true)
             {
                 ProcessNo = "P56";
             }
@@ -304,10 +304,10 @@ namespace LM2ReadandList
             //    TodayDataButton.Enabled = false;
             //}
             //若選擇複合瓶，則將雷刻相關設定取消
-            
-            if (ProductComboBox.SelectedIndex != -1)
+
+            if(ProductComboBox.SelectedIndex != -1)
             {
-                if (ProductComboBox.Text.Contains("Composite") == true)
+                if(ProductComboBox.Text.Contains("Composite") == true)
                 {
                     NoLMCheckBox.CheckState = CheckState.Checked;
                     WeightCheckBox.CheckState = CheckState.Checked;
@@ -336,10 +336,10 @@ namespace LM2ReadandList
             //LoadBoxsCount();
             Match();
 
-            if (PalletNoLabel.Text.ToString().CompareTo("棧板號：") == 0)
+            if(PalletNoLabel.Text.ToString().CompareTo("棧板號：") == 0)
             {
             }
-            else if (PalletNoLabel.Text.ToString().Split('：')[1].Trim().CompareTo(APalletof()) != 0)
+            else if(PalletNoLabel.Text.ToString().Split('：')[1].Trim().CompareTo(APalletof()) != 0)
             {
                 MessageBox.Show("請注意棧板編號變更為 " + APalletof() + "\nThe Pallet No. is change.");
             }
@@ -356,9 +356,9 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
-                if (reader.GetString(0) == "Y")
+                if(reader.GetString(0) == "Y")
                 {
                     StorageLabel.Text = "嘜頭狀態：入庫嘜頭";
                 }
@@ -373,7 +373,7 @@ namespace LM2ReadandList
 
         private void GetCustomerPO()
         {
-            if (ListDateListBox.SelectedIndex != -1 && ProductComboBox.Text != "")
+            if(ListDateListBox.SelectedIndex != -1 && ProductComboBox.Text != "")
             {
                 myConnection = new SqlConnection(myConnectionString);
                 selectCmd = "SELECT isnull([CustomerPO],''),[vchPrint],[vchAssembly],isnull(PackingMarks,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
@@ -381,9 +381,9 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
-                    if (reader.GetString(0) != "")
+                    if(reader.GetString(0) != "")
                     {
                         CustomerPOLabel.Text = "PO：" + reader.GetString(0);
                     }
@@ -391,7 +391,7 @@ namespace LM2ReadandList
                     {
                         CustomerPOLabel.Text = "PO：查無PO資料";
                     }
-                    if (reader.GetString(1) != "")
+                    if(reader.GetString(1) != "")
                     {
                         PrintLabel.Text = "塗裝漆別：" + reader.GetString(1);
                         AssemblyLabel.Text = "氣瓶配件：" + reader.GetString(2);
@@ -431,14 +431,14 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     bAboxof = reader.GetString(4);
                 }
                 reader.Close();
                 conn.Close();
 
-                if (bAboxof == "20" || bAboxof == "40")
+                if(bAboxof == "20" || bAboxof == "40")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -447,11 +447,11 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         SeatNo = reader.GetString(5);
 
-                        if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 20))
+                        if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 20))
                         {
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\" + reader.GetString(5) + ".jpg");
                         }
@@ -464,9 +464,9 @@ namespace LM2ReadandList
                     conn.Close();
                 }
 
-                if (bAboxof == "40")
+                if(bAboxof == "40")
                 {
-                    switch (SeatNo)
+                    switch(SeatNo)
                     {
                         case "21":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\21.jpg");
@@ -483,73 +483,73 @@ namespace LM2ReadandList
                         case "24":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\24.jpg");
                             break;
-                            
+
                         case "25":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25.jpg");
                             break;
-                            
+
                         case "26":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\26.jpg");
                             break;
-                            
+
                         case "27":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\27.jpg");
                             break;
-                            
+
                         case "28":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\28.jpg");
                             break;
-                            
+
                         case "29":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\29.jpg");
                             break;
-                            
+
                         case "30":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\30.jpg");
                             break;
-                            
+
                         case "31":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\31.jpg");
                             break;
-                            
+
                         case "32":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\32.jpg");
                             break;
-                            
+
                         case "33":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\33.jpg");
                             break;
-                            
+
                         case "34":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\34.jpg");
                             break;
-                            
+
                         case "35":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\35.jpg");
                             break;
-                            
+
                         case "36":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\36.jpg");
                             break;
-                            
+
                         case "37":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\37.jpg");
                             break;
-                            
+
                         case "38":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\38.jpg");
                             break;
-                            
+
                         case "39":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\39.jpg");
                             break;
-                            
+
                         case "40":
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\40.jpg");
                             break;
                     }
                 }
-                else if (bAboxof == "15")
+                else if(bAboxof == "15")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -558,66 +558,66 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        switch (reader.GetString(5))
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-1.jpg");
                                 break;
-                                
+
                             case "2":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-2.jpg");
                                 break;
-                                
+
                             case "3":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-3.jpg");
                                 break;
-                                
+
                             case "4":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-4.jpg");
                                 break;
-                                
+
                             case "5":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-5.jpg");
                                 break;
-                                
+
                             case "6":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-6.jpg");
                                 break;
-                                
+
                             case "7":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-7.jpg");
                                 break;
-                                
+
                             case "8":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-8.jpg");
                                 break;
-                                
+
                             case "9":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-9.jpg");
                                 break;
-                                
+
                             case "10":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-10.jpg");
                                 break;
-                                
+
                             case "11":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-11.jpg");
                                 break;
-                                
+
                             case "12":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-12.jpg");
                                 break;
-                                
+
                             case "13":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-13.jpg");
                                 break;
-                                
+
                             case "14":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-14.jpg");
                                 break;
-                                
+
                             case "15":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\15\15-15.jpg");
                                 break;
@@ -630,7 +630,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "25")
+                else if(bAboxof == "25")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -639,106 +639,106 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        switch (reader.GetString(5))
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-1.jpg");
                                 break;
-                                
+
                             case "2":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-2.jpg");
                                 break;
-                                
+
                             case "3":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-3.jpg");
                                 break;
-                                
+
                             case "4":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-4.jpg");
                                 break;
-                                
+
                             case "5":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-5.jpg");
                                 break;
-                                
+
                             case "6":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-6.jpg");
                                 break;
-                                
+
                             case "7":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-7.jpg");
                                 break;
-                                
+
                             case "8":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-8.jpg");
                                 break;
-                                
+
                             case "9":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-9.jpg");
                                 break;
-                                
+
                             case "10":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-10.jpg");
                                 break;
-                                
+
                             case "11":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-11.jpg");
                                 break;
-                                
+
                             case "12":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-12.jpg");
                                 break;
-                                
+
                             case "13":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-13.jpg");
                                 break;
-                                
+
                             case "14":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-14.jpg");
                                 break;
-                                
+
                             case "15":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-15.jpg");
                                 break;
-                                
+
                             case "16":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-16.jpg");
                                 break;
-                                
+
                             case "17":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-17.jpg");
                                 break;
-                                
+
                             case "18":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-18.jpg");
                                 break;
-                                
+
                             case "19":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-19.jpg");
                                 break;
-                                
+
                             case "20":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-20.jpg");
                                 break;
-                                
+
                             case "21":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-21.jpg");
                                 break;
-                                
+
                             case "22":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-23.jpg");
                                 break;
-                                
+
                             case "23":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-23.jpg");
                                 break;
-                                
+
                             case "24":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-24.jpg");
                                 break;
-                                
+
                             case "25":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\25\25-25.jpg");
                                 break;
@@ -752,9 +752,9 @@ namespace LM2ReadandList
                     conn.Close();
                 }
 
-                else if (bAboxof == "8")
+                else if(bAboxof == "8")
                 {
-                    
+
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
@@ -762,39 +762,39 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        
-                        switch (reader.GetString(5))
+
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\1.jpg");
                                 break;
-                                
+
                             case "2":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\2.jpg");
                                 break;
-                                
+
                             case "3":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\3.jpg");
                                 break;
-                                
+
                             case "4":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\4.jpg");
                                 break;
-                                
+
                             case "5":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\5.jpg");
                                 break;
-                                
+
                             case "6":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\6.jpg");
                                 break;
-                                
+
                             case "7":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\7.jpg");
                                 break;
-                                
+
                             case "8":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\8\8.jpg");
                                 break;
@@ -807,9 +807,9 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "12")
+                else if(bAboxof == "12")
                 {
-                    
+
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
@@ -817,54 +817,54 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        switch (reader.GetString(5))
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-1.jpg");
                                 break;
-                                
+
                             case "2":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-2.jpg");
                                 break;
-                                
+
                             case "3":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-3.jpg");
                                 break;
-                                
+
                             case "4":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-4.jpg");
                                 break;
-                                
+
                             case "5":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-5.jpg");
                                 break;
-                                
+
                             case "6":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-6.jpg");
                                 break;
-                                
+
                             case "7":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-7.jpg");
                                 break;
-                                
+
                             case "8":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-8.jpg");
                                 break;
-                                
+
                             case "9":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-9.jpg");
                                 break;
-                                
+
                             case "10":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-10.jpg");
                                 break;
-                                
+
                             case "11":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-11.jpg");
                                 break;
-                                
+
                             case "12":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\12\12-12.jpg");
                                 break;
@@ -877,7 +877,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "36")
+                else if(bAboxof == "36")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -886,9 +886,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
+                        if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
                         {
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\36\36-" + reader.GetString(5) + ".jpg");
                         }
@@ -900,7 +900,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "117")
+                else if(bAboxof == "117")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -909,9 +909,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
+                        if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
                         {
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\117\117-" + reader.GetString(5) + ".jpg");
                         }
@@ -923,7 +923,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "30")
+                else if(bAboxof == "30")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -932,9 +932,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 30))
+                        if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 30))
                         {
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\30\30-" + reader.GetString(5) + ".jpg");
                         }
@@ -946,7 +946,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "111")
+                else if(bAboxof == "111")
                 {
                     //載入[ShippingHead]的ListDate
                     myConnection = new SqlConnection(myConnectionString);
@@ -955,9 +955,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 111))
+                        if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 111))
                         {
                             pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\111\111-" + reader.GetString(5) + ".jpg");
                         }
@@ -969,7 +969,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "4" || bAboxof == "3")
+                else if(bAboxof == "4" || bAboxof == "3")
                 {
                     //載入[ShippingHead]的ListDate
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
@@ -977,22 +977,22 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        switch (reader.GetString(5))
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\4\4-1.jpg");
                                 break;
-                                
+
                             case "2":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\4\4-2.jpg");
                                 break;
-                                
+
                             case "3":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\4\4-3.jpg");
                                 break;
-                                
+
                             case "4":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\4\4-4.jpg");
                                 break;
@@ -1005,7 +1005,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                 }
-                else if (bAboxof == "2")
+                else if(bAboxof == "2")
                 {
                     //載入[ShippingHead]的ListDate
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
@@ -1013,9 +1013,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        switch (reader.GetString(5))
+                        switch(reader.GetString(5))
                         {
                             case "1":
                                 pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\2\2-1.jpg");
@@ -1033,7 +1033,7 @@ namespace LM2ReadandList
                     conn.Close();
                 }
             }
-            catch 
+            catch
             {
                 Thread.Sleep(500);
                 LoadPictrue();
@@ -1043,11 +1043,11 @@ namespace LM2ReadandList
         private void UserListComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ID = UserListComboBox.SelectedItem.ToString().Remove(6);
-            User= UserListComboBox.SelectedItem.ToString().Remove(0,7);
+            User = UserListComboBox.SelectedItem.ToString().Remove(0, 7);
 
             //身分確認
             DialogResult result = MessageBox.Show("工號   " + ID + "\n" + "操作員 " + User, "操作員確認", MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
+            if(result == DialogResult.OK)
             {
                 ProductComboBox.Enabled = true;
                 UserListComboBox.Enabled = false;
@@ -1062,9 +1062,9 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        if (int.Parse(DateTime.Now.ToString("HHmm").ToString()) >= int.Parse(reader.GetString(0).Replace(":", "")) && int.Parse(DateTime.Now.ToString("HHmm")) <= int.Parse(reader.GetString(1).Replace(":", "")))
+                        if(int.Parse(DateTime.Now.ToString("HHmm").ToString()) >= int.Parse(reader.GetString(0).Replace(":", "")) && int.Parse(DateTime.Now.ToString("HHmm")) <= int.Parse(reader.GetString(1).Replace(":", "")))
                         {
                             worktype = "生產";
                         }
@@ -1087,27 +1087,27 @@ namespace LM2ReadandList
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
-                
+
                     selectCmd = "SELECT TOP(1) [ID] FROM [LoginPackage] WHERE [OperatorId] = '" + ID + "' ORDER BY [ID] desc";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         toolStripStatusLabel1.Text = reader.GetInt64(0).ToString();
                     }
                     reader.Close();
                     conn.Close();
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     MessageBox.Show("" + ex);
                 }
 
                 return;
             }
-            else if (result == DialogResult.Cancel)
+            else if(result == DialogResult.Cancel)
             {
                 ProductComboBox.Enabled = false;
                 return;
@@ -1116,7 +1116,7 @@ namespace LM2ReadandList
 
         private void StepTimer_Tick(object sender, EventArgs e)
         {
-            if (UserListComboBox.Text == "")
+            if(UserListComboBox.Text == "")
             {
                 StepLabel1.BackColor = Color.Red;
             }
@@ -1125,7 +1125,7 @@ namespace LM2ReadandList
                 StepLabel1.BackColor = Color.MediumTurquoise;
             }
 
-            if (ProductComboBox.Text == "")
+            if(ProductComboBox.Text == "")
             {
                 StepLabel2.BackColor = Color.Red;
             }
@@ -1134,7 +1134,7 @@ namespace LM2ReadandList
                 StepLabel2.BackColor = Color.MediumTurquoise;
             }
 
-            if (ColorListBox.SelectedIndex == -1)
+            if(ColorListBox.SelectedIndex == -1)
             {
                 StepLabel3.BackColor = Color.Red;
             }
@@ -1143,7 +1143,7 @@ namespace LM2ReadandList
                 StepLabel3.BackColor = Color.MediumTurquoise;
             }
 
-            if (ListDateListBox.SelectedIndex == -1)
+            if(ListDateListBox.SelectedIndex == -1)
             {
                 StepLabel4.BackColor = Color.Red;
             }
@@ -1152,7 +1152,7 @@ namespace LM2ReadandList
                 StepLabel4.BackColor = Color.MediumTurquoise;
             }
 
-            if (BoxsListBox.SelectedIndex == -1)
+            if(BoxsListBox.SelectedIndex == -1)
             {
                 StepLabel5.BackColor = Color.Red;
             }
@@ -1160,13 +1160,13 @@ namespace LM2ReadandList
             {
                 StepLabel5.BackColor = Color.MediumTurquoise;
             }
-            
-            if (ProductComboBox.Text == "")
+
+            if(ProductComboBox.Text == "")
             {
                 ProductLabel2.Text = "產品名稱：";
             }
 
-            if (BoxsListBox.SelectedIndex == -1)
+            if(BoxsListBox.SelectedIndex == -1)
             {
                 NowBoxsLabel.Text = "目前箱號：";
                 ABoxofLabel.Text = "一箱幾隻：";
@@ -1179,7 +1179,7 @@ namespace LM2ReadandList
                 pictureBox1.Image = null;
             }
 
-            if (ReadyGroupBox.Enabled == false)
+            if(ReadyGroupBox.Enabled == false)
             {
                 LuckButton.ForeColor = Color.Red;
             }
@@ -1200,7 +1200,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 temp = reader.GetString(4);
             }
@@ -1221,7 +1221,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 temp = reader.GetString(0);
             }
@@ -1233,28 +1233,28 @@ namespace LM2ReadandList
 
         private void LuckButton_Click(object sender, EventArgs e)
         {
-            if (UserListComboBox.Text == "")
+            if(UserListComboBox.Text == "")
             {
                 MessageBox.Show("尚未選擇測試人員", "警告");
                 return;
             }
-            else if (ListDateListBox.SelectedIndex == -1)
+            else if(ListDateListBox.SelectedIndex == -1)
             {
                 MessageBox.Show("尚未選擇嘜頭日期", "警告");
                 return;
             }
-            else if (ProductComboBox.Text == "")
+            else if(ProductComboBox.Text == "")
             {
                 MessageBox.Show("尚未選擇嘜頭名稱", "警告");
                 return;
             }
-            else if (BoxsListBox.SelectedIndex == -1)
+            else if(BoxsListBox.SelectedIndex == -1)
             {
                 MessageBox.Show("尚未選擇嘜頭箱號", "警告");
                 return;
             }
-            
-            if (LinkLMCheckBox.Checked == true)
+
+            if(LinkLMCheckBox.Checked == true)
             {
                 DirectionJudgmentTimer.Enabled = true;
             }
@@ -1262,7 +1262,7 @@ namespace LM2ReadandList
             {
                 DirectionJudgmentTimer.Enabled = false;
             }
-            
+
             ReadyGroupBox.Enabled = !ReadyGroupBox.Enabled;
             KeyInGroupBox.Enabled = !KeyInGroupBox.Enabled;
             RefreshhButton.Enabled = !RefreshhButton.Enabled;
@@ -1275,21 +1275,21 @@ namespace LM2ReadandList
         private void DirectionJudgmentTimer_Tick(object sender, EventArgs e)
         {
             string where = "";
-            
+
             myConnection = new SqlConnection(myConnectionString);
             selectCmd = "SELECT  * FROM [LaserMarkDirection] ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 where = reader.GetString(0);
             }
             reader.Close();
             conn.Close();
-            
-            if (where == "0")
+
+            if(where == "0")
             {
                 //提示此序號已經載入罵頭
                 TipTextLabel.Visible = false;
@@ -1300,14 +1300,14 @@ namespace LM2ReadandList
                 Direction = "0";
                 BeGin = "Y";
             }
-            else if (where == "1")
+            else if(where == "1")
             {
                 BottomTextBox.Focus();
                 BottleLabel.Visible = false;
                 BottomLabel.Visible = true;
                 Direction = "1";
 
-                if (BeGin == "N")
+                if(BeGin == "N")
                 {
                     BottomTextBox.Text = "";
                 }
@@ -1319,9 +1319,9 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
-                if (reader.GetString(0) == "2")
+                if(reader.GetString(0) == "2")
                 {
                     Pass = "Y";
                 }
@@ -1333,7 +1333,7 @@ namespace LM2ReadandList
             reader.Close();
             conn.Close();
         }
-        
+
         public void LoadSQLDate()
         {
             DataTable DT = new DataTable();
@@ -1342,7 +1342,7 @@ namespace LM2ReadandList
 
             selectCmd = "SELECT [WhereBox] 嘜頭箱號,[WhereSeat] 嘜頭位置,[CylinderNumbers] 氣瓶序號,[CustomerBarCode] 客戶BARCODE,[CylinderWeight] 氣瓶重量 FROM [ShippingBody] " +
                 "Where [ListDate] = @ListDate and [ProductName]= @ProductName and [WhereBox] = @WhereBox  order by Convert(INT,[WhereSeat]) asc ";
-            sqlAdapter = new SqlDataAdapter(selectCmd,myConnectionString);
+            sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.SelectCommand.Parameters.AddWithValue("@ListDate", ListDateListBox.SelectedItem);
             sqlAdapter.SelectCommand.Parameters.AddWithValue("@ProductName", ProductComboBox.SelectedItem);
             sqlAdapter.SelectCommand.Parameters.AddWithValue("@WhereBox", BoxsListBox.SelectedItem);
@@ -1350,7 +1350,7 @@ namespace LM2ReadandList
 
             dataGridView1.DataSource = DT;
 
-            if (dataGridView1.Rows.Count > 0)
+            if(dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.CurrentCell = dataGridView1.Rows[(dataGridView1.Rows.Count - 1)].Cells[0];
             }
@@ -1370,27 +1370,27 @@ namespace LM2ReadandList
             System.Drawing.Image img = MyCode.GetCodeImage(BoxNo, Code128.Encode.Code128A);
 
             pictureBox1.Image = img;
-            
+
             //如果資料匣不在自動新增
-            if (!Directory.Exists(@"C:\Code"))
+            if(!Directory.Exists(@"C:\Code"))
             {
                 Directory.CreateDirectory(@"C:\Code");
             }
 
             string saveQRcode = @"C:\Code\";
-            
+
             pictureBox1.Image.Save(saveQRcode + BoxNo + ".png");
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (BoxsListBox.SelectedIndex == -1)
+            if(BoxsListBox.SelectedIndex == -1)
             {
                 MessageBox.Show("請選擇箱號.Select the box number.");
                 return;
             }
-            
+
             MakeQRCode();
             MarkBarCode(BoxsListBox.SelectedItem.ToString());
 
@@ -1410,7 +1410,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 Aboxof = reader.GetString(0);
                 PackingMarks = reader.GetValue(1).ToString();
@@ -1422,9 +1422,9 @@ namespace LM2ReadandList
             MarkBarCode(PalletNoString);
 
             //判別是哪個裝箱嘜頭資訊
-            if (PackingMarks.ToUpper().Trim().StartsWith("SGA") == true)
+            if(PackingMarks.ToUpper().Trim().StartsWith("SGA") == true)
             {
-                if (Aboxof == "1")
+                if(Aboxof == "1")
                 {
                     //嘜頭表單客製化-SGA  GLADIATAIR
                     Customer_SGA_Form(Aboxof, PackingMarks);
@@ -1436,7 +1436,7 @@ namespace LM2ReadandList
                     //AMS_Form(Aboxof, "SGA-GLADIATAIR");
                 }
             }
-            else if ((Client.ToUpper().Trim().Contains("ESTRATEGO") == true || Client.ToUpper().Trim().Contains("SC ROBALL") == true) && PackingMarks.ToUpper().Trim().StartsWith("ESTRATEGO") == true)
+            else if((Client.ToUpper().Trim().Contains("ESTRATEGO") == true || Client.ToUpper().Trim().Contains("SC ROBALL") == true) && PackingMarks.ToUpper().Trim().StartsWith("ESTRATEGO") == true)
             {
                 //SC ROBALL
                 //Estratego
@@ -1464,7 +1464,7 @@ namespace LM2ReadandList
             HistoryListBox.Focus();
 
             //如果不與雷刻程式連線時
-            if (LinkLMCheckBox.Checked == false)
+            if(LinkLMCheckBox.Checked == false)
             {
                 BottleTextBox.Focus();
             }
@@ -1479,63 +1479,63 @@ namespace LM2ReadandList
 
             string srcFileName = "";
 
-            if (Aboxof == "20")
+            if(Aboxof == "20")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "40")
+            else if(Aboxof == "40")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut40.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "36")
+            else if(Aboxof == "36")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut36.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "15")
+            else if(Aboxof == "15")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut15.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "16")
+            else if(Aboxof == "16")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut16.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "8")
+            else if(Aboxof == "8")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut8.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "10")
+            else if(Aboxof == "10")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut10.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "12")
+            else if(Aboxof == "12")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut12.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "25")
+            else if(Aboxof == "25")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut25.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "30")
+            else if(Aboxof == "30")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut30.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "1")
+            else if(Aboxof == "1")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut1.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "117")
+            else if(Aboxof == "117")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut117.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "4" || Aboxof == "3")
+            else if(Aboxof == "4" || Aboxof == "3")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut4.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "2")
+            else if(Aboxof == "2")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut2.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "111")
+            else if(Aboxof == "111")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut111.xlsx";//EXCEL檔案路徑
             }
@@ -1569,31 +1569,31 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                if (Aboxof == "8")
+                if(Aboxof == "8")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "16")
+                else if(Aboxof == "16")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "10")
+                else if(Aboxof == "10")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 222, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "20")
+                else if(Aboxof == "20")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
@@ -1601,77 +1601,77 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                 }
-                else if (Aboxof == "40")
+                else if(Aboxof == "40")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "36")
+                else if(Aboxof == "36")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 240, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 774, oneY, 200, 30);
                 }
-                else if (Aboxof == "25")
+                else if(Aboxof == "25")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 268, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                 }
-                else if (Aboxof == "30")
+                else if(Aboxof == "30")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 268, 431, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 754, 430, 200, 30);
                 }
-                else if (Aboxof == "15")
+                else if(Aboxof == "15")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                 }
-                else if (Aboxof == "12")
+                else if(Aboxof == "12")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "117")
+                else if(Aboxof == "117")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
                 }
-                else if (Aboxof == "111")
+                else if(Aboxof == "111")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
                 }
-                else if (Aboxof == "4"|| Aboxof == "3")
+                else if(Aboxof == "4" || Aboxof == "3")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "2")
+                else if(Aboxof == "2")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
                     oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                   Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                 }
-                else if (Aboxof == "1")
+                else if(Aboxof == "1")
                 {
                     oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
@@ -1679,7 +1679,7 @@ namespace LM2ReadandList
             }
 
             string Client = "";
-            if (Aboxof == "20")
+            if(Aboxof == "20")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -1692,7 +1692,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -1709,7 +1709,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -1730,17 +1730,17 @@ namespace LM2ReadandList
                     oSheet.Cells[10, 10] = reader.GetString(5);
 
                     //該客戶要其自己的logo
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -1761,10 +1761,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 203;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -1857,14 +1857,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -1873,7 +1873,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -1887,18 +1887,18 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("AIR TEC") == true)
+                else if(Client.ToUpper().StartsWith("AIR TEC") == true)
                 {//20190314 AIR TEC 1.55L 增加Country of Origin : Taiwan 字樣
                     //增加Country of Origin : Taiwan 字樣
                     oSheet.Cells[4, 11] = "COO：";
@@ -1927,12 +1927,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -1944,7 +1944,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "36")
+            else if(Aboxof == "36")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -1953,7 +1953,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -1972,21 +1972,21 @@ namespace LM2ReadandList
                     //載入棧板號
                     oSheet.Cells[12, 11] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2002,13 +2002,13 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (FirstCNO == "")
+                    if(FirstCNO == "")
                     {
                         FirstCNO = reader.GetString(3);
                     }
-                    if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 36))
+                    if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 36))
                     {
 
                         oSheet.Cells[6 + ((Convert.ToInt32(reader.GetString(5)) - 1) / 6), 1 + ((Convert.ToInt32(reader.GetString(5)) - 1) % 6) * 2] = reader.GetString(3);
@@ -2017,14 +2017,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -2033,7 +2033,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 8] = reader.GetString(1);
@@ -2047,13 +2047,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2075,12 +2075,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -2093,7 +2093,7 @@ namespace LM2ReadandList
                 }
 
             }
-            else if (Aboxof == "40")
+            else if(Aboxof == "40")
             {   //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
@@ -2101,7 +2101,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -2120,21 +2120,21 @@ namespace LM2ReadandList
                     //載入棧板號
                     oSheet.Cells[14, 10] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2151,9 +2151,9 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -2319,14 +2319,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -2335,7 +2335,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 8] = reader.GetString(1);
@@ -2349,12 +2349,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 15, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -2377,12 +2377,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -2394,7 +2394,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "15")
+            else if(Aboxof == "15")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -2407,7 +2407,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -2424,7 +2424,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -2443,21 +2443,21 @@ namespace LM2ReadandList
                     //棧板號
                     oSheet.Cells[9, 10] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2479,10 +2479,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 211;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -2552,14 +2552,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -2568,7 +2568,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -2582,13 +2582,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2610,12 +2610,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -2627,7 +2627,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "12")
+            else if(Aboxof == "12")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -2640,7 +2640,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -2657,7 +2657,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -2677,21 +2677,21 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[12, 8] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2713,10 +2713,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 212;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -2774,14 +2774,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -2790,7 +2790,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -2804,13 +2804,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2831,12 +2831,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -2848,7 +2848,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "8")
+            else if(Aboxof == "8")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -2861,7 +2861,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -2878,7 +2878,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -2897,21 +2897,21 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[10, 8] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo  //Wicked Sportz
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo  //Wicked Sportz
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2932,10 +2932,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 49; serialnooneY = 215;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -2977,14 +2977,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -2993,7 +2993,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -3007,13 +3007,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3036,12 +3036,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -3053,7 +3053,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "16")
+            else if(Aboxof == "16")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -3066,7 +3066,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -3083,7 +3083,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -3102,21 +3102,21 @@ namespace LM2ReadandList
                     //載入棧板編號
                     oSheet.Cells[10, 8] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3138,11 +3138,11 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     //serialnooneX = 10; serialnooneY = 239;
                     serialnooneX = 1; serialnooneY = 207;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -3216,14 +3216,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -3232,7 +3232,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -3246,12 +3246,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3275,12 +3275,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -3292,7 +3292,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "10")
+            else if(Aboxof == "10")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -3305,7 +3305,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -3322,7 +3322,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -3341,21 +3341,21 @@ namespace LM2ReadandList
                     //載入棧板編號
                     oSheet.Cells[10, 10] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3377,10 +3377,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 35; serialnooneY = 219;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -3425,21 +3425,21 @@ namespace LM2ReadandList
                     }
                     int i = Convert.ToInt32(reader.GetString(5));
                     i = i > 5 ? i - 5 : i;
-                    serialnooneX =  35+ (i-1)   *127;
+                    serialnooneX = 35 + (i - 1) * 127;
                     serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 111;
                     oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 110, 25);
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -3448,7 +3448,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 8] = reader.GetString(1);
@@ -3462,12 +3462,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3490,12 +3490,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -3507,7 +3507,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "25")
+            else if(Aboxof == "25")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -3516,7 +3516,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -3535,21 +3535,21 @@ namespace LM2ReadandList
                     //載入棧板號
                     oSheet.Cells[11, 10] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3563,7 +3563,7 @@ namespace LM2ReadandList
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string FirstCNO = "";
                 //////
-                
+
                 //載入嘜頭氣瓶序號位子
                 myConnection = new SqlConnection(myConnectionString);
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
@@ -3571,10 +3571,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 189;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -3684,14 +3684,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -3700,7 +3700,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -3714,12 +3714,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3743,12 +3743,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -3760,7 +3760,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "30")
+            else if(Aboxof == "30")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -3769,7 +3769,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -3788,19 +3788,19 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[12, 10] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3822,16 +3822,16 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (FirstCNO == "")
+                    if(FirstCNO == "")
                     {
                         FirstCNO = reader.GetString(3);
                     }
 
-                    if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 30))
+                    if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 30))
                     {
-                        if ((Convert.ToInt32(reader.GetString(5)) - 1) % 5 <= 5)
+                        if((Convert.ToInt32(reader.GetString(5)) - 1) % 5 <= 5)
                         {
                             oSheet.Cells[6 + (Convert.ToInt32(reader.GetString(5)) - 1) / 5, 1 + ((Convert.ToInt32(reader.GetString(5)) - 1) % 5) * 2] = reader.GetString(3);
                         }
@@ -3846,14 +3846,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -3862,7 +3862,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -3876,13 +3876,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3903,12 +3903,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -3920,7 +3920,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "117")
+            else if(Aboxof == "117")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -3929,7 +3929,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -3947,21 +3947,21 @@ namespace LM2ReadandList
                     oSheet.Cells[3, 9] = reader.GetString(0);
                     oSheet.Cells[19, 11] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3978,27 +3978,27 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (FirstCNO == "")
+                    if(FirstCNO == "")
                     {
                         FirstCNO = reader.GetString(3);
                     }
-                    if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
+                    if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 117))
                     {
                         oSheet.Cells[6 + ((Convert.ToInt32(reader.GetString(5)) - 1) / 9), 1 + ((Convert.ToInt32(reader.GetString(5)) - 1) % 9) * 2] = reader.GetString(3);
                     }
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -4007,7 +4007,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 9] = reader.GetString(1);
@@ -4021,13 +4021,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4058,7 +4058,7 @@ namespace LM2ReadandList
                 //    }
                 //}
             }
-            else if (Aboxof == "111")
+            else if(Aboxof == "111")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -4067,7 +4067,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -4086,21 +4086,21 @@ namespace LM2ReadandList
                     //載入
                     oSheet.Cells[19, 11] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4116,15 +4116,15 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (FirstCNO == "")
+                    if(FirstCNO == "")
                     {
                         FirstCNO = reader.GetString(3);
                     }
-                    if (reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 111))
+                    if(reader.IsDBNull(5) == false && (Convert.ToInt32(reader.GetString(5)) >= 1 && Convert.ToInt32(reader.GetString(5)) <= 111))
                     {
-                        if ((Convert.ToInt32(reader.GetString(5)) - 1) % 17 <= 8)
+                        if((Convert.ToInt32(reader.GetString(5)) - 1) % 17 <= 8)
                         {
                             //9
                             oSheet.Cells[6 + (Convert.ToInt32(reader.GetString(5)) - 1) / 17 * 2, 1 + ((Convert.ToInt32(reader.GetString(5)) - 1) % 17) * 2] = reader.GetString(3);
@@ -4139,14 +4139,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -4155,7 +4155,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 9] = reader.GetString(1);
@@ -4169,13 +4169,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4183,7 +4183,7 @@ namespace LM2ReadandList
 
                 conn.Close();
             }
-            if (Aboxof == "1")
+            if(Aboxof == "1")
             {
                 //載入嘜頭資料
                 myConnection = new SqlConnection(myConnectionString);
@@ -4192,7 +4192,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -4218,21 +4218,21 @@ namespace LM2ReadandList
                         //載入箱號
                         oSheet.Cells[10, 2] = reader.GetString(4);
                     }
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4250,9 +4250,9 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -4266,14 +4266,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -4282,7 +4282,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -4296,13 +4296,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4342,7 +4342,7 @@ namespace LM2ReadandList
                 //    }
                 //}
             }
-            else if (Aboxof == "4" || Aboxof == "3")
+            else if(Aboxof == "4" || Aboxof == "3")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -4355,7 +4355,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -4372,7 +4372,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -4391,21 +4391,21 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[10, 8] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4427,10 +4427,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 209;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -4457,14 +4457,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -4473,7 +4473,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -4487,13 +4487,13 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4516,12 +4516,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -4534,7 +4534,7 @@ namespace LM2ReadandList
                 }
 
             }
-            else if (Aboxof == "2")
+            else if(Aboxof == "2")
             {
                 string HowMuch = "";
                 int Cumulative = 0;
@@ -4547,7 +4547,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     HowMuch = reader.GetString(4);
                     Cumulative++;
@@ -4564,7 +4564,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     Client = reader.GetString(0).Trim();
                     //載入客戶產品名稱
@@ -4583,21 +4583,21 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[10, 8] = reader.GetString(5);
 
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                     {
                         //該客戶要其自己的logo
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                     }
-                    else if (Client.ToUpper().StartsWith("EMB"))
+                    else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4619,10 +4619,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     serialnooneX = 3; serialnooneY = 270;
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
@@ -4640,14 +4640,14 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
                     selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductNO = reader.GetValue(0).ToString();
                     }
@@ -4656,7 +4656,7 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         //載入客戶產品名稱
                         oSheet.Cells[1, 7] = reader.GetString(1);
@@ -4670,12 +4670,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                 }
-                else if (Client.ToUpper().StartsWith("EMB"))
+                else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-                else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                else if((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                 {
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -4698,12 +4698,12 @@ namespace LM2ReadandList
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    while(reader.Read())
                     {
                         Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                         oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                        if (picX == 885)
+                        if(picX == 885)
                         {
                             picY += 70;
                             picX = 125;
@@ -4721,14 +4721,14 @@ namespace LM2ReadandList
             //顯示EXCEL
             oXL.Visible = true;
 
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //列印EXCEL
                 oWB.PrintOutEx(Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
             }
             oXL.DisplayAlerts = false;
 
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //關閉EXCEL
                 oWB.Close(Type.Missing, Type.Missing, Type.Missing);
@@ -4741,7 +4741,7 @@ namespace LM2ReadandList
 
         private void Customer_SGA_Form(string Aboxof, string PackingMarks)
         {
-            if (Aboxof != "1")
+            if(Aboxof != "1")
             {
                 MessageBox.Show("客製化需求未定義裝箱數為" + Aboxof + "之嘜頭表格");
                 return;
@@ -4754,7 +4754,7 @@ namespace LM2ReadandList
 
             string srcFileName = "";
 
-            if (Aboxof == "1")
+            if(Aboxof == "1")
             {
                 srcFileName = Application.StartupPath + @".\SGAForm_1.xlsx";//EXCEL檔案路徑
             }
@@ -4778,7 +4778,7 @@ namespace LM2ReadandList
             //設定工作表
             oSheet = (Excel.Worksheet)oWB.ActiveSheet;
 
-            if (Aboxof == "1")
+            if(Aboxof == "1")
             {
                 //插入1維條碼
                 //預設位子在X:255,Y:412
@@ -4794,7 +4794,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     //描述
                     oSheet.Cells[5, 3] = reader.GetString(2);
@@ -4820,9 +4820,9 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    switch (reader.GetString(5))
+                    switch(reader.GetString(5))
                     {
                         case "1":
                             oSheet.Cells[2, 4] = reader.GetString(3);
@@ -4838,13 +4838,13 @@ namespace LM2ReadandList
                 selectCmd = "SELECT vchManufacturingNo, Product_NO, vchMarkingType, vchHydrostaticTestDate FROM MSNBody,Manufacturing where [CylinderNo]='" + CylinderNo + "' and vchManufacturingNo=  Manufacturing_NO";
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     HydrostaticTestDate = reader.GetValue(3).ToString();
                     ProductNO = reader.GetValue(1).ToString();
                 }
                 reader.Close();
-                if (HydrostaticTestDate.Contains("/") == true)
+                if(HydrostaticTestDate.Contains("/") == true)
                 {
                     oSheet.Cells[9, 7] = HydrostaticTestDate.Split('/')[1] + HydrostaticTestDate.Split('/')[0].Substring(2, 2);
                 }
@@ -4856,11 +4856,11 @@ namespace LM2ReadandList
                 selectCmd = "SELECT CustomerName, BottleType, BottleCatalog, ProductNo, LogoType, ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     //載入Part Description
                     oSheet.Cells[5, 3] = reader.GetString(6).Contains("-") == true ? reader.GetString(6).Replace("- ", "\n") : reader.GetString(6);
-                    if (reader.GetString(6).Contains("-") == true)
+                    if(reader.GetString(6).Contains("-") == true)
                     {
                         oSheet.get_Range("C5").Font.Size = 22;
                     }
@@ -4882,7 +4882,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 190, 190);
@@ -4890,31 +4890,31 @@ namespace LM2ReadandList
                 reader.Close();
                 conn.Close();
 
-                if (PackingMarks.Trim().CompareTo("SGA-SHOOTAIR") == 0)
+                if(PackingMarks.Trim().CompareTo("SGA-SHOOTAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Shootair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 24, 5, 194, (float)168.9);
                 }
-                else if (PackingMarks.Trim().CompareTo("SGA-BREATHEAIR") == 0)
+                else if(PackingMarks.Trim().CompareTo("SGA-BREATHEAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Breatheair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 17, 5, (float)205.4, (float)167.9);
                 }
-                else if (PackingMarks.Trim().CompareTo("SGA-SCUBAIR") == 0)
+                else if(PackingMarks.Trim().CompareTo("SGA-SCUBAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SCUBAIR.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 26, 3, (float)180.5, (float)172.3);
                 }
-                else if (PackingMarks.Trim().CompareTo("SGA-SPIROTEK") == 0)
+                else if(PackingMarks.Trim().CompareTo("SGA-SPIROTEK") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SPIROTEK.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
-                else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                else if(PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -4925,14 +4925,14 @@ namespace LM2ReadandList
             Excel.Sheets excelSheets = oWB.Worksheets;
             //顯示EXCEL
             oXL.Visible = true;
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //列印EXCEL
                 oWB.PrintOutEx(Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
             }
             oXL.DisplayAlerts = false;
 
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //關閉EXCEL
                 oWB.Close(Type.Missing, Type.Missing, Type.Missing);
@@ -4967,61 +4967,61 @@ namespace LM2ReadandList
             }
             //設定工作表
             oSheet = (Excel.Worksheet)oWB.ActiveSheet;
-            if (PackingMarks.Trim().CompareTo("Regulator 3000psi") == 0)
+            if(PackingMarks.Trim().CompareTo("Regulator 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Regulator 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi+Regulator") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi+Regulator") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi+Regulator") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi+Regulator") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-12oz") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-12oz") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_12oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-20oz") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-20oz") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_20oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-68ci(Assault) 4500psi") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-68ci(Assault) 4500psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Assault) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego-68ci(Snow White) 4500psi") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego-68ci(Snow White) 4500psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Snow White) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
             }
-            else if (PackingMarks.Trim().CompareTo("Estratego_68ci_UL") == 0)
+            else if(PackingMarks.Trim().CompareTo("Estratego_68ci_UL") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci_UL.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -5031,14 +5031,14 @@ namespace LM2ReadandList
             Excel.Sheets excelSheets = oWB.Worksheets;
             //顯示EXCEL
             oXL.Visible = true;
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //列印EXCEL
                 oWB.PrintOutEx(Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
             }
             oXL.DisplayAlerts = false;
 
-            if (AutoPrintCheckBox.Checked == true)
+            if(AutoPrintCheckBox.Checked == true)
             {
                 //關閉EXCEL
                 oWB.Close(Type.Missing, Type.Missing, Type.Missing);
@@ -5093,20 +5093,20 @@ namespace LM2ReadandList
 
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 ProductNo = reader.GetValue(1).ToString();
-                if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁瓶") == 0)
+                if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁瓶") == 0)
                 {
                     ProductType = reader.GetValue(0).ToString();
                     //鋁瓶
                 }
-                else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁內膽") == 0)
+                else if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁內膽") == 0)
                 {
                     ProductType = reader.GetValue(0).ToString();
                     //鋁內膽
                 }
-                else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
+                else if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
                 {
                     ProductType = reader.GetValue(0).ToString();
                     //複合瓶
@@ -5116,15 +5116,15 @@ namespace LM2ReadandList
             conn.Close();
 
             //判別產品類型
-            if (ProductType.CompareTo("鋁瓶") == 0)
+            if(ProductType.CompareTo("鋁瓶") == 0)
             {
-                if (ProductNo != "")
+                if(ProductNo != "")
                 {
-                    if (ProductNo.Contains("1-A-") == true)
+                    if(ProductNo.Contains("1-A-") == true)
                     {
                         //以副程式顯示 回傳True or False
                         //彎曲(Bending)or壓扁(Squash)、拉伸(tensile)、硬度(Hardness)、爆破(Burst)、水壓(Hydro)(2019/04/01)
-                        if (BendingFinish(ManufacturingNo) == false && SquashFinish(ManufacturingNo) == false)
+                        if(BendingFinish(ManufacturingNo) == false && SquashFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5132,7 +5132,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無彎曲或壓扁資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (TensileFinish(ManufacturingNo) == false)
+                        if(TensileFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5140,7 +5140,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無拉伸資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (HardnessFinish(ManufacturingNo) == false)
+                        if(HardnessFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5148,7 +5148,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無硬度資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (BurstFinish(ManufacturingNo) == false)
+                        if(BurstFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5156,7 +5156,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無爆破資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
+                        if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5165,10 +5165,10 @@ namespace LM2ReadandList
                             return false;
                         }
                     }
-                    else if (ProductNo.Contains("3-A-") == true)
+                    else if(ProductNo.Contains("3-A-") == true)
                     {
                         //拉伸、壓扁、水壓(2019/04/01)
-                        if (TensileFinish(ManufacturingNo) == false)
+                        if(TensileFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5176,7 +5176,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無拉伸資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (SquashFinish(ManufacturingNo) == false)
+                        if(SquashFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5184,7 +5184,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無拉伸資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (HydroFinish(ManufacturingNo,CylinderNo) == false) //水壓(2019/04/01)
+                        if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5193,10 +5193,10 @@ namespace LM2ReadandList
                             return false;
                         }
                     }
-                    else if (ProductNo.Contains("5-A-") == true)
+                    else if(ProductNo.Contains("5-A-") == true)
                     {
                         //爆破 水壓(2019/04/01)
-                        if (BurstFinish(ManufacturingNo) == false)
+                        if(BurstFinish(ManufacturingNo) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5204,7 +5204,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無爆破資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (HydroFinish(ManufacturingNo,CylinderNo) == false) //水壓(2019/04/01)
+                        if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5215,10 +5215,10 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (ProductType.CompareTo("鋁內膽") == 0)
+            else if(ProductType.CompareTo("鋁內膽") == 0)
             {
                 //拉伸、爆破、水壓(2019/04/01)
-                if (TensileFinish(ManufacturingNo) == false)
+                if(TensileFinish(ManufacturingNo) == false)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5226,7 +5226,7 @@ namespace LM2ReadandList
                     MessageBox.Show("無拉伸資料，請聯繫品保人員。");
                     return false;
                 }
-                if (BurstFinish(ManufacturingNo) == false)
+                if(BurstFinish(ManufacturingNo) == false)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5234,7 +5234,7 @@ namespace LM2ReadandList
                     MessageBox.Show("無爆破資料，請聯繫品保人員。");
                     return false;
                 }
-                if (HydroFinish(ManufacturingNo,CylinderNo) == false) //水壓(2019/04/01)
+                if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5243,7 +5243,7 @@ namespace LM2ReadandList
                     return false;
                 }
             }
-            else if (ProductType.CompareTo("複合瓶") == 0)
+            else if(ProductType.CompareTo("複合瓶") == 0)
             {
                 //20180905 判別是否有做出貨檢驗，無出貨檢驗資料不允許包裝
                 connP = new SqlConnection(ESIGNmyConnectionString);
@@ -5253,7 +5253,7 @@ namespace LM2ReadandList
                 cmdP = new SqlCommand(selectCmdP, connP);
                 readerP = cmdP.ExecuteReader();
 
-                if (readerP.Read())
+                if(readerP.Read())
                 {
                     readerP.Close();
                     connP.Close();
@@ -5275,19 +5275,19 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     BuildUp = reader.GetValue(0).ToString();
                 }
                 reader.Close();
                 conn.Close();
 
-                if (BuildUp != "")
+                if(BuildUp != "")
                 {
-                    for (int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
+                    for(int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
                     {
                         //拉伸、爆破、水壓(2019/04/01)
-                        if (TensileFinish(BuildUp.Split(',')[SubLiner]) == false)
+                        if(TensileFinish(BuildUp.Split(',')[SubLiner]) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5295,7 +5295,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無對應內膽拉伸資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (BurstFinish(BuildUp.Split(',')[SubLiner]) == false)
+                        if(BurstFinish(BuildUp.Split(',')[SubLiner]) == false)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5303,7 +5303,7 @@ namespace LM2ReadandList
                             MessageBox.Show("無對應內膽爆破資料，請聯繫品保人員。");
                             return false;
                         }
-                        if (HydroFinish(ManufacturingNo,CylinderNo) == false) //水壓(2019/04/01)
+                        if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                         {
                             BottleTextBox.Text = "";
                             BottomTextBox.Text = "";
@@ -5316,7 +5316,7 @@ namespace LM2ReadandList
                 }
 
                 //爆破、循環(Cycle)、進料(Feed)(碳纖、玻纖、樹脂)、水壓(2019/04/01)
-                if (BurstFinish(ManufacturingNo) == false)
+                if(BurstFinish(ManufacturingNo) == false)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5324,7 +5324,7 @@ namespace LM2ReadandList
                     MessageBox.Show("無爆破資料，請聯繫品保人員。");
                     return false;
                 }
-                if (CycleFinish(ManufacturingNo) == false)
+                if(CycleFinish(ManufacturingNo) == false)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5332,13 +5332,13 @@ namespace LM2ReadandList
                     MessageBox.Show("無循環資料，請聯繫品保人員。");
                     return false;
                 }
-                if (FeedFinish(ManufacturingNo) == false)
+                if(FeedFinish(ManufacturingNo) == false)
                 {
                     HistoryListBox.Items.Add("無碳纖、玻纖、樹脂檢驗資料。批號:" + ManufacturingNo);
                     MessageBox.Show("無碳纖、玻纖、樹脂檢驗資料，請聯繫品保人員。");
                     return false;
                 }
-                if (HydroFinish(ManufacturingNo,CylinderNo) == false) //水壓(2019/04/01)
+                if(HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
                 {
                     BottleTextBox.Text = "";
                     BottomTextBox.Text = "";
@@ -5350,19 +5350,19 @@ namespace LM2ReadandList
             return true;//表示有做功性能測試
         }
 
-        private bool HydroFinish(string MNO,string CylinderNo)
+        private bool HydroFinish(string MNO, string CylinderNo)
         {//水壓
             bool IsFinish = false;
             bool IsReportFinish = false;
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
+            using(connP = new SqlConnection(ESIGNmyConnectionString))
             {
                 connP.Open();
 
                 selectCmdP = "SELECT  * FROM [AMS2].[dbo].[PPT_Hydro] WHERE [LotNo] = '" + MNO + "' and FinalResult = 'PASS' And ([AcceptanceNo] Like 'Q019%' Or [AcceptanceNo] Like '%Q030%')";
                 cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
+                using(readerP = cmdP.ExecuteReader())
                 {
-                    if (readerP.Read())
+                    if(readerP.Read())
                     {
                         IsFinish = true;
                     }
@@ -5374,9 +5374,9 @@ namespace LM2ReadandList
 
                 selectCmdP = "SELECT [SerialNo] FROM [PPT_Hydro_Details] WHERE [SerialNo] = '" + CylinderNo + "' And ([AcceptanceNo] Like 'Q019%' Or [AcceptanceNo] Like '%Q030%')";
                 cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
+                using(readerP = cmdP.ExecuteReader())
                 {
-                    if (readerP.Read())
+                    if(readerP.Read())
                     {
                         IsReportFinish = true;
                     }
@@ -5399,7 +5399,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5422,7 +5422,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5445,7 +5445,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5469,7 +5469,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5493,7 +5493,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5516,7 +5516,7 @@ namespace LM2ReadandList
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
 
-            if (readerP.HasRows)
+            if(readerP.HasRows)
             {
                 IsFinish = true;
             }
@@ -5540,7 +5540,7 @@ namespace LM2ReadandList
             selectCmdP = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo,CarbonSpec,GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + MNO + "' order by id desc";
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
-            if (readerP.Read())
+            if(readerP.Read())
             {
                 ResinLotNo = readerP.GetValue(0).ToString();
                 CarbonLotNo = readerP.GetValue(1).ToString();
@@ -5549,7 +5549,7 @@ namespace LM2ReadandList
                 GlassSpec = readerP.GetValue(4).ToString();
             }
             readerP.Close();
-            if (ResinLotNo == "" || CarbonLotNo == "" || GlassLotNo == "")
+            if(ResinLotNo == "" || CarbonLotNo == "" || GlassLotNo == "")
             {
                 connP.Close();
                 return true;
@@ -5558,7 +5558,7 @@ namespace LM2ReadandList
             selectCmdP = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
-            if (readerP.Read())
+            if(readerP.Read())
             {
                 IsFinish = true;
             }
@@ -5574,7 +5574,7 @@ namespace LM2ReadandList
             selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
-            if (readerP.Read())
+            if(readerP.Read())
             {
                 IsFinish = true;
             }
@@ -5591,7 +5591,7 @@ namespace LM2ReadandList
             selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
-            if (readerP.Read())
+            if(readerP.Read())
             {
                 IsFinish = true;
             }
@@ -5608,7 +5608,7 @@ namespace LM2ReadandList
             selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
             cmdP = new SqlCommand(selectCmdP, connP);
             readerP = cmdP.ExecuteReader();
-            if (readerP.Read())
+            if(readerP.Read())
             {
                 IsFinish = true;
             }
@@ -5631,84 +5631,126 @@ namespace LM2ReadandList
             //用來記錄氣瓶序號
             string CylinderNumbers = "";
 
-            if (((BottleTextBox.Text == BottomTextBox.Text) && (BottleTextBox.Text != "" || BottomTextBox.Text != "")) || (Pass == "Y" && (BottleTextBox.Text != "" || BottomTextBox.Text != "")))
+            if(((BottleTextBox.Text == BottomTextBox.Text) && (BottleTextBox.Text != "" || BottomTextBox.Text != "")) || (Pass == "Y" && (BottleTextBox.Text != "" || BottomTextBox.Text != "")))
             {
                 // string FredlovCSV = "N";
                 //string CalisoCSV = "N";
 
                 string HydrostaticPass = "N";
 
-                if (BottleTextBox.Text != "")
+                if(BottleTextBox.Text != "")
                 {
                     CylinderNumbers = BottleTextBox.Text;
                 }
-                else if (BottomTextBox.Text != "")
+                else if(BottomTextBox.Text != "")
                 {
                     CylinderNumbers = BottomTextBox.Text;
                 }
-                //判別是否為報廢氣瓶
-                selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + CylinderNumbers + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                    HistoryListBox.Items.Add(NowTime());
-                    HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                    BottleTextBox.Focus();
-                    reader.Close();
-                    conn.Close();
-                    return;
-                }
-                reader.Close();
-                conn.Close();
 
-                //20181002 報工報廢
-                selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
+                using(conn = new SqlConnection(myConnectionString))
                 {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                    HistoryListBox.Items.Add(NowTime());
-                    HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                    BottleTextBox.Focus();
-                    reader.Close();
-                    conn.Close();
-                    return;
-                }
-                reader.Close();
-                conn.Close();
+                    conn.Open();
 
-                //判斷是否已經有相同的序號入嘜頭
-                myConnection = new SqlConnection(myConnectionString);
-                selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNumbers + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
-                    HistoryListBox.Items.Add(NowTime());
-                    HistoryListBox.Items.Add("此序號已重複：" + CylinderNumbers);
-                    BottleTextBox.Focus();
+                    //判別是否為報廢氣瓶
+                    selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    reader = cmd.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        BottleTextBox.Text = "";
+                        BottomTextBox.Text = "";
+                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                        HistoryListBox.Items.Add(NowTime());
+                        HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
+                        BottleTextBox.Focus();
+                        reader.Close();
+                        conn.Close();
+                        return;
+                    }
                     reader.Close();
-                    conn.Close();
-                    return;
+
+                    //20181002 報工報廢
+                    selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    reader = cmd.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        BottleTextBox.Text = "";
+                        BottomTextBox.Text = "";
+                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                        HistoryListBox.Items.Add(NowTime());
+                        HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
+                        BottleTextBox.Focus();
+                        reader.Close();
+                        conn.Close();
+                        return;
+                    }
+                    reader.Close();
+
+                    bool HasRestrictions = false;
+                    DateTime ResrictionDate = new DateTime();
+                    DateTime HydroDate = new DateTime();
+
+                    //判斷水壓年月是否大於規定範圍
+                    selectCmd = "SELECT [HydroDate] FROM [ShippingHydroDateRestrictions] WHERE [BoxNo] = @BN";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@BN", BoxsListBox.SelectedItem);
+                    using(reader = cmd.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            HasRestrictions = true;
+                            ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
+                        }
+                    }
+
+                    if(HasRestrictions)
+                    {
+                        using(conn1 = new SqlConnection(ESIGNmyConnectionString))
+                        {
+                            conn1.Open();
+                            selectCmd = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                            cmd = new SqlCommand(selectCmd, conn1);
+                            cmd.Parameters.AddWithValue("@SN", CylinderNumbers);
+                            using(reader = cmd.ExecuteReader())
+                            {
+                                if(reader.Read())
+                                {
+                                    HydroDate = reader.GetDateTime(reader.GetOrdinal("TestDate"));
+                                }
+                            }
+                        }
+                    }
+
+                    if(HydroDate < ResrictionDate)
+                    {
+                        BottleTextBox.Text = "";
+                        BottomTextBox.Text = "";
+                        MessageBox.Show("此序號水壓年月不在規定範圍內", "警告-W010");
+                        HistoryListBox.Items.Add(NowTime());
+                        HistoryListBox.Items.Add("此序號水壓年月不在規定範圍內：" + CylinderNumbers);
+                        BottleTextBox.Focus();
+                        return;
+                    }
+
+                    //判斷是否已經有相同的序號入嘜頭
+                    myConnection = new SqlConnection(myConnectionString);
+                    selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    reader = cmd.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        BottleTextBox.Text = "";
+                        BottomTextBox.Text = "";
+                        MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
+                        HistoryListBox.Items.Add(NowTime());
+                        HistoryListBox.Items.Add("此序號已重複：" + CylinderNumbers);
+                        BottleTextBox.Focus();
+                        reader.Close();
+                        return;
+                    }
+                    reader.Close();
                 }
-                reader.Close();
-                conn.Close();
 
                 string ManufacturingNo = "";
                 string SpecialUses = "N";
@@ -5718,10 +5760,10 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     ManufacturingNo = reader.GetString(0);
-                    if (reader.GetValue(1).ToString() == "Y")
+                    if(reader.GetValue(1).ToString() == "Y")
                     {
                         SpecialUses = "Y";
                     }
@@ -5761,7 +5803,7 @@ namespace LM2ReadandList
                 //    conn.Close();
                 //}
 
-                if (SpecialUses == "N")
+                if(SpecialUses == "N")
                 {
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -5769,32 +5811,32 @@ namespace LM2ReadandList
                     selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + CylinderNumbers + "' and [HydrostaticPass]='Y'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         HydrostaticPass = "Y";
                     }
                     reader.Close();
 
-                    if (HydrostaticPass == "N")
+                    if(HydrostaticPass == "N")
                     {
                         //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                         string OriCNo = "", OriMNO = "";
                         selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + CylinderNumbers + "' ";
                         cmd = new SqlCommand(selectCmd, conn);
                         reader = cmd.ExecuteReader();
-                        if (reader.Read())
+                        if(reader.Read())
                         {
                             OriCNo = reader.GetString(0);
                             OriMNO = reader.GetString(1);
                         }
                         reader.Close();
 
-                        if (OriCNo != "")
+                        if(OriCNo != "")
                         {
                             selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
                             cmd = new SqlCommand(selectCmd, conn);
                             reader = cmd.ExecuteReader();
-                            if (reader.Read())
+                            if(reader.Read())
                             {
                                 HydrostaticPass = "Y";
                             }
@@ -5804,7 +5846,7 @@ namespace LM2ReadandList
 
                     conn.Close();
 
-                    if (HydrostaticPass == "N")
+                    if(HydrostaticPass == "N")
                     {
                         BottleTextBox.Text = "";
                         BottomTextBox.Text = "";
@@ -5816,7 +5858,7 @@ namespace LM2ReadandList
                     }
                     //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
                     //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                    if (CheckProductAcceptanceIsWork(ManufacturingNo) == false)
+                    if(CheckProductAcceptanceIsWork(ManufacturingNo) == false)
                     {
                         BottleTextBox.Text = "";
                         BottomTextBox.Text = "";
@@ -5827,7 +5869,7 @@ namespace LM2ReadandList
                     }
                 }
                 //功性能測試檢查
-                if (PerformanceTest(ManufacturingNo, CylinderNumbers) == false)
+                if(PerformanceTest(ManufacturingNo, CylinderNumbers) == false)
                 {
                     //BottleTextBox.Text = "";
                     //BottomTextBox.Text = "";
@@ -5916,11 +5958,11 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     NowSeat = reader.GetString(5);
 
-                    if (NowSeat == Aboxof())
+                    if(NowSeat == Aboxof())
                     {
                         BottleTextBox.Text = "";
                         BottomTextBox.Text = "";
@@ -5944,15 +5986,15 @@ namespace LM2ReadandList
                 string PassselectCmd = "";
 
                 //取得氣瓶批號
-                string LotNumber=null;
+                string LotNumber = null;
 
                 myConnection = new SqlConnection(myConnectionString);
-                selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers +"'";
+                selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
                     LotNumber = reader.GetString(0);
                 }
@@ -5960,13 +6002,13 @@ namespace LM2ReadandList
                 conn.Close();
 
                 //如果Pass=Y SQL系統記錄此事件
-                if (Pass == "Y")
+                if(Pass == "Y")
                 {
-                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
+                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
                 }
                 else
                 {
-                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + timeString +"','"+ LotNumber + "')";
+                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "','" + LotNumber + "')";
                 }
 
                 //雷刻掃描完確認瓶身瓶底相同後載入資料
@@ -5996,7 +6038,7 @@ namespace LM2ReadandList
 
                 time = 420;
 
-                if (LinkLMCheckBox.Checked == true)
+                if(LinkLMCheckBox.Checked == true)
                 {
                     ;
                 }
@@ -6010,7 +6052,7 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     NowSeat2 = reader.GetString(5);
                     BoxsListBoxIndex = BoxsListBox.SelectedIndex.ToString();
@@ -6018,7 +6060,7 @@ namespace LM2ReadandList
                     reader.Close();
                     conn.Close();
                     //如果箱號已經超過最大箱數則不自動跳箱
-                    if ((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
+                    if((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
                     {
                         //ABoxofLabel
                         MessageBox.Show("此日期嘜頭已經完全結束", "提示");
@@ -6026,9 +6068,9 @@ namespace LM2ReadandList
                         return;
                     }
 
-                    if (NowSeat2 == Aboxof())
+                    if(NowSeat2 == Aboxof())
                     {
-                        if (PrintCheckBox.Checked == true)
+                        if(PrintCheckBox.Checked == true)
                         {
                             PrintButton.PerformClick();
                         }
@@ -6072,7 +6114,7 @@ namespace LM2ReadandList
 
         private void BottomTextBox_TextChanged(object sender, EventArgs e)
         {
-            if ((BottomTextBox.Text == BottleTextBox.Text) && ((BottomTextBox.Text != "") || (BottleTextBox.Text != "")))
+            if((BottomTextBox.Text == BottleTextBox.Text) && ((BottomTextBox.Text != "") || (BottleTextBox.Text != "")))
             {
                 AutoCheckTimer.Enabled = true;
             }
@@ -6081,7 +6123,7 @@ namespace LM2ReadandList
         private void BottleTextBox_TextChanged(object sender, EventArgs e)
         {
             TipTextLabel.Visible = false;
-            if ((BottomTextBox.Text == BottleTextBox.Text) && ((BottomTextBox.Text != "") || (BottleTextBox.Text != "")))
+            if((BottomTextBox.Text == BottleTextBox.Text) && ((BottomTextBox.Text != "") || (BottleTextBox.Text != "")))
             {
                 AutoCheckTimer.Enabled = true;
             }
@@ -6089,21 +6131,21 @@ namespace LM2ReadandList
 
         private void BottomTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyValue != 16) && (e.KeyValue != 13))//16=SHIFT 13=ENTER
+            if((e.KeyValue != 16) && (e.KeyValue != 13))//16=SHIFT 13=ENTER
             {
 
                 str += Convert.ToChar(e.KeyValue);
 
-                if (str == TempStr2)
+                if(str == TempStr2)
                 {
                     return;
                 }
             }
-           
-            if (e.KeyValue == 13)
+
+            if(e.KeyValue == 13)
             {
                 TempStr2 = str;
-                
+
                 BottomTextBox.Text = str;
                 str = "";
             }
@@ -6111,24 +6153,24 @@ namespace LM2ReadandList
 
         private void BottleTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyValue != 16) && (e.KeyValue != 13))//16=SHIFT 13=ENTER
+            if((e.KeyValue != 16) && (e.KeyValue != 13))//16=SHIFT 13=ENTER
             {
                 str += Convert.ToChar(e.KeyValue);
 
-                if (str == TempStr1)
+                if(str == TempStr1)
                 {
                     return;
                 }
             }
 
-            if (e.KeyValue == 13)
+            if(e.KeyValue == 13)
             {
                 TempStr1 = str;
 
                 BottleTextBox.Text = str;
                 str = "";
 
-                if (LinkLMCheckBox.Checked == false)
+                if(LinkLMCheckBox.Checked == false)
                 {
                     BottomTextBox.Focus();
                 }
@@ -6151,15 +6193,15 @@ namespace LM2ReadandList
 
         private void BottleTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (BeGin == "N" && LinkLMCheckBox.Checked == true)
+            if(BeGin == "N" && LinkLMCheckBox.Checked == true)
             {
-                if (e.KeyChar != (char)Keys.Back)
+                if(e.KeyChar != (char)Keys.Back)
                 {//如果按下的不是回退键，则取消本次(按键)动作
                     e.Handled = true;
                 }
             }
 
-            if (e.KeyChar == (char)Keys.Back)
+            if(e.KeyChar == (char)Keys.Back)
             {
                 e.Handled = true;
             }
@@ -6167,15 +6209,15 @@ namespace LM2ReadandList
 
         private void BottomTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (BeGin == "N" && LinkLMCheckBox.Checked == true)
+            if(BeGin == "N" && LinkLMCheckBox.Checked == true)
             {
-                if (e.KeyChar != (char)Keys.Back)
+                if(e.KeyChar != (char)Keys.Back)
                 {//如果按下的不是回退键，则取消本次(按键)动作
                     e.Handled = true;
                 }
             }
 
-            if (e.KeyChar == (char)Keys.Back)
+            if(e.KeyChar == (char)Keys.Back)
             {
                 e.Handled = true;
             }
@@ -6201,9 +6243,9 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
-                if (reader.GetInt32(0) == Convert.ToInt32(Aboxof()))
+                if(reader.GetInt32(0) == Convert.ToInt32(Aboxof()))
                 {
                     PrintButton.Enabled = true;
                 }
@@ -6223,9 +6265,9 @@ namespace LM2ReadandList
             sr.Read(b, 0, 12);
             sr.Close();
             string bb = "";
-            for (int i = 0; i <= Code.Length; i++)
+            for(int i = 0; i <= Code.Length; i++)
             {
-                if (ASC(b[i]) >= 65 && ASC(b[i]) <= 90)
+                if(ASC(b[i]) >= 65 && ASC(b[i]) <= 90)
                 {
                     bb += b[i];
                 }
@@ -6240,9 +6282,9 @@ namespace LM2ReadandList
             sr.Read(b, 0, 12);
             sr.Close();
             string bb = "";
-            for (int i = 0; i <= Code.Length; i++)
+            for(int i = 0; i <= Code.Length; i++)
             {
-                if (ASC(b[i]) >= 48 && ASC(b[i]) <= 57)
+                if(ASC(b[i]) >= 48 && ASC(b[i]) <= 57)
                 {
                     bb += b[i];
                 }
@@ -6259,7 +6301,7 @@ namespace LM2ReadandList
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (NoLMCheckBox.Checked == true)
+            if(NoLMCheckBox.Checked == true)
             {
                 LinkLMCheckBox.Checked = false;
                 LinkLMCheckBox.Enabled = false;
@@ -6276,11 +6318,11 @@ namespace LM2ReadandList
 
         private void NoLMCylinderNOTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)//16=SHIFT 13=ENTER
+            if(e.KeyValue == 13)//16=SHIFT 13=ENTER
             {
                 NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.Trim();//移除前後空白，以防止找不到資料或系統Error
                 //NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.TrimEnd(' ');
-                if (NoLMCylinderNOTextBox.Text == "")
+                if(NoLMCylinderNOTextBox.Text == "")
                 {
                     MessageBox.Show("請輸入第一隻氣瓶序號！", "警告W-004");
                     return;
@@ -6311,19 +6353,19 @@ namespace LM2ReadandList
 
                     ////20141029 修改成不跳出視窗，直接在該畫面作操作。因有不連號(跳號)，原方式耗時
                     //以按Enter表示某汽瓶序號裝箱，但系統不自動跳號(+1)；以按Enter表示某汽瓶序號裝箱，且系統自動跳號(+1)
-                    if (ShippingCNO() == false)
+                    if(ShippingCNO() == false)
                     {
                         return;
                     }
 
-                    if (CheckCylinderNOTextBox() == true)
+                    if(CheckCylinderNOTextBox() == true)
                     {
                         AutoAccumulate();
                         NoLMCylinderNOTextBox.SelectAll();
                     }
                 }
             }
-            else if (e.KeyValue == 32)//32=SPACE
+            else if(e.KeyValue == 32)//32=SPACE
             {
                 ////20141029 修改成不跳出視窗，直接在該畫面作操作。因有不連號(跳號)，原方式耗時
                 //以按Enter表示某汽瓶序號裝箱，但系統不自動跳號(+1)；以按Enter表示某汽瓶序號裝箱，且系統自動跳號(+1)
@@ -6331,18 +6373,18 @@ namespace LM2ReadandList
                 //讓序號加1
                 NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.Trim();
                 //NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.TrimEnd(' ');
-                if (NoLMCylinderNOTextBox.Text == "")
+                if(NoLMCylinderNOTextBox.Text == "")
                 {
                     MessageBox.Show("請輸入第一隻氣瓶序號！", "警告W-004");
                     return;
                 }
                 else
                 {
-                    if (ShippingCNO() == false)
+                    if(ShippingCNO() == false)
                     {
                         return;
                     }
-                    if (CheckCylinderNOTextBox() == true)
+                    if(CheckCylinderNOTextBox() == true)
                     {
                         AutoAccumulate();
                         //序號往下累加
@@ -6361,7 +6403,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 Client = reader.GetString(0);
                 City = reader.GetString(1);
@@ -6379,9 +6421,9 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
-                if (Client == reader.GetString(0) && City == reader.GetString(1))
+                if(Client == reader.GetString(0) && City == reader.GetString(1))
                 {
                     reader.Close();
                     conn.Close();
@@ -6403,7 +6445,7 @@ namespace LM2ReadandList
 
         private bool CheckCylinderNOTextBox()
         {
-            if (NoLMCylinderNOTextBox.Text.Length < 6 || NoLMCylinderNOTextBox.Text.Length > 10)
+            if(NoLMCylinderNOTextBox.Text.Length < 6 || NoLMCylinderNOTextBox.Text.Length > 10)
             {
                 MessageBox.Show("所輸入之氣瓶序號長度錯誤，請重新輸入!", "提示");
                 return false;
@@ -6433,57 +6475,96 @@ namespace LM2ReadandList
         {
             string HydrostaticPass = "N";
 
-            //判別是否為報廢氣瓶
-            selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                conn.Open();
+
+                //判別是否為報廢氣瓶
+                selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                reader = cmd.ExecuteReader();
+                if(reader.Read())
+                {
+                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                    reader.Close();
+                    return;
+                }
                 reader.Close();
-                conn.Close();
-                return;
-            }
-            reader.Close();
-            conn.Close();
 
-            selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + NoLMCylinderNOTextBox.Text + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + NoLMCylinderNOTextBox.Text + "'";
+                cmd = new SqlCommand(selectCmd,conn);
+                reader = cmd.ExecuteReader();
+                if(reader.Read())
+                {
+                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                    reader.Close();
+                    return;
+                }
                 reader.Close();
-                conn.Close();
-                return;
-            }
-            reader.Close();
-            conn.Close();
 
-            //判斷是否已經有相同的序號入嘜頭
+                //判斷是否已經有相同的序號入嘜頭
 
-            selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + NoLMCylinderNOTextBox.Text + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
-                // MessageBox.Show("此序號已存入嘜頭資訊！", "警告-W004");
-                // NextNumber();//序號往下累加
+                selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + NoLMCylinderNOTextBox.Text + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                reader = cmd.ExecuteReader();
+                if(reader.Read())
+                {
+                    MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
+                    // MessageBox.Show("此序號已存入嘜頭資訊！", "警告-W004");
+                    // NextNumber();//序號往下累加
+                    reader.Close();
+                    return;
+
+                }
                 reader.Close();
-                conn.Close();
-                return;
 
+
+                bool HasRestrictions = false;
+                DateTime ResrictionDate = new DateTime();
+                DateTime HydroDate = new DateTime();
+
+                //判斷水壓年月是否大於規定範圍
+                selectCmd = "SELECT [HydroDate] FROM [ShippingHydroDateRestrictions] WHERE [BoxNo] = @BN";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.AddWithValue("@BN", BoxsListBox.SelectedItem);
+                using(reader = cmd.ExecuteReader())
+                {
+                    if(reader.Read())
+                    {
+                        HasRestrictions = true;
+                        ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
+                    }
+                }
+
+                if(HasRestrictions)
+                {
+                    using(conn1 = new SqlConnection(ESIGNmyConnectionString))
+                    {
+                        conn1.Open();
+                        selectCmd = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                        cmd = new SqlCommand(selectCmd, conn1);
+                        cmd.Parameters.AddWithValue("@SN", NoLMCylinderNOTextBox.Text);
+                        using(reader = cmd.ExecuteReader())
+                        {
+                            if(reader.Read())
+                            {
+                                HydroDate = reader.GetDateTime(reader.GetOrdinal("TestDate"));
+                            }
+                        }
+                    }
+                }
+
+                if(HydroDate < ResrictionDate)
+                {
+                    BottleTextBox.Text = "";
+                    BottomTextBox.Text = "";
+                    MessageBox.Show("此序號水壓年月不在規定範圍內", "警告-W010");
+                    HistoryListBox.Items.Add(NowTime());
+                    HistoryListBox.Items.Add("此序號水壓年月不在規定範圍內：" + NoLMCylinderNOTextBox.Text);
+                    BottleTextBox.Focus();
+                    return;
+                }
             }
-            reader.Close();
-            conn.Close();
-
             string ManufacturingNo = "";
             string SpecialUses = "N";
 
@@ -6494,10 +6575,10 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 ManufacturingNo = reader.GetString(0);
-                if (reader.GetValue(1).ToString() == "Y")
+                if(reader.GetValue(1).ToString() == "Y")
                 {
                     SpecialUses = "Y";
                 }
@@ -6534,7 +6615,7 @@ namespace LM2ReadandList
             //    conn.Close();
             //}
 
-            if (SpecialUses == "N")
+            if(SpecialUses == "N")
             {
                 myConnection = new SqlConnection(myConnectionString);
                 selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
@@ -6542,31 +6623,31 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     HydrostaticPass = "Y";
                 }
                 reader.Close();
-                if (HydrostaticPass == "N")
+                if(HydrostaticPass == "N")
                 {
                     //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                     string OriCNo = "", OriMNO = "";
                     selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         OriCNo = reader.GetString(0);
                         OriMNO = reader.GetString(1);
                     }
                     reader.Close();
 
-                    if (OriCNo != "")
+                    if(OriCNo != "")
                     {
                         selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
                         cmd = new SqlCommand(selectCmd, conn);
                         reader = cmd.ExecuteReader();
-                        if (reader.Read())
+                        if(reader.Read())
                         {
                             HydrostaticPass = "Y";
                         }
@@ -6575,7 +6656,7 @@ namespace LM2ReadandList
                 }
                 conn.Close();
 
-                if (HydrostaticPass == "N")
+                if(HydrostaticPass == "N")
                 {
                     MessageBox.Show("此序號查詢不到水壓測試資料！", "警告-W005");
                     //NextNumber();//序號往下累加
@@ -6584,7 +6665,7 @@ namespace LM2ReadandList
 
                 //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
                 //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                if (CheckProductAcceptanceIsWork(ManufacturingNo) == false)
+                if(CheckProductAcceptanceIsWork(ManufacturingNo) == false)
                 {
                     MessageBox.Show("此序號查詢不到成品檢驗資料！", "警告-W008");
                     //NextNumber();//序號往下累加
@@ -6593,7 +6674,7 @@ namespace LM2ReadandList
             }
 
             //功性能測試檢查
-            if (PerformanceTest(ManufacturingNo, NoLMCylinderNOTextBox.Text) == false)
+            if(PerformanceTest(ManufacturingNo, NoLMCylinderNOTextBox.Text) == false)
             {
                 return;
             }
@@ -6672,12 +6753,12 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 NowSeat = reader.GetString(5);
                 WhereSeatLabel.Text = (Convert.ToInt32(reader.GetString(5)) + 2).ToString();
 
-                if (NowSeat == Aboxof())
+                if(NowSeat == Aboxof())
                 {
                     MessageBox.Show("此嘜頭已滿箱！", "警告-W009");
                     NextBoxs();
@@ -6701,7 +6782,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 LotNumber = reader.GetString(0);
             }
@@ -6710,7 +6791,7 @@ namespace LM2ReadandList
 
             //雷刻掃描完確認瓶身瓶底相同後載入資料
             myConnection = new SqlConnection(myConnectionString);
-            selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0,7) + "'," + "'" + NowTime() +"',"+"'"+ LotNumber + "')";
+            selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + NowTime() + "'," + "'" + LotNumber + "')";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
@@ -6735,7 +6816,7 @@ namespace LM2ReadandList
 
             time = 420;
 
-            if (CustomerBarCodeCheckBox.Checked == true)
+            if(CustomerBarCodeCheckBox.Checked == true)
             {
                 CustomerBarCode CBC = new CustomerBarCode();
                 CBC.ProductName = ProductComboBox.SelectedItem.ToString();
@@ -6744,7 +6825,7 @@ namespace LM2ReadandList
                 CBC.Location = (Convert.ToInt32(NowSeat) + 1).ToString();
                 CBC.ShowDialog();
             }
-            if (WeightCheckBox.Checked == true && ComPortcomboBox.SelectedIndex != -1)
+            if(WeightCheckBox.Checked == true && ComPortcomboBox.SelectedIndex != -1)
             {
                 CylinderNoWeight CNW = new CylinderNoWeight();
                 CNW.ComPort = ComPortcomboBox.SelectedItem.ToString();
@@ -6758,7 +6839,7 @@ namespace LM2ReadandList
                 CNW.ShowDialog();
             }
 
-            if (SecondPrintCheckBox.CheckState == CheckState.Checked)
+            if(SecondPrintCheckBox.CheckState == CheckState.Checked)
             {
                 //列印標籤貼紙
                 MarkSecondPrintBarCode(NoLMCylinderNOTextBox.Text.ToString());
@@ -6790,31 +6871,31 @@ namespace LM2ReadandList
             selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + ManufacturingNo + "' and QualifiedQuantity>0 and substring(AcceptanceNo,1,8)<='" + DateTime.Now.ToString("yyyyMMdd") + "'";
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 ProductAcceptanceIsWork = true;
             }
             reader.Close();
 
-            if (ProductAcceptanceIsWork == false)
+            if(ProductAcceptanceIsWork == false)
             {
                 string OriMNO = "";
                 //找是否有對應之批號，有則依此搜尋是否有做成品檢驗
                 selectCmd = "SELECT  OriManufacturingNo FROM [TransformProductNo] where TransManufacturingNo='" + ManufacturingNo + "'";
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     OriMNO = reader.GetString(0);
                 }
                 reader.Close();
 
-                if (OriMNO != "")
+                if(OriMNO != "")
                 {
                     selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + OriMNO + "' and QualifiedQuantity>0 and substring(AcceptanceNo,1,8)<='" + DateTime.Now.ToString("yyyyMMdd") + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         ProductAcceptanceIsWork = true;
                     }
@@ -6834,7 +6915,7 @@ namespace LM2ReadandList
             bmp.Save(@"C:\SerialNoCode\" + SerialNo + ".png", ImageFormat.Png);
 
         }
-      
+
         private void CreateBarCode(string BarCodeData)
         {
             Code128_Label MyCode = new Code128_Label();
@@ -6862,7 +6943,7 @@ namespace LM2ReadandList
         private void Create_DataMatrix(string SerialNo)
         {
             //如果資料匣不在自動新增
-            if (!Directory.Exists(@"C:\SerialNoCode"))
+            if(!Directory.Exists(@"C:\SerialNoCode"))
             {
                 Directory.CreateDirectory(@"C:\SerialNoCode");
             }
@@ -6949,7 +7030,7 @@ namespace LM2ReadandList
             //PicWidth = 63;
             //PicHeight = 35;
             //xSheet.Shapes.AddPicture(PicturePath, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, PicLeft + 4, PicTop + 6, PicWidth, PicHeight);
-            
+
             //oXL.Visible = true;
             ////關閉活頁簿
             ////oWB.Close(false, Type.Missing, Type.Missing);
@@ -7030,18 +7111,18 @@ namespace LM2ReadandList
 
             string Nbb = "";
             int AddNbb = 0;
-            for (int i = 0; i <= NoLMCylinderNOTextBox.Text.Length; i++)
+            for(int i = 0; i <= NoLMCylinderNOTextBox.Text.Length; i++)
             {
-                if (Convert.ToChar(b[i]) >= 48 && Convert.ToChar(b[i]) <= 57)
+                if(Convert.ToChar(b[i]) >= 48 && Convert.ToChar(b[i]) <= 57)
                 {
                     Nbb += b[i];
                 }
-                else if (Convert.ToChar(b[i]) >= 65 && Convert.ToChar(b[i]) <= 90)
+                else if(Convert.ToChar(b[i]) >= 65 && Convert.ToChar(b[i]) <= 90)
                 {
                     Ebb += b[i];
                 }
             }
-            
+
             AddNbb = Convert.ToInt32(Nbb);
             AddNbb += 1;
             NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.Replace(Nbb, Convert.ToString(AddNbb).PadLeft(Nbb.Length, '0'));
@@ -7053,7 +7134,7 @@ namespace LM2ReadandList
             String fnum = String.Format("{0:00000}", Convert.ToInt32(i + 1));
 
             //修改部分氣瓶序號為6碼
-            if ((Ebb == "CA" || Ebb == "NA") && i >= 100000)
+            if((Ebb == "CA" || Ebb == "NA") && i >= 100000)
             {
                 fnum = String.Format("{0:000000}", Convert.ToInt32(i + 1));
             }
@@ -7076,7 +7157,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 NowSeat2 = reader.GetString(5);
                 BoxsListBoxIndex = BoxsListBox.SelectedIndex.ToString();
@@ -7085,15 +7166,15 @@ namespace LM2ReadandList
                 conn.Close();
 
                 //如果箱號已經超過最大箱數則不自動跳箱
-                if ((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
+                if((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
                 {
                     MessageBox.Show("此日期嘜頭已經完全結束", "提示");
                     return;
                 }
 
-                if (NowSeat2 == Aboxof())
+                if(NowSeat2 == Aboxof())
                 {
-                    if (PrintCheckBox.Checked == true)
+                    if(PrintCheckBox.Checked == true)
                     {
                         PrintButton.PerformClick();
                     }
@@ -7124,7 +7205,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 NowSeat = reader.GetString(5);
             }
@@ -7153,7 +7234,7 @@ namespace LM2ReadandList
             int size = 400;   // 指定最後產生的 2D code 影像大小 (pixel)
             // 進行 QRCode 的編碼工作
             //<關鍵片段>            
-            if (QRcodDetail1.Trim() == "")
+            if(QRcodDetail1.Trim() == "")
             {
                 MessageBox.Show("無QR Code 資訊，請確認是否有包裝氣瓶或聯繫MIS建立該產品型號之打字資訊");
                 return;
@@ -7165,13 +7246,13 @@ namespace LM2ReadandList
 
             Color Color1 = Color.FromArgb(0, 0, 0); // 設定 Bitmap 物件內每一個點的顏色格式為 RGB
 
-            for (int y = 0; y < matrix1.Height; ++y)
+            for(int y = 0; y < matrix1.Height; ++y)
             {
-                for (int x = 0; x < matrix1.Width; ++x)
+                for(int x = 0; x < matrix1.Width; ++x)
                 {
                     Color pixelColor = img1.GetPixel(x, y);
 
-                    if (matrix1.get_Renamed(x, y) == -1)
+                    if(matrix1.get_Renamed(x, y) == -1)
                     {
                         //不設定為白色，則將以透明呈現。某些圖片顯示軟體會以白色表示
                         ;//img1.SetPixel(x, y, Color.White);
@@ -7186,7 +7267,7 @@ namespace LM2ReadandList
             pictureBox1.Image = img1;
 
             //如果資料匣不在自動新增
-            if (!Directory.Exists(@"C:\QRCode"))
+            if(!Directory.Exists(@"C:\QRCode"))
             {
                 Directory.CreateDirectory(@"C:\QRCode");
             }
@@ -7204,7 +7285,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 QRcodeName1 = reader.GetString(0) + reader.GetString(1) + reader.GetString(2);
             }
@@ -7223,7 +7304,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 QRClient = reader.GetValue(0).ToString();
                 QRProductName = reader.GetValue(1).ToString();
@@ -7235,7 +7316,7 @@ namespace LM2ReadandList
             conn.Close();
 
             GetThisBoxMaxCount();
-            if ((QRClient.ToUpper().Trim().StartsWith("SGA") == true || QRClient.ToUpper().Trim().StartsWith("Airtanks Limited") == true) && PackingMarks.ToUpper().Trim().StartsWith("SGA") == true && Aboxof == "1")
+            if((QRClient.ToUpper().Trim().StartsWith("SGA") == true || QRClient.ToUpper().Trim().StartsWith("Airtanks Limited") == true) && PackingMarks.ToUpper().Trim().StartsWith("SGA") == true && Aboxof == "1")
             {
                 string CNO = "", HydroDate = "";
                 //find SGA Marking //CustomerQRCode
@@ -7245,7 +7326,7 @@ namespace LM2ReadandList
                 selectCmd = "SELECT isnull(CylinderNumbers,'') FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(int,WhereSeat)";
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     CNO = reader.GetValue(0).ToString();
                 }
@@ -7256,15 +7337,15 @@ namespace LM2ReadandList
                     + "WHERE (MSNBody.[CylinderNo] = '" + CNO + "') ";
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (reader.GetValue(3).ToString() == "")
+                    if(reader.GetValue(3).ToString() == "")
                     {
                         // CustomerName, BottleType, BottleCatalog, ProductNo
                         QRcodDetail1 = reader.GetValue(1).ToString();
                         HydroDate = reader.GetValue(2).ToString();
                     }
-                    else if (PackingMarks.Contains(reader.GetValue(3).ToString()) == true)
+                    else if(PackingMarks.Contains(reader.GetValue(3).ToString()) == true)
                     {
                         QRcodDetail1 = reader.GetValue(1).ToString();
                         HydroDate = reader.GetValue(2).ToString();
@@ -7272,7 +7353,7 @@ namespace LM2ReadandList
                 }
                 reader.Close();
                 conn.Close();
-                if (CNO != "")
+                if(CNO != "")
                 {
                     MarkSerialNoDataMatrix(CNO);
                     //MarkSerialNoBarCode(CNO);
@@ -7281,11 +7362,11 @@ namespace LM2ReadandList
                 QRcodDetail1 = QRcodDetail1.Replace("##", CNO);
                 //補入水壓年月(依序號建立時之水壓年月)
                 QRcodDetail1 = QRcodDetail1.Replace("*", HydroDate);
-                if (QRcodDetail1.Contains("SERVICE") == true)
+                if(QRcodDetail1.Contains("SERVICE") == true)
                 {
                     QRcodDetail1 = QRcodDetail1.Replace("SERVICE" + QRcodDetail1.Split(new string[] { "SERVICE" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0] + "/", "SERVICE " + (Convert.ToInt32(QRcodDetail1.Split(new string[] { "SERVICE" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0]) + 15).ToString() + "/");
                 }
-                else if (QRcodDetail1.Contains("FIN") == true)
+                else if(QRcodDetail1.Contains("FIN") == true)
                 {
                     QRcodDetail1 = QRcodDetail1.Replace("FIN" + QRcodDetail1.Split(new string[] { "FIN" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0] + "/", "FIN " + (Convert.ToInt32(QRcodDetail1.Split(new string[] { "FIN" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0]) + 20).ToString() + "/");
                 }
@@ -7302,9 +7383,9 @@ namespace LM2ReadandList
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    if (QRClient.Contains("Praxair") == true)
+                    if(QRClient.Contains("Praxair") == true)
                     {//Praxair ->only CylinderNo
                         SerialNoArray.Add(reader.GetString(3));
                     }
@@ -7320,14 +7401,14 @@ namespace LM2ReadandList
                 reader.Close();
                 conn.Close();
 
-                if (QRClient.Contains("Praxair") == false)
+                if(QRClient.Contains("Praxair") == false)
                 {//AMS Default data
                     selectCmd = "SELECT [ListDate],[ProductName],[vchBoxs],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
                         QRcodDetail1 = "Part Description:" + reader.GetString(4) + "\r\nPart No. " + reader.GetString(5) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + BoxsListBox.SelectedItem + "\r\nSerial No.\r\n";
                     }
@@ -7335,12 +7416,12 @@ namespace LM2ReadandList
                     conn.Close();
                 }
 
-                for (int i = 0; i < SerialNoArray.Count; i++)
+                for(int i = 0; i < SerialNoArray.Count; i++)
                 {
-                    if (SerialNoArray[i] != null)
+                    if(SerialNoArray[i] != null)
                     {
                         QRcodDetail1 = QRcodDetail1 + SerialNoArray[i];
-                        if (QRClient.Contains("Praxair") == true)
+                        if(QRClient.Contains("Praxair") == true)
                         {
                             QRcodDetail1 += "\r\n";
                         }
@@ -7357,14 +7438,14 @@ namespace LM2ReadandList
         private void LoadBoxsNo()
         {
             int i = 1;
-            
+
             myConnection = new SqlConnection(myConnectionString);
             selectCmd = "SELECT * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' order by convert(int,[vchBoxs]) asc ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 BoxsArray[i] = reader.GetString(3);
                 i++;
@@ -7375,20 +7456,20 @@ namespace LM2ReadandList
 
         private void LoadBoxsCount()
         {
-            for (int i = 1; i < BoxsArray.Length; i++)
+            for(int i = 1; i < BoxsArray.Length; i++)
             {
-                if (BoxsArray[i] == null)
+                if(BoxsArray[i] == null)
                 {
                     break;
                 }
-                
+
                 myConnection = new SqlConnection(myConnectionString);
                 selectCmd = "SELECT count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsArray[i] + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if(reader.Read())
                 {
                     BoxsCountArray[i] = reader.GetInt32(0);
                 }
@@ -7400,14 +7481,14 @@ namespace LM2ReadandList
         //檢查跳箱的
         private void Match()
         {
-            for (int i = 1; i < BoxsArray.Length; i++)
+            for(int i = 1; i < BoxsArray.Length; i++)
             {
-                if (BoxsArray[i] == null)
+                if(BoxsArray[i] == null)
                 {
                     break;
                 }
 
-                if (Convert.ToInt32(BoxsCountArray[i + 1]) > Convert.ToInt32(BoxsCountArray[i]))
+                if(Convert.ToInt32(BoxsCountArray[i + 1]) > Convert.ToInt32(BoxsCountArray[i]))
                 {
                     JumpBoxLabel.Text = "跳箱箱號：" + BoxsArray[i];
                 }
@@ -7421,7 +7502,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            if (reader.Read())
+            if(reader.Read())
             {
                 Getcount = reader.GetInt32(0);
             }
@@ -7470,7 +7551,7 @@ namespace LM2ReadandList
                 m_Code128.Columns.Add("BandCode");
 
                 m_Code128.CaseSensitive = true;
-                
+
                 #region 資料表
                 m_Code128.Rows.Add("0", " ", " ", "00", "212222");
                 m_Code128.Rows.Add("1", "!", "!", "01", "222122");
@@ -7594,12 +7675,16 @@ namespace LM2ReadandList
                 string _Text = "";
                 IList<int> _TextNumb = new List<int>();
                 int _Examine = 0; //首位
-                switch (p_Code)
+                switch(p_Code)
                 {
                     case Encode.Code128C:
                         _Examine = 105;
-                        if (!((p_Text.Length & 1) == 0)) throw new Exception("128C長度必須是偶數");
-                        while (p_Text.Length != 0)
+                        if(!((p_Text.Length & 1) == 0))
+                        {
+                            throw new Exception("128C長度必須是偶數");
+                        }
+
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             try
@@ -7617,10 +7702,14 @@ namespace LM2ReadandList
                         break;
                     case Encode.EAN128:
                         _Examine = 105;
-                        if (!((p_Text.Length & 1) == 0)) throw new Exception("EAN128長度必須是偶數");
+                        if(!((p_Text.Length & 1) == 0))
+                        {
+                            throw new Exception("EAN128長度必須是偶數");
+                        }
+
                         _TextNumb.Add(102);
                         _Text += "411131";
-                        while (p_Text.Length != 0)
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             try
@@ -7637,7 +7726,7 @@ namespace LM2ReadandList
                         }
                         break;
                     default:
-                        if (p_Code == Encode.Code128A)
+                        if(p_Code == Encode.Code128A)
                         {
                             _Examine = 103;
                         }
@@ -7646,11 +7735,15 @@ namespace LM2ReadandList
                             _Examine = 104;
                         }
 
-                        while (p_Text.Length != 0)
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             string _ValueCode = GetValue(p_Code, p_Text.Substring(0, 1), ref _Temp);
-                            if (_ValueCode.Length == 0) throw new Exception("不正確字元集!" + p_Text.Substring(0, 1).ToString());
+                            if(_ValueCode.Length == 0)
+                            {
+                                throw new Exception("不正確字元集!" + p_Text.Substring(0, 1).ToString());
+                            }
+
                             _Text += _ValueCode;
                             _TextNumb.Add(_Temp);
                             p_Text = p_Text.Remove(0, 1);
@@ -7658,10 +7751,14 @@ namespace LM2ReadandList
                         break;
                 }
 
-                if (_TextNumb.Count == 0) throw new Exception("錯誤的編碼,無資料");
+                if(_TextNumb.Count == 0)
+                {
+                    throw new Exception("錯誤的編碼,無資料");
+                }
+
                 _Text = _Text.Insert(0, GetValue(_Examine)); //獲取開始位
 
-                for (int i = 0; i != _TextNumb.Count; i++)
+                for(int i = 0; i != _TextNumb.Count; i++)
                 {
                     _Examine += _TextNumb[i] * (i + 1);
                 }
@@ -7684,9 +7781,17 @@ namespace LM2ReadandList
             /// <returns>編碼</returns>
             private string GetValue(Encode p_Code, string p_Value, ref int p_SetID)
             {
-                if (m_Code128 == null) return "";
+                if(m_Code128 == null)
+                {
+                    return "";
+                }
+
                 DataRow[] _Row = m_Code128.Select(p_Code.ToString() + "='" + p_Value + "'");
-                if (_Row.Length != 1) throw new Exception("錯誤的編碼" + p_Value.ToString());
+                if(_Row.Length != 1)
+                {
+                    throw new Exception("錯誤的編碼" + p_Value.ToString());
+                }
+
                 p_SetID = Int32.Parse(_Row[0]["ID"].ToString());
                 return _Row[0]["BandCode"].ToString();
             }
@@ -7699,7 +7804,11 @@ namespace LM2ReadandList
             private string GetValue(int p_CodeId)
             {
                 DataRow[] _Row = m_Code128.Select("ID='" + p_CodeId.ToString() + "'");
-                if (_Row.Length != 1) throw new Exception("驗效位的編碼錯誤" + p_CodeId.ToString());
+                if(_Row.Length != 1)
+                {
+                    throw new Exception("驗效位的編碼錯誤" + p_CodeId.ToString());
+                }
+
                 return _Row[0]["BandCode"].ToString();
             }
 
@@ -7708,12 +7817,12 @@ namespace LM2ReadandList
             /// </summary>
             /// <param name="p_Text">文字</param>
             /// <returns>圖形</returns>
-           
+
             private Bitmap GetImage(string p_Text)
             {
                 char[] _Value = p_Text.ToCharArray();
                 int _Width = 0;
-                for (int i = 0; i != _Value.Length; i++)
+                for(int i = 0; i != _Value.Length; i++)
                 {
                     _Width += Int32.Parse(_Value[i].ToString()) * (m_Magnify + 1);
                 }
@@ -7722,11 +7831,11 @@ namespace LM2ReadandList
                 Graphics _Garphics = Graphics.FromImage(_CodeImage);
                 //Pen _Pen;
                 int _LenEx = 0;
-                for (int i = 0; i != _Value.Length; i++)
+                for(int i = 0; i != _Value.Length; i++)
                 {
                     int _ValueNumb = Int32.Parse(_Value[i].ToString()) * (m_Magnify + 1); //獲取寬和放大係數
 
-                    if (!((i & 1) == 0))
+                    if(!((i & 1) == 0))
                     {
                         //_Pen = new Pen(Brushes.White, _ValueNumb);
                         _Garphics.FillRectangle(Brushes.White, new Rectangle(_LenEx, 0, _ValueNumb, (int)m_Height));
@@ -7816,7 +7925,7 @@ namespace LM2ReadandList
                 m_Code128.Columns.Add("BandCode");
 
                 m_Code128.CaseSensitive = true;
-                
+
                 #region 資料表
                 m_Code128.Rows.Add("0", " ", " ", "00", "212222");
                 m_Code128.Rows.Add("1", "!", "!", "01", "222122");
@@ -7933,19 +8042,23 @@ namespace LM2ReadandList
             /// <param name="p_Text">文字</param>
             /// <param name="p_Code">編碼</param>
             /// <returns>圖形</returns>
-          
+
             public Bitmap GetCodeImage(string p_Text, Encode p_Code)
             {
                 string _ViewText = p_Text;
                 string _Text = "";
                 IList<int> _TextNumb = new List<int>();
                 int _Examine = 0; //首位
-                switch (p_Code)
+                switch(p_Code)
                 {
                     case Encode.Code128C:
                         _Examine = 105;
-                        if (!((p_Text.Length & 1) == 0)) throw new Exception("128C長度必須是偶數");
-                        while (p_Text.Length != 0)
+                        if(!((p_Text.Length & 1) == 0))
+                        {
+                            throw new Exception("128C長度必須是偶數");
+                        }
+
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             try
@@ -7963,10 +8076,14 @@ namespace LM2ReadandList
                         break;
                     case Encode.EAN128:
                         _Examine = 105;
-                        if (!((p_Text.Length & 1) == 0)) throw new Exception("EAN128長度必須是偶數");
+                        if(!((p_Text.Length & 1) == 0))
+                        {
+                            throw new Exception("EAN128長度必須是偶數");
+                        }
+
                         _TextNumb.Add(102);
                         _Text += "411131";
-                        while (p_Text.Length != 0)
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             try
@@ -7983,7 +8100,7 @@ namespace LM2ReadandList
                         }
                         break;
                     default:
-                        if (p_Code == Encode.Code128A)
+                        if(p_Code == Encode.Code128A)
                         {
                             _Examine = 103;
                         }
@@ -7992,11 +8109,15 @@ namespace LM2ReadandList
                             _Examine = 104;
                         }
 
-                        while (p_Text.Length != 0)
+                        while(p_Text.Length != 0)
                         {
                             int _Temp = 0;
                             string _ValueCode = GetValue(p_Code, p_Text.Substring(0, 1), ref _Temp);
-                            if (_ValueCode.Length == 0) throw new Exception("不正確字元集!" + p_Text.Substring(0, 1).ToString());
+                            if(_ValueCode.Length == 0)
+                            {
+                                throw new Exception("不正確字元集!" + p_Text.Substring(0, 1).ToString());
+                            }
+
                             _Text += _ValueCode;
                             _TextNumb.Add(_Temp);
                             p_Text = p_Text.Remove(0, 1);
@@ -8004,10 +8125,14 @@ namespace LM2ReadandList
                         break;
                 }
 
-                if (_TextNumb.Count == 0) throw new Exception("錯誤的編碼,無資料");
+                if(_TextNumb.Count == 0)
+                {
+                    throw new Exception("錯誤的編碼,無資料");
+                }
+
                 _Text = _Text.Insert(0, GetValue(_Examine)); //獲取開始位
 
-                for (int i = 0; i != _TextNumb.Count; i++)
+                for(int i = 0; i != _TextNumb.Count; i++)
                 {
                     _Examine += _TextNumb[i] * (i + 1);
                 }
@@ -8030,9 +8155,17 @@ namespace LM2ReadandList
             /// <returns>編碼</returns>
             private string GetValue(Encode p_Code, string p_Value, ref int p_SetID)
             {
-                if (m_Code128 == null) return "";
+                if(m_Code128 == null)
+                {
+                    return "";
+                }
+
                 DataRow[] _Row = m_Code128.Select(p_Code.ToString() + "='" + p_Value + "'");
-                if (_Row.Length != 1) throw new Exception("錯誤的編碼" + p_Value.ToString());
+                if(_Row.Length != 1)
+                {
+                    throw new Exception("錯誤的編碼" + p_Value.ToString());
+                }
+
                 p_SetID = Int32.Parse(_Row[0]["ID"].ToString());
                 return _Row[0]["BandCode"].ToString();
             }
@@ -8045,7 +8178,11 @@ namespace LM2ReadandList
             private string GetValue(int p_CodeId)
             {
                 DataRow[] _Row = m_Code128.Select("ID='" + p_CodeId.ToString() + "'");
-                if (_Row.Length != 1) throw new Exception("驗效位的編碼錯誤" + p_CodeId.ToString());
+                if(_Row.Length != 1)
+                {
+                    throw new Exception("驗效位的編碼錯誤" + p_CodeId.ToString());
+                }
+
                 return _Row[0]["BandCode"].ToString();
             }
 
@@ -8054,13 +8191,13 @@ namespace LM2ReadandList
             /// </summary>
             /// <param name="p_Text">文字</param>
             /// <returns>圖形</returns>
-          
+
             private Bitmap GetImage(string p_Text)
             {
                 char[] _Value = p_Text.ToCharArray();
                 int _LenEx = 0;
                 int Magnify = 0;
-                for (int i = 0; i != _Value.Length; i++)
+                for(int i = 0; i != _Value.Length; i++)
                 {
                     Magnify += Int32.Parse(_Value[i].ToString());
                 }
@@ -8085,13 +8222,13 @@ namespace LM2ReadandList
                 //m_Magnify =(byte)( m_Width / Magnify);
                 ////f_Magnify = (float)((float)m_Width / (float)Magnify);
                 //m_Width = (uint)(m_Magnify * Magnify);
-                for (int i = 0; i != _Value.Length; i++)
+                for(int i = 0; i != _Value.Length; i++)
                 {
                     int _ValueNumb = (Int32.Parse(_Value[i].ToString()) * m_Magnify); //獲取寬和放大係數
                     // int _ValueNumb = (int)(Int32.Parse(_Value[i].ToString()) * f_Magnify); //獲取寬和放大係數
                     // int _ValueNumb = Int32.Parse(m_Width.ToString());
 
-                    if (!((i & 1) == 0))
+                    if(!((i & 1) == 0))
                     {
                         //_Pen = new Pen(Brushes.White, _ValueNumb);
                         _Garphics.FillRectangle(Brushes.White, new Rectangle(_LenEx, 0, _ValueNumb, (int)m_Height));
@@ -8115,11 +8252,14 @@ namespace LM2ReadandList
 
             private void GetViewText(Bitmap p_Bitmap, string p_ViewText)
             {
-                if (m_ValueFont == null) return;
+                if(m_ValueFont == null)
+                {
+                    return;
+                }
 
                 Graphics _Graphics = Graphics.FromImage(p_Bitmap);
                 SizeF _DrawSize = _Graphics.MeasureString(p_ViewText, m_ValueFont);
-                if (_DrawSize.Height > p_Bitmap.Height - 10 || _DrawSize.Width > p_Bitmap.Width)
+                if(_DrawSize.Height > p_Bitmap.Height - 10 || _DrawSize.Width > p_Bitmap.Width)
                 {
                     _Graphics.Dispose();
                     return;
@@ -8140,14 +8280,14 @@ namespace LM2ReadandList
 
         private void SelectListBoxTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if(e.KeyCode == Keys.Enter)
             {
                 //找出箱號
-                if (BoxsListBox.Items.Count != 0)
+                if(BoxsListBox.Items.Count != 0)
                 {
-                    for (int BoxListIndex = 0; BoxListIndex < BoxsListBox.Items.Count; BoxListIndex++)
+                    for(int BoxListIndex = 0; BoxListIndex < BoxsListBox.Items.Count; BoxListIndex++)
                     {
-                        if (BoxsListBox.Items[BoxListIndex].ToString().CompareTo(SelectListBoxTextBox.Text.ToString()) == 0)
+                        if(BoxsListBox.Items[BoxListIndex].ToString().CompareTo(SelectListBoxTextBox.Text.ToString()) == 0)
                         {
                             BoxsListBox.SelectedIndex = BoxListIndex;
                             break;
@@ -8174,7 +8314,7 @@ namespace LM2ReadandList
             pictureBox1.Image = img;
 
             //如果資料匣不在自動新增
-            if (!Directory.Exists(@"C:\SerialNoCode"))
+            if(!Directory.Exists(@"C:\SerialNoCode"))
             {
                 Directory.CreateDirectory(@"C:\SerialNoCode");
             }
@@ -8217,7 +8357,7 @@ namespace LM2ReadandList
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
-            while (reader.Read())
+            while(reader.Read())
             {
                 CylinderNumbersList.Add(reader.GetString(0));
                 WhereBoxList.Add(Convert.ToInt32(reader.GetString(1)));
@@ -8228,7 +8368,7 @@ namespace LM2ReadandList
             reader.Close();
             conn.Close();
 
-            if (CylinderNumbersList.Count == 0)
+            if(CylinderNumbersList.Count == 0)
             {
                 MessageBox.Show("無產品名稱:" + ProductComboBox.SelectedItem.ToString() + "、嘜頭日期:" + ListDateListBox.SelectedItem.ToString() + "於今天包裝之資料。");
                 return;
@@ -8287,7 +8427,7 @@ namespace LM2ReadandList
             oSheet2.Cells[2, 2] = ListDateListBox.SelectedItem.ToString();
             oSheet2.Cells[3, 2] = DateTime.Now.ToString("yyyy/MM/dd");
 
-            for (int i = 0; i < CylinderNumbersList.Count; i++)
+            for(int i = 0; i < CylinderNumbersList.Count; i++)
             {
                 oSheet2.Cells[7 + i, 1] = CylinderNumbersList[i].ToString();
                 // oSheet2.Cells[7 + i, 2] = ManufacturingNoList[i].ToString();
@@ -8351,7 +8491,7 @@ namespace LM2ReadandList
 
         private void WeightCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (WeightCheckBox.Checked == true)
+            if(WeightCheckBox.Checked == true)
             {
                 string[] ports = System.IO.Ports.SerialPort.GetPortNames();
                 List<string> listPorts = new List<string>(ports);
@@ -8376,7 +8516,7 @@ namespace LM2ReadandList
 
         private void ComplexQRCodeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (ComplexQRCodeCheckBox.CheckState == CheckState.Checked)
+            if(ComplexQRCodeCheckBox.CheckState == CheckState.Checked)
             {
                 NoLMCylinderNOTextBox.MaxLength = 200;
                 //NoLMCylinderNOTextBox.Multiline = true; //一般序號都在第一行故不用此
@@ -8391,7 +8531,7 @@ namespace LM2ReadandList
 
         private void SecondPrintCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (SecondPrintCheckBox.CheckState == CheckState.Checked)
+            if(SecondPrintCheckBox.CheckState == CheckState.Checked)
             {
                 SecondPrinterComboBox.Enabled = true;
             }
@@ -8413,11 +8553,11 @@ namespace LM2ReadandList
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(time>0)
+            if(time > 0)
             {
                 DialogResult dr = MessageBox.Show("是否確定要關閉程式? \n Do you really want to exit?", "關閉程式  Exit", MessageBoxButtons.YesNo);
 
-                if (dr == DialogResult.Yes)
+                if(dr == DialogResult.Yes)
                 {
                     try
                     {
@@ -8429,18 +8569,18 @@ namespace LM2ReadandList
                         cmd.ExecuteNonQuery();
                         conn.Close();
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
                     e.Cancel = false;
                 }
-                else if (dr == DialogResult.No)
+                else if(dr == DialogResult.No)
                 {
                     e.Cancel = true;
                 }
             }
-            else if(time<=0)
+            else if(time <= 0)
             {
                 e.Cancel = false;
             }
@@ -8448,7 +8588,7 @@ namespace LM2ReadandList
 
         private void PrinterButton_Click(object sender, EventArgs e)
         {
-            if (IsChangePrinter == true)
+            if(IsChangePrinter == true)
             {
                 SetProfileString(FirstPrinterComboBox.SelectedItem.ToString());
                 IsChangePrinter = false;
@@ -8479,7 +8619,7 @@ namespace LM2ReadandList
 
         private void SecondPrintButton_Click(object sender, EventArgs e)
         {
-            if (NoLMCylinderNOTextBox.Text != "")
+            if(NoLMCylinderNOTextBox.Text != "")
             {
                 //列印標籤貼紙
 
@@ -8501,7 +8641,7 @@ namespace LM2ReadandList
 
         private void ColorListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ColorListBox.SelectedIndex == -1)
+            if(ColorListBox.SelectedIndex == -1)
             {
                 return;
             }
@@ -8511,7 +8651,7 @@ namespace LM2ReadandList
             //清除箱號Range Label
             BoxRangeLabel.Text = "";
 
-            if (this.ListDateListBox.SelectedIndex != -1)
+            if(this.ListDateListBox.SelectedIndex != -1)
             {
                 TodayDataButton.Enabled = true;
             }
@@ -8523,12 +8663,12 @@ namespace LM2ReadandList
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            if (time>0)
+            if(time > 0)
             {
-                time=time-1;
+                time = time - 1;
             }
 
-            if(time==0)
+            if(time == 0)
             {
                 try
                 {
@@ -8540,7 +8680,7 @@ namespace LM2ReadandList
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }

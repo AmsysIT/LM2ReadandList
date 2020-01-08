@@ -115,6 +115,7 @@
             this.HistoryListBox = new System.Windows.Forms.ListBox();
             this.AutoLoadPictureTimer = new System.Windows.Forms.Timer(this.components);
             this.NoLMGroupBox = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.WhereSeatLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.NoLMCylinderNOTextBox = new System.Windows.Forms.TextBox();
@@ -126,7 +127,6 @@
             this.TodayDataButton = new System.Windows.Forms.Button();
             this.BarCodePictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.KeyInGroupBox.SuspendLayout();
             this.ReadyGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1207,6 +1207,17 @@
             this.NoLMGroupBox.Text = "EnterKeyIn";
             this.NoLMGroupBox.Visible = false;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("新細明體", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.checkBox1.Location = new System.Drawing.Point(356, 90);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(115, 42);
+            this.checkBox1.TabIndex = 55;
+            this.checkBox1.Text = "鎖閥";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // WhereSeatLabel
             // 
             this.WhereSeatLabel.AutoSize = true;
@@ -1322,17 +1333,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("新細明體", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBox1.Location = new System.Drawing.Point(356, 90);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(115, 42);
-            this.checkBox1.TabIndex = 55;
-            this.checkBox1.Text = "鎖閥";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1344,7 +1344,6 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.HistoryListBox);
             this.Controls.Add(this.RefreshhButton);
-            this.Controls.Add(this.KeyInGroupBox);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.LuckButton);
             this.Controls.Add(this.ListINFOGroupBox);
@@ -1353,6 +1352,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.NoLMGroupBox);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.KeyInGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
