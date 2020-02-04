@@ -1857,7 +1857,7 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client.Contains("Airtanks")) && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
@@ -4967,65 +4967,102 @@ namespace LM2ReadandList
             }
             //設定工作表
             oSheet = (Excel.Worksheet)oWB.ActiveSheet;
+            //7*3.5
             if(PackingMarks.Trim().CompareTo("Regulator 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Regulator 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi+Regulator") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi+Regulator") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-12oz") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_12oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-20oz") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_20oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-68ci(Assault) 4500psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Assault) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego-68ci(Snow White) 4500psi") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Snow White) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
             else if(PackingMarks.Trim().CompareTo("Estratego_68ci_UL") == 0)
             {
                 //該客戶要其自己的logo
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci_UL.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 45, 2, 545, 450);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-26ci 3000psi_Regulator") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_26ci_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-BL-xx-10_1.8K") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_BL-xx-10.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-BL-xx-13_5K") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_BL-xx-13.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-Nipple") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Nipple.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-Regulator Gauge") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Regulator Gauge.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if(PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
 
             Excel.Sheets excelSheets = oWB.Worksheets;

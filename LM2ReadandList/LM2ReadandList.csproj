@@ -35,7 +35,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>嘜頭包裝程式-客製化</ProductName>
     <PublisherName>J.T Lin</PublisherName>
-    <ApplicationRevision>167</ApplicationRevision>
+    <ApplicationRevision>169</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -170,6 +170,7 @@
     <Content Include="LOGO_Estratego_20oz.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="LOGO_Estratego_26ci_Regulator.png" />
     <Content Include="LOGO_Estratego_48ci 3000psi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -183,6 +184,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="LOGO_Estratego_68ci_UL.png" />
+    <Content Include="LOGO_Estratego_BL-xx-10.png" />
+    <Content Include="LOGO_Estratego_BL-xx-13.png" />
+    <Content Include="LOGO_Estratego_Nipple.png" />
+    <Content Include="LOGO_Estratego_Regulator Gauge.png" />
+    <Content Include="LOGO_Estratego_Totem_Air_UL_Tank.png" />
     <Content Include="LOGO_HATSAN.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
