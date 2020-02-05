@@ -1729,8 +1729,14 @@ namespace LM2ReadandList
                     //載入箱號
                     oSheet.Cells[10, 10] = reader.GetString(5);
 
+                    //20200205 Praxair加入PO
+                    if (ComplexLabel.Text.Contains("Praxair") == true)
+                    {
+                        oSheet.Cells[5, 11] = CustomerPOLabel.Text;
+                    }
+
                     //該客戶要其自己的logo
-                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);

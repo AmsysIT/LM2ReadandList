@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>7AYhojKRtiowVvFQ9e3kMm5NzqM=</dsig:DigestValue>
+        <dsig:DigestValue>lF+XnVYwMyPLxvTME5tTngqEjSs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4137,13 +4137,13 @@
       <dsig:DigestValue>v0wq/0UWCkzPja88cSL9v4Z+PC4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut.xlsx" size="32551">
+  <file name="NewListOut.xlsx" size="32509">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>vYZ2r6qz5oBMGlWG3LHYmH8OCKo=</dsig:DigestValue>
+      <dsig:DigestValue>N7I86L6smkCRbpSaS6QUvC/Bs68=</dsig:DigestValue>
     </hash>
   </file>
   <file name="NewListOut1.xlsx" size="32299">
