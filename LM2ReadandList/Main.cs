@@ -1751,6 +1751,11 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
                 }
                 reader.Close();
                 conn.Close();
@@ -1917,6 +1922,11 @@ namespace LM2ReadandList
                     excelRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeRight).Weight = Excel.XlBorderWeight.xlMedium;
                 }
 
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -1997,6 +2007,12 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
+
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
                 }
                 reader.Close();
                 conn.Close();
@@ -2062,6 +2078,11 @@ namespace LM2ReadandList
                 else if(Client.ToUpper().StartsWith("EMB"))
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
 
@@ -2143,6 +2164,11 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -2366,6 +2392,11 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
 
                 conn.Close();
 
@@ -2466,6 +2497,11 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -2599,6 +2635,11 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
 
                 conn.Close();
 
@@ -2700,6 +2741,11 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -2821,6 +2867,11 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -2920,6 +2971,11 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -3025,6 +3081,12 @@ namespace LM2ReadandList
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
 
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
+
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -3125,6 +3187,12 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -3264,6 +3332,11 @@ namespace LM2ReadandList
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
 
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -3364,6 +3437,12 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -3480,6 +3559,12 @@ namespace LM2ReadandList
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                 }
 
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
+
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -3558,6 +3643,12 @@ namespace LM2ReadandList
                     else if(Client.ToUpper().StartsWith("EMB"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
@@ -3732,6 +3823,12 @@ namespace LM2ReadandList
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
 
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                }
+
                 conn.Close();
 
                 //if (StorageStatus == "N")//20190212
@@ -3812,6 +3909,12 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                         // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                    }
+
+                    else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                 }
@@ -4686,6 +4789,12 @@ namespace LM2ReadandList
                     //LOGO
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                }
+
+                else if(Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
 
                 conn.Close();

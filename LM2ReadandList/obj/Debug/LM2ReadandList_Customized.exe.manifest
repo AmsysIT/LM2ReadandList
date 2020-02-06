@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.169" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.170" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LM2ReadandList.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LM2ReadandList_Customized.exe" size="229824">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LM2ReadandList_Customized.exe" size="231872">
       <assemblyIdentity name="LM2ReadandList_Customized" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>lF+XnVYwMyPLxvTME5tTngqEjSs=</dsig:DigestValue>
+        <dsig:DigestValue>TRssLNJ/JznedjTMd4570twsYrU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4054,6 +4054,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>Q1YFif8cfwIvHuWlERQH5d4FU9Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="LOGO_Paintball Sports GmbH.png" size="49568">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>4VOPIUl4NCplX26Kjqimp5uT/yI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="LOGO_Regulator 3000psi.png" size="46645">

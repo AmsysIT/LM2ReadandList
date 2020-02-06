@@ -35,7 +35,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>嘜頭包裝程式-客製化</ProductName>
     <PublisherName>J.T Lin</PublisherName>
-    <ApplicationRevision>170</ApplicationRevision>
+    <ApplicationRevision>171</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -308,6 +308,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="LOGO_Paintball Sports GmbH.png" />
     <Content Include="TodayPackageData.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
