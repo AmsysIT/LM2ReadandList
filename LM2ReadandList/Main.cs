@@ -6119,6 +6119,62 @@ namespace LM2ReadandList
                 reader.Close();
                 conn.Close();
 
+                string ManufacturingNo1 = "";
+                string HydrostaticTestDate1 = "";
+                string CustomerName1 = "";
+
+                //20200213 照片檢查
+                if (ProductLabel2.Text.Contains("Composite") == true)
+                {
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+                        selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ManufacturingNo1 = reader.GetString(0);
+                                HydrostaticTestDate1 = reader.GetString(1);
+                                CustomerName1 = reader.GetString(2);
+                            }
+                        }
+                    }
+
+                    using (conn = new SqlConnection(ESIGNmyConnectionString))
+                    {
+                        conn.Open();
+                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                using (conn1 = new SqlConnection(ESIGNmyConnectionString))
+                                {
+                                    conn1.Open();
+                                    selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
+                                    cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
+                                    cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + ManufacturingNo1 + "";
+
+                                    cmd1.ExecuteNonQuery();
+
+                                    MessageBox.Show("未有客戶產品照片，請聯繫品保！");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
                 //取得現在時間
                 DateTime currentTime = DateTime.Now;
                 //轉成字串   
@@ -6728,48 +6784,57 @@ namespace LM2ReadandList
             string CustomerName1 = "";
 
             //20200213 照片檢查
-            using (conn = new SqlConnection(myConnectionString))
+            if(ProductLabel2.Text.Contains("Composite")==true)
             {
-                conn.Open();
-                selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
+                using (conn = new SqlConnection(myConnectionString))
                 {
-                    if(reader.Read())
+                    conn.Open();
+                    selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
                     {
-                        ManufacturingNo1 = reader.GetString(0);
-                        HydrostaticTestDate1 = reader.GetString(1);
-                        CustomerName1 = reader.GetString(2);
+                        if (reader.Read())
+                        {
+                            ManufacturingNo1 = reader.GetString(0);
+                            HydrostaticTestDate1 = reader.GetString(1);
+                            CustomerName1 = reader.GetString(2);
+                        }
+                    }
+                }
+
+                using (conn = new SqlConnection(ESIGNmyConnectionString))
+                {
+                    conn.Open();
+                    selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            using (conn1 = new SqlConnection(ESIGNmyConnectionString))
+                            {
+                                conn1.Open();
+                                selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
+                                cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
+                                cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + ManufacturingNo1 + "";
+
+                                cmd1.ExecuteNonQuery();
+
+                                MessageBox.Show("未有客戶產品照片，請聯繫品保！");
+                                return;
+                            }
+                        }
                     }
                 }
             }
 
-            using (conn = new SqlConnection(ESIGNmyConnectionString))
-            {
-                conn.Open();
-                selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader()) 
-                {
-                    if (reader.HasRows)
-                    {
-                        ;
-                    }
-                    else
-                    {
-                        selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
-                        cmd1 = new SqlCommand(selectCmd1, conn);
-                        cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
-                        cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
-                        cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] ";
-
-                        cmd1.ExecuteNonQuery();
-
-                        MessageBox.Show("未有客戶產品照片，請聯繫品保！");
-                        return;
-                    }
-                }
-            }
+            
 
 
             //selectCmd = "SELECT  * FROM [MSNBody] where [vchCylinderCode]+[vchCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
