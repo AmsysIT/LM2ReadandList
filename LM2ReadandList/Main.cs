@@ -4485,6 +4485,13 @@ namespace LM2ReadandList
 
                     //載入箱號
                     oSheet.Cells[10, 2] = reader.GetString(4);
+
+                    //20200205 Praxair加入PO
+                    if (ComplexLabel.Text.Contains("Praxair") == true)
+                    {
+                        oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+                    }
+
                     //載入客戶名稱
                     oSheet.Cells[3, 7] = reader.GetString(0);
                     //載入箱號
