@@ -4732,7 +4732,7 @@ namespace LM2ReadandList
                     {
                         case "1":
                             oSheet.Cells[6, 1] = reader.GetString(3);
-                            FirstCNO = reader.GetString(0);
+                            FirstCNO = reader.GetString(3);
                             break;
                         case "2":
                             oSheet.Cells[6, 5] = reader.GetString(3);
@@ -4746,7 +4746,7 @@ namespace LM2ReadandList
                 }
                 reader.Close();
 
-                if((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                if((Client == "SGA" || Client == "Airtanks") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     string ProductNO = "";
                     //該客戶要其自己的logo  PartNo   Part Description
@@ -5032,6 +5032,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
+                else if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                {
+                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
+                }
+                
             }
 
             Excel.Sheets excelSheets = oWB.Worksheets;
