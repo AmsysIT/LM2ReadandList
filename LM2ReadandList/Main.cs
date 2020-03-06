@@ -893,7 +893,7 @@ namespace LM2ReadandList
                 else if(bAboxof == "117")
                 {
                     //載入[ShippingHead]的ListDate
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -916,7 +916,7 @@ namespace LM2ReadandList
                 else if(bAboxof == "30")
                 {
                     //載入[ShippingHead]的ListDate
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -939,7 +939,7 @@ namespace LM2ReadandList
                 else if(bAboxof == "111")
                 {
                     //載入[ShippingHead]的ListDate
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -1184,7 +1184,7 @@ namespace LM2ReadandList
             string temp = "";
 
             //載入[ShippingHead]的一箱幾隻
-            
+
             selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -1205,7 +1205,7 @@ namespace LM2ReadandList
             string temp = "";
 
             //載入[ShippingHead]的棧板編號
-            
+
             selectCmd = "SELECT  isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -1266,7 +1266,7 @@ namespace LM2ReadandList
         {
             string where = "";
 
-            
+
             selectCmd = "SELECT  * FROM [LaserMarkDirection] ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -1303,7 +1303,7 @@ namespace LM2ReadandList
                 }
             }
 
-            
+
             selectCmd = "SELECT  * FROM [LaserMarkDirection] ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -1676,7 +1676,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -1693,7 +1693,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -1720,13 +1720,13 @@ namespace LM2ReadandList
                     oSheet.Cells[10, 10] = reader.GetString(5);
 
                     //20200205 Praxair加入PO
-                    if (ComplexLabel.Text.Contains("Praxair") == true)
+                    if(ComplexLabel.Text.Contains("Praxair") == true)
                     {
                         oSheet.Cells[5, 11] = CustomerPOLabel.Text;
                     }
 
                     //該客戶要其自己的logo
-                    if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                    if(reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -1756,7 +1756,7 @@ namespace LM2ReadandList
                 string FirstCNO = "";
 
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -1927,7 +1927,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 730, picY = 185;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -1953,7 +1953,7 @@ namespace LM2ReadandList
             else if(Aboxof == "36")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2008,7 +2008,7 @@ namespace LM2ReadandList
                 conn.Close();
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2086,7 +2086,7 @@ namespace LM2ReadandList
                     //插入二維條碼
                     int picX = 750, picY = 179;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -2112,7 +2112,7 @@ namespace LM2ReadandList
             }
             else if(Aboxof == "40")
             {   //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2167,7 +2167,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2398,7 +2398,7 @@ namespace LM2ReadandList
                     //插入二維條碼
                     int picX = 680, picY = 180;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -2428,7 +2428,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2445,7 +2445,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2505,7 +2505,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2641,7 +2641,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 732, picY = 187;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -2671,7 +2671,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2688,7 +2688,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2749,7 +2749,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2872,7 +2872,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 185;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -2902,7 +2902,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2919,7 +2919,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -2978,7 +2978,7 @@ namespace LM2ReadandList
                 string FirstCNO = "";
                 //////
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3088,7 +3088,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 182;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -3118,7 +3118,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3135,7 +3135,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'')FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3196,7 +3196,7 @@ namespace LM2ReadandList
                 //////
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3338,7 +3338,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 185;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -3368,7 +3368,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3385,7 +3385,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3446,7 +3446,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3565,7 +3565,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 185;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -3591,7 +3591,7 @@ namespace LM2ReadandList
             else if(Aboxof == "25")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3652,7 +3652,7 @@ namespace LM2ReadandList
                 //////
 
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3830,7 +3830,7 @@ namespace LM2ReadandList
                     //插入二維條碼
                     int picX = 730, picY = 179;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -3856,7 +3856,7 @@ namespace LM2ReadandList
             else if(Aboxof == "30")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3915,7 +3915,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -3996,7 +3996,7 @@ namespace LM2ReadandList
                     //插入二維條碼
                     int picX = 730, picY = 179;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -4022,7 +4022,7 @@ namespace LM2ReadandList
             else if(Aboxof == "117")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4071,7 +4071,7 @@ namespace LM2ReadandList
 
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4160,7 +4160,7 @@ namespace LM2ReadandList
             else if(Aboxof == "111")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4209,7 +4209,7 @@ namespace LM2ReadandList
                 conn.Close();
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4285,7 +4285,7 @@ namespace LM2ReadandList
             if(Aboxof == "1")
             {
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4343,7 +4343,7 @@ namespace LM2ReadandList
                 //////
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4448,7 +4448,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4465,7 +4465,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4487,7 +4487,7 @@ namespace LM2ReadandList
                     oSheet.Cells[10, 2] = reader.GetString(4);
 
                     //20200205 Praxair加入PO
-                    if (ComplexLabel.Text.Contains("Praxair") == true)
+                    if(ComplexLabel.Text.Contains("Praxair") == true)
                     {
                         oSheet.Cells[5, 9] = CustomerPOLabel.Text;
                     }
@@ -4527,7 +4527,7 @@ namespace LM2ReadandList
                 //////
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4616,7 +4616,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 185;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -4647,7 +4647,7 @@ namespace LM2ReadandList
                 int Total = 0;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4664,7 +4664,7 @@ namespace LM2ReadandList
                 Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                 //載入嘜頭資料
-                
+
                 selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4719,7 +4719,7 @@ namespace LM2ReadandList
                 //////
                 string FirstCNO = "";
                 //載入嘜頭氣瓶序號位子
-                
+
                 selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -4804,7 +4804,7 @@ namespace LM2ReadandList
                     //插入圖片
                     int picX = 680, picY = 183;
                     string picadd = @"C:\QRCode\";
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
                     conn = new SqlConnection(myConnectionString);
                     conn.Open();
@@ -5032,12 +5032,12 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                     Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
-                else if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                else if(PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                         Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
-                
+
             }
 
             Excel.Sheets excelSheets = oWB.Worksheets;
@@ -5213,7 +5213,7 @@ namespace LM2ReadandList
         private void button3_Click(object sender, EventArgs e)
         {
             //切換讀取位子
-            
+
             selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=0";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -5227,7 +5227,7 @@ namespace LM2ReadandList
         private void button4_Click(object sender, EventArgs e)
         {
             //更新氣瓶相關資料進入MSNBody資料表
-            
+
             selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=1";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -5889,7 +5889,7 @@ namespace LM2ReadandList
                     }
 
                     //判斷是否已經有相同的序號入嘜頭
-                    
+
                     selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNumbers + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
@@ -6137,16 +6137,16 @@ namespace LM2ReadandList
                 string CustomerName1 = "";
 
                 //20200213 照片檢查
-                if (ProductLabel2.Text.Contains("Composite") == true)
+                if(ProductLabel2.Text.Contains("Composite") == true)
                 {
-                    using (conn = new SqlConnection(myConnectionString))
+                    using(conn = new SqlConnection(myConnectionString))
                     {
                         conn.Open();
                         selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
                         cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
+                        using(reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            if(reader.Read())
                             {
                                 ManufacturingNo1 = reader.GetString(0);
                                 HydrostaticTestDate1 = reader.GetString(1);
@@ -6155,20 +6155,20 @@ namespace LM2ReadandList
                         }
                     }
 
-                    using (conn = new SqlConnection(ESIGNmyConnectionString))
+                    using(conn = new SqlConnection(ESIGNmyConnectionString))
                     {
                         conn.Open();
                         selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
                         cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
+                        using(reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows)
+                            if(reader.HasRows)
                             {
                                 ;
                             }
                             else
                             {
-                                using (conn1 = new SqlConnection(ESIGNmyConnectionString))
+                                using(conn1 = new SqlConnection(ESIGNmyConnectionString))
                                 {
                                     conn1.Open();
                                     selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
@@ -6197,7 +6197,7 @@ namespace LM2ReadandList
 
                 //取得氣瓶批號
                 string LotNumber = null;
-                
+
                 selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
@@ -6681,7 +6681,7 @@ namespace LM2ReadandList
         {
             string HydrostaticPass = "N";
 
-            using (conn = new SqlConnection(myConnectionString))
+            using(conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
@@ -6698,7 +6698,7 @@ namespace LM2ReadandList
                 reader.Close();
 
                 selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + NoLMCylinderNOTextBox.Text + "'";
-                cmd = new SqlCommand(selectCmd,conn);
+                cmd = new SqlCommand(selectCmd, conn);
                 reader = cmd.ExecuteReader();
                 if(reader.Read())
                 {
@@ -6797,16 +6797,16 @@ namespace LM2ReadandList
             string CustomerName1 = "";
 
             //20200213 照片檢查
-            if(ProductLabel2.Text.Contains("Composite")==true)
+            if(ProductLabel2.Text.Contains("Composite") == true)
             {
-                using (conn = new SqlConnection(myConnectionString))
+                using(conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
                     selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
                     cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
+                    using(reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if(reader.Read())
                         {
                             ManufacturingNo1 = reader.GetString(0);
                             HydrostaticTestDate1 = reader.GetString(1);
@@ -6815,20 +6815,20 @@ namespace LM2ReadandList
                     }
                 }
 
-                using (conn = new SqlConnection(ESIGNmyConnectionString))
+                using(conn = new SqlConnection(ESIGNmyConnectionString))
                 {
                     conn.Open();
                     selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
                     cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
+                    using(reader = cmd.ExecuteReader())
                     {
-                        if (reader.HasRows)
+                        if(reader.HasRows)
                         {
                             ;
                         }
                         else
                         {
-                            using (conn1 = new SqlConnection(ESIGNmyConnectionString))
+                            using(conn1 = new SqlConnection(ESIGNmyConnectionString))
                             {
                                 conn1.Open();
                                 selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
@@ -6847,7 +6847,7 @@ namespace LM2ReadandList
                 }
             }
 
-            
+
 
 
             //selectCmd = "SELECT  * FROM [MSNBody] where [vchCylinderCode]+[vchCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
@@ -6879,62 +6879,62 @@ namespace LM2ReadandList
             //    conn.Close();
             //}
 
-            if (SpecialUses == "N")
+            if(SpecialUses == "N")
+            {
+                selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
+                conn = new SqlConnection(myConnectionString);
+                conn.Open();
+                cmd = new SqlCommand(selectCmd, conn);
+                reader = cmd.ExecuteReader();
+                if(reader.Read())
                 {
-                    selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
+                    HydrostaticPass = "Y";
+                }
+                reader.Close();
+                if(HydrostaticPass == "N")
+                {
+                    //找對應的舊序號，若有序號則依此序號查是否有做過水壓
+                    string OriCNo = "", OriMNO = "";
+                    selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
                     cmd = new SqlCommand(selectCmd, conn);
                     reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    if(reader.Read())
                     {
-                        HydrostaticPass = "Y";
+                        OriCNo = reader.GetString(0);
+                        OriMNO = reader.GetString(1);
                     }
                     reader.Close();
-                    if (HydrostaticPass == "N")
+
+                    if(OriCNo != "")
                     {
-                        //找對應的舊序號，若有序號則依此序號查是否有做過水壓
-                        string OriCNo = "", OriMNO = "";
-                        selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
+                        selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
                         cmd = new SqlCommand(selectCmd, conn);
                         reader = cmd.ExecuteReader();
-                        if (reader.Read())
+                        if(reader.Read())
                         {
-                            OriCNo = reader.GetString(0);
-                            OriMNO = reader.GetString(1);
+                            HydrostaticPass = "Y";
                         }
                         reader.Close();
-
-                        if (OriCNo != "")
-                        {
-                            selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            reader = cmd.ExecuteReader();
-                            if (reader.Read())
-                            {
-                                HydrostaticPass = "Y";
-                            }
-                            reader.Close();
-                        }
-                    }
-                    conn.Close();
-
-                    if (HydrostaticPass == "N")
-                    {
-                        MessageBox.Show("此序號查詢不到水壓測試資料！", "警告-W005");
-                        //NextNumber();//序號往下累加
-                        return;
-                    }
-
-                    //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
-                    //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                    if (CheckProductAcceptanceIsWork(ManufacturingNo) == false)
-                    {
-                        MessageBox.Show("此序號查詢不到成品檢驗資料！", "警告-W008");
-                        //NextNumber();//序號往下累加
-                        return;
                     }
                 }
+                conn.Close();
+
+                if(HydrostaticPass == "N")
+                {
+                    MessageBox.Show("此序號查詢不到水壓測試資料！", "警告-W005");
+                    //NextNumber();//序號往下累加
+                    return;
+                }
+
+                //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
+                //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
+                if(CheckProductAcceptanceIsWork(ManufacturingNo) == false)
+                {
+                    MessageBox.Show("此序號查詢不到成品檢驗資料！", "警告-W008");
+                    //NextNumber();//序號往下累加
+                    return;
+                }
+            }
 
             //功性能測試檢查
             if(PerformanceTest(ManufacturingNo, NoLMCylinderNOTextBox.Text) == false)
@@ -7037,7 +7037,7 @@ namespace LM2ReadandList
 
             //取得氣瓶批號
             string LotNumber = null;
-            
+
             selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -7410,7 +7410,7 @@ namespace LM2ReadandList
             string NowSeat2 = "";
 
             //此處插入一個跳出式的視窗，詢問是否要列印
-            
+
             selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -7574,7 +7574,9 @@ namespace LM2ReadandList
             conn.Close();
 
             GetThisBoxMaxCount();
-            if((QRClient.ToUpper().Trim().StartsWith("SGA") == true || QRClient.ToUpper().Trim().StartsWith("Airtanks Limited") == true) && PackingMarks.ToUpper().Trim().StartsWith("SGA") == true && Aboxof == "1")
+            bool HasSpecial = false;
+
+            if((QRClient.ToUpper().Trim().StartsWith("SGA") || QRClient.ToUpper().Trim().StartsWith("AIRTANKS")) && PackingMarks.ToUpper().Trim().StartsWith("SGA") == true && Aboxof == "1")
             {
                 string CNO = "", HydroDate = "";
                 //find SGA Marking //CustomerQRCode
@@ -7597,6 +7599,7 @@ namespace LM2ReadandList
                 reader = cmd.ExecuteReader();
                 while(reader.Read())
                 {
+                    HasSpecial = true;
                     if(reader.GetValue(3).ToString() == "")
                     {
                         // CustomerName, BottleType, BottleCatalog, ProductNo
@@ -7630,7 +7633,8 @@ namespace LM2ReadandList
                 }
                 QRcodDetail1 = QRcodDetail1.Replace("+ (Char)13 +", "\n");//轉換成換行符號
             }
-            else
+
+            if(!HasSpecial)
             {
                 List<string> SerialNoArray = new List<string>();
                 SerialNoArray.Clear();
@@ -7696,7 +7700,7 @@ namespace LM2ReadandList
         private void LoadBoxsNo()
         {
             int i = 1;
-            
+
             selectCmd = "SELECT * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' order by convert(int,[vchBoxs]) asc ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -7719,7 +7723,7 @@ namespace LM2ReadandList
                 {
                     break;
                 }
-                
+
                 selectCmd = "SELECT count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsArray[i] + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
