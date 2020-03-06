@@ -6773,10 +6773,11 @@ namespace LM2ReadandList
             }
             string ManufacturingNo = "";
             string SpecialUses = "N";
+            string MarkingType = string.Empty;
 
             //取得製造批號
 
-            selectCmd = "SELECT  [MSNBody].vchManufacturingNo,isnull([H_SpecialUses],'N') FROM [MSNBody], [Manufacturing]  where [MSNBody].[CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [MSNBody].vchManufacturingNo=[Manufacturing].[Manufacturing_NO] ";
+            selectCmd = "SELECT  [MSNBody].vchManufacturingNo,isnull([H_SpecialUses],'N'),[vchMarkingType] FROM [MSNBody], [Manufacturing]  where [MSNBody].[CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [MSNBody].vchManufacturingNo=[Manufacturing].[Manufacturing_NO] ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
@@ -6784,6 +6785,7 @@ namespace LM2ReadandList
             if(reader.Read())
             {
                 ManufacturingNo = reader.GetString(0);
+                MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
                 if(reader.GetValue(1).ToString() == "Y")
                 {
                     SpecialUses = "Y";
@@ -6791,6 +6793,23 @@ namespace LM2ReadandList
             }
             reader.Close();
             conn.Close();
+
+            using(conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+                selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.AddWithValue("@Marking", MarkingType);
+                cmd.Parameters.AddWithValue("@Box", BoxsListBox.SelectedItem);
+                using(reader = cmd.ExecuteReader())
+                {
+                    if(!reader.Read())
+                    {
+                        MessageBox.Show("氣瓶打印形式與訂單不符。", "AMSYS");
+                        return;
+                    }
+                }
+            }
 
             string ManufacturingNo1 = "";
             string HydrostaticTestDate1 = "";
