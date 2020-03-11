@@ -6197,8 +6197,9 @@ namespace LM2ReadandList
 
                 //取得氣瓶批號
                 string LotNumber = null;
+                string MarkingType = string.Empty;
 
-                selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
+                selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
@@ -6206,12 +6207,30 @@ namespace LM2ReadandList
                 while(reader.Read())
                 {
                     LotNumber = reader.GetString(0);
+                    MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
                 }
                 reader.Close();
                 conn.Close();
 
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+                    selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@Marking", MarkingType);
+                    cmd.Parameters.AddWithValue("@Box", BoxsListBox.SelectedItem);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                        {
+                            MessageBox.Show("氣瓶打印形式與訂單不符。", "AMSYS");
+                            return;
+                        }
+                    }
+                }
+
                 //如果Pass=Y SQL系統記錄此事件
-                if(Pass == "Y")
+                if (Pass == "Y")
                 {
                     PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
                 }
@@ -6806,7 +6825,7 @@ namespace LM2ReadandList
                     if(!reader.Read())
                     {
                         MessageBox.Show("氣瓶打印形式與訂單不符。", "AMSYS");
-                        return;
+                        ;
                     }
                 }
             }
