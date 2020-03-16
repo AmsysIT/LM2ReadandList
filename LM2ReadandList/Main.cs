@@ -102,17 +102,20 @@ namespace LM2ReadandList
         {
             UserListComboBox.Items.Clear();
 
-            selectCmd = "SELECT  vchTestersNo,vchTestersName FROM [LaserMarkTesters]  ORDER BY vchTestersNo";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                UserListComboBox.Items.Add(reader.GetString(0) + " " + reader.GetString(1));
+                conn.Open();
+
+                selectCmd = "SELECT vchTestersNo,vchTestersName FROM [LaserMarkTesters]  ORDER BY vchTestersNo";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        UserListComboBox.Items.Add(reader.GetString(0) + " " + reader.GetString(1));
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
         }
 
         private void LoadPrinter()
@@ -151,17 +154,20 @@ namespace LM2ReadandList
             ColorListBox.SelectedIndex = -1;
             ColorListBox.Items.Clear();
             //載入[ShippingHead]的vchPrint
-            selectCmd = "SELECT  DISTINCT [vchPrint] FROM [ShippingHead]  where [ProductName]='" + ProductComboBox.SelectedItem.ToString() + "' order by [vchPrint] desc";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                ColorListBox.Items.Add(reader.GetString(0));
+                conn.Open();
+
+                selectCmd = "SELECT  DISTINCT [vchPrint] FROM [ShippingHead]  where [ProductName]='" + ProductComboBox.SelectedItem.ToString() + "' order by [vchPrint] desc";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ColorListBox.Items.Add(reader.GetString(0));
+                    }
+                } 
             }
-            reader.Close();
-            conn.Close();
         }
 
         private void LoadListDate()
@@ -172,18 +178,20 @@ namespace LM2ReadandList
             //載入[ShippingHead]的ListDate
             //selectCmd = "SELECT  DISTINCT [ListDate] FROM [ShippingHead]  where [ProductName]='" + ProductComboBox.SelectedItem.ToString() + "' order by [ListDate] desc";
             //加入vchPrint之條件 20190212
-            selectCmd = "SELECT  DISTINCT [ListDate] FROM [ShippingHead]  where [ProductName]='" + ProductComboBox.SelectedItem.ToString() + "' and vchPrint='" + ColorListBox.SelectedItem.ToString() + "' order by [ListDate] desc";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                ListDateListBox.Items.Add(reader.GetString(0));
-            }
+                conn.Open();
 
-            reader.Close();
-            conn.Close();
+                selectCmd = "SELECT  DISTINCT [ListDate] FROM [ShippingHead]  where [ProductName]='" + ProductComboBox.SelectedItem.ToString() + "' and vchPrint='" + ColorListBox.SelectedItem.ToString() + "' order by [ListDate] desc";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ListDateListBox.Items.Add(reader.GetString(0));
+                    }
+                }
+            }
         }
 
         private void LoadSQL_ShippingHead_ProductName()
@@ -191,17 +199,20 @@ namespace LM2ReadandList
             ProductComboBox.Items.Clear();
 
             //載入[ShippingHead]的ListDate
-            selectCmd = "SELECT DISTINCT [ProductName] FROM [amsys].[dbo].[ShippingHead]  order by [ProductName] asc";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                ProductComboBox.Items.Add(reader.GetString(0));
+                conn.Open();
+
+                selectCmd = "SELECT DISTINCT [ProductName] FROM [amsys].[dbo].[ShippingHead]  order by [ProductName] asc";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProductComboBox.Items.Add(reader.GetString(0));
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
         }
 
         private void ListDateListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -215,48 +226,47 @@ namespace LM2ReadandList
 
             //selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
             //20190212
-            selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                BoxMin = Convert.ToInt32(reader.GetString(3));
+                conn.Open();
+
+                selectCmd = "SELECT [vchBoxs] FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        BoxMin = Convert.ToInt32(reader.GetString(0));
+                    }
+                }
+
+                //selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' order by convert(int,[vchBoxs]) desc ";
+                //20190212
+                selectCmd = "SELECT [vchBoxs] FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "' order by convert(int,[vchBoxs]) desc ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        BoxMax = Convert.ToInt32(reader.GetString(0));
+                    }
+                }
+
+                BoxRangeLabel.Text = BoxMin + "~" + BoxMax;
+
+                //selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
+                //20190212
+                selectCmd = "SELECT [vchBoxs] FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        BoxsListBox.Items.Add(reader.GetString(0));
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
-
-            //selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' order by convert(int,[vchBoxs]) desc ";
-            //20190212
-            selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "' order by convert(int,[vchBoxs]) desc ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
-            {
-                BoxMax = Convert.ToInt32(reader.GetString(3));
-            }
-            reader.Close();
-            conn.Close();
-
-            BoxRangeLabel.Text = BoxMin + "~" + BoxMax;
-
-            //selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
-            //20190212
-            selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and vchPrint='" + ColorListBox.SelectedItem + "'  order by convert(int,[vchBoxs]) asc ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
-            {
-                BoxsListBox.Items.Add(reader.GetString(3));
-            }
-            reader.Close();
-            conn.Close();
-
+            
             ProductLabel2.Text = "產品名稱：" + ProductComboBox.Text;
 
             ListDateLabel.Text = "嘜頭日期：" + ListDateListBox.SelectedItem;
@@ -349,68 +359,74 @@ namespace LM2ReadandList
 
         private void GetStorage()
         {
-            selectCmd = "SELECT isnull([Storage],'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                if(reader.GetString(0) == "Y")
+                conn.Open();
+
+                selectCmd = "SELECT isnull([Storage],'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    StorageLabel.Text = "嘜頭狀態：入庫嘜頭";
-                }
-                else
-                {
-                    StorageLabel.Text = "嘜頭狀態：出貨嘜頭";
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "Y")
+                        {
+                            StorageLabel.Text = "嘜頭狀態：入庫嘜頭";
+                        }
+                        else
+                        {
+                            StorageLabel.Text = "嘜頭狀態：出貨嘜頭";
+                        }
+                    }
                 }
             }
-            reader.Close();
-            conn.Close();
         }
 
         private void GetCustomerPO()
         {
             if(ListDateListBox.SelectedIndex != -1 && ProductComboBox.Text != "")
             {
-                selectCmd = "SELECT isnull([CustomerPO],''),[vchPrint],[vchAssembly],isnull(PackingMarks,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
+                using(conn = new SqlConnection(myConnectionString))
                 {
-                    if(reader.GetString(0) != "")
-                    {
-                        CustomerPOLabel.Text = "PO：" + reader.GetString(0);
-                    }
-                    else
-                    {
-                        CustomerPOLabel.Text = "PO：查無PO資料";
-                    }
-                    if(reader.GetString(1) != "")
-                    {
-                        PrintLabel.Text = "塗裝漆別：" + reader.GetString(1);
-                        AssemblyLabel.Text = "氣瓶配件：" + reader.GetString(2);
-                        ComplexLabel.Text = "嘜頭標籤：" + reader.GetString(3);
-                    }
-                    else
-                    {
+                    conn.Open();
 
-                        PrintLabel.Text = "塗裝漆別：";
-                        AssemblyLabel.Text = "氣瓶配件：";
-                        ComplexLabel.Text = "嘜頭標籤：" + reader.GetString(3);
+                    selectCmd = "SELECT isnull([CustomerPO],''),[vchPrint],[vchAssembly],isnull(PackingMarks,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(0) != "")
+                            {
+                                CustomerPOLabel.Text = "PO：" + reader.GetString(0);
+                            }
+                            else
+                            {
+                                CustomerPOLabel.Text = "PO：查無PO資料";
+                            }
+                            if (reader.GetString(1) != "")
+                            {
+                                PrintLabel.Text = "塗裝漆別：" + reader.GetString(1);
+                                AssemblyLabel.Text = "氣瓶配件：" + reader.GetString(2);
+                                ComplexLabel.Text = "嘜頭標籤：" + reader.GetString(3);
+                            }
+                            else
+                            {
+
+                                PrintLabel.Text = "塗裝漆別：";
+                                AssemblyLabel.Text = "氣瓶配件：";
+                                ComplexLabel.Text = "嘜頭標籤：" + reader.GetString(3);
+                            }
+                        }
                     }
                 }
-
-                reader.Close();
-                conn.Close();
             }
             else
             {
                 CustomerPOLabel.Text = "PO：";
             }
         }
+
         public void LoadPictrue()
         {
             try
@@ -1047,48 +1063,51 @@ namespace LM2ReadandList
                 try
                 {
                     //抓班表
-                    selectCmd = "SELECT C.WorkBeginTime,C.WorkEndTime FROM [HRMDB].[dbo].[AttendanceEmpRank] AS A LEFT JOIN [HRMDB].[dbo].[Employee] AS B ON A.EmployeeId=B.EmployeeId LEFT JOIN [HRMDB].[dbo].[AttendanceRank] AS C ON A.AttendanceRankId=C.AttendanceRankId WHERE A.Date = '" + DateTime.Now.ToString("yyyy-MM-dd 00:00:00.000") + "' and B.Code = '" + ID + "'";
-                    conn = new SqlConnection(myConnectionString21);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    reader = cmd.ExecuteReader();
-                    if(reader.Read())
+                    using(conn = new SqlConnection(myConnectionString21))
                     {
-                        if(int.Parse(DateTime.Now.ToString("HHmm").ToString()) >= int.Parse(reader.GetString(0).Replace(":", "")) && int.Parse(DateTime.Now.ToString("HHmm")) <= int.Parse(reader.GetString(1).Replace(":", "")))
+                        conn.Open();
+
+                        selectCmd = "SELECT C.WorkBeginTime,C.WorkEndTime FROM [HRMDB].[dbo].[AttendanceEmpRank] AS A LEFT JOIN [HRMDB].[dbo].[Employee] AS B ON A.EmployeeId=B.EmployeeId LEFT JOIN [HRMDB].[dbo].[AttendanceRank] AS C ON A.AttendanceRankId=C.AttendanceRankId WHERE A.Date = '" + DateTime.Now.ToString("yyyy-MM-dd 00:00:00.000") + "' and B.Code = '" + ID + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
                         {
-                            worktype = "生產";
-                        }
-                        else
-                        {
-                            worktype = "加班";
+                            if (reader.Read())
+                            {
+                                if (int.Parse(DateTime.Now.ToString("HHmm").ToString()) >= int.Parse(reader.GetString(0).Replace(":", "")) && int.Parse(DateTime.Now.ToString("HHmm")) <= int.Parse(reader.GetString(1).Replace(":", "")))
+                                {
+                                    worktype = "生產";
+                                }
+                                else
+                                {
+                                    worktype = "加班";
+                                }
+                            }
+                            else
+                            {
+                                worktype = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "當日查無班表";
+                            }
                         }
                     }
-                    else
-                    {
-                        worktype = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "當日查無班表";
-                    }
-                    reader.Close();
-                    conn.Close();
 
                     //初始化登錄登出時間
-                    selectCmd = "INSERT INTO [LoginPackage] ([OperatorId],[Operator],[LoginTime],[LogoutTime],[Date]) VALUES('" + ID + "','" + User + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyyMMdd") + "')";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-
-                    selectCmd = "SELECT TOP(1) [ID] FROM [LoginPackage] WHERE [OperatorId] = '" + ID + "' ORDER BY [ID] desc";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    reader = cmd.ExecuteReader();
-                    while(reader.Read())
+                    using(conn = new SqlConnection(myConnectionString))
                     {
-                        toolStripStatusLabel1.Text = reader.GetInt64(0).ToString();
+                        conn.Open();
+
+                        selectCmd = "INSERT INTO [LoginPackage] ([OperatorId],[Operator],[LoginTime],[LogoutTime],[Date]) VALUES('" + ID + "','" + User + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyyMMdd") + "')";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.ExecuteNonQuery();
+
+                        selectCmd = "SELECT TOP(1) [ID] FROM [LoginPackage] WHERE [OperatorId] = '" + ID + "' ORDER BY [ID] desc";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                toolStripStatusLabel1.Text = reader.GetInt64(0).ToString();
+                            }
+                        }
                     }
-                    reader.Close();
-                    conn.Close();
                 }
                 catch(Exception ex)
                 {
@@ -1184,18 +1203,20 @@ namespace LM2ReadandList
             string temp = "";
 
             //載入[ShippingHead]的一箱幾隻
-
-            selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                temp = reader.GetString(4);
+                conn.Open();
+
+                selectCmd = "SELECT [vchAboxof] FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        temp = reader.GetString(0);
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
 
             return temp;
         }
@@ -1205,19 +1226,21 @@ namespace LM2ReadandList
             string temp = "";
 
             //載入[ShippingHead]的棧板編號
-
-            selectCmd = "SELECT  isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                temp = reader.GetString(0);
-            }
-            reader.Close();
-            conn.Close();
+                conn.Open();
 
+                selectCmd = "SELECT isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        temp = reader.GetString(0);
+                    }
+                }
+            }
+            
             return temp;
         }
 
@@ -1265,63 +1288,62 @@ namespace LM2ReadandList
         private void DirectionJudgmentTimer_Tick(object sender, EventArgs e)
         {
             string where = "";
-
-
-            selectCmd = "SELECT  * FROM [LaserMarkDirection] ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            
+            using(conn = new SqlConnection(myConnectionString))
             {
-                where = reader.GetString(0);
-            }
-            reader.Close();
-            conn.Close();
+                conn.Open();
 
-            if(where == "0")
-            {
-                //提示此序號已經載入罵頭
-                TipTextLabel.Visible = false;
-
-                BottleTextBox.Focus();
-                BottleLabel.Visible = true;
-                BottomLabel.Visible = false;
-                Direction = "0";
-                BeGin = "Y";
-            }
-            else if(where == "1")
-            {
-                BottomTextBox.Focus();
-                BottleLabel.Visible = false;
-                BottomLabel.Visible = true;
-                Direction = "1";
-
-                if(BeGin == "N")
+                selectCmd = "SELECT [vchWhere] FROM [LaserMarkDirection] ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    BottomTextBox.Text = "";
+                    if (reader.Read())
+                    {
+                        where = reader.GetString(0);
+                    }
+                }
+
+                if (where == "0")
+                {
+                    //提示此序號已經載入罵頭
+                    TipTextLabel.Visible = false;
+
+                    BottleTextBox.Focus();
+                    BottleLabel.Visible = true;
+                    BottomLabel.Visible = false;
+                    Direction = "0";
+                    BeGin = "Y";
+                }
+                else if (where == "1")
+                {
+                    BottomTextBox.Focus();
+                    BottleLabel.Visible = false;
+                    BottomLabel.Visible = true;
+                    Direction = "1";
+
+                    if (BeGin == "N")
+                    {
+                        BottomTextBox.Text = "";
+                    }
+                }
+                
+                selectCmd = "SELECT [vchWhere] FROM [LaserMarkDirection] ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "2")
+                        {
+                            Pass = "Y";
+                        }
+                        else
+                        {
+                            Pass = "N";
+                        }
+                    }
                 }
             }
-
-
-            selectCmd = "SELECT  * FROM [LaserMarkDirection] ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
-            {
-                if(reader.GetString(0) == "2")
-                {
-                    Pass = "Y";
-                }
-                else
-                {
-                    Pass = "N";
-                }
-            }
-            reader.Close();
-            conn.Close();
         }
 
         public void LoadSQLDate()
@@ -1394,21 +1416,26 @@ namespace LM2ReadandList
             //判斷一箱幾隻
             string Aboxof = "", PackingMarks = "", Client = "";
             PalletNoString = "-";
+
             //判斷一箱幾隻
-            selectCmd = "SELECT vchAboxof ,isnull(PackingMarks,''),isnull(PalletNo,'-'),Client FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                Aboxof = reader.GetString(0);
-                PackingMarks = reader.GetValue(1).ToString();
-                PalletNoString = reader.GetValue(2).ToString();
-                Client = reader.GetValue(3).ToString();
+                conn.Open();
+
+                selectCmd = "SELECT vchAboxof ,isnull(PackingMarks,''),isnull(PalletNo,'-'),Client FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "'and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Aboxof = reader.GetString(0);
+                        PackingMarks = reader.GetValue(1).ToString();
+                        PalletNoString = reader.GetValue(2).ToString();
+                        Client = reader.GetValue(3).ToString();
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
+            
             MarkBarCode(PalletNoString);
 
             //判別是哪個裝箱嘜頭資訊
@@ -5214,61 +5241,65 @@ namespace LM2ReadandList
         {
             //切換讀取位子
 
-            selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=0";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            reader.Read();
-            reader.Close();
-            conn.Close();
+            using(conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=0";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             //更新氣瓶相關資料進入MSNBody資料表
 
-            selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=1";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            reader.Read();
-            reader.Close();
-            conn.Close();
+            using(conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "Update [LaserMarkDirection] SET  [vchWhere]=1";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private bool PerformanceTest(string ManufacturingNo, string CylinderNo)
         {
             //可參考20160714之註解
 
-            string ProductNo = "", ProductType = ""; conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            selectCmd = "SELECT  Product.Type, Product.Product_No  FROM Manufacturing,Product where  Manufacturing.Product_NO=Product.Product_No and Manufacturing.Manufacturing_NO='" + ManufacturingNo + "'";
+            string ProductNo = "", ProductType = "";
 
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using (conn = new SqlConnection(myConnectionString))
             {
-                ProductNo = reader.GetValue(1).ToString();
-                if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁瓶") == 0)
+                conn.Open();
+
+                selectCmd = "SELECT  Product.Type, Product.Product_No  FROM Manufacturing,Product where  Manufacturing.Product_NO=Product.Product_No and Manufacturing.Manufacturing_NO='" + ManufacturingNo + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    ProductType = reader.GetValue(0).ToString();
-                    //鋁瓶
-                }
-                else if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁內膽") == 0)
-                {
-                    ProductType = reader.GetValue(0).ToString();
-                    //鋁內膽
-                }
-                else if(reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
-                {
-                    ProductType = reader.GetValue(0).ToString();
-                    //複合瓶
+                    if (reader.Read())
+                    {
+                        ProductNo = reader.GetValue(1).ToString();
+                        if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁瓶") == 0)
+                        {
+                            ProductType = reader.GetValue(0).ToString();
+                            //鋁瓶
+                        }
+                        else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁內膽") == 0)
+                        {
+                            ProductType = reader.GetValue(0).ToString();
+                            //鋁內膽
+                        }
+                        else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
+                        {
+                            ProductType = reader.GetValue(0).ToString();
+                            //複合瓶
+                        }
+                    }
                 }
             }
-            reader.Close();
-            conn.Close();
 
             //判別產品類型
             if(ProductType.CompareTo("鋁瓶") == 0)
@@ -5502,13 +5533,16 @@ namespace LM2ReadandList
                     return false;
                 }
             }
+
             return true;//表示有做功性能測試
         }
 
         private bool HydroFinish(string MNO, string CylinderNo)
-        {//水壓
+        {
+            //水壓
             bool IsFinish = false;
             bool IsReportFinish = false;
+
             using(connP = new SqlConnection(ESIGNmyConnectionString))
             {
                 connP.Open();
@@ -5541,247 +5575,271 @@ namespace LM2ReadandList
                     }
                 }
             }
+
             return IsFinish && IsReportFinish;
         }
 
         private bool TensileFinish(string MNO)
-        {//拉伸
+        {
+            //拉伸
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
 
-            selectCmdP = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by ID desc";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
+            {
+                connP.Open();
 
-            if(readerP.HasRows)
-            {
-                IsFinish = true;
+                selectCmdP = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by ID desc";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
             }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private bool BendingFinish(string MNO)
-        {//彎曲
+        {
+            //彎曲
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
-            selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='彎曲' order by id desc";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
 
-            if(readerP.HasRows)
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
             {
-                IsFinish = true;
+                connP.Open();
+
+                selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='彎曲' order by id desc";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
             }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private bool SquashFinish(string MNO)
-        {//壓扁
+        {
+            //壓扁
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
-            selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='壓扁' order by id desc";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
 
-            if(readerP.HasRows)
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
             {
-                IsFinish = true;
+                connP.Open();
+
+                selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='壓扁' order by id desc";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
             }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private bool BurstFinish(string MNO)
-        {//爆破
+        {
+            //爆破
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
 
-            selectCmdP = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by AcceptanceNo desc";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
+            {
+                connP.Open();
 
-            if(readerP.HasRows)
-            {
-                IsFinish = true;
+                selectCmdP = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
             }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private bool HardnessFinish(string MNO)
-        {//硬度
+        {
+            //硬度
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
 
-            selectCmdP = "SELECT  * FROM QCDocument INNER JOIN Esign2 ON QCDocument.AcceptanceNo = Esign2.AcceptanceNo WHERE (QCDocument.LotNo = '" + MNO + "') AND (Esign2.Type LIKE '硬度%')";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
+            {
+                connP.Open();
 
-            if(readerP.HasRows)
-            {
-                IsFinish = true;
+                selectCmdP = "SELECT  * FROM QCDocument INNER JOIN Esign2 ON QCDocument.AcceptanceNo = Esign2.AcceptanceNo WHERE (QCDocument.LotNo = '" + MNO + "') AND (Esign2.Type LIKE '硬度%')";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
             }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private bool CycleFinish(string MNO)
-        {//循環
+        {
+            //循環
             bool IsFinish = false;
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
-            selectCmdP = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + MNO + "' and FinalResult='PASS'";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
 
-            if(readerP.HasRows)
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
             {
-                IsFinish = true;
-            }
-            else
-            {
-                IsFinish = false;
-            }
-            readerP.Close();
-            connP.Close();
+                connP.Open();
 
+                selectCmdP = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + MNO + "' and FinalResult='PASS'";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.HasRows)
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                    }
+                }
+            }
+               
             return IsFinish;
         }
 
         private bool FeedFinish(string MNO)
-        {//進料  碳纖、玻纖、樹脂
+        {
+            //進料  碳纖、玻纖、樹脂
             bool IsFinish = false;
             string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
             string CarbonSpec = "", GlassSpec = "";
-            connP = new SqlConnection(ESIGNmyConnectionString);
-            connP.Open();
-            selectCmdP = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo,CarbonSpec,GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + MNO + "' order by id desc";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
-            if(readerP.Read())
-            {
-                ResinLotNo = readerP.GetValue(0).ToString();
-                CarbonLotNo = readerP.GetValue(1).ToString();
-                GlassLotNo = readerP.GetValue(2).ToString();
-                CarbonSpec = readerP.GetValue(3).ToString();
-                GlassSpec = readerP.GetValue(4).ToString();
-            }
-            readerP.Close();
-            if(ResinLotNo == "" || CarbonLotNo == "" || GlassLotNo == "")
-            {
-                connP.Close();
-                return true;
-            }
 
-            selectCmdP = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
-            if(readerP.Read())
+            using (connP = new SqlConnection(ESIGNmyConnectionString))
             {
-                IsFinish = true;
-            }
-            else
-            {
-                readerP.Close();
-                connP.Close();
-                IsFinish = false;
-                return IsFinish;
-            }
-            readerP.Close();
+                connP.Open();
 
-            selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
-            if(readerP.Read())
-            {
-                IsFinish = true;
-            }
-            else
-            {
-                readerP.Close();
-                connP.Close();
-                IsFinish = false;
-                return IsFinish;
-            }
-            readerP.Close();
+                selectCmdP = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo,CarbonSpec,GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + MNO + "' order by id desc";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.Read())
+                    {
+                        ResinLotNo = readerP.GetValue(0).ToString();
+                        CarbonLotNo = readerP.GetValue(1).ToString();
+                        GlassLotNo = readerP.GetValue(2).ToString();
+                        CarbonSpec = readerP.GetValue(3).ToString();
+                        GlassSpec = readerP.GetValue(4).ToString();
+                    }
+                }
+                
+                if (ResinLotNo == "" || CarbonLotNo == "" || GlassLotNo == "")
+                {
+                    return true;
+                }
 
-            //selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and FiberLotNo like '%" + GlassLotNo + "%'";
-            selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
-            if(readerP.Read())
-            {
-                IsFinish = true;
-            }
-            else
-            {
-                readerP.Close();
-                connP.Close();
-                IsFinish = false;
-                return IsFinish;
-            }
-            readerP.Close();
+                selectCmdP = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.Read())
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                        return IsFinish;
+                    }
+                }
 
-            //selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and FiberLotNo like '%" + CarbonLotNo + "%'";
-            selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-            cmdP = new SqlCommand(selectCmdP, connP);
-            readerP = cmdP.ExecuteReader();
-            if(readerP.Read())
-            {
-                IsFinish = true;
+                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.Read())
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                        return IsFinish;
+                    }
+                }
+
+                //selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and FiberLotNo like '%" + GlassLotNo + "%'";
+                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.Read())
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                        return IsFinish;
+                    }
+                }
+
+                //selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and FiberLotNo like '%" + CarbonLotNo + "%'";
+                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                cmdP = new SqlCommand(selectCmdP, connP);
+                using (readerP = cmdP.ExecuteReader())
+                {
+                    if (readerP.Read())
+                    {
+                        IsFinish = true;
+                    }
+                    else
+                    {
+                        IsFinish = false;
+                        return IsFinish;
+                    }
+                }
             }
-            else
-            {
-                readerP.Close();
-                connP.Close();
-                IsFinish = false;
-                return IsFinish;
-            }
-            readerP.Close();
-            connP.Close();
 
             return IsFinish;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {//AutoAccumulate
+        {
+            //AutoAccumulate
 
             //用來記錄氣瓶序號
             string CylinderNumbers = "";
@@ -5809,38 +5867,37 @@ namespace LM2ReadandList
                     //判別是否為報廢氣瓶
                     selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + CylinderNumbers + "'";
                     cmd = new SqlCommand(selectCmd, conn);
-                    reader = cmd.ExecuteReader();
-                    if(reader.Read())
+                    using (reader = cmd.ExecuteReader())
                     {
-                        BottleTextBox.Text = "";
-                        BottomTextBox.Text = "";
-                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                        HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                        BottleTextBox.Focus();
-                        reader.Close();
-                        conn.Close();
-                        return;
+                        if (reader.Read())
+                        {
+                            BottleTextBox.Text = "";
+                            BottomTextBox.Text = "";
+                            MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                            HistoryListBox.Items.Add(NowTime());
+                            HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
+                            BottleTextBox.Focus();
+                            return;
+                        }
                     }
-                    reader.Close();
+                        
 
                     //20181002 報工報廢
                     selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
                     cmd = new SqlCommand(selectCmd, conn);
-                    reader = cmd.ExecuteReader();
-                    if(reader.Read())
+                    using (reader = cmd.ExecuteReader())
                     {
-                        BottleTextBox.Text = "";
-                        BottomTextBox.Text = "";
-                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                        HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                        BottleTextBox.Focus();
-                        reader.Close();
-                        conn.Close();
-                        return;
+                        if (reader.Read())
+                        {
+                            BottleTextBox.Text = "";
+                            BottomTextBox.Text = "";
+                            MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                            HistoryListBox.Items.Add(NowTime());
+                            HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
+                            BottleTextBox.Focus();
+                            return;
+                        }
                     }
-                    reader.Close();
 
                     bool HasRestrictions = false;
                     DateTime ResrictionDate = new DateTime();
@@ -5901,10 +5958,8 @@ namespace LM2ReadandList
                         HistoryListBox.Items.Add(NowTime());
                         HistoryListBox.Items.Add("此序號已重複：" + CylinderNumbers);
                         BottleTextBox.Focus();
-                        reader.Close();
                         return;
                     }
-                    reader.Close();
                 }
 
                 string ManufacturingNo = "";
@@ -6199,22 +6254,21 @@ namespace LM2ReadandList
                 string LotNumber = null;
                 string MarkingType = string.Empty;
 
-                selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                while(reader.Read())
-                {
-                    LotNumber = reader.GetString(0);
-                    MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
-                }
-                reader.Close();
-                conn.Close();
-
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
+
+                    selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            LotNumber = reader.GetString(0);
+                            MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
+                        }
+                    }
+                        
                     selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.Parameters.AddWithValue("@Marking", MarkingType);
@@ -6244,8 +6298,7 @@ namespace LM2ReadandList
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                reader.Close();
+                cmd.ExecuteNonQuery();
                 conn.Close();
 
                 //更新登出時間
@@ -6463,24 +6516,27 @@ namespace LM2ReadandList
         private void CheckFull()
         {
             //確定滿箱才可以列印
-            selectCmd = "SELECT  count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                if(reader.GetInt32(0) == Convert.ToInt32(Aboxof()))
+                conn.Open();
+
+                selectCmd = "SELECT  count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    PrintButton.Enabled = true;
-                }
-                else
-                {
-                    PrintButton.Enabled = false;
+                    if (reader.Read())
+                    {
+                        if (reader.GetInt32(0) == Convert.ToInt32(Aboxof()))
+                        {
+                            PrintButton.Enabled = true;
+                        }
+                        else
+                        {
+                            PrintButton.Enabled = false;
+                        }
+                    }
                 }
             }
-            reader.Close();
-            conn.Close();
         }
 
         private string GetManufacturingCode(string Code)
@@ -6623,47 +6679,42 @@ namespace LM2ReadandList
         {
             //找出客戶、國家
             string Client = "", City = "";
-            selectCmd = "SELECT  Client, City FROM ShippingHead where  ListDate='" + ListDateListBox.SelectedItem.ToString() + "' and  ProductName='" + ProductComboBox.Text.Trim().ToString() + "'and vchBoxs='" + BoxsListBox.SelectedItem.ToString() + "' and City is not null";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+
+            using(conn = new SqlConnection(myConnectionString))
             {
-                Client = reader.GetString(0);
-                City = reader.GetString(1);
-                reader.Close();
-                conn.Close();
-            }
-            else
-            {
-                reader.Close();
-                conn.Close();
-            }
-            //找出對應的
-            selectCmd = "SELECT   Client, City, SCNO, ECNO FROM  ShippingCityCNo WHERE  ('" + NoLMCylinderNOTextBox.Text.Trim() + "' >= SCNO) AND ('" + NoLMCylinderNOTextBox.Text.Trim() + "' <= ECNO)";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
-            {
-                if(Client == reader.GetString(0) && City == reader.GetString(1))
+                conn.Open();
+
+                selectCmd = "SELECT  Client, City FROM ShippingHead where  ListDate='" + ListDateListBox.SelectedItem.ToString() + "' and  ProductName='" + ProductComboBox.Text.Trim().ToString() + "'and vchBoxs='" + BoxsListBox.SelectedItem.ToString() + "' and City is not null";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    reader.Close();
-                    conn.Close();
-                    return true;
+                    if (reader.Read())
+                    {
+                        Client = reader.GetString(0);
+                        City = reader.GetString(1);
+                    }
                 }
-                else
+
+                //找出對應的
+                selectCmd = "SELECT   Client, City, SCNO, ECNO FROM  ShippingCityCNo WHERE  ('" + NoLMCylinderNOTextBox.Text.Trim() + "' >= SCNO) AND ('" + NoLMCylinderNOTextBox.Text.Trim() + "' <= ECNO)";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show("該序號歸屬" + reader.GetString(1));
-                    reader.Close();
-                    conn.Close();
-                    return false;
+                    if (reader.Read())
+                    {
+                        if (Client == reader.GetString(0) && City == reader.GetString(1))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("該序號歸屬" + reader.GetString(1));
+                            return false;
+                        }
+                    }
                 }
             }
-            reader.Close();
-            conn.Close();
+            
             //SELECT   Client, City, SCNO, ECNO FROM  ShippingCityCNo WHERE  ('5347835T' >= SCNO) AND ('5347835T' <= ECNO)
             return true;
         }
@@ -6707,42 +6758,40 @@ namespace LM2ReadandList
                 //判別是否為報廢氣瓶
                 selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
                 cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
+                using (reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                    reader.Close();
-                    return;
+                    if (reader.Read())
+                    {
+                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                        return;
+                    }
                 }
-                reader.Close();
 
                 selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + NoLMCylinderNOTextBox.Text + "'";
                 cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
+                using (reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                    reader.Close();
-                    return;
+                    if (reader.Read())
+                    {
+                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
+                        return;
+                    }
                 }
-                reader.Close();
 
                 //判斷是否已經有相同的序號入嘜頭
 
                 selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + NoLMCylinderNOTextBox.Text + "'";
                 cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
+                using (reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
-                    // MessageBox.Show("此序號已存入嘜頭資訊！", "警告-W004");
-                    // NextNumber();//序號往下累加
-                    reader.Close();
-                    return;
-
+                    if (reader.Read())
+                    {
+                        MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
+                        // MessageBox.Show("此序號已存入嘜頭資訊！", "警告-W004");
+                        // NextNumber();//序號往下累加
+                        return;
+                    }
                 }
-                reader.Close();
-
 
                 bool HasRestrictions = false;
                 DateTime ResrictionDate = new DateTime();
@@ -6790,32 +6839,33 @@ namespace LM2ReadandList
                     return;
                 }
             }
+
             string ManufacturingNo = "";
             string SpecialUses = "N";
             string MarkingType = string.Empty;
 
-            //取得製造批號
-
-            selectCmd = "SELECT  [MSNBody].vchManufacturingNo,isnull([H_SpecialUses],'N'),[vchMarkingType] FROM [MSNBody], [Manufacturing]  where [MSNBody].[CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [MSNBody].vchManufacturingNo=[Manufacturing].[Manufacturing_NO] ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
-            {
-                ManufacturingNo = reader.GetString(0);
-                MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
-                if(reader.GetValue(1).ToString() == "Y")
-                {
-                    SpecialUses = "Y";
-                }
-            }
-            reader.Close();
-            conn.Close();
+            
 
             using(conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
+
+                //取得製造批號
+                selectCmd = "SELECT  [MSNBody].vchManufacturingNo,isnull([H_SpecialUses],'N'),[vchMarkingType] FROM [MSNBody], [Manufacturing]  where [MSNBody].[CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [MSNBody].vchManufacturingNo=[Manufacturing].[Manufacturing_NO] ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        ManufacturingNo = reader.GetString(0);
+                        MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
+                        if (reader.GetValue(1).ToString() == "Y")
+                        {
+                            SpecialUses = "Y";
+                        }
+                    }
+                }
+
                 selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
                 cmd = new SqlCommand(selectCmd, conn);
                 cmd.Parameters.AddWithValue("@Marking", MarkingType);
@@ -6884,9 +6934,6 @@ namespace LM2ReadandList
                     }
                 }
             }
-
-
-
 
             //selectCmd = "SELECT  * FROM [MSNBody] where [vchCylinderCode]+[vchCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
             //conn = new SqlConnection(myConnectionString);
@@ -7093,8 +7140,7 @@ namespace LM2ReadandList
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            reader.Close();
+            cmd.ExecuteNonQuery();
             conn.Close();
 
             //更新登出時間
@@ -7211,7 +7257,6 @@ namespace LM2ReadandList
             Bitmap bmp = new Bitmap(BarCodePictureBox.Width, BarCodePictureBox.Height);
             BarCodePictureBox.DrawToBitmap(bmp, new Rectangle(0, 0, BarCodePictureBox.Width, BarCodePictureBox.Height));
             bmp.Save(@"C:\SerialNoCode\" + SerialNo + ".png", ImageFormat.Png);
-
         }
 
         private void CreateBarCode(string BarCodeData)
@@ -7449,43 +7494,40 @@ namespace LM2ReadandList
 
             //此處插入一個跳出式的視窗，詢問是否要列印
 
-            selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                NowSeat2 = reader.GetString(5);
-                BoxsListBoxIndex = BoxsListBox.SelectedIndex.ToString();
+                conn.Open();
 
-                reader.Close();
-                conn.Close();
-
-                //如果箱號已經超過最大箱數則不自動跳箱
-                if((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
+                selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show("此日期嘜頭已經完全結束", "提示");
-                    return;
-                }
+                    if (reader.Read())
+                    {
+                        NowSeat2 = reader.GetString(5);
+                        BoxsListBoxIndex = BoxsListBox.SelectedIndex.ToString();
 
-                if(NowSeat2 == Aboxof())
-                {
-                    if(PrintCheckBox.Checked == true)
-                    {
-                        PrintButton.PerformClick();
+                        //如果箱號已經超過最大箱數則不自動跳箱
+                        if ((Convert.ToInt32(BoxsListBoxIndex) >= (BoxsListBox.Items.Count - 1)) && BoxsListBox.Items.Count != 1 && NowSeat2 == Aboxof())
+                        {
+                            MessageBox.Show("此日期嘜頭已經完全結束", "提示");
+                            return;
+                        }
+
+                        if (NowSeat2 == Aboxof())
+                        {
+                            if (PrintCheckBox.Checked == true)
+                            {
+                                PrintButton.PerformClick();
+                            }
+                            else
+                            {
+                                BoxsListBox.SelectedIndex = (Convert.ToInt32(BoxsListBoxIndex) + 1);
+                            }
+                            WhereSeatLabel.Text = "1";
+                        }
                     }
-                    else
-                    {
-                        BoxsListBox.SelectedIndex = (Convert.ToInt32(BoxsListBoxIndex) + 1);
-                    }
-                    WhereSeatLabel.Text = "1";
                 }
-            }
-            else
-            {
-                reader.Close();
-                conn.Close();
             }
         }
 
@@ -7496,22 +7538,25 @@ namespace LM2ReadandList
             string NowSeat = "";
 
             //判斷[ShippingBody]是否有資料
-            selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                NowSeat = reader.GetString(5);
-            }
-            else
-            {
-                NowSeat = "1";
-            }
-            reader.Close();
-            conn.Close();
+                conn.Open();
 
+                selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.SelectedItem + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        NowSeat = reader.GetString(5);
+                    }
+                    else
+                    {
+                        NowSeat = "1";
+                    }
+                }
+            }
+            
             return NowSeat;
         }
 
@@ -7576,17 +7621,22 @@ namespace LM2ReadandList
         private string QRcodeName()
         {
             string QRcodeName1 = "";
-            selectCmd = "SELECT [ListDate],[ProductName],[vchBoxs],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+
+            using(conn = new SqlConnection(myConnectionString))
             {
-                QRcodeName1 = reader.GetString(0) + reader.GetString(1) + reader.GetString(2);
+                conn.Open();
+
+                selectCmd = "SELECT [ListDate],[ProductName],[vchBoxs],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],'') FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "' ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        QRcodeName1 = reader.GetString(0) + reader.GetString(1) + reader.GetString(2);
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
+            
             return QRcodeName1;
         }
         private string QRcodDetailData()
@@ -7739,40 +7789,46 @@ namespace LM2ReadandList
         {
             int i = 1;
 
-            selectCmd = "SELECT * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' order by convert(int,[vchBoxs]) asc ";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                BoxsArray[i] = reader.GetString(3);
-                i++;
+                conn.Open();
+
+                selectCmd = "SELECT * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' order by convert(int,[vchBoxs]) asc ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        BoxsArray[i] = reader.GetString(3);
+                        i++;
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
         }
 
         private void LoadBoxsCount()
         {
-            for(int i = 1; i < BoxsArray.Length; i++)
+            using(conn = new SqlConnection(myConnectionString))
             {
-                if(BoxsArray[i] == null)
+                for (int i = 1; i < BoxsArray.Length; i++)
                 {
-                    break;
-                }
+                    if (BoxsArray[i] == null)
+                    {
+                        break;
+                    }
 
-                selectCmd = "SELECT count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsArray[i] + "'";
-                conn = new SqlConnection(myConnectionString);
-                conn.Open();
-                cmd = new SqlCommand(selectCmd, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
-                {
-                    BoxsCountArray[i] = reader.GetInt32(0);
+                    conn.Open();
+
+                    selectCmd = "SELECT count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsArray[i] + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            BoxsCountArray[i] = reader.GetInt32(0);
+                        }
+                    }
                 }
-                reader.Close();
-                conn.Close();
             }
         }
 
@@ -7795,18 +7851,22 @@ namespace LM2ReadandList
 
         private void GetThisBoxMaxCount()
         {
-            selectCmd = "SELECT count([WhereSeat]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            if(reader.Read())
+            using(conn = new SqlConnection(myConnectionString))
             {
-                Getcount = reader.GetInt32(0);
+                conn.Open();
+
+                selectCmd = "SELECT count([WhereSeat]) FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Getcount = reader.GetInt32(0);
+                    }
+                }
             }
-            reader.Close();
-            conn.Close();
         }
+
         //一維條碼//
         public class Code128
         {
@@ -8860,12 +8920,14 @@ namespace LM2ReadandList
                     try
                     {
                         //更新登出時間
-                        selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
-                        conn = new SqlConnection(myConnectionString);
-                        conn.Open();
-                        cmd = new SqlCommand(selectCmd, conn);
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
+                        using(conn = new SqlConnection(myConnectionString))
+                        {
+                            conn.Open();
+
+                            selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -8971,12 +9033,14 @@ namespace LM2ReadandList
                 try
                 {
                     //更新登出時間
-                    selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
-                    conn = new SqlConnection(myConnectionString);
-                    conn.Open();
-                    cmd = new SqlCommand(selectCmd, conn);
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    using(conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime]= '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 catch(Exception ex)
                 {

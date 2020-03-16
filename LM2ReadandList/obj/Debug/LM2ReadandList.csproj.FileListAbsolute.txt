@@ -29738,3 +29738,4 @@ E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customize
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CopyComplete
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.pdb
+C:\Users\A00570\Desktop\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.exe.config
