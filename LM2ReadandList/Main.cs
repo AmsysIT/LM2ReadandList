@@ -1608,117 +1608,121 @@ namespace LM2ReadandList
             //預設1維條碼圖片大小200*30            
             int oneY = 427;
             string oneadd = @"C:\Code\";
-            selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
-            conn = new SqlConnection(myConnectionString);
-            conn.Open();
-            cmd = new SqlCommand(selectCmd, conn);
-            reader = cmd.ExecuteReader();
-            while(reader.Read())
+            
+            using (conn = new SqlConnection(myConnectionString))
             {
-                Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                if(Aboxof == "8")
+                conn.Open();
+
+                selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [vchBoxs]='" + BoxsListBox.SelectedItem + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "16")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "10")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 222, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "20")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
-                    //PalletNoString
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
-                }
-                else if(Aboxof == "40")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "36")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 240, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 774, oneY, 200, 30);
-                }
-                else if(Aboxof == "25")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 268, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
-                }
-                else if(Aboxof == "30")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 268, 431, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 754, 430, 200, 30);
-                }
-                else if(Aboxof == "15")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
-                }
-                else if(Aboxof == "12")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "117")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
-                }
-                else if(Aboxof == "111")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
-                }
-                else if(Aboxof == "4" || Aboxof == "3")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                   Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "2")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
-                    oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                  Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
-                }
-                else if(Aboxof == "1")
-                {
-                    oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                    Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
+                    if (Aboxof == "8")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "16")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "10")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 222, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "20")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
+                        //PalletNoString
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "40")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "36")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 240, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 774, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "25")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 268, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "30")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 268, 431, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, 430, 200, 30);
+                    }
+                    else if (Aboxof == "15")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "12")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "117")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
+                    }
+                    else if (Aboxof == "111")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
+                    }
+                    else if (Aboxof == "4" || Aboxof == "3")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                       Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "2")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                      Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "1")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + BoxsListBox.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                    }
                 }
             }
 
@@ -7312,11 +7316,9 @@ namespace LM2ReadandList
             //}
             //reader.Close();
             //conn.Close();
-            
-            
 
             //判斷[ShippingBody]是否有資料
-            using(conn = new SqlConnection(myConnectionString))
+            using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
@@ -7342,6 +7344,11 @@ namespace LM2ReadandList
                         WhereSeatLabel.Text = (Convert.ToInt32(NowSeat) + 1).ToString();
                     }
                 }
+            }
+
+            using (conn = new SqlConnection(myConnectionString)) 
+            {
+                conn.Open();
 
                 //取得氣瓶批號
                 selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
@@ -7353,7 +7360,7 @@ namespace LM2ReadandList
                         LotNumber = reader.GetString(0);
                     }
                 }
-                    
+                
 
                 //雷刻掃描完確認瓶身瓶底相同後載入資料
                 selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + NowTime() + "'," + "'" + LotNumber + "')";
