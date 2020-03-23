@@ -5099,6 +5099,8 @@ namespace LM2ReadandList
                 //由序號找出產品型號再找出Part Description、Part No.
                 using (conn = new SqlConnection(myConnectionString))
                 {
+                    conn.Open();
+
                     selectCmd = "SELECT CustomerName, BottleType, BottleCatalog, ProductNo, LogoType, ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
