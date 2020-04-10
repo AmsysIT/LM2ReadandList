@@ -1772,17 +1772,15 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
-
+                            
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[10, 10] = reader.GetString(5);
 
-                            //20200205 Praxair加入PO
-                            if (ComplexLabel.Text.Contains("Praxair") == true)
-                            {
-                                oSheet.Cells[5, 11] = CustomerPOLabel.Text;
-                            }
+                            //20200410 加入PO
+                            oSheet.Cells[5, 11] = CustomerPOLabel.Text;
 
                             //該客戶要其自己的logo
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
@@ -2037,8 +2035,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[12, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
+
                             //載入棧板號
                             oSheet.Cells[12, 11] = reader.GetString(5);
 
@@ -2204,8 +2207,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[14, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
+
                             //載入棧板號
                             oSheet.Cells[14, 10] = reader.GetString(5);
 
@@ -2541,8 +2549,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[9, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 11] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //棧板號
                             oSheet.Cells[9, 10] = reader.GetString(5);
 
@@ -2789,8 +2802,12 @@ namespace LM2ReadandList
                             //載入箱號
                             oSheet.Cells[12, 2] = reader.GetString(4);
 
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[12, 8] = reader.GetString(5);
 
@@ -3023,8 +3040,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[10, 8] = reader.GetString(5);
 
@@ -3241,8 +3263,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入棧板編號
                             oSheet.Cells[10, 8] = reader.GetString(5);
 
@@ -3494,8 +3521,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
+
                             //載入棧板編號
                             oSheet.Cells[10, 10] = reader.GetString(5);
 
@@ -3705,8 +3737,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[11, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入棧板號
                             oSheet.Cells[11, 10] = reader.GetString(5);
 
@@ -3975,8 +4012,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[12, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[12, 10] = reader.GetString(5);
 
@@ -4145,6 +4187,10 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[19, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 9] = reader.GetString(0);
                             oSheet.Cells[19, 11] = reader.GetString(5);
@@ -4292,8 +4338,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[19, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 9] = reader.GetString(0);
+
                             //載入
                             oSheet.Cells[19, 11] = reader.GetString(5);
 
@@ -4436,6 +4487,9 @@ namespace LM2ReadandList
 
                                 //載入箱號
                                 oSheet.Cells[10, 2] = reader.GetString(4);
+
+                                //20200410 加入PO
+                                oSheet.Cells[5, 9] = CustomerPOLabel.Text;
                             }
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
@@ -4609,14 +4663,12 @@ namespace LM2ReadandList
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
 
-                            //20200205 Praxair加入PO
-                            if (ComplexLabel.Text.Contains("Praxair") == true)
-                            {
-                                oSheet.Cells[5, 9] = CustomerPOLabel.Text;
-                            }
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
 
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[10, 8] = reader.GetString(5);
 
@@ -4808,8 +4860,13 @@ namespace LM2ReadandList
 
                             //載入箱號
                             oSheet.Cells[10, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
+
                             //載入箱號
                             oSheet.Cells[10, 8] = reader.GetString(5);
 
@@ -5043,12 +5100,16 @@ namespace LM2ReadandList
                         {
                             //描述
                             oSheet.Cells[5, 3] = reader.GetString(2);
+
                             //品號
                             oSheet.Cells[6, 3] = reader.GetString(3);
+
                             //載入P/O No.
                             oSheet.Cells[8, 3] = reader.GetString(1);
+
                             //載入一箱幾隻
                             oSheet.Cells[7, 3] = Getcount;
+
                             //載入箱號
                             oSheet.Cells[9, 3] = reader.GetString(4);
                         }
