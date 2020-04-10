@@ -7960,70 +7960,36 @@ namespace LM2ReadandList
             GetThisBoxMaxCount();
             bool HasSpecial = false;
 
-            if((QRClient.ToUpper().Trim().StartsWith("SGA") || QRClient.ToUpper().Trim().StartsWith("AIRTANKS")) && PackingMarks.ToUpper().Trim().StartsWith("SGA") == true && Aboxof == "1")
+            if((QRClient.ToUpper().Trim().StartsWith("SGA") || QRClient.ToUpper().Trim().StartsWith("AIRTANKS") 
+                || PackingMarks.Trim().StartsWith("Scientific Gas Australia Pty Ltd")
+                || PackingMarks.Trim().StartsWith("Airtanks Limited")) && Aboxof == "1")
             {
-                string CNO = "", HydroDate = "";
+                string CylinderNO = "";
                 //find SGA Marking //CustomerQRCode
-
+                //2020/04/10 EMMY已經與客戶確認  只要單支裝 右手邊最大QRCode改為只顯示序號
                 //找出序號再找出產品型號，找出Marking
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT isnull(CylinderNumbers,'') FROM [ShippingBody] where [ListDate]='" + ListDateListBox.SelectedItem + "' and [ProductName]='" + ProductComboBox.Text + "' and [WhereBox]='" + BoxsListBox.SelectedItem + "' order by Convert(int,WhereSeat)";
+                    selectCmd = "SELECT ISNULL([CylinderNumbers],'') FROM [ShippingBody]" +
+                        " WHERE [ListDate] = @ListDate AND [ProductName] = @ProductName " +
+                        "AND [WhereBox] = @WhereBox ORDER BY Convert(int,WhereSeat)";
                     cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@ListDate", ListDateListBox.SelectedItem);
+                    cmd.Parameters.AddWithValue("@ProductName", ProductComboBox.Text);
+                    cmd.Parameters.AddWithValue("@WhereBox", BoxsListBox.SelectedItem);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            CNO = reader.GetValue(0).ToString();
+                            CylinderNO = reader.GetValue(0).ToString();
                         }
                     }
+                    QRcodDetail1 = CylinderNO;
 
-                    selectCmd = "SELECT CustomerQRCode.ProductNo, CustomerQRCode.QRCodeContent,vchHydrostaticTestDate,isnull(LogoType,'') FROM  Manufacturing INNER JOIN MSNBody"
-                    + " ON Manufacturing.Manufacturing_NO = MSNBody.vchManufacturingNo INNER JOIN CustomerQRCode ON Manufacturing.Product_NO = CustomerQRCode.ProductNo "
-                    + "WHERE (MSNBody.[CylinderNo] = '" + CNO + "') ";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            HasSpecial = true;
-                            if (reader.GetValue(3).ToString() == "")
-                            {
-                                // CustomerName, BottleType, BottleCatalog, ProductNo
-                                QRcodDetail1 = reader.GetValue(1).ToString();
-                                HydroDate = reader.GetValue(2).ToString();
-                            }
-                            else if (PackingMarks.Contains(reader.GetValue(3).ToString()) == true)
-                            {
-                                QRcodDetail1 = reader.GetValue(1).ToString();
-                                HydroDate = reader.GetValue(2).ToString();
-                            }
-                        }
-                    }
+                    HasSpecial = true;
                 }
-                    
-                
-                if(CNO != "")
-                {
-                    MarkSerialNoDataMatrix(CNO);
-                    //MarkSerialNoBarCode(CNO);
-                }
-
-                //補入序號
-                QRcodDetail1 = QRcodDetail1.Replace("##", CNO);
-                //補入水壓年月(依序號建立時之水壓年月)
-                QRcodDetail1 = QRcodDetail1.Replace("*", HydroDate);
-                if(QRcodDetail1.Contains("SERVICE") == true)
-                {
-                    QRcodDetail1 = QRcodDetail1.Replace("SERVICE" + QRcodDetail1.Split(new string[] { "SERVICE" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0] + "/", "SERVICE " + (Convert.ToInt32(QRcodDetail1.Split(new string[] { "SERVICE" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0]) + 15).ToString() + "/");
-                }
-                else if(QRcodDetail1.Contains("FIN") == true)
-                {
-                    QRcodDetail1 = QRcodDetail1.Replace("FIN" + QRcodDetail1.Split(new string[] { "FIN" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0] + "/", "FIN " + (Convert.ToInt32(QRcodDetail1.Split(new string[] { "FIN" }, StringSplitOptions.RemoveEmptyEntries)[1].Split('/')[0]) + 20).ToString() + "/");
-                }
-                QRcodDetail1 = QRcodDetail1.Replace("+ (Char)13 +", "\n");//轉換成換行符號
             }
 
             if(!HasSpecial)
