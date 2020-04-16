@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.194" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.195" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LM2ReadandList.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OJEOGeLUy65aKbiIJDAg/SY77i0=</dsig:DigestValue>
+        <dsig:DigestValue>5TIBjRjhlkB+f98WAasUGDW0wTo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4065,13 +4065,13 @@
       <dsig:DigestValue>Q1YFif8cfwIvHuWlERQH5d4FU9Y=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="LOGO_Paintball Sports GmbH.png" size="49568">
+  <file name="LOGO_Paintball Sports GmbH.png" size="31451">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>4VOPIUl4NCplX26Kjqimp5uT/yI=</dsig:DigestValue>
+      <dsig:DigestValue>1uOaxt7K/S3eMySImeHq2/y1qRE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="LOGO_Regulator 3000psi.png" size="46645">
