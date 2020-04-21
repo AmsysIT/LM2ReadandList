@@ -17,7 +17,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Linq;
-using System.Transactions;
 
 namespace LM2ReadandList
 {
@@ -42,8 +41,9 @@ namespace LM2ReadandList
         string selectCmd, selectCmd1, selectCmd2;
         SqlConnection conn, conn1, conn2;
         SqlCommand cmd, cmd1, cmd2;
-        SqlDataReader reader, reader1;
+        SqlDataReader reader, reader1, reader2;
         SqlDataAdapter sqlAdapter;
+        DataTable DT = new DataTable();
 
         public string ESIGNmyConnectionString;
         string selectCmdP;
@@ -96,6 +96,14 @@ namespace LM2ReadandList
             LoadUser();
             //LoadPrinter();
             LoadSQL_ShippingHead_ProductName();
+
+            //20200420 
+            DT = new DataTable();
+            selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName] FROM [MSNBody] " +
+                "where [vchHydrostaticTestDate] >= '" + DateTime.Now.AddYears(-1).ToString("yyyy/MM") + "' and [vchHydrostaticTestDate] <> '手動載入' and [vchHydrostaticTestDate] <> 'NG' " +
+                "and not exists (select [CylinderNumbers] from ShippingBody where [CylinderNo]=[CylinderNumbers]) ";
+            sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
+            sqlAdapter.Fill(DT);
         }
 
         private void LoadUser()
@@ -6026,12 +6034,12 @@ namespace LM2ReadandList
                 bool HasRestrictions = false;
                 DateTime ResrictionDate = new DateTime();
                 DateTime HydroDate = new DateTime();
-                string ManufacturingNo = "";
                 string SpecialUses = "N";
                 string NowSeat = "";
-                string ManufacturingNo1 = "";
-                string HydrostaticTestDate1 = "";
-                string CustomerName1 = "";
+                string HydrostaticTestDate = "";
+                string CustomerName = "";
+                string LotNumber = null;
+                string MarkingType = string.Empty;
 
                 if (BottleTextBox.Text != "")
                 {
@@ -6042,7 +6050,26 @@ namespace LM2ReadandList
                     CylinderNumbers = BottomTextBox.Text;
                 }
 
-                using(conn = new SqlConnection(myConnectionString))
+                //20200420
+                try
+                {
+                    var v = (from p in DT.AsEnumerable()
+                             where p.Field<string>("CylinderNo") == CylinderNumbers
+                             select p).First();
+
+                    LotNumber = v.Field<string>("vchManufacturingNo");
+                    HydrostaticTestDate = v.Field<string>("vchHydrostaticTestDate");
+                    CustomerName = v.Field<string>("ClientName");
+                    MarkingType = v.Field<string>("vchMarkingType");
+
+                }
+                catch ( Exception ee)
+                {
+                    MessageBox.Show("查無序號，請聯繫MIS");
+                    return;
+                }
+
+                using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
@@ -6141,14 +6168,13 @@ namespace LM2ReadandList
                     }
                         
 
-                    selectCmd = "SELECT Manufacturing_NO, isnull([H_SpecialUses],'N') FROM [MSNBody],[Manufacturing] where [CylinderNo]='" + CylinderNumbers + "' and Manufacturing_NO=vchManufacturingNo";
+                    selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "' ";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            ManufacturingNo = reader.GetString(0);
-                            if (reader.GetValue(1).ToString() == "Y")
+                            if (reader.GetValue(0).ToString() == "Y")
                             {
                                 SpecialUses = "Y";
                             }
@@ -6179,7 +6205,7 @@ namespace LM2ReadandList
                     {
                         conn.Open();
 
-                        selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + CylinderNumbers + "' and [HydrostaticPass]='Y'";
+                        selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + LotNumber + "' and [CylinderNo]='" + CylinderNumbers + "' and [HydrostaticPass]='Y'";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -6195,7 +6221,7 @@ namespace LM2ReadandList
                             //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                             string OriCNo = "", OriMNO = "";
 
-                            selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + CylinderNumbers + "' ";
+                            selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + LotNumber + "' and [NewCylinderNo]='" + CylinderNumbers + "' ";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
@@ -6234,18 +6260,18 @@ namespace LM2ReadandList
                     }
                     //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
                     //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                    if(CheckProductAcceptanceIsWork(ManufacturingNo) == false)
+                    if(CheckProductAcceptanceIsWork(LotNumber) == false)
                     {
                         BottleTextBox.Text = "";
                         BottomTextBox.Text = "";
                         MessageBox.Show("此批號查詢不到成品檢驗資料！", "警告-W007");
                         HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此批號查無成品檢驗資訊：" + ManufacturingNo);
+                        HistoryListBox.Items.Add("此批號查無成品檢驗資訊：" + LotNumber);
                         BottleTextBox.Focus();
                     }
                 }
                 //功性能測試檢查
-                if(PerformanceTest(ManufacturingNo, CylinderNumbers) == false)
+                if(PerformanceTest(LotNumber, CylinderNumbers) == false)
                 {
                     //BottleTextBox.Text = "";
                     //BottomTextBox.Text = "";
@@ -6352,31 +6378,14 @@ namespace LM2ReadandList
                         }
                     }
                 }
-                
 
                 //20200213 照片檢查
-                if(ProductLabel2.Text.Contains("Composite") == true)
+                if (ProductLabel2.Text.Contains("Composite") == true)
                 {
-                    using(conn = new SqlConnection(myConnectionString))
+                    using (conn = new SqlConnection(ESIGNmyConnectionString))
                     {
                         conn.Open();
-                        selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using(reader = cmd.ExecuteReader())
-                        {
-                            if(reader.Read())
-                            {
-                                ManufacturingNo1 = reader.GetString(0);
-                                HydrostaticTestDate1 = reader.GetString(1);
-                                CustomerName1 = reader.GetString(2);
-                            }
-                        }
-                    }
-
-                    using(conn = new SqlConnection(ESIGNmyConnectionString))
-                    {
-                        conn.Open();
-                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
+                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
                         cmd = new SqlCommand(selectCmd, conn);
                         using(reader = cmd.ExecuteReader())
                         {
@@ -6393,7 +6402,7 @@ namespace LM2ReadandList
                                     cmd1 = new SqlCommand(selectCmd1, conn1);
                                     cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
                                     cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
-                                    cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + ManufacturingNo1 + "";
+                                    cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + LotNumber + "";
 
                                     cmd1.ExecuteNonQuery();
 
@@ -6407,31 +6416,13 @@ namespace LM2ReadandList
 
 
                 //取得現在時間
-                DateTime currentTime = DateTime.Now;
-                //轉成字串   
-                String timeString = currentTime.ToLocalTime().ToString();
-
-                string PassselectCmd = "";
-
-                //取得氣瓶批號
-                string LotNumber = null;
-                string MarkingType = string.Empty;
-
+                String timeString = DateTime.Now.ToLocalTime().ToString();
+                
+                //確認打字形式是否相同
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
-
-                    selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType] FROM [MSNBody] where [CylinderNo]='" + CylinderNumbers + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            LotNumber = reader.GetString(0);
-                            MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
-                        }
-                    }
-
+                    
                     selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE  [vchBoxs] = @Box";
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.Parameters.AddWithValue("@Marking", MarkingType);
@@ -6445,145 +6436,6 @@ namespace LM2ReadandList
                     }
                 }
 
-                /*
-                if (ProductComboBox.Text.Contains("Aluminum"))
-                {
-                    string FinalePartNo = "";
-                    string FromPartNo = "";
-                    string ToPartNo = "";
-
-                    List<string> BOMList = new List<string>();
-                    DateTime Now = DateTime.Now;
-
-                    using (conn = new SqlConnection(myConnectionString_AMS3))
-                    {
-                        conn.Open();
-
-                        //抓最終品號
-                        selectCmd = "Select PartNo FROM [DataBase_LotNoContrasttOrderNo] where [LotNo] ='" + LotNumber + "'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                if (reader.Read())
-                                {
-                                    FinalePartNo = reader.GetString(0);
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("批號：" + ManufacturingNo + " 無對應品號，無法包裝\n請聯繫生管", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
-                        }
-
-                        BOMList.AddRange(GetBOM.GetBOMList(FinalePartNo).ToArray());
-
-                        if (BOMList.Any())
-                        {
-                            var q1 = (from p in BOMList
-                                      where p.Split(',')[1] == "P26"
-                                      select p.Split(',')[0]).First();
-
-                            ToPartNo = q1;
-                        }
-
-                        //抓上一階品號
-                        selectCmd = "select isnull(MB003,'') from BOMMB where MB001='" + ToPartNo + "' and STOP_DATE is null and MB003 like '[A-Z]%' ";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                FromPartNo = reader.GetString(0);
-                            }
-                        }
-                    }
-
-                    int ShippingBody = 0;
-                    int FromWip = 0;
-                    int ToWip = 0;
-
-                    try
-                    {
-                        using (TransactionScope scope = new TransactionScope())
-                        {
-                            using (conn = new SqlConnection(myConnectionString))
-                            {
-                                conn.Open();
-
-                                //如果Pass=Y SQL系統記錄此事件
-                                if (Pass == "Y")
-                                {
-                                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
-                                }
-                                else
-                                {
-                                    PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "','" + LotNumber + "')";
-                                }
-
-                                //雷刻掃描完確認瓶身瓶底相同後載入資料
-                                selectCmd = PassselectCmd;
-                                cmd = new SqlCommand(selectCmd, conn);
-                                ShippingBody = cmd.ExecuteNonQuery();
-
-
-                                //待料移出
-                                selectCmd = "insert into WIP ( Process, PartNo, LotNo, Count, CountFinish, AddUser, AddDate ) " +
-                                "values ( @Process, @PartNo, @LotNo, @Count, @CountFinish, @AddUser, @AddDate) ";
-
-                                cmd = new SqlCommand(selectCmd, conn);
-
-                                cmd.Parameters.Add("@Process", SqlDbType.VarChar).Value = "P26";
-                                cmd.Parameters.Add("@PartNo", SqlDbType.VarChar).Value = FromPartNo;
-                                cmd.Parameters.Add("@LotNo", SqlDbType.VarChar).Value = LotNumber;
-                                cmd.Parameters.Add("@Count", SqlDbType.Int).Value = -1;
-                                cmd.Parameters.Add("@CountFinish", SqlDbType.Int).Value = 0;
-                                cmd.Parameters.Add("@AddUser", SqlDbType.VarChar).Value = UserLabel.Text.Split(' ')[1].ToString();
-                                cmd.Parameters.Add("@AddDate", SqlDbType.DateTime).Value = Now;
-
-                                FromWip = cmd.ExecuteNonQuery();
-
-                                //完工移入
-                                selectCmd = "insert into WIP ( Process, PartNo, LotNo, Count, CountFinish, AddUser, AddDate ) " +
-                                "values ( @Process, @PartNo, @LotNo, @Count, @CountFinish, @AddUser, @AddDate) ";
-
-                                cmd = new SqlCommand(selectCmd, conn);
-
-                                cmd.Parameters.Add("@Process", SqlDbType.VarChar).Value = "P26";
-                                cmd.Parameters.Add("@PartNo", SqlDbType.VarChar).Value = ToPartNo;
-                                cmd.Parameters.Add("@LotNo", SqlDbType.VarChar).Value = LotNumber;
-                                cmd.Parameters.Add("@Count", SqlDbType.Int).Value = 0;
-                                cmd.Parameters.Add("@CountFinish", SqlDbType.Int).Value = 1;
-                                cmd.Parameters.Add("@AddUser", SqlDbType.VarChar).Value = UserLabel.Text.Split(' ')[1].ToString();
-                                cmd.Parameters.Add("@AddDate", SqlDbType.DateTime).Value = Now;
-
-                                ToWip = cmd.ExecuteNonQuery();
-                            }
-
-                            //交易確認都成功才執行(如果都沒有0就是都成功)
-                            if (ShippingBody != 0 && FromWip != 0 && ToWip != 0)
-                            {
-                                scope.Complete();
-                            }
-                            else
-                            {
-                                MessageBox.Show("資料比對有誤，資料已復原，請在量測一次", "AMSYS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString(), "AMSYS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    
-                }*/
-
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
@@ -6591,22 +6443,16 @@ namespace LM2ReadandList
                     //如果Pass=Y SQL系統記錄此事件
                     if (Pass == "Y")
                     {
-                        PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
+                        selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[Incomplete],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "'," + "'Y'" + ",'" + LotNumber + "')";
                     }
                     else
                     {
-                        PassselectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "','" + LotNumber + "')";
+                        selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNumbers + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + timeString + "','" + LotNumber + "')";
                     }
 
                     //雷刻掃描完確認瓶身瓶底相同後載入資料
-                    selectCmd = PassselectCmd;
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.ExecuteNonQuery();
-                }
-
-                using (conn=new SqlConnection(myConnectionString))
-                {
-                    conn.Open();
 
                     //更新登出時間
                     selectCmd = "UPDATE [LoginPackage] SET  [LogoutTime] = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' , [IsUpdate]='0' WHERE [ID] = '" + toolStripStatusLabel1.Text + "'";
@@ -6619,11 +6465,7 @@ namespace LM2ReadandList
                 }
 
                 time = 420;
-
-                if(LinkLMCheckBox.Checked == true)
-                {
-                    ;
-                }
+                
                 string BoxsListBoxIndex = "";
                 string NowSeat2 = "";
 
@@ -6805,9 +6647,7 @@ namespace LM2ReadandList
         private string NowTime()
         {
             //取得現在時間
-            DateTime currentTime = DateTime.Now;
-            //轉成字串   
-            string timeString = currentTime.ToLocalTime().ToString();
+            string timeString = DateTime.Now.ToLocalTime().ToString();
 
             return timeString;
         }
@@ -7051,15 +6891,32 @@ namespace LM2ReadandList
             bool HasRestrictions = false;
             DateTime ResrictionDate = new DateTime();
             DateTime HydroDate = new DateTime();
-            string ManufacturingNo = "";
             string SpecialUses = "N";
             string MarkingType = string.Empty;
-            string ManufacturingNo1 = "";
-            string HydrostaticTestDate1 = "";
-            string CustomerName1 = "";
+            string HydrostaticTestDate = "";
+            string CustomerName = "";
             string NowSeat = "";
-            string LotNumber = null;
+            string LotNumber = string.Empty;
+            
+            //20200420
+            try
+            {
+                var v = (from p in DT.AsEnumerable()
+                         where p.Field<string>("CylinderNo") == NoLMCylinderNOTextBox.Text
+                         select p).First();
 
+                LotNumber = v.Field<string>("vchManufacturingNo");
+                MarkingType = v.Field<string>("vchMarkingType");
+                HydrostaticTestDate = v.Field<string>("vchHydrostaticTestDate");
+                CustomerName = v.Field<string>("ClientName");
+
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show("查無序號，請聯繫MIS");
+                return;
+            }
+            
             using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
@@ -7143,21 +7000,19 @@ namespace LM2ReadandList
                     return;
                 }
             }
-
-            using(conn = new SqlConnection(myConnectionString))
+            
+            using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
                 //取得製造批號
-                selectCmd = "SELECT  [MSNBody].vchManufacturingNo,isnull([H_SpecialUses],'N'),[vchMarkingType] FROM [MSNBody], [Manufacturing]  where [MSNBody].[CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [MSNBody].vchManufacturingNo=[Manufacturing].[Manufacturing_NO] ";
+                selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "'";
                 cmd = new SqlCommand(selectCmd, conn);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        ManufacturingNo = reader.GetString(0);
-                        MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
-                        if (reader.GetValue(1).ToString() == "Y")
+                        if (reader.GetValue(0).ToString() == "Y")
                         {
                             SpecialUses = "Y";
                         }
@@ -7181,26 +7036,10 @@ namespace LM2ReadandList
             //20200213 照片檢查
             if(ProductLabel2.Text.Contains("Composite") == true)
             {
-                using(conn = new SqlConnection(myConnectionString))
-                {
-                    conn.Open();
-                    selectCmd = "select vchManufacturingNo,vchHydrostaticTestDate,ClientName from MSNBody where CylinderNo='" + NoLMCylinderNOTextBox.Text + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using(reader = cmd.ExecuteReader())
-                    {
-                        if(reader.Read())
-                        {
-                            ManufacturingNo1 = reader.GetString(0);
-                            HydrostaticTestDate1 = reader.GetString(1);
-                            CustomerName1 = reader.GetString(2);
-                        }
-                    }
-                }
-
                 using(conn = new SqlConnection(ESIGNmyConnectionString))
                 {
                     conn.Open();
-                    selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + ManufacturingNo1 + "' and HydrostaticTestDate='" + HydrostaticTestDate1 + "' and CustomerName='" + CustomerName1 + "'";
+                    selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using(reader = cmd.ExecuteReader())
                     {
@@ -7217,7 +7056,7 @@ namespace LM2ReadandList
                                 cmd1 = new SqlCommand(selectCmd1, conn1);
                                 cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
                                 cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
-                                cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + ManufacturingNo1 + "";
+                                cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + LotNumber + "";
 
                                 cmd1.ExecuteNonQuery();
 
@@ -7252,7 +7091,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + ManufacturingNo + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
+                    selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + LotNumber + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -7267,7 +7106,7 @@ namespace LM2ReadandList
                         //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                         string OriCNo = "", OriMNO = "";
 
-                        selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + ManufacturingNo + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
+                        selectCmd = "SELECT  OriCylinderNo,OriManufacturingNo, NewCylinderNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + LotNumber + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -7303,7 +7142,7 @@ namespace LM2ReadandList
 
                 //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
                 //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                if(CheckProductAcceptanceIsWork(ManufacturingNo) == false)
+                if(CheckProductAcceptanceIsWork(LotNumber) == false)
                 {
                     MessageBox.Show("此序號查詢不到成品檢驗資料！", "警告-W008");
                     //NextNumber();//序號往下累加
@@ -7312,10 +7151,11 @@ namespace LM2ReadandList
             }
 
             //功性能測試檢查
-            if(PerformanceTest(ManufacturingNo, NoLMCylinderNOTextBox.Text) == false)
+            if(PerformanceTest(LotNumber, NoLMCylinderNOTextBox.Text) == false)
             {
                 return;
             }
+
             //20160714機制未完成，故先不使用
             //複合瓶判別
             //conn = new SqlConnection(myConnectionString);
@@ -7408,22 +7248,10 @@ namespace LM2ReadandList
                     }
                 }
             }
-
+            
             using (conn = new SqlConnection(myConnectionString)) 
             {
                 conn.Open();
-
-                //取得氣瓶批號
-                selectCmd = "SELECT [vchManufacturingNo] FROM [MSNBody] where [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        LotNumber = reader.GetString(0);
-                    }
-                }
-                
 
                 //雷刻掃描完確認瓶身瓶底相同後載入資料
                 selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time],[LotNumber])VALUES(" + "'" + ListDateListBox.SelectedItem + "'" + "," + "'" + ProductComboBox.SelectedItem + "'" + "," + "'" + NoLMCylinderNOTextBox.Text + "'" + "," + "'" + BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + UserListComboBox.Text.Remove(0, 7) + "'," + "'" + NowTime() + "'," + "'" + LotNumber + "')";
