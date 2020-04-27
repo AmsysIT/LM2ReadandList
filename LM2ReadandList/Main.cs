@@ -2045,7 +2045,7 @@ namespace LM2ReadandList
                             oSheet.Cells[12, 2] = reader.GetString(4);
 
                             //20200410 加入PO
-                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+                            oSheet.Cells[5, 13] = CustomerPOLabel.Text;
 
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
@@ -2217,7 +2217,7 @@ namespace LM2ReadandList
                             oSheet.Cells[14, 2] = reader.GetString(4);
 
                             //20200410 加入PO
-                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+                            oSheet.Cells[5, 11] = CustomerPOLabel.Text;
 
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
@@ -3531,7 +3531,7 @@ namespace LM2ReadandList
                             oSheet.Cells[10, 2] = reader.GetString(4);
 
                             //20200410 加入PO
-                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+                            oSheet.Cells[5, 11] = CustomerPOLabel.Text;
 
                             //載入客戶名稱
                             oSheet.Cells[3, 8] = reader.GetString(0);
@@ -4022,7 +4022,7 @@ namespace LM2ReadandList
                             oSheet.Cells[12, 2] = reader.GetString(4);
 
                             //20200410 加入PO
-                            oSheet.Cells[5, 9] = CustomerPOLabel.Text;
+                            oSheet.Cells[5, 11] = CustomerPOLabel.Text;
 
                             //載入客戶名稱
                             oSheet.Cells[3, 7] = reader.GetString(0);
