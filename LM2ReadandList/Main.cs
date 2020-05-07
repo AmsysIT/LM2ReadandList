@@ -355,6 +355,7 @@ namespace LM2ReadandList
             {
                 MessageBox.Show("請注意棧板編號變更為 " + APalletof() + "\nThe Pallet No. is change.");
             }
+
             NowBoxsLabel.Text = "目前箱號：" + BoxsListBox.SelectedItem;
             ABoxofLabel.Text = "一箱幾隻：" + Aboxof();
             PalletNoLabel.Text = "棧板號：" + APalletof();
@@ -1437,6 +1438,12 @@ namespace LM2ReadandList
                 MessageBox.Show("請選擇箱號.Select the box number.");
                 return;
             }
+            if (CustomerPOLabel.Text.Contains("查無PO"))
+            {
+                MessageBox.Show("查無PO資料，請聯繫生管");
+                return;
+            }
+
 
             MakeQRCode();
             MarkBarCode(BoxsListBox.SelectedItem.ToString());
