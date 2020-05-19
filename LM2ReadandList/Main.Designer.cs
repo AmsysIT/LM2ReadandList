@@ -45,7 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ReadyGroupBox = new System.Windows.Forms.GroupBox();
             this.StepLabel5 = new System.Windows.Forms.Label();
-            this.ListDateListBox = new System.Windows.Forms.ListBox();
+            this.ListDate_LB = new System.Windows.Forms.ListBox();
             this.ColorListBox = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
             this.BoxRangeLabel = new System.Windows.Forms.Label();
@@ -80,12 +80,12 @@
             this.StepLabel2 = new System.Windows.Forms.Label();
             this.StepLabel1 = new System.Windows.Forms.Label();
             this.BoxsLabel = new System.Windows.Forms.Label();
-            this.BoxsListBox = new System.Windows.Forms.ListBox();
+            this.WhereBox_LB = new System.Windows.Forms.ListBox();
             this.ProductLabel = new System.Windows.Forms.Label();
-            this.ProductComboBox = new System.Windows.Forms.ComboBox();
+            this.ProductName_CB = new System.Windows.Forms.ComboBox();
             this.ListLabel = new System.Windows.Forms.Label();
             this.UserListLabel = new System.Windows.Forms.Label();
-            this.UserListComboBox = new System.Windows.Forms.ComboBox();
+            this.User_LB = new System.Windows.Forms.ComboBox();
             this.LuckButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ListINFOGroupBox = new System.Windows.Forms.GroupBox();
@@ -94,11 +94,11 @@
             this.StorageLabel = new System.Windows.Forms.Label();
             this.PrintLabel = new System.Windows.Forms.Label();
             this.AssemblyLabel = new System.Windows.Forms.Label();
-            this.CustomerPOLabel = new System.Windows.Forms.Label();
+            this.CustomerPO_L = new System.Windows.Forms.Label();
             this.JumpBoxLabel = new System.Windows.Forms.Label();
             this.ABoxofLabel = new System.Windows.Forms.Label();
             this.NowBoxsLabel = new System.Windows.Forms.Label();
-            this.ProductLabel2 = new System.Windows.Forms.Label();
+            this.Product_L = new System.Windows.Forms.Label();
             this.ListDateLabel = new System.Windows.Forms.Label();
             this.UserLabel = new System.Windows.Forms.Label();
             this.StepTimer = new System.Windows.Forms.Timer(this.components);
@@ -275,7 +275,7 @@
             // ReadyGroupBox
             // 
             this.ReadyGroupBox.Controls.Add(this.StepLabel5);
-            this.ReadyGroupBox.Controls.Add(this.ListDateListBox);
+            this.ReadyGroupBox.Controls.Add(this.ListDate_LB);
             this.ReadyGroupBox.Controls.Add(this.ColorListBox);
             this.ReadyGroupBox.Controls.Add(this.label10);
             this.ReadyGroupBox.Controls.Add(this.BoxRangeLabel);
@@ -286,12 +286,12 @@
             this.ReadyGroupBox.Controls.Add(this.StepLabel2);
             this.ReadyGroupBox.Controls.Add(this.StepLabel1);
             this.ReadyGroupBox.Controls.Add(this.BoxsLabel);
-            this.ReadyGroupBox.Controls.Add(this.BoxsListBox);
+            this.ReadyGroupBox.Controls.Add(this.WhereBox_LB);
             this.ReadyGroupBox.Controls.Add(this.ProductLabel);
-            this.ReadyGroupBox.Controls.Add(this.ProductComboBox);
+            this.ReadyGroupBox.Controls.Add(this.ProductName_CB);
             this.ReadyGroupBox.Controls.Add(this.ListLabel);
             this.ReadyGroupBox.Controls.Add(this.UserListLabel);
-            this.ReadyGroupBox.Controls.Add(this.UserListComboBox);
+            this.ReadyGroupBox.Controls.Add(this.User_LB);
             this.ReadyGroupBox.Location = new System.Drawing.Point(0, 2);
             this.ReadyGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ReadyGroupBox.Name = "ReadyGroupBox";
@@ -313,18 +313,18 @@
             this.StepLabel5.TabIndex = 48;
             this.StepLabel5.Text = "5";
             // 
-            // ListDateListBox
+            // ListDate_LB
             // 
-            this.ListDateListBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ListDateListBox.FormattingEnabled = true;
-            this.ListDateListBox.ItemHeight = 26;
-            this.ListDateListBox.Location = new System.Drawing.Point(228, 111);
-            this.ListDateListBox.Margin = new System.Windows.Forms.Padding(4);
-            this.ListDateListBox.Name = "ListDateListBox";
-            this.ListDateListBox.Size = new System.Drawing.Size(177, 238);
-            this.ListDateListBox.TabIndex = 9;
-            this.ListDateListBox.TabStop = false;
-            this.ListDateListBox.SelectedIndexChanged += new System.EventHandler(this.ListDateListBox_SelectedIndexChanged);
+            this.ListDate_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ListDate_LB.FormattingEnabled = true;
+            this.ListDate_LB.ItemHeight = 26;
+            this.ListDate_LB.Location = new System.Drawing.Point(228, 111);
+            this.ListDate_LB.Margin = new System.Windows.Forms.Padding(4);
+            this.ListDate_LB.Name = "ListDate_LB";
+            this.ListDate_LB.Size = new System.Drawing.Size(177, 238);
+            this.ListDate_LB.TabIndex = 9;
+            this.ListDate_LB.TabStop = false;
+            this.ListDate_LB.SelectedIndexChanged += new System.EventHandler(this.ListDate_LB_SelectedIndexChanged);
             // 
             // ColorListBox
             // 
@@ -775,18 +775,18 @@
             this.BoxsLabel.TabIndex = 14;
             this.BoxsLabel.Text = "Box";
             // 
-            // BoxsListBox
+            // WhereBox_LB
             // 
-            this.BoxsListBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.BoxsListBox.FormattingEnabled = true;
-            this.BoxsListBox.ItemHeight = 26;
-            this.BoxsListBox.Location = new System.Drawing.Point(415, 164);
-            this.BoxsListBox.Margin = new System.Windows.Forms.Padding(4);
-            this.BoxsListBox.Name = "BoxsListBox";
-            this.BoxsListBox.Size = new System.Drawing.Size(160, 186);
-            this.BoxsListBox.TabIndex = 13;
-            this.BoxsListBox.TabStop = false;
-            this.BoxsListBox.SelectedIndexChanged += new System.EventHandler(this.BoxsListBox_SelectedIndexChanged);
+            this.WhereBox_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.WhereBox_LB.FormattingEnabled = true;
+            this.WhereBox_LB.ItemHeight = 26;
+            this.WhereBox_LB.Location = new System.Drawing.Point(415, 164);
+            this.WhereBox_LB.Margin = new System.Windows.Forms.Padding(4);
+            this.WhereBox_LB.Name = "WhereBox_LB";
+            this.WhereBox_LB.Size = new System.Drawing.Size(160, 186);
+            this.WhereBox_LB.TabIndex = 13;
+            this.WhereBox_LB.TabStop = false;
+            this.WhereBox_LB.SelectedIndexChanged += new System.EventHandler(this.WhereBox_LB_SelectedIndexChanged);
             // 
             // ProductLabel
             // 
@@ -799,19 +799,19 @@
             this.ProductLabel.TabIndex = 12;
             this.ProductLabel.Text = "Product Name";
             // 
-            // ProductComboBox
+            // ProductName_CB
             // 
-            this.ProductComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ProductComboBox.Enabled = false;
-            this.ProductComboBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ProductComboBox.FormattingEnabled = true;
-            this.ProductComboBox.Location = new System.Drawing.Point(228, 45);
-            this.ProductComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.ProductComboBox.Name = "ProductComboBox";
-            this.ProductComboBox.Size = new System.Drawing.Size(351, 34);
-            this.ProductComboBox.TabIndex = 11;
-            this.ProductComboBox.TabStop = false;
-            this.ProductComboBox.SelectedIndexChanged += new System.EventHandler(this.ListDateComboBox_SelectedIndexChanged);
+            this.ProductName_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ProductName_CB.Enabled = false;
+            this.ProductName_CB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ProductName_CB.FormattingEnabled = true;
+            this.ProductName_CB.Location = new System.Drawing.Point(228, 45);
+            this.ProductName_CB.Margin = new System.Windows.Forms.Padding(4);
+            this.ProductName_CB.Name = "ProductName_CB";
+            this.ProductName_CB.Size = new System.Drawing.Size(351, 34);
+            this.ProductName_CB.TabIndex = 11;
+            this.ProductName_CB.TabStop = false;
+            this.ProductName_CB.SelectedIndexChanged += new System.EventHandler(this.ProductName_CB_SelectedIndexChanged);
             // 
             // ListLabel
             // 
@@ -835,12 +835,12 @@
             this.UserListLabel.TabIndex = 8;
             this.UserListLabel.Text = "Operator";
             // 
-            // UserListComboBox
+            // User_LB
             // 
-            this.UserListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.UserListComboBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.UserListComboBox.FormattingEnabled = true;
-            this.UserListComboBox.Items.AddRange(new object[] {
+            this.User_LB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.User_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.User_LB.FormattingEnabled = true;
+            this.User_LB.Items.AddRange(new object[] {
             "TESTER",
             "劉曉芬",
             "邱美奇",
@@ -853,13 +853,13 @@
             "譚易澄",
             "黎惠珍",
             "雷那杜"});
-            this.UserListComboBox.Location = new System.Drawing.Point(8, 45);
-            this.UserListComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.UserListComboBox.Name = "UserListComboBox";
-            this.UserListComboBox.Size = new System.Drawing.Size(209, 34);
-            this.UserListComboBox.TabIndex = 7;
-            this.UserListComboBox.TabStop = false;
-            this.UserListComboBox.SelectedIndexChanged += new System.EventHandler(this.UserListComboBox_SelectedIndexChanged);
+            this.User_LB.Location = new System.Drawing.Point(8, 45);
+            this.User_LB.Margin = new System.Windows.Forms.Padding(4);
+            this.User_LB.Name = "User_LB";
+            this.User_LB.Size = new System.Drawing.Size(209, 34);
+            this.User_LB.TabIndex = 7;
+            this.User_LB.TabStop = false;
+            this.User_LB.SelectedIndexChanged += new System.EventHandler(this.User_LB_SelectedIndexChanged);
             // 
             // LuckButton
             // 
@@ -891,11 +891,11 @@
             this.ListINFOGroupBox.Controls.Add(this.StorageLabel);
             this.ListINFOGroupBox.Controls.Add(this.PrintLabel);
             this.ListINFOGroupBox.Controls.Add(this.AssemblyLabel);
-            this.ListINFOGroupBox.Controls.Add(this.CustomerPOLabel);
+            this.ListINFOGroupBox.Controls.Add(this.CustomerPO_L);
             this.ListINFOGroupBox.Controls.Add(this.JumpBoxLabel);
             this.ListINFOGroupBox.Controls.Add(this.ABoxofLabel);
             this.ListINFOGroupBox.Controls.Add(this.NowBoxsLabel);
-            this.ListINFOGroupBox.Controls.Add(this.ProductLabel2);
+            this.ListINFOGroupBox.Controls.Add(this.Product_L);
             this.ListINFOGroupBox.Controls.Add(this.ListDateLabel);
             this.ListINFOGroupBox.Controls.Add(this.UserLabel);
             this.ListINFOGroupBox.Location = new System.Drawing.Point(595, 1);
@@ -963,16 +963,16 @@
             this.AssemblyLabel.TabIndex = 10;
             this.AssemblyLabel.Text = "氣瓶配件：";
             // 
-            // CustomerPOLabel
+            // CustomerPO_L
             // 
-            this.CustomerPOLabel.AutoSize = true;
-            this.CustomerPOLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.CustomerPOLabel.Location = new System.Drawing.Point(85, 166);
-            this.CustomerPOLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.CustomerPOLabel.Name = "CustomerPOLabel";
-            this.CustomerPOLabel.Size = new System.Drawing.Size(71, 27);
-            this.CustomerPOLabel.TabIndex = 9;
-            this.CustomerPOLabel.Text = "PO：";
+            this.CustomerPO_L.AutoSize = true;
+            this.CustomerPO_L.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerPO_L.Location = new System.Drawing.Point(85, 166);
+            this.CustomerPO_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CustomerPO_L.Name = "CustomerPO_L";
+            this.CustomerPO_L.Size = new System.Drawing.Size(71, 27);
+            this.CustomerPO_L.TabIndex = 9;
+            this.CustomerPO_L.Text = "PO：";
             // 
             // JumpBoxLabel
             // 
@@ -1008,17 +1008,17 @@
             this.NowBoxsLabel.TabIndex = 3;
             this.NowBoxsLabel.Text = "目前箱號：";
             // 
-            // ProductLabel2
+            // Product_L
             // 
-            this.ProductLabel2.AutoSize = true;
-            this.ProductLabel2.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ProductLabel2.ForeColor = System.Drawing.Color.Navy;
-            this.ProductLabel2.Location = new System.Drawing.Point(7, 76);
-            this.ProductLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ProductLabel2.Name = "ProductLabel2";
-            this.ProductLabel2.Size = new System.Drawing.Size(147, 27);
-            this.ProductLabel2.TabIndex = 2;
-            this.ProductLabel2.Text = "產品名稱：";
+            this.Product_L.AutoSize = true;
+            this.Product_L.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Product_L.ForeColor = System.Drawing.Color.Navy;
+            this.Product_L.Location = new System.Drawing.Point(7, 76);
+            this.Product_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Product_L.Name = "Product_L";
+            this.Product_L.Size = new System.Drawing.Size(147, 27);
+            this.Product_L.TabIndex = 2;
+            this.Product_L.Text = "產品名稱：";
             // 
             // ListDateLabel
             // 
@@ -1408,7 +1408,7 @@
         private System.Windows.Forms.GroupBox ListINFOGroupBox;
         private System.Windows.Forms.Label UserLabel;
         private System.Windows.Forms.Label NowBoxsLabel;
-        private System.Windows.Forms.Label ProductLabel2;
+        private System.Windows.Forms.Label Product_L;
         private System.Windows.Forms.Label ListDateLabel;
         private System.Windows.Forms.Timer StepTimer;
         private System.Windows.Forms.Label ABoxofLabel;
@@ -1427,16 +1427,16 @@
         private System.Windows.Forms.GroupBox NoLMGroupBox;
         private System.Windows.Forms.TextBox NoLMCylinderNOTextBox;
         private System.Windows.Forms.Label NoLMCylinderLabel;
-        internal System.Windows.Forms.ComboBox UserListComboBox;
-        internal System.Windows.Forms.ListBox ListDateListBox;
-        internal System.Windows.Forms.ComboBox ProductComboBox;
-        internal System.Windows.Forms.ListBox BoxsListBox;
+        internal System.Windows.Forms.ComboBox User_LB;
+        internal System.Windows.Forms.ListBox ListDate_LB;
+        internal System.Windows.Forms.ComboBox ProductName_CB;
+        internal System.Windows.Forms.ListBox WhereBox_LB;
         private System.Windows.Forms.CheckBox AutoPrintCheckBox;
         private System.Windows.Forms.Label JumpBoxLabel;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label PrintLabel;
         private System.Windows.Forms.Label AssemblyLabel;
-        private System.Windows.Forms.Label CustomerPOLabel;
+        private System.Windows.Forms.Label CustomerPO_L;
         private System.Windows.Forms.Label StorageLabel;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

@@ -261,7 +261,7 @@ namespace LM2ReadandList
 
                 //判斷[ShippingBody]是否有資料
                 myConnection = new SqlConnection(myConnectionString);
-                selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + F_Main.ListDateListBox.SelectedItem + "' and [ProductName]='" + F_Main.ProductComboBox.SelectedItem + "' and [WhereBox]='" + F_Main.BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + F_Main.ListDate_LB.SelectedItem + "' and [ProductName]='" + F_Main.ProductName_CB.SelectedItem + "' and [WhereBox]='" + F_Main.WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
@@ -295,7 +295,7 @@ namespace LM2ReadandList
 
                 //雷刻掃描完確認瓶身瓶底相同後載入資料
                 myConnection = new SqlConnection(myConnectionString);
-                selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time])VALUES(" + "'" + F_Main.ListDateListBox.SelectedItem + "'" + "," + "'" + F_Main.ProductComboBox.SelectedItem + "'" + "," + "'" + CylinderNOLabel.Text + "'" + "," + "'" + F_Main.BoxsListBox.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + F_Main.UserListComboBox.Text + "'," + "'" + NowTime() + "')";
+                selectCmd = "INSERT INTO [ShippingBody] ([ListDate],[ProductName],[CylinderNumbers],[WhereBox],[WhereSeat],[vchUser],[Time])VALUES(" + "'" + F_Main.ListDate_LB.SelectedItem + "'" + "," + "'" + F_Main.ProductName_CB.SelectedItem + "'" + "," + "'" + CylinderNOLabel.Text + "'" + "," + "'" + F_Main.WhereBox_LB.SelectedItem + "'" + "," + "'" + (Convert.ToInt32(NowSeat) + 1) + "'," + "'" + F_Main.User_LB.Text + "'," + "'" + NowTime() + "')";
                 conn = new SqlConnection(myConnectionString);
                 conn.Open();
                 cmd = new SqlCommand(selectCmd, conn);
@@ -441,7 +441,7 @@ namespace LM2ReadandList
 
 
             myConnection = new SqlConnection(myConnectionString);
-            selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + F_Main.ListDateListBox.SelectedItem + "' and [ProductName]='" + F_Main.ProductComboBox.SelectedItem + "' and [WhereBox]='" + F_Main.BoxsListBox.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+            selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + F_Main.ListDate_LB.SelectedItem + "' and [ProductName]='" + F_Main.ProductName_CB.SelectedItem + "' and [WhereBox]='" + F_Main.WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
             conn = new SqlConnection(myConnectionString);
             conn.Open();
             cmd = new SqlCommand(selectCmd, conn);
@@ -449,10 +449,10 @@ namespace LM2ReadandList
             if (reader.Read())
             {
                 NowSeat2 = reader.GetString(5);
-                BoxsListBoxIndex = F_Main.BoxsListBox.SelectedIndex.ToString();
+                BoxsListBoxIndex = F_Main.WhereBox_LB.SelectedIndex.ToString();
 
                 //如果箱號已經超過最大箱數則不自動跳箱
-                if ((Convert.ToInt32(BoxsListBoxIndex) >= (F_Main.BoxsListBox.Items.Count - 1)) && F_Main.BoxsListBox.Items.Count != 1 && NowSeat2 == F_Main.Aboxof())
+                if ((Convert.ToInt32(BoxsListBoxIndex) >= (F_Main.WhereBox_LB.Items.Count - 1)) && F_Main.WhereBox_LB.Items.Count != 1 && NowSeat2 == F_Main.Aboxof())
                 {
                     MessageBox.Show("此日期嘜頭已經完全結束", "提示");
                     return;
@@ -462,7 +462,7 @@ namespace LM2ReadandList
                 if (NowSeat2 == F_Main.Aboxof())
                 {
 
-                    F_Main.BoxsListBox.SelectedIndex = (Convert.ToInt32(BoxsListBoxIndex) + 1);
+                    F_Main.WhereBox_LB.SelectedIndex = (Convert.ToInt32(BoxsListBoxIndex) + 1);
                     WhereSeatLabel.Text= "1";
                 }
 
