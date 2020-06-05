@@ -5728,13 +5728,22 @@ namespace LM2ReadandList
                 string LotNumber = null;
                 string MarkingType = string.Empty;
 
+                string Bottle = string.Empty;
+                string Bottom = string.Empty;
+                
+
                 if (BottleTextBox.Text != "")
                 {
-                    CylinderNumbers = BottleTextBox.Text;
+                    Bottle = BottleTextBox.Text;
                 }
                 else if (BottomTextBox.Text != "")
                 {
-                    CylinderNumbers = BottomTextBox.Text;
+                    Bottom = BottomTextBox.Text;
+                }
+
+                if (Bottle != Bottom) 
+                {
+                    return;
                 }
 
                 //20200420
