@@ -5731,12 +5731,11 @@ namespace LM2ReadandList
                 string Bottle = string.Empty;
                 string Bottom = string.Empty;
                 
-
                 if (BottleTextBox.Text != "")
                 {
                     Bottle = BottleTextBox.Text;
                 }
-                else if (BottomTextBox.Text != "")
+                if (BottomTextBox.Text != "")
                 {
                     Bottom = BottomTextBox.Text;
                 }
@@ -5745,6 +5744,8 @@ namespace LM2ReadandList
                 {
                     return;
                 }
+
+                CylinderNumbers = Bottle;
 
                 //20200420
                 try
