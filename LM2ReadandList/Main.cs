@@ -6641,14 +6641,15 @@ namespace LM2ReadandList
             {
                 conn.Open();
 
-                selectCmd = "select isnull([CustomerCylinderNo],'') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                //20200617 新增客戶序號確認
+                selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
                 cmd = new SqlCommand(selectCmd, conn);
                 cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = NoLMCylinderNOTextBox.Text;
                 using (reader=cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N") 
                         {
                             DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
