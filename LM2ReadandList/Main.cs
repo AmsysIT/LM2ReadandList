@@ -6641,6 +6641,25 @@ namespace LM2ReadandList
             {
                 conn.Open();
 
+                selectCmd = "select isnull([CustomerCylinderNo],'') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = NoLMCylinderNOTextBox.Text;
+                using (reader=cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
+                        {
+                            DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.Cancel)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 //判別是否為報廢氣瓶
                 selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
                 cmd = new SqlCommand(selectCmd, conn);
