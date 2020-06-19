@@ -1,5 +1,4 @@
-﻿//--for QRcode
-using com.google.zxing; // for BarcodeFormat
+﻿using com.google.zxing; // for BarcodeFormat
 using com.google.zxing.common; // for ByteMatrix
 using com.google.zxing.qrcode; // for QRCode Engine
 using DataMatrix.net;
@@ -35,22 +34,17 @@ namespace LM2ReadandList
 
         string PalletNoString = "-";
         string Ebb = "";
+        bool Message = false;
         public int time = 420;
 
         //資料庫宣告
-        string myConnectionString, myConnectionString21, myConnectionString_AMS3;
-        string selectCmd, selectCmd1, selectCmd2;
-        SqlConnection conn, conn1, conn2;
-        SqlCommand cmd, cmd1, cmd2;
-        SqlDataReader reader, reader1, reader2;
+        string myConnectionString, myConnectionString21, myConnectionString30;
+        string selectCmd, selectCmd1 ;
+        SqlConnection conn, conn1;
+        SqlCommand cmd, cmd1;
+        SqlDataReader reader, reader1;
         SqlDataAdapter sqlAdapter;
         DataTable DT = new DataTable();
-
-        public string ESIGNmyConnectionString;
-        string selectCmdP;
-        SqlConnection connP;
-        SqlCommand cmdP;
-        SqlDataReader readerP;
 
         //用來記錄是否為PASS的字串
         string Pass = "N";
@@ -85,8 +79,7 @@ namespace LM2ReadandList
         {
             //資料庫路徑與位子
             myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";
-            ESIGNmyConnectionString = "Server=192.168.0.30;database=AMS2;uid=sa;pwd=Ams.sql;";
-            myConnectionString_AMS3 = "Server=192.168.0.30;database=AMS3;uid=sa;pwd=Ams.sql;";
+            myConnectionString30 = "Server=192.168.0.30;database=AMS2;uid=sa;pwd=Ams.sql;";
             myConnectionString21 = "Server=192.168.0.21;database=HRMDB;uid=sa;pwd=dsc;";
             InitializeComponent();
         }
@@ -125,8 +118,6 @@ namespace LM2ReadandList
                 }
             }
 
-            //LoadPrinter();
-
             //20200420 
             DT = new DataTable();
             selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName] FROM [MSNBody] " +
@@ -134,33 +125,7 @@ namespace LM2ReadandList
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(DT);
         }
-
-        private void LoadPrinter()
-        {
-            FirstPrinterComboBox.Items.Clear();
-            SecondPrinterComboBox.Items.Clear();
-
-            List<string> PrinterList = new List<string>();
-            PrinterList.Clear();
-
-            PrintDocument printDoc = new PrintDocument();
-            string sDefaultPrinter = printDoc.PrinterSettings.PrinterName; // 取得預設的印表機名稱
-
-            // 取得安裝於電腦上的所有印表機名稱，加入 ListBox (Name : lbInstalledPrinters) 中
-            foreach (string strPrinter in PrinterSettings.InstalledPrinters)
-            {
-                PrinterList.Add(strPrinter);
-            }
-            PrinterList.Sort();
-
-            this.FirstPrinterComboBox.Items.AddRange(PrinterList.ToArray());
-            SecondPrinterComboBox.Items.AddRange(PrinterList.ToArray());
-            // ListBox (Name : lbInstalledPrinters) 選擇在預設印表機
-            this.FirstPrinterComboBox.SelectedIndex = this.FirstPrinterComboBox.FindString(sDefaultPrinter);
-            this.SecondPrinterComboBox.SelectedIndex = this.SecondPrinterComboBox.FindString(sDefaultPrinter);
-        }
-
-
+        
         private void LoadListDate()
         {
             ListDate_LB.SelectedIndex = -1;
@@ -5131,602 +5096,27 @@ namespace LM2ReadandList
                 cmd.ExecuteNonQuery();
             }
         }
-
-        private bool PerformanceTest(string ManufacturingNo, string CylinderNo)
-        {
-            //可參考20160714之註解
-            string ProductNo = "", ProductType = "";
-
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                conn.Open();
-
-                selectCmd = "SELECT  Product.Type, Product.Product_No  FROM Manufacturing,Product where  Manufacturing.Product_NO=Product.Product_No and Manufacturing.Manufacturing_NO='" + ManufacturingNo + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        ProductNo = reader.GetValue(1).ToString();
-
-                        if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁瓶") == 0)
-                        {
-                            ProductType = reader.GetValue(0).ToString();
-                            //鋁瓶
-                        }
-                        else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("鋁內膽") == 0)
-                        {
-                            ProductType = reader.GetValue(0).ToString();
-                            //鋁內膽
-                        }
-                        else if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
-                        {
-                            ProductType = reader.GetValue(0).ToString();
-                            //複合瓶
-                        }
-                    }
-                }
-            }
-
-            //判別產品類型
-            if (ProductType.CompareTo("鋁瓶") == 0)
-            {
-                if (ProductNo != "")
-                {
-                    if (ProductNo.Contains("1-A-") == true)
-                    {
-                        //以副程式顯示 回傳True or False
-                        //彎曲(Bending)or壓扁(Squash)、拉伸(tensile)、硬度(Hardness)、爆破(Burst)、水壓(Hydro)(2019/04/01)
-                        if (BendingFinish(ManufacturingNo) == false && SquashFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無彎曲或壓扁資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無彎曲或壓扁資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (TensileFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無拉伸資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無拉伸資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (HardnessFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無硬度資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無硬度資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (BurstFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無爆破資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無爆破資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無水壓報告資料。");
-                            return false;
-                        }
-                    }
-                    else if (ProductNo.Contains("3-A-") == true)
-                    {
-                        //拉伸、壓扁、水壓(2019/04/01)
-                        if (TensileFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無拉伸資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無拉伸資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (SquashFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無拉伸資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無拉伸資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無水壓報告資料。");
-                            return false;
-                        }
-                    }
-                    else if (ProductNo.Contains("5-A-") == true)
-                    {
-                        //爆破 水壓(2019/04/01)
-                        if (BurstFinish(ManufacturingNo) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無爆破資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無爆破資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無水壓報告資料。");
-                            return false;
-                        }
-                    }
-                }
-            }
-            else if (ProductType.CompareTo("鋁內膽") == 0)
-            {
-                //拉伸、爆破、水壓(2019/04/01)
-                if (TensileFinish(ManufacturingNo) == false)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無拉伸資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無拉伸資料，請聯繫品保人員。");
-                    return false;
-                }
-                if (BurstFinish(ManufacturingNo) == false)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無爆破資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無爆破資料，請聯繫品保人員。");
-                    return false;
-                }
-                if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無水壓報告資料。");
-                    return false;
-                }
-            }
-            else if (ProductType.CompareTo("複合瓶") == 0)
-            {
-                //20180905 判別是否有做出貨檢驗，無出貨檢驗資料不允許包裝
-                using (connP = new SqlConnection(ESIGNmyConnectionString))
-                {
-                    connP.Open();
-
-                    selectCmdP = "SELECT  * FROM  CH_ShippingInspection where LotNo='" + ManufacturingNo + "' and SerialNo='" + CylinderNo + "'";
-                    cmdP = new SqlCommand(selectCmdP, connP);
-                    using (readerP = cmdP.ExecuteReader())
-                    {
-                        if (readerP.Read())
-                        {
-                            ;
-                        }
-                        else
-                        {
-                            HistoryListBox.Items.Add("無出貨檢驗資料。序號:" + CylinderNo);
-                            MessageBox.Show("無出貨檢驗資料，請聯繫品保人員。");
-                            return false;
-                        }
-                    }
-                }
-
-                //對應內膽  拉伸、爆破
-                //找出對應內膽批號
-                string BuildUp = "";
-
-                using (conn = new SqlConnection(myConnectionString))
-                {
-                    conn.Open();
-
-                    selectCmd = "SELECT BuildUp FROM Manufacturing where Manufacturing_NO='" + ManufacturingNo + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            BuildUp = reader.GetValue(reader.GetOrdinal("BuildUp")).ToString();
-                        }
-                    }
-                }
-
-                if (BuildUp != "")
-                {
-                    for (int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
-                    {
-                        //拉伸、爆破、水壓(2019/04/01)
-                        if (TensileFinish(BuildUp.Split(',')[SubLiner]) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無對應內膽拉伸資料。批號:" + BuildUp.Split(',')[SubLiner]);
-                            MessageBox.Show("無對應內膽拉伸資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (BurstFinish(BuildUp.Split(',')[SubLiner]) == false)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無對應內膽爆破資料。批號:" + BuildUp.Split(',')[SubLiner]);
-                            MessageBox.Show("無對應內膽爆破資料，請聯繫品保人員。");
-                            return false;
-                        }
-                        if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                            MessageBox.Show("無水壓報告資料。");
-                            return false;
-                        }
-                    }
-                }
-
-                //爆破、循環(Cycle)、進料(Feed)(碳纖、玻纖、樹脂)、水壓(2019/04/01)
-                if (BurstFinish(ManufacturingNo) == false)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無爆破資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無爆破資料，請聯繫品保人員。");
-                    return false;
-                }
-                if (CycleFinish(ManufacturingNo) == false)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無循環資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無循環資料，請聯繫品保人員。");
-                    return false;
-                }
-                if (FeedFinish(ManufacturingNo) == false)
-                {
-                    HistoryListBox.Items.Add("無碳纖、玻纖、樹脂檢驗資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無碳纖、玻纖、樹脂檢驗資料，請聯繫品保人員。");
-                    return false;
-                }
-                if (HydroFinish(ManufacturingNo, CylinderNo) == false) //水壓(2019/04/01)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    HistoryListBox.Items.Add("無水壓報告資料。批號:" + ManufacturingNo);
-                    MessageBox.Show("無水壓報告資料。");
-                    return false;
-                }
-            }
-
-            return true;//表示有做功性能測試
-        }
-
-        private bool HydroFinish(string MNO, string CylinderNo)
-        {
-            //水壓
-            bool IsFinish = false;
-            bool IsReportFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [AMS2].[dbo].[PPT_Hydro] WHERE [LotNo] = '" + MNO + "' and FinalResult = 'PASS' And ([AcceptanceNo] Like 'Q019%' Or [AcceptanceNo] Like '%Q030%')";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-
-                selectCmdP = "SELECT [SerialNo] FROM [PPT_Hydro_Details] WHERE [SerialNo] = '" + CylinderNo + "' And ([AcceptanceNo] Like 'Q019%' Or [AcceptanceNo] Like '%Q030%')";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsReportFinish = true;
-                    }
-                    else
-                    {
-                        IsReportFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish && IsReportFinish;
-        }
-
-        private bool TensileFinish(string MNO)
-        {
-            //拉伸
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by ID desc";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool BendingFinish(string MNO)
-        {
-            //彎曲
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='彎曲' order by id desc";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool SquashFinish(string MNO)
-        {
-            //壓扁
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' and Method='壓扁' order by id desc";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool BurstFinish(string MNO)
-        {
-            //爆破
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + MNO + "' and FinalResult='PASS' order by AcceptanceNo desc";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool HardnessFinish(string MNO)
-        {
-            //硬度
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM QCDocument INNER JOIN Esign2 ON QCDocument.AcceptanceNo = Esign2.AcceptanceNo WHERE (QCDocument.LotNo = '" + MNO + "') AND (Esign2.Type LIKE '硬度%')";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool CycleFinish(string MNO)
-        {
-            //循環
-            bool IsFinish = false;
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + MNO + "' and FinalResult='PASS'";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.HasRows)
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
-        private bool FeedFinish(string MNO)
-        {
-            //進料  碳纖、玻纖、樹脂
-            bool IsFinish = false;
-            string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
-            string CarbonSpec = "", GlassSpec = "";
-
-            using (connP = new SqlConnection(ESIGNmyConnectionString))
-            {
-                connP.Open();
-
-                selectCmdP = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo,CarbonSpec,GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + MNO + "' order by id desc";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        ResinLotNo = readerP.GetValue(0).ToString();
-                        CarbonLotNo = readerP.GetValue(1).ToString();
-                        GlassLotNo = readerP.GetValue(2).ToString();
-                        CarbonSpec = readerP.GetValue(3).ToString();
-                        GlassSpec = readerP.GetValue(4).ToString();
-                    }
-                }
-
-                if (ResinLotNo == "" || CarbonLotNo == "" || GlassLotNo == "")
-                {
-                    return true;
-                }
-
-                selectCmdP = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                        return IsFinish;
-                    }
-                }
-
-                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                        return IsFinish;
-                    }
-                }
-
-                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                        return IsFinish;
-                    }
-                }
-
-                selectCmdP = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                cmdP = new SqlCommand(selectCmdP, connP);
-                using (readerP = cmdP.ExecuteReader())
-                {
-                    if (readerP.Read())
-                    {
-                        IsFinish = true;
-                    }
-                    else
-                    {
-                        IsFinish = false;
-                        return IsFinish;
-                    }
-                }
-            }
-
-            return IsFinish;
-        }
-
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //AutoAccumulate
-
-            //用來記錄氣瓶序號
-            string CylinderNumbers = "";
-
-            if (((BottleTextBox.Text == BottomTextBox.Text) && (BottleTextBox.Text != "" || BottomTextBox.Text != "")) || (Pass == "Y" && (BottleTextBox.Text != "" || BottomTextBox.Text != "")))
+            if (BottleTextBox.Text != "" && BottomTextBox.Text != "" && Message == false) 
             {
-                // string FredlovCSV = "N";
-                //string CalisoCSV = "N";
-
-                string HydrostaticPass = "N";
-                bool HasRestrictions = false;
                 DateTime ResrictionDate = new DateTime();
                 DateTime HydroDate = new DateTime();
+
+                bool HydrostaticPass = false;
+                bool ProductAcceptance = false;
+
                 string SpecialUses = "N";
                 string NowSeat = "";
                 string HydrostaticTestDate = "";
                 string CustomerName = "";
-                string LotNumber = null;
+                string LotNumber = string.Empty;
                 string MarkingType = string.Empty;
+                string CylinderNumbers = string.Empty;
+                string Error = string.Empty;
+                string ProductNo = string.Empty;
+                string ProductType = string.Empty;
 
                 string Bottle = string.Empty;
                 string Bottom = string.Empty;
@@ -5747,6 +5137,36 @@ namespace LM2ReadandList
 
                 CylinderNumbers = Bottle;
 
+                //判斷是否滿箱
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT WhereSeat FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            if (reader.Read())
+                            {
+                                NowSeat = reader.GetString(reader.GetOrdinal("WhereSeat"));
+                                WhereSeatLabel.Text = (Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 2).ToString();
+
+                                if (NowSeat == Aboxof())
+                                {
+                                    MessageBox.Show("此嘜頭已滿箱", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NowSeat = "0";
+                        }
+                    }
+                }
+
                 //20200420
                 try
                 {
@@ -5761,104 +5181,24 @@ namespace LM2ReadandList
                 }
                 catch (Exception ee)
                 {
-                    MessageBox.Show("查無序號，請聯繫MIS");
+                    MessageBox.Show("查無序號，請聯繫MIS","警告",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     return;
                 }
 
-                using (conn = new SqlConnection(myConnectionString))
+                ProductType = Product_L.Text;
+
+                using(conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
-                    //判別是否為報廢氣瓶
-                    selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + CylinderNumbers + "'";
+                    //抓產品型號
+                    selectCmd = "select [Product_NO] from [Manufacturing] where [Manufacturing_NO] = '" + LotNumber + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                            HistoryListBox.Items.Add(NowTime());
-                            HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                            BottleTextBox.Focus();
-                            return;
-                        }
-                    }
-
-                    //20181002 報工報廢
-                    selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                            HistoryListBox.Items.Add(NowTime());
-                            HistoryListBox.Items.Add("此序號為報廢氣瓶：" + CylinderNumbers);
-                            BottleTextBox.Focus();
-                            return;
-                        }
-                    }
-
-                    //判斷水壓年月是否大於規定範圍
-                    selectCmd = "SELECT [HydroDate] FROM [ShippingHydroDateRestrictions] WHERE [BoxNo] = @BN";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    cmd.Parameters.AddWithValue("@BN", WhereBox_LB.SelectedItem);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            HasRestrictions = true;
-                            ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
-                        }
-                    }
-
-                    if (HasRestrictions)
-                    {
-                        using (conn1 = new SqlConnection(ESIGNmyConnectionString))
-                        {
-                            conn1.Open();
-                            selectCmd = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
-                            cmd = new SqlCommand(selectCmd, conn1);
-                            cmd.Parameters.AddWithValue("@SN", CylinderNumbers);
-                            using (reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                {
-                                    HydroDate = reader.GetDateTime(reader.GetOrdinal("TestDate"));
-                                }
-                            }
-                        }
-                    }
-
-                    if (HydroDate < ResrictionDate)
-                    {
-                        BottleTextBox.Text = "";
-                        BottomTextBox.Text = "";
-                        MessageBox.Show("此序號水壓年月不在規定範圍內", "警告-W010");
-                        HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此序號水壓年月不在規定範圍內：" + CylinderNumbers);
-                        BottleTextBox.Focus();
-                        return;
-                    }
-
-                    //判斷是否已經有相同的序號入嘜頭
-                    selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNumbers + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            BottleTextBox.Text = "";
-                            BottomTextBox.Text = "";
-                            MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
-                            HistoryListBox.Items.Add(NowTime());
-                            HistoryListBox.Items.Add("此序號已重複：" + CylinderNumbers);
-                            BottleTextBox.Focus();
-                            return;
+                            ProductNo = reader.GetString(0);
                         }
                     }
 
@@ -5874,24 +5214,119 @@ namespace LM2ReadandList
                             }
                         }
                     }
+
+                    //判斷是否有成品檢驗報告
+                    selectCmd = "SELECT * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + LotNumber + "' and QualifiedQuantity > 0 ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ProductAcceptance = true;
+                        }
+                    }
+
+                    //報廢
+                    selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\n";
+                        }
+                    }
+
+                    using (conn1 = new SqlConnection(myConnectionString30))
+                    {
+                        conn1.Open();
+
+                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                        cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
+                        using (reader1 = cmd1.ExecuteReader())
+                        {
+                            if (reader1.Read())
+                            {
+                                HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                            }
+                            else
+                            {
+                                Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                            }
+                        }
+                    }
+
+                    //判斷水壓年月是否大於規定範圍
+                    selectCmd = "SELECT [HydroDate] FROM [ShippingHydroDateRestrictions] WHERE [BoxNo] = @BN";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@BN", WhereBox_LB.SelectedItem);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            if (reader.Read())
+                            {
+                                ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
+
+                                if (HydroDate < ResrictionDate)
+                                {
+                                    Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\n";
+                                }
+                            }
+                        }
+                    }
+
+                    //判斷是否已經有相同的序號入嘜頭
+                    selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNumbers + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Error += "Code：102 此序號已入嘜\n";
+                        }
+                    }
+
+                    //檢查打字形式是否相同
+                    selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@Marking", MarkingType);
+                    cmd.Parameters.AddWithValue("@Box", WhereBox_LB.SelectedItem);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫品保\n";
+                        }
+                    }
                 }
 
-                //if (ManufacturingNo != "")
-                //{
-                //    //判斷此批號是否是走特採的批號
-                //    
-                //    selectCmd = "SELECT  * FROM [Manufacturing] where [Manufacturing_NO]='" + ManufacturingNo + "' and [H_SpecialUses]='Y'";
-                //    conn = new SqlConnection(myConnectionString);
-                //    conn.Open();
-                //    cmd = new SqlCommand(selectCmd, conn);
-                //    reader = cmd.ExecuteReader();
-                //    if (reader.Read())
-                //    {
-                //        SpecialUses = "Y";
-                //    }
-                //    reader.Close();
-                //    conn.Close();
-                //}
+                // 照片檢查
+                if (Product_L.Text.Contains("Composite") == true)
+                {
+                    using (conn = new SqlConnection(myConnectionString30))
+                    {
+                        conn.Open();
+                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                            }
+                        }
+                    }
+                }
 
                 if (SpecialUses == "N")
                 {
@@ -5905,11 +5340,11 @@ namespace LM2ReadandList
                         {
                             if (reader.Read())
                             {
-                                HydrostaticPass = "Y";
+                                HydrostaticPass = true;
                             }
                         }
 
-                        if (HydrostaticPass == "N")
+                        if (HydrostaticPass == false)
                         {
                             //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                             string OriCNo = "", OriMNO = "";
@@ -5933,151 +5368,218 @@ namespace LM2ReadandList
                                 {
                                     if (reader.Read())
                                     {
-                                        HydrostaticPass = "Y";
+                                        HydrostaticPass = true;
                                     }
                                 }
                             }
                         }
                     }
 
-                    if (HydrostaticPass == "N")
+                    if (HydrostaticPass == false)
                     {
-                        BottleTextBox.Text = "";
-                        BottomTextBox.Text = "";
-                        MessageBox.Show("此序號查詢不到水壓測試資料！", "警告-W002");
-                        HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此序號查無水壓資訊：" + CylinderNumbers);
-                        BottleTextBox.Focus();
-                        return;
-                    }
-                    //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
-                    //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                    if (CheckProductAcceptanceIsWork(LotNumber) == false)
-                    {
-                        BottleTextBox.Text = "";
-                        BottomTextBox.Text = "";
-                        MessageBox.Show("此批號查詢不到成品檢驗資料！", "警告-W007");
-                        HistoryListBox.Items.Add(NowTime());
-                        HistoryListBox.Items.Add("此批號查無成品檢驗資訊：" + LotNumber);
-                        BottleTextBox.Focus();
+                        Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
                     }
                 }
-                //功性能測試檢查
-                if (PerformanceTest(LotNumber, CylinderNumbers) == false)
+
+                //判別是否有做過成品檢驗
+                //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
+                if (ProductAcceptance == false)
                 {
-                    //BottleTextBox.Text = "";
-                    //BottomTextBox.Text = "";
-                    BottleTextBox.Focus();
-                    return;
-                }
+                    string OriMNO = "";
 
-                //20160714機制未完成，故先不使用
-                //複合瓶判別
-                //conn = new SqlConnection(myConnectionString);
-                //conn.Open();
-                //selectCmd = "SELECT  Product.Type  FROM Manufacturing,Product where  Manufacturing.Product_NO=Product.Product_No and Manufacturing.Manufacturing_NO='" + ManufacturingNo + "'";
-
-                //cmd = new SqlCommand(selectCmd, conn);
-                //reader = cmd.ExecuteReader();
-                //if (reader.Read())
-                //{
-                //    if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶")==0)
-                //    {
-                //        //複合瓶
-
-                //        //判別是否有爆破、循環資料
-                //        connP = new SqlConnection(ESIGNmyConnectionString);
-                //        connP.Open();
-                //        //爆破
-                //        selectCmdP = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + ManufacturingNo + "'";
-                //        cmdP = new SqlCommand(selectCmdP, connP);
-                //        readerP = cmdP.ExecuteReader();
-
-                //        if (readerP.HasRows)
-                //        {
-                //            ;
-                //        }
-                //        else
-                //        {
-                //            reader.Close();
-                //            conn.Close();
-
-                //            readerP.Close();
-                //            connP.Close();
-                //            MessageBox.Show("查詢不到複合瓶" + ManufacturingNo + " 爆破資料！", "警告-W004");
-                //            HistoryListBox.Items.Add(NowTime());
-                //            HistoryListBox.Items.Add("查詢不到複合瓶" + ManufacturingNo + " 爆破資料！");
-                //            BottleTextBox.Focus();
-                //            return;
-                //        }
-                //        readerP.Close();
-
-                //        //循環
-                //        selectCmdP = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + ManufacturingNo + "'";
-                //        cmdP = new SqlCommand(selectCmdP, connP);
-                //        readerP = cmdP.ExecuteReader();
-
-                //        if (readerP.HasRows)
-                //        {
-                //            ;
-                //        }
-                //        else
-                //        {
-                //            reader.Close();
-                //            conn.Close();
-
-                //            readerP.Close();
-                //            connP.Close();
-                //            MessageBox.Show("查詢不到複合瓶" + ManufacturingNo + " 循環資料！", "警告-W005");
-                //            HistoryListBox.Items.Add(NowTime());
-                //            HistoryListBox.Items.Add("查詢不到複合瓶" + ManufacturingNo + " 循環資料！");
-                //            BottleTextBox.Focus();
-                //            return;
-                //        }
-                //        readerP.Close();
-                //        connP.Close();
-                //    }
-                //}
-                //reader.Close();
-                //conn.Close();
-
-                //判斷[ShippingBody]是否有資料
-                using (conn = new SqlConnection(myConnectionString))
-                {
-                    conn.Open();
-
-                    selectCmd = "SELECT WhereSeat FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
+                    using (conn = new SqlConnection(myConnectionString))
                     {
-                        if (reader.Read())
+                        conn.Open();
+                        //找是否有對應之批號，有則依此搜尋是否有做成品檢驗
+                        selectCmd = "SELECT  OriManufacturingNo FROM [TransformProductNo] where TransManufacturingNo='" + LotNumber + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
                         {
-                            NowSeat = reader.GetString(reader.GetOrdinal("WhereSeat"));
-
-                            if (NowSeat == Aboxof())
+                            if (reader.Read())
                             {
-                                BottleTextBox.Text = "";
-                                BottomTextBox.Text = "";
-                                MessageBox.Show("此嘜頭已滿箱！", "警告-W003");
-                                BottleTextBox.Focus();
-                                return;
+                                OriMNO = reader.GetString(reader.GetOrdinal("OriManufacturingNo"));
                             }
                         }
-                        else
+
+                        if (OriMNO != "")
                         {
-                            NowSeat = "0";
+                            selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + OriMNO + "' and QualifiedQuantity > 0";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    ProductAcceptance = true;
+                                }
+                            }
                         }
+                    }
+
+                    if (ProductAcceptance == false)
+                    {
+                        Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\n";
                     }
                 }
 
-                //20200213 照片檢查
-                if (Product_L.Text.Contains("Composite") == true)
+                //判別產品類型
+                if (ProductType.Contains("Aluminum"))
                 {
-                    using (conn = new SqlConnection(ESIGNmyConnectionString))
+                    if (ProductNo != "")
+                    {
+                        if (ProductNo.Contains("1-A-") == true)
+                        {
+                            using (conn = new SqlConnection(myConnectionString30))
+                            {
+                                conn.Open();
+
+                                //彎曲
+                                selectCmd = "SELECT * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' and (Method='彎曲' or Method='壓扁') ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\n";
+                                    }
+                                }
+
+                                //拉伸
+                                selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                    }
+                                }
+
+                                //硬度
+                                selectCmd = "SELECT * FROM QCDocument INNER JOIN Esign2 ON QCDocument.AcceptanceNo = Esign2.AcceptanceNo WHERE (QCDocument.LotNo = '" + LotNumber + "') AND (Esign2.Type LIKE '硬度%')";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：112 無硬度資料，請聯繫品保\n";
+                                    }
+                                }
+
+                                //爆破
+                                selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                    }
+                                }
+                            }
+                        }
+                        else if (ProductNo.Contains("3-A-") == true)
+                        {
+                            using (conn = new SqlConnection(myConnectionString30))
+                            {
+                                conn.Open();
+
+                                //拉伸
+                                selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                    }
+                                }
+
+                                //壓扁
+                                selectCmd = "SELECT * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' and Method='壓扁' ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：110 無壓扁資料，請聯繫品保\n";
+                                    }
+                                }
+                            }
+                        }
+                        else if (ProductNo.Contains("5-A-") == true)
+                        {
+                            using (conn = new SqlConnection(myConnectionString30))
+                            {
+                                conn.Open();
+
+                                //爆破
+                                selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (ProductType.Contains("Composite"))
+                {
+                    string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
+                    string CarbonSpec = "", GlassSpec = "";
+
+                    using (conn = new SqlConnection(myConnectionString30))
                     {
                         conn.Open();
 
-                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
+                        //判別是否有做出貨檢驗，無出貨檢驗資料不允許包裝
+                        selectCmd = "SELECT  * FROM  CH_ShippingInspection where SerialNo='" + CylinderNumbers + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：114 無出貨檢驗資料，請聯繫品保\n";
+                            }
+                        }
+
+                        //爆破
+                        selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -6087,43 +5589,178 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                using (conn1 = new SqlConnection(ESIGNmyConnectionString))
+                                Error += "Code：113 無爆破資料，請聯繫品保\n";
+                            }
+                        }
+
+                        //循環
+                        selectCmd = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + LotNumber + "' and FinalResult='PASS'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：117 無循環資料，請聯繫品保\n";
+                            }
+                        }
+
+                        selectCmd = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo, CarbonSpec, GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + LotNumber + "' order by id desc";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ResinLotNo = reader.GetString(0);
+                                CarbonLotNo = reader.GetString(1);
+                                GlassLotNo = reader.GetString(2);
+                                CarbonSpec = reader.GetString(3);
+                                GlassSpec = reader.GetString(4);
+                            }
+                        }
+                    }
+
+                    if (ResinLotNo != "" && CarbonLotNo != "" && GlassLotNo != "")
+                    {
+                        using (conn = new SqlConnection(myConnectionString30))
+                        {
+                            conn.Open();
+
+                            //碳纖
+                            selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
                                 {
-                                    conn1.Open();
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                                }
+                            }
 
-                                    selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
-                                    cmd1 = new SqlCommand(selectCmd1, conn1);
-                                    cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
-                                    cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
-                                    cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + LotNumber + "";
+                            //玻纖
+                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                }
+                            }
 
-                                    cmd1.ExecuteNonQuery();
+                            //樹酯
+                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
+                                }
+                            }
 
-                                    MessageBox.Show("未有客戶產品照片，請聯繫品保！");
-                                    return;
+                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
+                                }
+                            }
+                        }
+                    }
+
+                    //對應內膽  拉伸、爆破
+                    //找出對應內膽批號
+                    string BuildUp = "";
+
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "SELECT BuildUp FROM Manufacturing where Manufacturing_NO='" + LotNumber + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                BuildUp = reader.GetString(reader.GetOrdinal("BuildUp"));
+                            }
+                        }
+                    }
+
+                    if (BuildUp != "")
+                    {
+                        using (conn = new SqlConnection(myConnectionString30))
+                        {
+                            conn.Open();
+
+                            for (int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
+                            {
+                                selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：115 無對應內膽拉伸資料，請聯繫品保\n";
+                                    }
+                                }
+
+                                selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：116 無對應內膽爆破資料，請聯繫品保\n";
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-                //確認打字形式是否相同
-                using (conn = new SqlConnection(myConnectionString))
+                if (Error.Any())
                 {
-                    conn.Open();
+                    Message = true;
 
-                    selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE  [vchBoxs] = @Box";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    cmd.Parameters.AddWithValue("@Marking", MarkingType);
-                    cmd.Parameters.AddWithValue("@Box", WhereBox_LB.SelectedItem);
-                    using (reader = cmd.ExecuteReader())
+                    DialogResult result= MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.OK)
                     {
-                        if (!reader.Read())
-                        {
-                            MessageBox.Show("氣瓶打印形式與訂單不符。", "AMSYS");
-                            return;
-                        }
+                        Message = false;
+                        return;
                     }
+                    
                 }
 
                 int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
@@ -6363,82 +6000,7 @@ namespace LM2ReadandList
                 e.Handled = true;
             }
         }
-
-        private string NowTime()
-        {
-            //取得現在時間
-            string timeString = DateTime.Now.ToLocalTime().ToString();
-
-            return timeString;
-        }
-
-        private void CheckFull()
-        {
-            //確定滿箱才可以列印
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                conn.Open();
-
-                selectCmd = "SELECT  count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' ";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        if (reader.GetInt32(0) == Convert.ToInt32(Aboxof()))
-                        {
-                            PrintButton.Enabled = true;
-                        }
-                        else
-                        {
-                            PrintButton.Enabled = false;
-                        }
-                    }
-                }
-            }
-        }
-
-        private string GetManufacturingCode(string Code)
-        {
-            char[] b = new char[12];
-            StringReader sr = new StringReader(Code);
-            sr.Read(b, 0, 12);
-            sr.Close();
-            string bb = "";
-            for (int i = 0; i <= Code.Length; i++)
-            {
-                if (ASC(b[i]) >= 65 && ASC(b[i]) <= 90)
-                {
-                    bb += b[i];
-                }
-            }
-            return bb;
-        }
-
-        private string GetManufacturingNumber(string Code)
-        {
-            char[] b = new char[12];
-            StringReader sr = new StringReader(Code);
-            sr.Read(b, 0, 12);
-            sr.Close();
-            string bb = "";
-            for (int i = 0; i <= Code.Length; i++)
-            {
-                if (ASC(b[i]) >= 48 && ASC(b[i]) <= 57)
-                {
-                    bb += b[i];
-                }
-            }
-            return bb;
-        }
-
-        public static int ASC(char C)
-        {
-            int N = Convert.ToInt32(C);
-
-            return N;
-        }
-
+        
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (NoLMCheckBox.Checked == true)
@@ -6469,28 +6031,6 @@ namespace LM2ReadandList
                 }
                 else
                 {
-                    //20160714機制未完成，故先不使用
-                    //複合瓶判別
-                    //if (ComplexQRCodeCheckBox.CheckState ==CheckState.Checked)
-                    //{
-                    //    string CylinderNOFind = NoLMCylinderNOTextBox.Text.ToString();
-                    //    if (CylinderNOFind.Length > 8)
-                    //    {
-                    //        CylinderNOFind = CylinderNOFind.Split((Char)13)[0];//換行符號
-                    //        if (CylinderNOFind.Contains("AMS") == true)
-                    //        {
-                    //            CylinderNOFind = CylinderNOFind.Split(new string[] { "AMS " }, StringSplitOptions.RemoveEmptyEntries)[1];
-                    //            CylinderNOFind = CylinderNOFind.Split(' ')[0];
-                    //        }
-                    //        else if (CylinderNOFind.Contains("TW") == true)
-                    //        {
-                    //            CylinderNOFind = CylinderNOFind.Split(new string[] { "TW " }, StringSplitOptions.RemoveEmptyEntries)[1];
-                    //            CylinderNOFind = CylinderNOFind.Split(' ')[0];
-                    //        }
-                    //    }
-                    //    NoLMCylinderNOTextBox.Text = CylinderNOFind;
-                    //}
-
                     //20141029 修改成不跳出視窗，直接在該畫面作操作。因有不連號(跳號)，原方式耗時
                     //以按Enter表示某汽瓶序號裝箱，但系統不自動跳號(+1)；以按Enter表示某汽瓶序號裝箱，且系統自動跳號(+1)
                     if (ShippingCNO() == false)
@@ -6584,41 +6124,59 @@ namespace LM2ReadandList
                 MessageBox.Show("所輸入之氣瓶序號長度錯誤，請重新輸入!", "提示");
                 return false;
             }
-            //if (Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(0, 1)) < 64 || Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(0, 1)) > 90)
-            //{
-            //    MessageBox.Show("所輸入之氣瓶序號格式(第一碼)錯誤，請重新輸入!", "提示");
-            //    return false;
-            //}
-            //if ((Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(1, 1)) < 64 || Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(1, 1)) > 90) && (Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(1, 1)) < 48 || Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(1, 1)) > 57))
-            //{
-            //    MessageBox.Show("所輸入之氣瓶序號格式(第二碼)錯誤，請重新輸入!", "提示");
-            //    return false;
-            //}
-            //for (int i = 0; i < NoLMCylinderNOTextBox.Text.Substring(2, NoLMCylinderNOTextBox.Text.Length - 2).Length; i++)
-            //{
-            //    if ((Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(2+i, 1)) < 48 || Convert.ToChar(NoLMCylinderNOTextBox.Text.Substring(2+i, 1)) > 57))
-            //    {
-            //        MessageBox.Show("所輸入之氣瓶序號格式(第"+(3+i)+"碼)錯誤，請重新輸入!", "提示");
-            //        return false;
-            //    }
-            //}
+
             return true;
         }
 
         private void AutoAccumulate()
         {
-            string HydrostaticPass = "N";
-            bool HasRestrictions = false;
             DateTime ResrictionDate = new DateTime();
             DateTime HydroDate = new DateTime();
-            string SpecialUses = "N";
-            string MarkingType = string.Empty;
-            string HydrostaticTestDate = "";
-            string CustomerName = "";
-            string NowSeat = "";
-            string LotNumber = string.Empty;
 
-            //20200420
+            string MarkingType = string.Empty;
+            string HydrostaticTestDate = string.Empty;
+            string CustomerName = string.Empty;
+            string NowSeat = string.Empty;
+            string LotNumber = string.Empty;
+            string Error = string.Empty;
+            string CylinderNO = string.Empty;
+            string ProductNo = string.Empty;
+            string ProductType = string.Empty;
+
+            bool ProductAcceptance = false;
+            bool SpecialUses = false;
+            bool HydrostaticPass = false;
+
+            //判斷是否滿箱
+            using (conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "SELECT WhereSeat FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        if (reader.Read())
+                        {
+                            NowSeat = reader.GetString(reader.GetOrdinal("WhereSeat"));
+                            WhereSeatLabel.Text = (Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 2).ToString();
+
+                            if (NowSeat == Aboxof())
+                            {
+                                MessageBox.Show("此嘜頭已滿箱", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        NowSeat = "0";
+                    }
+                }
+            }
+
             try
             {
                 var v = (from p in DT.AsEnumerable()
@@ -6629,72 +6187,99 @@ namespace LM2ReadandList
                 MarkingType = v.Field<string>("vchMarkingType");
                 HydrostaticTestDate = v.Field<string>("vchHydrostaticTestDate");
                 CustomerName = v.Field<string>("ClientName");
-
+                CylinderNO = NoLMCylinderNOTextBox.Text;
             }
             catch (Exception ee)
             {
-                MessageBox.Show("查無序號，請聯繫MIS");
+                MessageBox.Show("查無序號，請聯繫MIS","警告",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
+
+            ProductType = Product_L.Text;
 
             using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
-                //20200617 新增客戶序號確認
-                selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                //抓產品型號
+                selectCmd = "select [Product_NO] from [Manufacturing] where [Manufacturing_NO] = '" + LotNumber + "'";
                 cmd = new SqlCommand(selectCmd, conn);
-                cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = NoLMCylinderNOTextBox.Text;
-                using (reader=cmd.ExecuteReader())
+                using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N") 
-                        {
-                            DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        ProductNo = reader.GetString(0);
+                    }
+                }
 
-                            if (result == DialogResult.Cancel)
-                            {
-                                return;
-                            }
+                //取得製造批號
+                selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "'";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (reader.GetString(0) == "Y")
+                        {
+                            SpecialUses = true;
                         }
                     }
                 }
 
-                //判別是否為報廢氣瓶
-                selectCmd = "SELECT  * FROM [ComplexScrapData] where [ComplexCylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
+                //判斷是否有成品檢驗報告
+                selectCmd = "SELECT * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + LotNumber + "' and QualifiedQuantity > 0 ";
                 cmd = new SqlCommand(selectCmd, conn);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                        return;
+                        ProductAcceptance = true;
                     }
                 }
-
-                selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + NoLMCylinderNOTextBox.Text + "'";
+                
+                //判別是否為報廢氣瓶
+                selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNO + "'";
                 cmd = new SqlCommand(selectCmd, conn);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        MessageBox.Show("此序號之氣瓶為報廢氣瓶，故不允許加入", "警告-W006");
-                        return;
+                        Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\n";
                     }
                 }
 
                 //判斷是否已經有相同的序號入嘜頭
-                selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + NoLMCylinderNOTextBox.Text + "'";
+                selectCmd = "SELECT  * FROM [ShippingBody] where [CylinderNumbers]='" + CylinderNO + "'";
                 cmd = new SqlCommand(selectCmd, conn);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        MessageBox.Show("此序號已存入嘜頭資訊！(在第" + reader.GetString(4) + "箱，第" + reader.GetString(5) + "位置)", "警告-W001");
-                        // MessageBox.Show("此序號已存入嘜頭資訊！", "警告-W004");
-                        // NextNumber();//序號往下累加
-                        return;
+                        Error += "Code：102 此序號已入嘜\n";
+                    }
+                }
+
+                //判斷是否有水壓報告
+                using (conn1=new SqlConnection(myConnectionString30))
+                {
+                    conn1.Open();
+
+                    selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                    cmd1.Parameters.AddWithValue("@SN", CylinderNO);
+                    using (reader1 = cmd1.ExecuteReader())
+                    {
+                        if (reader1.HasRows)
+                        {
+                            if (reader1.Read())
+                            {
+                                HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                            }
+                        }
+                        else
+                        {
+                            Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                        }
                     }
                 }
 
@@ -6704,79 +6289,42 @@ namespace LM2ReadandList
                 cmd.Parameters.AddWithValue("@BN", WhereBox_LB.SelectedItem);
                 using (reader = cmd.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (reader.HasRows)
                     {
-                        HasRestrictions = true;
-                        ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
-                    }
-                }
-
-                if (HasRestrictions)
-                {
-                    using (conn1 = new SqlConnection(ESIGNmyConnectionString))
-                    {
-                        conn1.Open();
-                        selectCmd = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
-                        cmd = new SqlCommand(selectCmd, conn1);
-                        cmd.Parameters.AddWithValue("@SN", NoLMCylinderNOTextBox.Text);
-                        using (reader = cmd.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            ResrictionDate = reader.GetDateTime(reader.GetOrdinal("HydroDate"));
+
+                            if (HydroDate < ResrictionDate)
                             {
-                                HydroDate = reader.GetDateTime(reader.GetOrdinal("TestDate"));
+                                Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\n";
                             }
                         }
                     }
                 }
 
-                if (HydroDate < ResrictionDate)
-                {
-                    BottleTextBox.Text = "";
-                    BottomTextBox.Text = "";
-                    MessageBox.Show("此序號水壓年月不在規定範圍內", "警告-W010");
-                    HistoryListBox.Items.Add(NowTime());
-                    HistoryListBox.Items.Add("此序號水壓年月不在規定範圍內：" + NoLMCylinderNOTextBox.Text);
-                    BottleTextBox.Focus();
-                    return;
-                }
-            }
-
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                conn.Open();
-
-                //取得製造批號
-                selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        if (reader.GetValue(0).ToString() == "Y")
-                        {
-                            SpecialUses = "Y";
-                        }
-                    }
-                }
-
+                //檢查打字形式是否相同
                 selectCmd = "SELECT [Marking] FROM [ShippingHead] WHERE [Marking] = @Marking AND [vchBoxs] = @Box";
                 cmd = new SqlCommand(selectCmd, conn);
                 cmd.Parameters.AddWithValue("@Marking", MarkingType);
                 cmd.Parameters.AddWithValue("@Box", WhereBox_LB.SelectedItem);
                 using (reader = cmd.ExecuteReader())
                 {
-                    if (!reader.Read())
+                    if (reader.HasRows)
                     {
-                        MessageBox.Show("氣瓶打印形式與訂單不符。", "AMSYS");
+                        ;
+                    }
+                    else
+                    {
+                        Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫品保\n";
                     }
                 }
             }
 
-
-            //20200213 照片檢查
+            //照片檢查
             if (Product_L.Text.Contains("Composite") == true)
             {
-                using (conn = new SqlConnection(ESIGNmyConnectionString))
+                using (conn = new SqlConnection(myConnectionString30))
                 {
                     conn.Open();
                     selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
@@ -6789,43 +6337,13 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            using (conn1 = new SqlConnection(ESIGNmyConnectionString))
-                            {
-                                conn1.Open();
-                                selectCmd1 = "insert into ErrorCode ( ProgramName, Code, Description ) values( @ProgramName,@Code,@Description )";
-                                cmd1 = new SqlCommand(selectCmd1, conn1);
-                                cmd1.Parameters.Add("@ProgramName", SqlDbType.VarChar).Value = "LM2ReadandList";
-                                cmd1.Parameters.Add("@Code", SqlDbType.VarChar).Value = "101";
-                                cmd1.Parameters.Add("@Description", SqlDbType.VarChar).Value = "查無照片， FROM MSNBody TO [CH_ShippingInspectionPhoto] 批號：" + LotNumber + "";
-
-                                cmd1.ExecuteNonQuery();
-
-                                MessageBox.Show("未有客戶產品照片，請聯繫品保！");
-                                return;
-                            }
+                            Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
                         }
                     }
                 }
             }
 
-            //if (ManufacturingNo != "")
-            //{
-            //    //判斷此批號是否是走特採的批號
-            //    
-            //    selectCmd = "SELECT  * FROM [Manufacturing] where [Manufacturing_NO]='" + ManufacturingNo + "' and [H_SpecialUses]='Y'";
-            //    conn = new SqlConnection(myConnectionString);
-            //    conn.Open();
-            //    cmd = new SqlCommand(selectCmd, conn);
-            //    reader = cmd.ExecuteReader();
-            //    if (reader.Read())
-            //    {
-            //        SpecialUses = "Y";
-            //    }
-            //    reader.Close();
-            //    conn.Close();
-            //}
-
-            if (SpecialUses == "N")
+            if (SpecialUses == false)
             {
                 using (conn = new SqlConnection(myConnectionString))
                 {
@@ -6837,11 +6355,11 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            HydrostaticPass = "Y";
+                            HydrostaticPass = true;
                         }
                     }
 
-                    if (HydrostaticPass == "N")
+                    if (HydrostaticPass == false)
                     {
                         //找對應的舊序號，若有序號則依此序號查是否有做過水壓
                         string OriCNo = "", OriMNO = "";
@@ -6865,129 +6383,419 @@ namespace LM2ReadandList
                             {
                                 if (reader.Read())
                                 {
-                                    HydrostaticPass = "Y";
+                                    HydrostaticPass = true;
                                 }
                             }
                         }
                     }
                 }
 
-                if (HydrostaticPass == "N")
+                if (HydrostaticPass == false)
                 {
-                    MessageBox.Show("此序號查詢不到水壓測試資料！", "警告-W005");
-                    //NextNumber();//序號往下累加
-                    return;
-                }
-
-                //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
-                //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-                if (CheckProductAcceptanceIsWork(LotNumber) == false)
-                {
-                    MessageBox.Show("此序號查詢不到成品檢驗資料！", "警告-W008");
-                    //NextNumber();//序號往下累加
-                    return;
+                    Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
                 }
             }
 
-            //功性能測試檢查
-            if (PerformanceTest(LotNumber, NoLMCylinderNOTextBox.Text) == false)
+            //判別是否有做過成品檢驗
+            //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
+            if (ProductAcceptance == false)
             {
+                string OriMNO = "";
+
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+                    //找是否有對應之批號，有則依此搜尋是否有做成品檢驗
+                    selectCmd = "SELECT  OriManufacturingNo FROM [TransformProductNo] where TransManufacturingNo='" + LotNumber + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            OriMNO = reader.GetString(reader.GetOrdinal("OriManufacturingNo"));
+                        }
+                    }
+
+                    if (OriMNO != "")
+                    {
+                        selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + OriMNO + "' and QualifiedQuantity > 0";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ProductAcceptance = true;
+                            }
+                        }
+                    }
+                }
+
+                if (ProductAcceptance == false)
+                {
+                    Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\n";
+                }
+            }
+            
+            //判別產品類型
+            if (ProductType.Contains("Aluminum"))
+            {
+                if (ProductNo != "")
+                {
+                    if (ProductNo.Contains("1-A-") == true)
+                    {
+                        using (conn = new SqlConnection(myConnectionString30))
+                        {
+                            conn.Open();
+
+                            //彎曲
+                            selectCmd = "SELECT * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' and ( Method='彎曲' or Method='壓扁') ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\n";
+                                }
+                            }
+
+                            //拉伸
+                            selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                }
+                            }
+
+                            //硬度
+                            selectCmd = "SELECT * FROM QCDocument INNER JOIN Esign2 ON QCDocument.AcceptanceNo = Esign2.AcceptanceNo WHERE (QCDocument.LotNo = '" + LotNumber + "') AND (Esign2.Type LIKE '硬度%')";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：112 無硬度資料，請聯繫品保\n";
+                                }
+                            }
+
+                            //爆破
+                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                }
+                            }
+                        }
+                    }
+                    else if (ProductNo.Contains("3-A-") == true)
+                    {
+                        using(conn=new SqlConnection(myConnectionString30))
+                        {
+                            conn.Open();
+
+                            //拉伸
+                            selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                }
+                            }
+
+                            //壓扁
+                            selectCmd = "SELECT * FROM [PPT_FlatBend] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' and Method='壓扁' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：110 無壓扁資料，請聯繫品保\n";
+                                }
+                            }
+                        }
+                    }
+                    else if (ProductNo.Contains("5-A-") == true)
+                    {
+                        using (conn = new SqlConnection(myConnectionString30)) 
+                        {
+                            conn.Open();
+
+                            //爆破
+                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ProductType.Contains("Composite"))
+            {
+                string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
+                string CarbonSpec = "", GlassSpec = "";
+                
+                using (conn = new SqlConnection(myConnectionString30))
+                {
+                    conn.Open();
+                    
+                    //判別是否有做出貨檢驗，無出貨檢驗資料不允許包裝
+                    selectCmd = "SELECT  * FROM  CH_ShippingInspection where SerialNo='" + CylinderNO + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            Error += "Code：114 無出貨檢驗資料，請聯繫品保\n";
+                        }
+                    }
+
+                    //爆破
+                    selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            Error += "Code：113 無爆破資料，請聯繫品保\n";
+                        }
+                    }
+
+                    //循環
+                    selectCmd = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + LotNumber + "' and FinalResult='PASS'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            Error += "Code：117 無循環資料，請聯繫品保\n";
+                        }
+                    }
+
+                    selectCmd = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo, CarbonSpec, GlassSpec FROM [FilamentWinding] WHERE [LotNo] = '" + LotNumber + "' order by id desc";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ResinLotNo = reader.GetString(0);
+                            CarbonLotNo = reader.GetString(1);
+                            GlassLotNo = reader.GetString(2);
+                            CarbonSpec = reader.GetString(3);
+                            GlassSpec = reader.GetString(4);
+                        }
+                    }
+                }
+
+                if (ResinLotNo != "" && CarbonLotNo != "" && GlassLotNo != "")
+                {
+                    using (conn = new SqlConnection(myConnectionString30))
+                    {
+                        conn.Open();
+                        
+                        //碳纖
+                        selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                            }
+                        }
+
+                        //玻纖
+                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                            }
+                        }
+
+                        //樹酯
+                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
+                            }
+                        }
+
+                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
+                            }
+                        }
+                    }
+                }
+            
+                //對應內膽  拉伸、爆破
+                //找出對應內膽批號
+                string BuildUp = "";
+
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT BuildUp FROM Manufacturing where Manufacturing_NO='" + LotNumber + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            BuildUp = reader.GetString(reader.GetOrdinal("BuildUp"));
+                        }
+                    }
+                }
+
+                if (BuildUp != "")
+                {
+                    using(conn=new SqlConnection(myConnectionString30))
+                    {
+                        conn.Open();
+
+                        for (int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
+                        {
+                            selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：115 無對應內膽拉伸資料，請聯繫品保\n";
+                                }
+                            }
+
+                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：116 無對應內膽爆破資料，請聯繫品保\n";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (Error.Any())
+            {
+                MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            //20160714機制未完成，故先不使用
-            //複合瓶判別
-            //conn = new SqlConnection(myConnectionString);
-            //conn.Open();
-            //selectCmd = "SELECT  Product.Type  FROM Manufacturing,Product where  Manufacturing.Product_NO=Product.Product_No and Manufacturing.Manufacturing_NO='" + ManufacturingNo + "'";
 
-            //cmd = new SqlCommand(selectCmd, conn);
-            //reader = cmd.ExecuteReader();
-            //if (reader.Read())
-            //{
-            //    if (reader.IsDBNull(0) == false && reader.GetString(0).CompareTo("複合瓶") == 0)
-            //    {
-            //        //複合瓶
-
-            //        //判別是否有爆破、循環資料
-            //        connP = new SqlConnection(ESIGNmyConnectionString);
-            //        connP.Open();
-            //        //爆破
-            //        selectCmdP = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + ManufacturingNo + "'";
-            //        cmdP = new SqlCommand(selectCmdP, connP);
-            //        readerP = cmdP.ExecuteReader();
-
-            //        if (readerP.HasRows)
-            //        {
-            //            ;
-            //        }
-            //        else
-            //        {
-            //            reader.Close();
-            //            conn.Close();
-
-            //            readerP.Close();
-            //            connP.Close();
-            //            MessageBox.Show("查詢不到複合瓶" + ManufacturingNo + " 爆破資料！", "警告-W004");
-            //            return;
-            //        }
-            //        readerP.Close();
-
-            //        //循環
-            //        selectCmdP = "SELECT  * FROM [PPT_Cycling] WHERE [LotNo] = '" + ManufacturingNo + "'";
-            //        cmdP = new SqlCommand(selectCmdP, connP);
-            //        readerP = cmdP.ExecuteReader();
-
-            //        if (readerP.HasRows)
-            //        {
-            //            ;
-            //        }
-            //        else
-            //        {
-            //            reader.Close();
-            //            conn.Close();
-
-            //            readerP.Close();
-            //            connP.Close();
-            //            MessageBox.Show("查詢不到複合瓶" + ManufacturingNo + " 循環資料！", "警告-W005");
-            //            return;
-            //        }
-            //        readerP.Close();
-            //        connP.Close();
-            //    }
-            //}
-            //reader.Close();
-            //conn.Close();
-
-            //判斷[ShippingBody]是否有資料
-            using (conn = new SqlConnection(myConnectionString))
+            //20200617 新增客戶序號確認
+            using (conn = new SqlConnection(myConnectionString)) 
             {
                 conn.Open();
 
-                selectCmd = "SELECT WhereSeat FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' order by Convert(INT,[WhereSeat]) DESC ";
+                selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
                 cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = NoLMCylinderNOTextBox.Text;
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        NowSeat = reader.GetString(reader.GetOrdinal("WhereSeat"));
-                        WhereSeatLabel.Text = (Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 2).ToString();
-
-                        if (NowSeat == Aboxof())
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N")
                         {
-                            MessageBox.Show("此嘜頭已滿箱！", "警告-W009");
-                            NextBoxs();
-                            return;
+                            DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.Cancel)
+                            {
+                                return;
+                            }
                         }
-                    }
-                    else
-                    {
-                        NowSeat = "0";
-                        WhereSeatLabel.Text = (Convert.ToInt32(NowSeat) + 1).ToString();
                     }
                 }
             }
-
+            
             int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
 
             using (TransactionScope scope = new TransactionScope())
@@ -7093,60 +6901,6 @@ namespace LM2ReadandList
             LoadSQLDate();
         }
 
-        private bool CheckProductAcceptanceIsWork(string ManufacturingNo)
-        {
-            //20170515判別是否有做過成品檢驗，有才允許繼續，否則不允許包裝
-            //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
-            bool ProductAcceptanceIsWork = false;
-
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                conn.Open();
-
-                selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + ManufacturingNo + "' and QualifiedQuantity>0 and substring(AcceptanceNo,1,8)<='" + DateTime.Now.ToString("yyyyMMdd") + "'";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        ProductAcceptanceIsWork = true;
-                    }
-                }
-
-                if (ProductAcceptanceIsWork == false)
-                {
-                    string OriMNO = "";
-
-                    //找是否有對應之批號，有則依此搜尋是否有做成品檢驗
-                    selectCmd = "SELECT  OriManufacturingNo FROM [TransformProductNo] where TransManufacturingNo='" + ManufacturingNo + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            OriMNO = reader.GetString(reader.GetOrdinal("OriManufacturingNo"));
-                        }
-                    }
-
-
-                    if (OriMNO != "")
-                    {
-                        selectCmd = "SELECT   * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + OriMNO + "' and QualifiedQuantity>0 and substring(AcceptanceNo,1,8)<='" + DateTime.Now.ToString("yyyyMMdd") + "'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                ProductAcceptanceIsWork = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return ProductAcceptanceIsWork;
-        }
-
         private void MarkSecondPrintBarCode(string SerialNo)
         {
             CreateBarCode(SerialNo);
@@ -7172,9 +6926,6 @@ namespace LM2ReadandList
             BarCodePictureBox.Width = img.Width;
             BarCodePictureBox.Image = img;
 
-            //Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            //pictureBox1.DrawToBitmap(bmp, new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height));
-            //bmp.Save("C:\\barcode\\" + BarCodeData + i.ToString().PadLeft(5, '0') + ".png", ImageFormat.Jpeg);
         }
 
         private void Create_DataMatrix(string SerialNo)
@@ -7203,81 +6954,6 @@ namespace LM2ReadandList
         //EXCEL輸出
         private void OutputSecondPrintExcel()
         {
-            //Excel.Application oXL = new Excel.Application();
-            //Excel.Workbook oWB;
-            //Excel.Worksheet oSheet;
-
-
-            //    // 停用警告訊息
-            //oXL.DisplayAlerts = false;
-
-            // 加入新的活頁簿
-            //oXL.Workbooks.Add(Type.Missing);
-
-            // 引用第一個活頁簿
-            //oWB = oXL.Workbooks[1];
-
-            // 設定活頁簿焦點
-            //oWB=(Excel.Workbook)oXL.ActiveWorkbook;//.Activate();
-
-            // 引用第一個工作表
-            //oSheet = (Excel.Worksheet)oWB.Worksheets[1];
-
-            //    // 命名工作表的名稱
-            //oSheet.Name = "工作表";
-
-            //    // 設定工作表焦點
-            //設定工作表
-            //oSheet = (Excel.Worksheet)oWB.ActiveSheet;
-            //oSheet.Activate();
-            //string srcFileName = "";
-
-            //srcFileName = Application.StartupPath + @".\Book1.xlsx";//EXCEL檔案路徑
-
-            //try
-            //{
-            //    //產生一個Workbook物件，並加入Application//改成.open以及在()中輸入開啟位子
-            //    oWB = oXL.Workbooks.Open(srcFileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-            //                            Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-            //                            Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-            //                            Type.Missing, Type.Missing);
-            //}
-            //catch
-            //{
-            //    MessageBox.Show(@"找不到EXCEL檔案！", "Warning");
-            //    return;
-            //}
-            //設定工作表
-            //oSheet = (Excel.Worksheet)oWB.ActiveSheet;
-
-            //float PicLeft, PicTop, PicWidth, PicHeight;
-            //string PicturePath, PicLocation;
-
-            //PicLocation = "A2";
-            //PicLocation = ((Char)(65)).ToString() + (2).ToString();
-            //PicturePath =  @"C:\SerialNoCode\" + NoLMCylinderNOTextBox.Text.ToString() + ".png";
-
-            //Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-            //xSheet.Cells[ (1 + 2 * (i / 8)),(i % 8) + 1] = SelectCylinderNoListBox.Items[i].ToString();
-            //Excel.Range m_objRange = xSheet.get_Range(PicLocation, Type.Missing);
-            //m_objRange.Select();
-
-            //PicLeft = Convert.ToSingle(m_objRange.Left);
-            //PicTop = Convert.ToSingle(m_objRange.Top);
-            //PicWidth = 63;
-            //PicHeight = 35;
-            //xSheet.Shapes.AddPicture(PicturePath, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, PicLeft + 4, PicTop + 6, PicWidth, PicHeight);
-
-            //oXL.Visible = true;
-            //關閉活頁簿
-            //oWB.Close(false, Type.Missing, Type.Missing);
-            //關閉Excel
-            //oXL.Quit();
-
-            //釋放Excel資源
-            //System.Runtime.InteropServices.Marshal.ReleaseComObject(oXL);
-            //GC.Collect();
-
             //設定標籤貼紙之印表機
             SetProfileString(this.SecondPrinterComboBox.SelectedItem.ToString());
 
@@ -7364,19 +7040,6 @@ namespace LM2ReadandList
             AddNbb += 1;
             NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.Replace(Nbb, Convert.ToString(AddNbb).PadLeft(Nbb.Length, '0'));
             // NoLMCylinderNOTextBox.Text = Ebb + TrialCarry(AddNbb);
-        }
-
-        private string TrialCarry(int i)
-        {
-            String fnum = String.Format("{0:00000}", Convert.ToInt32(i + 1));
-
-            //修改部分氣瓶序號為6碼
-            if ((Ebb == "CA" || Ebb == "NA") && i >= 100000)
-            {
-                fnum = String.Format("{0:000000}", Convert.ToInt32(i + 1));
-            }
-            Ebb = "";
-            return fnum;
         }
 
         private void NextBoxs()
@@ -7631,54 +7294,7 @@ namespace LM2ReadandList
 
             return QRcodDetail1;
         }
-
-        private void LoadBoxsNo()
-        {
-            int i = 1;
-
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                conn.Open();
-
-                selectCmd = "SELECT vchBoxs FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' order by convert(int,[vchBoxs]) asc ";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        BoxsArray[i] = reader.GetString(reader.GetOrdinal("vchBoxs"));
-                        i++;
-                    }
-                }
-            }
-        }
-
-        private void LoadBoxsCount()
-        {
-            using (conn = new SqlConnection(myConnectionString))
-            {
-                for (int i = 1; i < BoxsArray.Length; i++)
-                {
-                    if (BoxsArray[i] == null)
-                    {
-                        break;
-                    }
-
-                    conn.Open();
-
-                    selectCmd = "SELECT count([WhereBox]) FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [WhereBox]='" + BoxsArray[i] + "'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            BoxsCountArray[i] = reader.GetInt32(0);
-                        }
-                    }
-                }
-            }
-        }
-
+        
         //檢查跳箱的
         private void Match()
         {
@@ -8056,30 +7672,6 @@ namespace LM2ReadandList
                 _Garphics.Dispose();
                 return _CodeImage;
             }
-            /// <summary>
-            /// 顯示可見條碼文字 如果小於40 不顯示文字
-            /// </summary>
-            /// <param name="p_Bitmap">圖形</param>
-
-            /*
-            private void GetViewText(Bitmap p_Bitmap, string p_ViewText)
-            {
-                if (m_ValueFont == null) return;
-
-                Graphics _Graphics = Graphics.FromImage(p_Bitmap);
-                SizeF _DrawSize = _Graphics.MeasureString(p_ViewText, m_ValueFont);
-                if (_DrawSize.Height > p_Bitmap.Height - 10 || _DrawSize.Width > p_Bitmap.Width)
-                {
-                    _Graphics.Dispose();
-                    return;
-                }
-
-                int _StarY = p_Bitmap.Height - (int)_DrawSize.Height;
-
-                _Graphics.FillRectangle(Brushes.White, new Rectangle(0, _StarY, p_Bitmap.Width, (int)_DrawSize.Height));
-                _Graphics.DrawString(p_ViewText, m_ValueFont, Brushes.Black, 0, _StarY);
-            }
-             * */
         }
 
         public class Code128_Label
@@ -8241,12 +7833,6 @@ namespace LM2ReadandList
                 m_Code128.Rows.Add("106", "Stop", "Stop", "Stop", "2331112");
                 #endregion
             }
-            /// <summary>
-            /// 獲取128圖形
-            /// </summary>
-            /// <param name="p_Text">文字</param>
-            /// <param name="p_Code">編碼</param>
-            /// <returns>圖形</returns>
 
             public Bitmap GetCodeImage(string p_Text, Encode p_Code)
             {
@@ -8350,14 +7936,7 @@ namespace LM2ReadandList
                 GetViewText(_CodeImage, _ViewText);
                 return _CodeImage;
             }
-
-            /// <summary>
-            /// 獲取目標對應的資料
-            /// </summary>
-            /// <param name="p_Code">編碼</param>
-            /// <param name="p_Value">數值 A b 30</param>
-            /// <param name="p_SetID">返回編號</param>
-            /// <returns>編碼</returns>
+            
             private string GetValue(Encode p_Code, string p_Value, ref int p_SetID)
             {
                 if (m_Code128 == null)
@@ -8374,11 +7953,6 @@ namespace LM2ReadandList
                 p_SetID = Int32.Parse(_Row[0]["ID"].ToString());
                 return _Row[0]["BandCode"].ToString();
             }
-            /// <summary>
-            /// 根據編號獲得條紋
-            /// </summary>
-            /// <param name="p_CodeId"></param>
-            /// <returns></returns>
 
             private string GetValue(int p_CodeId)
             {
@@ -8390,12 +7964,6 @@ namespace LM2ReadandList
 
                 return _Row[0]["BandCode"].ToString();
             }
-
-            /// <summary>
-            /// 獲得條碼圖形
-            /// </summary>
-            /// <param name="p_Text">文字</param>
-            /// <returns>圖形</returns>
 
             private Bitmap GetImage(string p_Text)
             {
@@ -8450,10 +8018,6 @@ namespace LM2ReadandList
                 _Garphics.Dispose();
                 return _CodeImage;
             }
-            /// <summary>
-            /// 顯示可見條碼文字 如果小於40 不顯示文字
-            /// </summary>
-            /// <param name="p_Bitmap">圖形</param>
 
             private void GetViewText(Bitmap p_Bitmap, string p_ViewText)
             {
@@ -8480,7 +8044,6 @@ namespace LM2ReadandList
                 //_Graphics.DrawString(p_ViewText, m_ValueFont, Brushes.Black, new RectangleF(0, _StarY, 274, (int)_DrawSize.Height), sf);
                 // _Graphics.DrawString(p_ViewText, m_ValueFont, Brushes.Black, 0, _StarY,sf);
             }
-
         }
 
         private void SelectListBoxTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -8537,7 +8100,6 @@ namespace LM2ReadandList
         {
             OutputTodayDaaExcel();
             GC.Collect();
-
         }
 
         private void OutputTodayDaaExcel()
@@ -8580,26 +8142,6 @@ namespace LM2ReadandList
                 MessageBox.Show("無產品名稱:" + ProductName_CB.SelectedItem.ToString() + "、嘜頭日期:" + ListDate_LB.SelectedItem.ToString() + "於今天包裝之資料。");
                 return;
             }
-
-            //conn = new SqlConnection(myConnectionString);
-            //conn.Open();
-            //for (int i = 0; i < CylinderNumbersList.Count; i++)
-            //{
-            //    selectCmd = "SELECT  vchManufacturingNo FROM [MSNBody]  where [vchMarked]='Y' and [vchCylinderCode]+[vchCylinderNo]='" + CylinderNumbersList[i].ToString() + "'";
-
-            //    cmd = new SqlCommand(selectCmd, conn);
-            //    reader = cmd.ExecuteReader();
-            //    if (reader.Read())
-            //    {
-            //        ManufacturingNoList.Add(reader.GetString(0));
-            //    }
-            //    else
-            //    {
-            //        ManufacturingNoList.Add("");
-            //    }
-            //    reader.Close();
-            //}
-            //conn.Close();
 
             //show excel
             Excel.Application oXL = new Excel.Application();
@@ -8647,44 +8189,7 @@ namespace LM2ReadandList
             WhereBoxList.Sort();
             oSheet.Cells[4, 2] = WhereBoxList[0].ToString() + "~" + WhereBoxList[CylinderNumbersList.Count - 1].ToString();
             oSheet2.Cells[4, 2] = WhereBoxList[0].ToString() + "~" + WhereBoxList[CylinderNumbersList.Count - 1].ToString();
-
-            //ManufacturingNoList.Sort();
-            //int MNOAmount = 0,Location=0;
-            //string MNO = "";
-            //for (int i = 0; i < CylinderNumbersList.Count; i++)
-            //{
-            //    if (i == 0)
-            //    {
-            //        MNOAmount = 1;
-            //        MNO = ManufacturingNoList[i].ToString();
-            //    }
-            //    else if (MNO == ManufacturingNoList[i].ToString() && i != CylinderNumbersList.Count - 1)
-            //    {
-            //        MNOAmount += 1;
-            //    }
-            //    else if (MNO != ManufacturingNoList[i].ToString() && i != CylinderNumbersList.Count - 1)
-            //    {
-            //        oSheet.Cells[7 + Location, 1] = MNO;
-            //        oSheet.Cells[7 + Location, 2] = MNOAmount.ToString();
-            //        Location++;
-            //        MNOAmount = 1;
-            //        MNO = ManufacturingNoList[i].ToString();
-            //    }
-            //    else if (MNO != ManufacturingNoList[i].ToString() && i == CylinderNumbersList.Count - 1)
-            //    {
-            //        oSheet.Cells[7 + Location, 1] = MNO;
-            //        oSheet.Cells[7 + Location, 2] = MNOAmount.ToString();
-            //        Location++;
-            //        oSheet.Cells[7 + Location, 1] = 1;
-            //        oSheet.Cells[7 + Location, 2] = ManufacturingNoList[i].ToString();
-            //    }
-            //    else if (MNO == ManufacturingNoList[i].ToString() && i == CylinderNumbersList.Count - 1)
-            //    {
-            //        oSheet.Cells[7 + Location, 1] = MNO;
-            //        oSheet.Cells[7 + Location, 2] = MNOAmount.ToString();
-            //    }
-            //}
-
+            
             Excel.Sheets excelSheets = oWB.Worksheets;
 
             oXL.Visible = true;
@@ -8857,17 +8362,7 @@ namespace LM2ReadandList
 
             //清除箱號Range Label
             //BoxRangeLabel.Text = "";
-
-            //if (this.ListDateListBox.SelectedIndex != -1)
-            //{
-            //    TodayDataButton.Enabled = true;
-            //}
-            //else
-            //{
-            //    TodayDataButton.Enabled = false;
-            //}
-            //若選擇複合瓶，則將雷刻相關設定取消
-
+            
             if (ProductName_CB.SelectedIndex != -1)
             {
                 if (ProductName_CB.Text.Contains("Composite") == true)
@@ -8957,8 +8452,6 @@ namespace LM2ReadandList
             }
 
             //檢查跳箱的
-            //LoadBoxsNo();
-            //LoadBoxsCount();
             Match();
 
             if (PalletNoLabel.Text.ToString().CompareTo("棧板號：") == 0)
@@ -9058,7 +8551,27 @@ namespace LM2ReadandList
 
         private void PrinterRefreshButton_Click(object sender, EventArgs e)
         {
-            LoadPrinter();
+            FirstPrinterComboBox.Items.Clear();
+            SecondPrinterComboBox.Items.Clear();
+
+            List<string> PrinterList = new List<string>();
+            PrinterList.Clear();
+
+            PrintDocument printDoc = new PrintDocument();
+            string sDefaultPrinter = printDoc.PrinterSettings.PrinterName; // 取得預設的印表機名稱
+
+            // 取得安裝於電腦上的所有印表機名稱，加入 ListBox (Name : lbInstalledPrinters) 中
+            foreach (string strPrinter in PrinterSettings.InstalledPrinters)
+            {
+                PrinterList.Add(strPrinter);
+            }
+            PrinterList.Sort();
+
+            this.FirstPrinterComboBox.Items.AddRange(PrinterList.ToArray());
+            SecondPrinterComboBox.Items.AddRange(PrinterList.ToArray());
+            // ListBox (Name : lbInstalledPrinters) 選擇在預設印表機
+            this.FirstPrinterComboBox.SelectedIndex = this.FirstPrinterComboBox.FindString(sDefaultPrinter);
+            this.SecondPrinterComboBox.SelectedIndex = this.SecondPrinterComboBox.FindString(sDefaultPrinter);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
