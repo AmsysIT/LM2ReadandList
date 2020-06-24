@@ -5760,7 +5760,60 @@ namespace LM2ReadandList
                         Message = false;
                         return;
                     }
-                    
+                }
+
+
+                //20200617 新增客戶序號確認
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N")
+                            {
+                                DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                                if (result == DialogResult.Cancel)
+                                {
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "select vchManufacturingNo from MSNBody where CylinderNo = @CylinderNo ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (LotNumber != reader.GetString(reader.GetOrdinal("vchManufacturingNo")))
+                            {
+                                Message = true;
+
+                                DialogResult result = MessageBox.Show("請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                                if (result == DialogResult.OK)
+                                {
+                                    Message = false;
+                                    return;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
@@ -6796,6 +6849,26 @@ namespace LM2ReadandList
                 }
             }
             
+            using(conn=new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "select vchManufacturingNo from MSNBody where CylinderNo = @CylinderNo ";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        if (LotNumber != reader.GetString(reader.GetOrdinal("vchManufacturingNo")))
+                        {
+                            MessageBox.Show("請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+            }
+
             int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
 
             using (TransactionScope scope = new TransactionScope())
