@@ -1357,6 +1357,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "出貨嘜頭裝箱系統_20190213";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyInGroupBox.ResumeLayout(false);

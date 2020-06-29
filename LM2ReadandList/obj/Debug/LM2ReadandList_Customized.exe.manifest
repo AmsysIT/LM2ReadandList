@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.221" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.223" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LM2ReadandList.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>3tH5p72CHG8oQSBiCX1s01DHifI=</dsig:DigestValue>
+        <dsig:DigestValue>Rw5Zg1N0neS/gXy27Z0kNjY6hEU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4272,13 +4272,13 @@
       <dsig:DigestValue>A6PcQXAz+taRBvovT3Aj6swxUMo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut40.xlsx" size="32633">
+  <file name="NewListOut40.xlsx" size="32731">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>e2VrqHBr+w9985sfUK4tFMpDvsg=</dsig:DigestValue>
+      <dsig:DigestValue>B//09oIJZihVIlGI/sTdJqHnbbU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="NewListOut8.xlsx" size="31305">
@@ -4407,13 +4407,13 @@
       <dsig:DigestValue>7olShSKol2GcJkTSI9Dfxj05+qI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewStraightOut40.xlsx" size="31733">
+  <file name="NewStraightOut40.xlsx" size="32855">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>DQGCuxKQRBSxH5f3i0DaAJPW7XY=</dsig:DigestValue>
+      <dsig:DigestValue>EKWdCrZ+Nr+QjfZDzzWFnXJKhLo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="NewStraightOut8.xlsx" size="31297">
