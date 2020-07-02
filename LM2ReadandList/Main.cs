@@ -5749,6 +5749,77 @@ namespace LM2ReadandList
                     }
                 }
 
+                //20200702 客戶序號檢查
+                string CustomerCylinderNo = string.Empty;
+
+                using (conn = new SqlConnection(myConnectionString)) 
+                {
+                    conn.Open();
+
+                    selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            CustomerCylinderNo = reader.GetString(reader.GetOrdinal("CustomerCylinderNo"));
+                        }
+                    }
+
+                    if (CustomerCylinderNo != "N" && CustomerCylinderNo != "") 
+                    {
+                        selectCmd = "select count(ID) count from MSNBody where CustomerCylinderNo = @CustomerCylinderNo ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.Add("@CustomerCylinderNo", SqlDbType.VarChar).Value = CustomerCylinderNo;
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (reader.GetInt32(reader.GetOrdinal("count")) > 1)
+                                {
+                                    Error += "Code：121 此客戶序號以重複";
+                                }
+                            }
+                        }
+
+                        using (conn1 = new SqlConnection(myConnectionString21))
+                        {
+                            conn1.Open();
+
+                            selectCmd1 = "select ID from [CylinderNoCheck_Q] where CylinderNo = @CylinderNo ";
+                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                            cmd1.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                            using (reader1 = cmd1.ExecuteReader())
+                            {
+                                if (reader1.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：122 品保未確認客戶序號";
+                                }
+                            }
+
+                            selectCmd1 = "select ID from [CylinderNoCheck_P] where CylinderNo = @CylinderNo ";
+                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                            cmd1.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                            using (reader1 = cmd1.ExecuteReader())
+                            {
+                                if (reader1.HasRows)
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：123 生產未確認客戶序號";
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (Error.Any())
                 {
                     Message = true;
@@ -5775,7 +5846,7 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N")
+                            if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
                             {
                                 DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
@@ -6817,6 +6888,77 @@ namespace LM2ReadandList
                 }
             }
 
+            //20200702 客戶序號檢查
+            string CustomerCylinderNo = string.Empty;
+
+            using (conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "select isnull([CustomerCylinderNo],'N') CustomerCylinderNo from [MSNBody] where [CylinderNo] = @CylinderNo";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        CustomerCylinderNo = reader.GetString(reader.GetOrdinal("CustomerCylinderNo"));
+                    }
+                }
+
+                if (CustomerCylinderNo != "N" && CustomerCylinderNo != "")
+                {
+                    selectCmd = "select count(ID) count from MSNBody where CustomerCylinderNo = @CustomerCylinderNo ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@CustomerCylinderNo", SqlDbType.VarChar).Value = CustomerCylinderNo;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (reader.GetInt32(reader.GetOrdinal("count")) > 1)
+                            {
+                                Error += "Code：121 此客戶序號以重複";
+                            }
+                        }
+                    }
+
+                    using (conn1 = new SqlConnection(myConnectionString21))
+                    {
+                        conn1.Open();
+
+                        selectCmd1 = "select ID from [CylinderNoCheck_Q] where CylinderNo = @CylinderNo ";
+                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                        cmd1.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
+                        using (reader1 = cmd1.ExecuteReader())
+                        {
+                            if (reader1.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：122 品保未確認客戶序號";
+                            }
+                        }
+
+                        selectCmd1 = "select ID from [CylinderNoCheck_P] where CylinderNo = @CylinderNo ";
+                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                        cmd1.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
+                        using (reader1 = cmd1.ExecuteReader())
+                        {
+                            if (reader1.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：123 生產未確認客戶序號";
+                            }
+                        }
+                    }
+                }
+            }
+
             if (Error.Any())
             {
                 MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -6836,7 +6978,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N")
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") ;
                         {
                             DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
