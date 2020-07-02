@@ -6978,7 +6978,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") ;
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
                         {
                             DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
