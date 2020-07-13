@@ -38,7 +38,7 @@ namespace LM2ReadandList
         public int time = 420;
 
         //資料庫宣告
-        string myConnectionString, myConnectionString21, myConnectionString30;
+        string myConnectionString, myConnectionString21, myConnectionString30, myConnectionString21_AMS_check;
         string selectCmd, selectCmd1 ;
         SqlConnection conn, conn1;
         SqlCommand cmd, cmd1;
@@ -81,6 +81,7 @@ namespace LM2ReadandList
             myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";
             myConnectionString30 = "Server=192.168.0.30;database=AMS2;uid=sa;pwd=Ams.sql;";
             myConnectionString21 = "Server=192.168.0.21;database=HRMDB;uid=sa;pwd=dsc;";
+            myConnectionString21_AMS_check = "Server=192.168.0.21;database=AMS_Check;uid=sa;pwd=dsc;";
             InitializeComponent();
         }
 
@@ -5783,7 +5784,7 @@ namespace LM2ReadandList
                             }
                         }
 
-                        using (conn1 = new SqlConnection(myConnectionString21))
+                        using (conn1 = new SqlConnection(myConnectionString21_AMS_check))
                         {
                             conn1.Open();
 
@@ -6922,7 +6923,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    using (conn1 = new SqlConnection(myConnectionString21))
+                    using (conn1 = new SqlConnection(myConnectionString21_AMS_check))
                     {
                         conn1.Open();
 
