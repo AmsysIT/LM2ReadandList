@@ -4408,7 +4408,7 @@ namespace LM2ReadandList
                                 oSheet.Cells[10, 2] = reader.GetString(4);
 
                                 //20200410 加入PO
-                                oSheet.Cells[5, 9] = CustomerPO_L.Text;
+                                oSheet.Cells[10, 8] = CustomerPO_L.Text;
                             }
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
