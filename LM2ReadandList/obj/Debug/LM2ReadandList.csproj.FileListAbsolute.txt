@@ -29742,3 +29742,4 @@ C:\Users\A00570\Desktop\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_C
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.exe.config
 C:\Users\A00570\Desktop\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut5.xlsx
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut5.xlsx
+E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_RogerSports.png

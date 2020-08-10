@@ -10,13 +10,13 @@ using System.Drawing;
 using System.Drawing.Imaging; // for ImageFormat 
 using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Transactions;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Linq;
-using System.Transactions;
 
 namespace LM2ReadandList
 {
@@ -39,7 +39,7 @@ namespace LM2ReadandList
 
         //資料庫宣告
         string myConnectionString, myConnectionString21, myConnectionString30, myConnectionString21_AMS_check;
-        string selectCmd, selectCmd1 ;
+        string selectCmd, selectCmd1;
         SqlConnection conn, conn1;
         SqlCommand cmd, cmd1;
         SqlDataReader reader, reader1;
@@ -126,7 +126,7 @@ namespace LM2ReadandList
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(DT);
         }
-        
+
         private void LoadListDate()
         {
             ListDate_LB.SelectedIndex = -1;
@@ -1622,6 +1622,11 @@ namespace LM2ReadandList
                         //LOGO
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("AIR TEC") == true)
                     {
@@ -5358,10 +5363,10 @@ namespace LM2ReadandList
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (BottleTextBox.Text != "" && BottomTextBox.Text != "" && Message == false) 
+            if (BottleTextBox.Text != "" && BottomTextBox.Text != "" && Message == false)
             {
                 DateTime ResrictionDate = new DateTime();
                 DateTime HydroDate = new DateTime();
@@ -5382,7 +5387,7 @@ namespace LM2ReadandList
 
                 string Bottle = string.Empty;
                 string Bottom = string.Empty;
-                
+
                 if (BottleTextBox.Text != "")
                 {
                     Bottle = BottleTextBox.Text;
@@ -5392,7 +5397,7 @@ namespace LM2ReadandList
                     Bottom = BottomTextBox.Text;
                 }
 
-                if (Bottle != Bottom) 
+                if (Bottle != Bottom)
                 {
                     return;
                 }
@@ -5441,15 +5446,15 @@ namespace LM2ReadandList
                     CustomerName = v.Field<string>("ClientName");
                     MarkingType = v.Field<string>("vchMarkingType");
                 }
-                catch (Exception ee)
+                catch (Exception)
                 {
-                    MessageBox.Show("查無序號，請聯繫MIS","警告",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 ProductType = Product_L.Text;
 
-                using(conn = new SqlConnection(myConnectionString))
+                using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
@@ -6014,7 +6019,7 @@ namespace LM2ReadandList
                 //20200702 客戶序號檢查
                 string CustomerCylinderNo = string.Empty;
 
-                using (conn = new SqlConnection(myConnectionString)) 
+                using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
@@ -6029,7 +6034,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if (CustomerCylinderNo != "N" && CustomerCylinderNo != "") 
+                    if (CustomerCylinderNo != "N" && CustomerCylinderNo != "")
                     {
                         selectCmd = "select count(ID) count from MSNBody where CustomerCylinderNo = @CustomerCylinderNo ";
                         cmd = new SqlCommand(selectCmd, conn);
@@ -6086,7 +6091,7 @@ namespace LM2ReadandList
                 {
                     Message = true;
 
-                    DialogResult result= MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     if (result == DialogResult.OK)
                     {
@@ -6108,7 +6113,7 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
+                            if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "")
                             {
                                 DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
@@ -6386,7 +6391,7 @@ namespace LM2ReadandList
                 e.Handled = true;
             }
         }
-        
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (NoLMCheckBox.Checked == true)
@@ -6575,9 +6580,9 @@ namespace LM2ReadandList
                 CustomerName = v.Field<string>("ClientName");
                 CylinderNO = NoLMCylinderNOTextBox.Text;
             }
-            catch (Exception ee)
+            catch (Exception)
             {
-                MessageBox.Show("查無序號，請聯繫MIS","警告",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -6622,7 +6627,7 @@ namespace LM2ReadandList
                         ProductAcceptance = true;
                     }
                 }
-                
+
                 //判別是否為報廢氣瓶
                 selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNO + "'";
                 cmd = new SqlCommand(selectCmd, conn);
@@ -6646,7 +6651,7 @@ namespace LM2ReadandList
                 }
 
                 //判斷是否有水壓報告
-                using (conn1=new SqlConnection(myConnectionString30))
+                using (conn1 = new SqlConnection(myConnectionString30))
                 {
                     conn1.Open();
 
@@ -6821,7 +6826,7 @@ namespace LM2ReadandList
                     Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\n";
                 }
             }
-            
+
             //判別產品類型
             if (ProductType.Contains("Aluminum"))
             {
@@ -6896,7 +6901,7 @@ namespace LM2ReadandList
                     }
                     else if (ProductNo.Contains("3-A-") == true)
                     {
-                        using(conn=new SqlConnection(myConnectionString30))
+                        using (conn = new SqlConnection(myConnectionString30))
                         {
                             conn.Open();
 
@@ -6933,7 +6938,7 @@ namespace LM2ReadandList
                     }
                     else if (ProductNo.Contains("5-A-") == true)
                     {
-                        using (conn = new SqlConnection(myConnectionString30)) 
+                        using (conn = new SqlConnection(myConnectionString30))
                         {
                             conn.Open();
 
@@ -6959,11 +6964,11 @@ namespace LM2ReadandList
             {
                 string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
                 string CarbonSpec = "", GlassSpec = "";
-                
+
                 using (conn = new SqlConnection(myConnectionString30))
                 {
                     conn.Open();
-                    
+
                     //判別是否有做出貨檢驗，無出貨檢驗資料不允許包裝
                     selectCmd = "SELECT  * FROM  CH_ShippingInspection where SerialNo='" + CylinderNO + "'";
                     cmd = new SqlCommand(selectCmd, conn);
@@ -7029,7 +7034,7 @@ namespace LM2ReadandList
                     using (conn = new SqlConnection(myConnectionString30))
                     {
                         conn.Open();
-                        
+
                         //碳纖
                         selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
                         cmd = new SqlCommand(selectCmd, conn);
@@ -7090,7 +7095,7 @@ namespace LM2ReadandList
                         }
                     }
                 }
-            
+
                 //對應內膽  拉伸、爆破
                 //找出對應內膽批號
                 string BuildUp = "";
@@ -7112,7 +7117,7 @@ namespace LM2ReadandList
 
                 if (BuildUp != "")
                 {
-                    using(conn=new SqlConnection(myConnectionString30))
+                    using (conn = new SqlConnection(myConnectionString30))
                     {
                         conn.Open();
 
@@ -7229,7 +7234,7 @@ namespace LM2ReadandList
 
 
             //20200617 新增客戶序號確認
-            using (conn = new SqlConnection(myConnectionString)) 
+            using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
@@ -7240,7 +7245,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "") 
+                        if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "")
                         {
                             DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
@@ -7252,8 +7257,8 @@ namespace LM2ReadandList
                     }
                 }
             }
-            
-            using(conn=new SqlConnection(myConnectionString))
+
+            using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
@@ -7771,7 +7776,7 @@ namespace LM2ReadandList
 
             return QRcodDetail1;
         }
-        
+
         //檢查跳箱的
         private void Match()
         {
@@ -8413,7 +8418,7 @@ namespace LM2ReadandList
                 GetViewText(_CodeImage, _ViewText);
                 return _CodeImage;
             }
-            
+
             private string GetValue(Encode p_Code, string p_Value, ref int p_SetID)
             {
                 if (m_Code128 == null)
@@ -8666,7 +8671,7 @@ namespace LM2ReadandList
             WhereBoxList.Sort();
             oSheet.Cells[4, 2] = WhereBoxList[0].ToString() + "~" + WhereBoxList[CylinderNumbersList.Count - 1].ToString();
             oSheet2.Cells[4, 2] = WhereBoxList[0].ToString() + "~" + WhereBoxList[CylinderNumbersList.Count - 1].ToString();
-            
+
             Excel.Sheets excelSheets = oWB.Worksheets;
 
             oXL.Visible = true;
@@ -8839,7 +8844,7 @@ namespace LM2ReadandList
 
             //清除箱號Range Label
             //BoxRangeLabel.Text = "";
-            
+
             if (ProductName_CB.SelectedIndex != -1)
             {
                 if (ProductName_CB.Text.Contains("Composite") == true)
