@@ -1731,6 +1731,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -1902,6 +1907,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
@@ -2502,6 +2512,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -2741,6 +2756,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -2963,6 +2983,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
@@ -3222,6 +3247,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3437,6 +3467,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
@@ -3718,7 +3753,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -3886,6 +3925,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -4039,6 +4083,12 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
+
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -4194,6 +4244,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
@@ -4434,6 +4489,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -4614,6 +4674,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
@@ -4812,6 +4877,11 @@ namespace LM2ReadandList
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
