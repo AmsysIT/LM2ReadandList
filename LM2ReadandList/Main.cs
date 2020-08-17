@@ -2245,6 +2245,11 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
+                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
