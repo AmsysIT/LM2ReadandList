@@ -1623,7 +1623,7 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
-                    else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                    else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -1731,7 +1731,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -1908,7 +1908,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2241,7 +2241,7 @@ namespace LM2ReadandList
                             //棧板號
                             oSheet.Cells[9, 10] = reader.GetString(5);
 
-                            if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                            if (reader.GetString(reader.GetOrdinal("Client")).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -2255,7 +2255,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2512,7 +2512,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2756,7 +2756,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -2984,7 +2984,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3247,7 +3247,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3468,7 +3468,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3753,7 +3753,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -3925,7 +3925,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4083,7 +4083,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4245,7 +4245,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4489,7 +4489,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4675,7 +4675,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
@@ -4878,7 +4878,7 @@ namespace LM2ReadandList
                                                 Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
-                            else if (PackingMarks.Trim().CompareTo("SOGER SPORTS") == 0)
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
