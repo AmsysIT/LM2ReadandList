@@ -1623,7 +1623,7 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
-                    else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
+                    else if (Client.ToUpper().Contains("ADRENALICIA S.L."))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
