@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>238</ApplicationRevision>
+    <ApplicationRevision>240</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -130,6 +130,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="CleanedForOxygenService.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="HstoryExcel\ListOut.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

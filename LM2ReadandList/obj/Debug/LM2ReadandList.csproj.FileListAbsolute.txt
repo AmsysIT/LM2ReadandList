@@ -30233,3 +30233,4 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2Readan
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CopyComplete
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.pdb
+E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\CleanedForOxygenService.png

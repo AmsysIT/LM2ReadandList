@@ -1094,7 +1094,7 @@ namespace LM2ReadandList
         private void OutputExcel()
         {
             //判斷一箱幾隻
-            string Aboxof = "", PackingMarks = "", Client = "";
+            string Aboxof = "", PackingMarks = "", Client = "", DemandNo = string.Empty;
             PalletNoString = "-";
 
             //判斷一箱幾隻
@@ -1102,8 +1102,13 @@ namespace LM2ReadandList
             {
                 conn.Open();
 
-                selectCmd = "SELECT vchAboxof ,isnull(PackingMarks,'') PackingMarks, isnull(PalletNo,'-') PalletNo, Client FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                selectCmd = "SELECT vchAboxof ,ISNULL(PackingMarks,'') PackingMarks, ISNULL([PalletNo],'-') PalletNo, [Client]" +
+                    ", vchAboxof, [DemandNo] FROM [ShippingHead] where [ListDate] = @ListDate AND [ProductName]= @ProductName" +
+                    " AND [vchBoxs]= @vchBoxs";
                 cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.AddWithValue("@ListDate", ListDate_LB.SelectedItem);
+                cmd.Parameters.AddWithValue("@ProductName", ProductName_CB.Text);
+                cmd.Parameters.AddWithValue("@vchBoxs", WhereBox_LB.SelectedItem);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -1112,6 +1117,7 @@ namespace LM2ReadandList
                         PackingMarks = reader.GetValue(reader.GetOrdinal("PackingMarks")).ToString();
                         PalletNoString = reader.GetValue(reader.GetOrdinal("PalletNo")).ToString();
                         Client = reader.GetValue(reader.GetOrdinal("Client")).ToString();
+                        DemandNo = reader.GetValue(reader.GetOrdinal("DemandNo")).ToString();
                     }
                 }
             }
@@ -2449,6 +2455,7 @@ namespace LM2ReadandList
                 string HowMuch = "";
                 int Cumulative = 0;
                 int Total = 0;
+                string DemandNo = string.Empty;
 
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))
@@ -2462,6 +2469,7 @@ namespace LM2ReadandList
                         while (reader.Read())
                         {
                             HowMuch = reader.GetString(4);
+                            DemandNo = reader.GetString(reader.GetOrdinal("DemandNo"));
                             Cumulative++;
                         }
                     }
@@ -2476,7 +2484,13 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            Client = reader.GetString(0).Trim();
+                            //1.20200821 AMS CC 試單 暫依此規則
+                            if (DemandNo == "2201-20200820001")
+                            {
+                                oSheet.Cells[5, 1] = "Batch No./Serial No.";
+
+                            }
+                                Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
                             oSheet.Cells[1, 7] = reader.GetString(2);
 
@@ -2552,52 +2566,148 @@ namespace LM2ReadandList
                             switch (reader.GetString(5))
                             {
                                 case "1":
-                                    oSheet.Cells[6, 1] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[6, 1] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[6, 1] = reader.GetString(3);
+                                    }
                                     FirstCNO = reader.GetString(3);
                                     break;
 
                                 case "2":
-                                    oSheet.Cells[6, 3] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[6, 3] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[6, 3] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "3":
-                                    oSheet.Cells[6, 5] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[6, 5] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[6, 5] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "4":
-                                    oSheet.Cells[6, 7] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[6, 7] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[6, 7] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "5":
-                                    oSheet.Cells[8, 1] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[8, 1] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[8, 1] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "6":
-                                    oSheet.Cells[8, 3] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[8, 3] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[8, 3] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "7":
-                                    oSheet.Cells[8, 5] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[8, 5] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[8, 5] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "8":
-                                    oSheet.Cells[8, 7] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[8, 7] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[8, 7] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "9":
-                                    oSheet.Cells[10, 1] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[10, 1] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[10, 1] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "10":
-                                    oSheet.Cells[10, 3] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[10, 3] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[10, 3] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "11":
-                                    oSheet.Cells[10, 5] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[10, 5] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[10, 5] = reader.GetString(3);
+                                    }
                                     break;
 
                                 case "12":
-                                    oSheet.Cells[10, 7] = reader.GetString(3);
+                                    //1.20200821 AMS CC 試單 暫依此規則
+                                    if (DemandNo == "2201-20200820001")
+                                    {
+                                        oSheet.Cells[10, 7] = reader.GetString(reader.GetOrdinal("LotNumber")) + "\n" + reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        oSheet.Cells[10, 7] = reader.GetString(3);
+                                    }
                                     break;
                             }
                             serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 157;
@@ -7729,6 +7839,7 @@ namespace LM2ReadandList
         {
             string QRcodDetail1 = ""; string Aboxof = "";
             string QRClient = "", QRProductName = "", PackingMarks = "";
+            string DemandNo = string.Empty;
             // int section = 0;
 
             //找出客戶資訊
@@ -7736,8 +7847,13 @@ namespace LM2ReadandList
             {
                 conn.Open();
 
-                selectCmd = "SELECT isnull(Client,'') Client, isnull(ProductName,'') ProductName, isnull(PackingMarks,'') PackingMarks, vchAboxof FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
+                selectCmd = "SELECT isnull(Client,'') Client, isnull(ProductName,'') ProductName, isnull(PackingMarks,'') PackingMarks" +
+                    ", vchAboxof, [DemandNo] FROM [ShippingHead] where [ListDate] = @ListDate AND [ProductName]= @ProductName" +
+                    " AND [vchBoxs]= @vchBoxs";
                 cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.AddWithValue("@ListDate", ListDate_LB.SelectedItem);
+                cmd.Parameters.AddWithValue("@ProductName", ProductName_CB.Text);
+                cmd.Parameters.AddWithValue("@vchBoxs", WhereBox_LB.SelectedItem);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -7747,6 +7863,8 @@ namespace LM2ReadandList
                         //找出外箱嘜頭貼紙是否有客製化需求PackingMarks
                         PackingMarks = reader.GetValue(reader.GetOrdinal("PackingMarks")).ToString();
                         Aboxof = reader.GetValue(reader.GetOrdinal("vchAboxof")).ToString();
+                        DemandNo = reader.GetString(reader.GetOrdinal("DemandNo")).ToString();
+
                     }
                 }
             }
@@ -7796,7 +7914,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT CylinderNumbers FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' ORDER BY convert(int,[WhereSeat]) asc ";
+                    selectCmd = "SELECT CylinderNumbers,[LotNumber] FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' ORDER BY convert(int,[WhereSeat]) asc ";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -7805,6 +7923,12 @@ namespace LM2ReadandList
                             if (QRClient.Contains("Praxair") == true)
                             {//Praxair ->only CylinderNo
                                 SerialNoArray.Add(reader.GetString(reader.GetOrdinal("CylinderNumbers")));
+                            }
+                            //1.20200821 AMS CC 試單 暫依此規則
+                            else if (DemandNo == "2201-20200820001")
+                            {
+                                SerialNoArray.Add(reader.GetString(reader.GetOrdinal("LotNumber"))
+                                    + " - " + reader.GetString(reader.GetOrdinal("CylinderNumbers")));
                             }
                             else
                             {//AMS Default data
@@ -7826,7 +7950,20 @@ namespace LM2ReadandList
                         {
                             if (reader.Read())
                             {
-                                QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No. " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + WhereBox_LB.SelectedItem + "\r\nSerial No.\r\n";
+                                //1.20200821 AMS CC 試單 暫依此規則
+                                if (DemandNo == "2201-20200820001")
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName"))
+                                        + "\r\nPart No. " + reader.GetString(reader.GetOrdinal("CustomerProductNo"))
+                                        + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + WhereBox_LB.SelectedItem
+                                        + "\r\nBatch No./Serial No.\r\n";
+                                }
+                                else
+                                {
+
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No. " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + WhereBox_LB.SelectedItem + "\r\nSerial No.\r\n";
+                                }
+
                             }
                         }
                     }
