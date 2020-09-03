@@ -13,23 +13,20 @@ namespace LM2ReadandList
     public partial class CylinderNoWeight : Form
     {
         //資料庫宣告
-        string myConnectionString;
-        SqlConnection myConnection;
+        string myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";
         string selectCmd;
         SqlConnection conn;
         SqlCommand cmd;
         SqlDataReader reader;
 
-        public string ComPort = "", CylinderNo="",ListDate="",ProductName="",Boxs="",Location="",check="";
+        public string ComPort = "", CylinderNo = "", ListDate = "", Boxs = "", check = "";
+        public bool HaveBase;
         string ReadWeight = "";
         int i = 0;
 
         public CylinderNoWeight()
         {
             InitializeComponent();
-
-            //資料庫路徑與位子
-            myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";  
         }
 
         private void CylinderNoWeight_Load(object sender, EventArgs e)
@@ -75,7 +72,7 @@ namespace LM2ReadandList
         {
             if (ReflashComportButton.Text == "刷新Com Port")
             {
-                string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+                string[] ports = SerialPort.GetPortNames();
                 List<string> listPorts = new List<string>(ports);
                 Comparison<string> comparer = delegate(string name1, string name2)
                 {
@@ -89,7 +86,6 @@ namespace LM2ReadandList
                 listPorts.Sort(comparer);
                 ComPortcomboBox.Items.Clear();
                 this.ComPortcomboBox.Items.AddRange(listPorts.ToArray());
-                //this.ComPortcomboBox.SelectedIndex = this.ComPortcomboBox.Items.Count - 1;
                 ReflashComportButton.Text = "確定變更";
                 ComPortcomboBox.Enabled = true;
                 WeightTextBox.ReadOnly = false;
@@ -110,7 +106,7 @@ namespace LM2ReadandList
         {
             try
             {
-                SerialPort1.Write((Convert.ToChar(81)).ToString() + (Convert.ToChar(13)).ToString() + (Convert.ToChar(10)).ToString());//Q+ctrlM
+                SerialPort1.Write(Convert.ToChar(81).ToString() + (Convert.ToChar(13)).ToString() + (Convert.ToChar(10)).ToString());//Q+ctrlM
                 ReadWeight = SerialPort1.ReadLine().ToString();
             }
             catch
@@ -124,15 +120,33 @@ namespace LM2ReadandList
             if (ReadWeight.Contains("ST") == true)
             {
                 ReadWeight = ReadWeight.Split(',')[1].Split(' ')[0].ToString();
+
                 if (ReadWeight.Substring(0, 1) == "+")
                 {
-                    if(check=="True")
+                    //20200903 扣底座重
+                    if (check == "True") 
                     {
-                        WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 125).ToString();
+                        if (HaveBase == true)
+                        {
+                            WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 236).ToString();
+
+                        }
+                        else
+                        {
+                            WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 125).ToString();
+                        }
                     }
                     else
                     {
-                        WeightTextBox.Text = Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)).ToString();
+                        if (HaveBase == true)
+                        {
+                            WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 111).ToString();
+
+                        }
+                        else
+                        {
+                            WeightTextBox.Text = Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)).ToString();
+                        }
                     }
 
                     if (WeightTextBox.Text.ToString().CompareTo("0") == 1)
@@ -174,7 +188,7 @@ namespace LM2ReadandList
 
         private void WeightTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (Char)13)
+            if (e.KeyChar == (char)13)
             {
                 SaveWeight();
             }
@@ -217,8 +231,6 @@ namespace LM2ReadandList
             selectCmd = "UPDATE[ShippingBody] SET [CylinderWeight]='" + WeightTextBox.Text.Trim().ToString() + "' where [ListDate]='" + this.ListDate + "' and [ProductName]='" + this.ProductName + "' and [WhereBox]='" + this.Boxs + "' and [WhereSeat]='" + this.Location + "' and [CylinderNumbers]='" + CylinderNo + "'";
             cmd = new SqlCommand(selectCmd, conn);
             cmd.ExecuteNonQuery();
-            //reader = cmd.ExecuteReader();
-            //reader.Close();
             conn.Close();
 
 

@@ -44,7 +44,8 @@ namespace LM2ReadandList
         SqlCommand cmd, cmd1;
         SqlDataReader reader, reader1;
         SqlDataAdapter sqlAdapter;
-        DataTable DT = new DataTable();
+        DataTable DT, SDT;
+
 
         //用來記錄是否為PASS的字串
         string Pass = "N";
@@ -125,6 +126,11 @@ namespace LM2ReadandList
                 "  where Package = '0' and vchHydrostaticTestDate > '2016/01' ";
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(DT);
+
+            SDT = new DataTable();
+            selectCmd = "SELECT vchBoxs FROM ShippingHead where [DemandNo] = '2201-20200409001' and ( [ProductNo] = '4C8208226188138030' or [ProductNo] = '4C7208226188100030' ) ";
+            sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
+            sqlAdapter.Fill(SDT);
         }
 
         private void LoadListDate()
@@ -6722,7 +6728,7 @@ namespace LM2ReadandList
             bool ProductAcceptance = false;
             bool SpecialUses = false;
             bool HydrostaticPass = false;
-
+            
             //判斷是否滿箱
             using (conn = new SqlConnection(myConnectionString))
             {
@@ -7532,16 +7538,32 @@ namespace LM2ReadandList
                 CBC.Location = (Convert.ToInt32(NowSeat) + 1).ToString();
                 CBC.ShowDialog();
             }
+
             if (WeightCheckBox.Checked == true && ComPortcomboBox.SelectedIndex != -1)
             {
+                //20200903 扣底做重
+                bool HaveBase = false;
+
+                var v = (from p in SDT.AsEnumerable()
+                         where p.Field<string>("vchBoxs").Contains(WhereBox_LB.SelectedItem.ToString())
+                         select p.Field<string>("vchBoxs")).FirstOrDefault();
+
+                if (v == null)
+                {
+                    HaveBase = false;
+                }
+                else
+                {
+                    HaveBase = true;
+                }
+
                 CylinderNoWeight CNW = new CylinderNoWeight();
                 CNW.ComPort = ComPortcomboBox.SelectedItem.ToString();
-                CNW.ProductName = ProductName_CB.SelectedItem.ToString();
                 CNW.ListDate = ListDate_LB.SelectedItem.ToString();
                 CNW.Boxs = WhereBox_LB.SelectedItem.ToString();
-                CNW.Location = (Convert.ToInt32(NowSeat) + 1).ToString();
                 CNW.CylinderNo = NoLMCylinderNOTextBox.Text.ToString();
                 CNW.check = checkBox1.Checked.ToString();
+                CNW.HaveBase = HaveBase;
 
                 CNW.ShowDialog();
             }
