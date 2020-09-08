@@ -211,7 +211,7 @@ namespace LM2ReadandList
             conn = new SqlConnection(myConnectionString);
             conn.Open();
 
-            selectCmd = "SELECT [CylinderWeight] From [ShippingBody]  where [ListDate]='" + this.ListDate + "' and [ProductName]='" + this.ProductName + "' and [WhereBox]='" + this.Boxs + "' and [WhereSeat]='" + this.Location + "' and [CylinderNumbers]='" + CylinderNo + "'";
+            selectCmd = "SELECT [CylinderWeight] From [ShippingBody]  where [CylinderNumbers]='" + CylinderNo + "'";
             cmd = new SqlCommand(selectCmd, conn);
             reader = cmd.ExecuteReader();
             if (reader.Read())
@@ -228,7 +228,7 @@ namespace LM2ReadandList
             }
             reader.Close();
 
-            selectCmd = "UPDATE[ShippingBody] SET [CylinderWeight]='" + WeightTextBox.Text.Trim().ToString() + "' where [ListDate]='" + this.ListDate + "' and [ProductName]='" + this.ProductName + "' and [WhereBox]='" + this.Boxs + "' and [WhereSeat]='" + this.Location + "' and [CylinderNumbers]='" + CylinderNo + "'";
+            selectCmd = "UPDATE[ShippingBody] SET [CylinderWeight]='" + WeightTextBox.Text.Trim().ToString() + "' where [CylinderNumbers]='" + CylinderNo + "'";
             cmd = new SqlCommand(selectCmd, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
