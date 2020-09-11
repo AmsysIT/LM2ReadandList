@@ -30235,3 +30235,7 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2Readan
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.pdb
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\CleanedForOxygenService.png
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\CleanedForOxygenService.png
+C:\Users\Phyu\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\CleanedForOxygenService.png
+C:\Users\Phyu\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_RogerSports.png
+C:\Users\Phyu\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut5.xlsx
+C:\Users\Phyu\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.exe.config

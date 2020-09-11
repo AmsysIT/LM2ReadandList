@@ -5613,6 +5613,7 @@ namespace LM2ReadandList
 
                                 if (NowSeat == Aboxof())
                                 {
+                                    BottomTextBox.Text = "";
                                     MessageBox.Show("此嘜頭已滿箱", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
@@ -5639,6 +5640,7 @@ namespace LM2ReadandList
                 }
                 catch (Exception)
                 {
+                    BottomTextBox.Text = "";
                     MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -6280,6 +6282,7 @@ namespace LM2ReadandList
 
                 if (Error.Any())
                 {
+                    BottomTextBox.Text = "";
                     Message = true;
 
                     DialogResult result = MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -7419,6 +7422,7 @@ namespace LM2ReadandList
 
             if (Error.Any())
             {
+                BottomTextBox.Text = "";
                 MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
