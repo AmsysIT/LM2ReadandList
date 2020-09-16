@@ -7874,7 +7874,7 @@ namespace LM2ReadandList
                 conn.Open();
 
                 selectCmd = "SELECT isnull(Client,'') Client, isnull(ProductName,'') ProductName, isnull(PackingMarks,'') PackingMarks" +
-                    ", vchAboxof, [DemandNo] FROM [ShippingHead] where [ListDate] = @ListDate AND [ProductName]= @ProductName" +
+                    ", vchAboxof, isnull(DemandNo,'') DemandNo FROM [ShippingHead] where [ListDate] = @ListDate AND [ProductName]= @ProductName" +
                     " AND [vchBoxs]= @vchBoxs";
                 cmd = new SqlCommand(selectCmd, conn);
                 cmd.Parameters.AddWithValue("@ListDate", ListDate_LB.SelectedItem);

@@ -11,7 +11,7 @@
     <RootNamespace>LM2ReadandList_Customized</RootNamespace>
     <AssemblyName>LM2ReadandList_Customized</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ManifestCertificateThumbprint>064442D1D2C48BF9AE389EC3CAAC11C2393C5BAC</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>36C69A7F98AEBF1840FD6AD38AA16AF3F5C06547</ManifestCertificateThumbprint>
     <ManifestKeyFile>
     </ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>244</ApplicationRevision>
+    <ApplicationRevision>245</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
