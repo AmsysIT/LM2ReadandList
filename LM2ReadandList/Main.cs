@@ -1083,12 +1083,14 @@ namespace LM2ReadandList
                 MessageBox.Show("請選擇箱號.Select the box number.");
                 return;
             }
+            //20200921 取消PO限制
+            /*
             if (CustomerPO_L.Text.Contains("查無PO"))
             {
                 MessageBox.Show("查無PO資料，請聯繫生管");
                 return;
             }
-
+            */
             MakeQRCode();
             MarkBarCode(WhereBox_LB.SelectedItem.ToString());
 
