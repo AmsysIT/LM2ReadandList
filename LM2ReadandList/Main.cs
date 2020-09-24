@@ -9127,7 +9127,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                CustomerPO_L.Text = "PO：查無PO資料";
+                                //CustomerPO_L.Text = "PO：查無PO資料";
                             }
                             if (reader.GetString(1) != "")
                             {
