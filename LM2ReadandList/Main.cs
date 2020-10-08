@@ -1592,7 +1592,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client.Contains("Airtanks")) && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client.Contains("Airtanks")) && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -1791,7 +1791,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -2120,7 +2120,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -2376,7 +2376,7 @@ namespace LM2ReadandList
                     }
 
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -2725,7 +2725,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -2951,7 +2951,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -3214,7 +3214,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd")  || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
                         //該客戶要其自己的logo  PartNo   Part Description
@@ -3454,7 +3454,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -3733,7 +3733,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -3920,7 +3920,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
                         //該客戶要其自己的logo  PartNo   Part Description
@@ -4081,7 +4081,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -4250,7 +4250,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -4470,7 +4470,7 @@ namespace LM2ReadandList
                     }
 
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -4648,7 +4648,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
                         //該客戶要其自己的logo  PartNo   Part Description
@@ -4851,7 +4851,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
@@ -5045,7 +5045,7 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if ((Client == "SGA" || Client == "Airtanks") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
                         string ProductNO = "";
 
