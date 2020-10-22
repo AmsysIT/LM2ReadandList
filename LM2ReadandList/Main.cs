@@ -5774,7 +5774,8 @@ namespace LM2ReadandList
                     using (conn = new SqlConnection(myConnectionString30))
                     {
                         conn.Open();
-                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
+                        selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "'" +
+                            " AND DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),GETDATE()) BETWEEN 0 AND 1 and CustomerName='" + CustomerName + "'";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -6914,7 +6915,8 @@ namespace LM2ReadandList
                 using (conn = new SqlConnection(myConnectionString30))
                 {
                     conn.Open();
-                    selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "' and HydrostaticTestDate='" + HydrostaticTestDate + "' and CustomerName='" + CustomerName + "'";
+                    selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "'" +
+                        " and DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),GETDATE()) BETWEEN 0 AND 1 and CustomerName='" + CustomerName + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
