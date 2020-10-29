@@ -5564,7 +5564,7 @@ namespace LM2ReadandList
                 DateTime ResrictionDate = new DateTime();
                 DateTime HydroDate = new DateTime();
 
-                bool HydrostaticPass = false;
+                //bool HydrostaticPass = false;
                 bool ProductAcceptance = false;
 
                 string SpecialUses = "N";
@@ -5703,7 +5703,9 @@ namespace LM2ReadandList
                     {
                         conn1.Open();
 
-                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                        DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+
+                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "'";
                         cmd1 = new SqlCommand(selectCmd1, conn1);
                         cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
                         using (reader1 = cmd1.ExecuteReader())
@@ -5792,7 +5794,7 @@ namespace LM2ReadandList
                 }
 
                 if (SpecialUses == "N")
-                {
+                {/*
                     using (conn = new SqlConnection(myConnectionString))
                     {
                         conn.Open();
@@ -5841,7 +5843,7 @@ namespace LM2ReadandList
                     if (HydrostaticPass == false)
                     {
                         Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
-                    }
+                    }*/
                 }
 
                 //判別是否有做過成品檢驗
@@ -6733,7 +6735,7 @@ namespace LM2ReadandList
 
             bool ProductAcceptance = false;
             bool SpecialUses = false;
-            bool HydrostaticPass = false;
+            //bool HydrostaticPass = false;
             
             //判斷是否滿箱
             using (conn = new SqlConnection(myConnectionString))
@@ -6852,7 +6854,9 @@ namespace LM2ReadandList
                 {
                     conn1.Open();
 
-                    selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN";
+                    DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+
+                    selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "'";
                     cmd1 = new SqlCommand(selectCmd1, conn1);
                     cmd1.Parameters.AddWithValue("@SN", CylinderNO);
                     using (reader1 = cmd1.ExecuteReader())
@@ -6933,7 +6937,7 @@ namespace LM2ReadandList
             }
 
             if (SpecialUses == false)
-            {
+            {/*
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
@@ -6982,7 +6986,7 @@ namespace LM2ReadandList
                 if (HydrostaticPass == false)
                 {
                     Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
-                }
+                }*/
             }
 
             //判別是否有做過成品檢驗
