@@ -5777,7 +5777,7 @@ namespace LM2ReadandList
                     {
                         conn.Open();
                         selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "'" +
-                        " and DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),@HydrostaticTestDate) BETWEEN 0 AND 1 and CustomerName='" + CustomerName + "'";
+                        " and DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),@HydrostaticTestDate) BETWEEN -1 AND 0 and CustomerName='" + CustomerName + "'";
                         cmd = new SqlCommand(selectCmd, conn);
                         cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate + "/01";
                         using (reader = cmd.ExecuteReader())
@@ -6921,7 +6921,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
                     selectCmd = "select ID from CH_ShippingInspectionPhoto where MNO='" + LotNumber + "'" +
-                        " and DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),@HydrostaticTestDate) BETWEEN 0 AND 1 and CustomerName='" + CustomerName + "'";
+                        " and DATEDIFF(MONTH,([HydrostaticTestDate]+'/01'),@HydrostaticTestDate) BETWEEN -1 AND 0 and CustomerName='" + CustomerName + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate + "/01";
                     using (reader = cmd.ExecuteReader())
