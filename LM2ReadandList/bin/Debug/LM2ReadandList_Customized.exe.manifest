@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.258" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.260" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LM2ReadandList.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>d6KnPYEdTYHF2a4oDMNWoVgrdXM=</dsig:DigestValue>
+        <dsig:DigestValue>Rb99NmfOkFCc9H9VP3myFAiZTYM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4173,283 +4173,148 @@
       <dsig:DigestValue>v0wq/0UWCkzPja88cSL9v4Z+PC4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut.xlsx" size="32509">
+  <file name="NewListOut.xlsx" size="32597">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>N7I86L6smkCRbpSaS6QUvC/Bs68=</dsig:DigestValue>
+      <dsig:DigestValue>o6UhTQlhg+4nKWtCuaf+LscLaO0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut1.xlsx" size="32299">
+  <file name="NewListOut1.xlsx" size="32335">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>jMt0fPlLfCqqdEvXyp93LVnkbbw=</dsig:DigestValue>
+      <dsig:DigestValue>xTrUTr4nhDi1WOd2R7LnpYMoOD0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut10.xlsx" size="32380">
+  <file name="NewListOut10.xlsx" size="32455">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>IwNeM9LcZxy082N1Hos7XB3Yb0c=</dsig:DigestValue>
+      <dsig:DigestValue>4conQ8pMRqP0j3igP3Go657ONxc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut111.xlsx" size="35184">
+  <file name="NewListOut111.xlsx" size="36175">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Q+5686BqYS1JlqrXr9NI1v7vhtk=</dsig:DigestValue>
+      <dsig:DigestValue>swJpwcB/l/Wr3wGrCiekyJq2gYY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut117.xlsx" size="32697">
+  <file name="NewListOut117.xlsx" size="33818">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Bu9K8lDBlOJvfMVd4FQglRfQMQw=</dsig:DigestValue>
+      <dsig:DigestValue>SOR8w2RGh/3KySBQVmkjUi1ownc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut12.xlsx" size="32468">
+  <file name="NewListOut12.xlsx" size="32556">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>mGoyiF/z82Dohcr66PnFxaNifUs=</dsig:DigestValue>
+      <dsig:DigestValue>xSvdP0PECDZ2HAtKEasA/s8qfVs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut15.xlsx" size="32464">
+  <file name="NewListOut15.xlsx" size="32523">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>/Xt5ajAWgS8nVPUoQnkljOQaOyc=</dsig:DigestValue>
+      <dsig:DigestValue>/EJYL6l7tl+Li+uVAaV3S+iwDIA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut16.xlsx" size="31322">
+  <file name="NewListOut16.xlsx" size="32446">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>dZhc06eUEGJULEgWUQQosLYRXNs=</dsig:DigestValue>
+      <dsig:DigestValue>jeX3cDhKT85QJ5rEox6lcNIcCDU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut2.xlsx" size="31171">
+  <file name="NewListOut2.xlsx" size="32287">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>FhGXxYPTmnB1yf/ZM/215WzytW4=</dsig:DigestValue>
+      <dsig:DigestValue>NzbmY8j9uvWI04Ruj1k0Duslr0k=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut25.xlsx" size="32573">
+  <file name="NewListOut25.xlsx" size="32664">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>PDbwFjkQXCe+rvUtAp2nrXb1Cvw=</dsig:DigestValue>
+      <dsig:DigestValue>A0VVCTvNUQLlSanN34ZPUM4Xe34=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut30.xlsx" size="31628">
+  <file name="NewListOut30.xlsx" size="32817">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>VpMjCt24I9AZPSJg0/51NqdL5ag=</dsig:DigestValue>
+      <dsig:DigestValue>p04AOFr805jUIN2WhaoUXsJfu2Q=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut36.xlsx" size="31650">
+  <file name="NewListOut36.xlsx" size="32861">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>qf1jYOvcK6b866rSw3aIyCHLCtY=</dsig:DigestValue>
+      <dsig:DigestValue>inH7o6uRyLqoyXHxnJ/xJo1Yp7c=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut4.xlsx" size="32237">
+  <file name="NewListOut4.xlsx" size="32295">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>A6PcQXAz+taRBvovT3Aj6swxUMo=</dsig:DigestValue>
+      <dsig:DigestValue>M851kyimFHYa/E3TfWKLV1nO/io=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut40.xlsx" size="32731">
+  <file name="NewListOut40.xlsx" size="32831">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>B//09oIJZihVIlGI/sTdJqHnbbU=</dsig:DigestValue>
+      <dsig:DigestValue>lIIGMbaj92k1/r3ufvpLk3eApZY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut5.xlsx" size="32464">
+  <file name="NewListOut5.xlsx" size="32524">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>/Xt5ajAWgS8nVPUoQnkljOQaOyc=</dsig:DigestValue>
+      <dsig:DigestValue>iljmKnAwFjH1WGYFdZYPDqu2744=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="NewListOut8.xlsx" size="31305">
+  <file name="NewListOut8.xlsx" size="32484">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>q/m0crxdPvAHxjMVqAyij5MkL/w=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut.xlsx" size="31443">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>g52+uFCFBT3cWR5AU9Xwz56HolM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut1.xlsx" size="31056">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>iTA0DAnAjxXTfmLapWJboF5/vek=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut10.xlsx" size="31291">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>dt9UFKg9zABxDlWv5SXk3quTTUY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut111.xlsx" size="34215">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>YqDPjNcns5FizO4DbgU9qxDVzKM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut117.xlsx" size="32675">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>nG+S2DkzkgqJi4CThWUKe4mBn/4=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut12.xlsx" size="31391">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>iARZOnoKSVerPZyMLrGI6Aa3rbg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut15.xlsx" size="31338">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>OysihBsej2MyclCJsFa+07XOEAc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut16.xlsx" size="31341">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>a6wB7y/P02rS1OndjgwdQmEyJaM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut2.xlsx" size="31459">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>jbOFvMZIh8C7hNqus7OFcKIxKFU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut25.xlsx" size="32584">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>qmfTSYz/RwVZtnePD9k7vjYLtQw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut30.xlsx" size="32549">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>MhtS9XvRLItX33O5dqhcWzTYf34=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut36.xlsx" size="31481">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>cstp117YF9nxa9zQ/4ViO+uqCuE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut4.xlsx" size="31449">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>7olShSKol2GcJkTSI9Dfxj05+qI=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut40.xlsx" size="32855">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>EKWdCrZ+Nr+QjfZDzzWFnXJKhLo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="NewStraightOut8.xlsx" size="31297">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>VhJo54mMb6wQAN96G3xWiOZirbQ=</dsig:DigestValue>
+      <dsig:DigestValue>nq1esd5/VmbS4Iwyuk0m9SyMVlE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="SGAForm_1.xlsx" size="9905">
