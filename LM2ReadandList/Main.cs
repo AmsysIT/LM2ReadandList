@@ -5702,6 +5702,17 @@ namespace LM2ReadandList
                         }
                     }
 
+                    //隔離
+                    selectCmd = "SELECT [ID] FROM [ManufacturingIsolation] WHERE [CylinderNo] = @CylinderNo";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\n";
+                        }
+                    }
+
                     using (conn1 = new SqlConnection(myConnectionString30))
                     {
                         conn1.Open();
@@ -6860,6 +6871,17 @@ namespace LM2ReadandList
                     if (reader.Read())
                     {
                         Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\n";
+                    }
+                }
+
+                //隔離
+                selectCmd = "SELECT [ID] FROM [ManufacturingIsolation] WHERE [CylinderNo] = @CylinderNo";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\n";
                     }
                 }
 
