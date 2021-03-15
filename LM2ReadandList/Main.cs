@@ -1429,7 +1429,7 @@ namespace LM2ReadandList
 
                     //載入嘜頭資料
 
-                    selectCmd = "SELECT  Client, isnull(CustomerProductName,'') CustomerProductName, isnull(CustomerProductNo,'') CustomerProductNo, vchBoxs, isnull(PalletNo,'') PalletNo " +
+                    selectCmd = "SELECT  Client, (vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription, isnull(CustomerProductNo,'') CustomerProductNo, vchBoxs, isnull(PalletNo,'') PalletNo " +
                         "FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
@@ -1439,7 +1439,7 @@ namespace LM2ReadandList
                             Client = reader.GetString(reader.GetOrdinal("Client")).Trim();
 
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("CustomerProductName"));
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
@@ -1703,7 +1703,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client], (vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription, isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -1880,7 +1880,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -2227,7 +2227,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -2486,7 +2486,7 @@ namespace LM2ReadandList
 
                     //載入嘜頭資料
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -2832,7 +2832,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -3060,7 +3060,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'')FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'')FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -3323,7 +3323,7 @@ namespace LM2ReadandList
 
                     //載入嘜頭資料
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -3544,7 +3544,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -3824,7 +3824,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4003,7 +4003,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4159,7 +4159,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs] ,isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4321,7 +4321,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4560,7 +4560,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4751,7 +4751,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -4954,7 +4954,7 @@ namespace LM2ReadandList
                     Total = Convert.ToInt32(HowMuch) * Cumulative;
 
                     //載入嘜頭資料
-                    selectCmd = "SELECT  [Client],isnull([CustomerPO],''),isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -5705,6 +5705,7 @@ namespace LM2ReadandList
                     //隔離
                     selectCmd = "SELECT [ID] FROM [ManufacturingIsolation] WHERE [CylinderNo] = @CylinderNo";
                     cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -6877,6 +6878,7 @@ namespace LM2ReadandList
                 //隔離
                 selectCmd = "SELECT [ID] FROM [ManufacturingIsolation] WHERE [CylinderNo] = @CylinderNo";
                 cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
