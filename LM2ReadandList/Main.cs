@@ -2235,7 +2235,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -2500,7 +2500,7 @@ namespace LM2ReadandList
                             }
                                 Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -2840,7 +2840,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -3068,7 +3068,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -3552,7 +3552,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -3832,7 +3832,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -4329,7 +4329,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -4568,7 +4568,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -4759,7 +4759,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
@@ -4962,7 +4962,7 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim();
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 7] = reader.GetString(2);
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(3);
