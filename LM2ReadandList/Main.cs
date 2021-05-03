@@ -5800,7 +5800,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫品保\n";
+                            Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\n";
                         }
                     }
                 }
@@ -6980,7 +6980,7 @@ namespace LM2ReadandList
                     }
                     else
                     {
-                        Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫品保\n";
+                        Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\n";
                     }
                 }
             }
