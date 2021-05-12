@@ -501,7 +501,53 @@ namespace LM2ReadandList
                         }
                     }
                 }
+                else if (bAboxof == "6")
+                {
+                    //載入[ShippingHead]的ListDate
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
 
+                        selectCmd = "SELECT WhereSeat FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [WhereBox]='" + WhereBox_LB.SelectedItem + "'  order by Convert(INT,[WhereSeat]) DESC ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                switch (reader.GetString(reader.GetOrdinal("WhereSeat")))
+                                {
+                                    case "1":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\1.jpg");
+                                        break;
+
+                                    case "2":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\2.jpg");
+                                        break;
+
+                                    case "3":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\3.jpg");
+                                        break;
+
+                                    case "4":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\4.jpg");
+                                        break;
+
+                                    case "5":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\5.jpg");
+                                        break;
+
+                                    case "6":
+                                        pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\6.jpg");
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                pictureBox1.Image = Image.FromFile(Application.StartupPath + @".\6\0.jpg");
+                            }
+                        }
+                    }
+                }
                 else if (bAboxof == "8")
                 {
                     //載入[ShippingHead]的ListDate
@@ -1209,6 +1255,10 @@ namespace LM2ReadandList
             {
                 srcFileName = Application.StartupPath + @".\NewListOut16.xlsx";//EXCEL檔案路徑
             }
+            else if (Aboxof == "6")
+            {
+                srcFileName = Application.StartupPath + @".\NewListOut6.xlsx";//EXCEL檔案路徑
+            }
             else if (Aboxof == "8")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut8.xlsx";//EXCEL檔案路徑
@@ -1293,6 +1343,13 @@ namespace LM2ReadandList
                     {
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                    }
+                    else if (Aboxof == "6")
+                    {
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 215, oneY, 200, 30);
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
@@ -2782,6 +2839,226 @@ namespace LM2ReadandList
 
                         //插入圖片
                         int picX = 680, picY = 185;
+                        string picadd = @"C:\QRCode\";
+
+                        selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+                                if (picX == 885)
+                                {
+                                    picY += 70;
+                                    picX = 125;
+                                }
+                                else
+                                {
+                                    picX += 190;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (Aboxof == "6")
+            {
+                string HowMuch = "";
+                int Cumulative = 0;
+                int Total = 0;
+
+                //載入嘜頭資料
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            HowMuch = reader.GetString(4);
+                            Cumulative++;
+                        }
+                    }
+
+                    Total = Convert.ToInt32(HowMuch) * Cumulative;
+
+                    //載入嘜頭資料
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Client = reader.GetString(0).Trim();
+                            //載入客戶產品名稱
+                            oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("PartDescription"));
+
+                            //載入客戶產品型號
+                            oSheet.Cells[2, 7] = reader.GetString(3);
+
+                            //載入一箱幾隻
+                            oSheet.Cells[4, 7] = Getcount;
+
+                            //載入箱號
+                            oSheet.Cells[10, 2] = reader.GetString(4);
+
+                            //20200410 加入PO
+                            oSheet.Cells[5, 9] = CustomerPO_L.Text;
+
+                            //載入客戶名稱
+                            oSheet.Cells[3, 7] = reader.GetString(0);
+
+                            //載入箱號
+                            oSheet.Cells[10, 8] = reader.GetString(5);
+
+                            if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
+                            {
+                                //該客戶要其自己的logo  //Wicked Sportz
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
+                            {
+                                //該客戶要其自己的logo  //Wicked Sportz
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
+                            }
+                            else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
+                            else if (Client.ToUpper().StartsWith("EMB"))
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
+                            else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                            {
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            }
+                        }
+                    }
+                }
+
+                int serialnooneX = 10, serialnooneY = 309;
+                string serialnooneadd = @"C:\SerialNoCode\";
+                string FirstCNO = "";
+
+                //載入嘜頭氣瓶序號位子
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT  * FROM [ShippingBody] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [WhereBox]='" + WhereBox_LB.SelectedItem + "'";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            serialnooneX = 49; serialnooneY = 215;
+                            switch (reader.GetString(5))
+                            {
+                                case "1":
+                                    oSheet.Cells[6, 1] = reader.GetString(3);
+                                    FirstCNO = reader.GetString(3);
+                                    break;
+
+                                case "2":
+                                    oSheet.Cells[6, 3] = reader.GetString(3);
+                                    break;
+
+                                case "3":
+                                    oSheet.Cells[6, 5] = reader.GetString(3);
+                                    break;
+
+                                case "4":
+                                    oSheet.Cells[8, 1] = reader.GetString(3);
+                                    break;
+
+                                case "5":
+                                    oSheet.Cells[8, 3] = reader.GetString(3);
+                                    break;
+
+                                case "6":
+                                    oSheet.Cells[8, 5] = reader.GetString(3);
+                                    break;
+                            }
+                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 3) * 230;
+                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 3) * 111;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);
+                        }
+                    }
+
+                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client == "Airtanks Limited") && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                    {
+                        string ProductNO = "";
+
+                        //該客戶要其自己的logo  PartNo   Part Description
+                        selectCmd = "SELECT  Product_NO FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ProductNO = reader.GetValue(0).ToString();
+                            }
+                        }
+
+                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                //載入客戶產品名稱
+                                oSheet.Cells[1, 7] = reader.GetString(1);
+
+                                //載入客戶產品型號
+                                oSheet.Cells[2, 7] = reader.GetString(0);
+                            }
+                        }
+
+                        //LOGO
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                    }
+                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
+                    {
+                        //LOGO
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                    }
+                    else if (Client.ToUpper().StartsWith("EMB"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    //if (StorageStatus == "N")//20190212
+                    {
+
+                        //預設位子在X:680,Y:155
+                        //預設QRCODE圖片大小250*250
+
+                        //插入圖片
+                        int picX = 680, picY = 182;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
