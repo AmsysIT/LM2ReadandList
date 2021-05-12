@@ -1349,7 +1349,7 @@ namespace LM2ReadandList
                     else if (Aboxof == "6")
                     {
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 215, oneY, 200, 30);
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
@@ -2993,7 +2993,7 @@ namespace LM2ReadandList
                                     oSheet.Cells[8, 5] = reader.GetString(3);
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 3) * 230;
+                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 3) * 215;
                             serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 3) * 111;
                             oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);

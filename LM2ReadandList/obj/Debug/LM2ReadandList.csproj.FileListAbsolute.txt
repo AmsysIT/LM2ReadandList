@@ -30708,3 +30708,11 @@ C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\6\4.jpg
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\6\5.jpg
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\6\6.jpg
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut6.xlsx
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\0.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\1.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\2.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\3.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\4.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\5.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\6.jpg
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut6.xlsx
