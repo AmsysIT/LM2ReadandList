@@ -6476,8 +6476,7 @@ namespace LM2ReadandList
                     using (conn = new SqlConnection(AMS21_ConnectionString))
                     {
                         conn.Open();
-
-                        selectCmd = "SELECT [CylinderNo] FROM [ComCylinderNo]" +
+                        selectCmd = "SELECT [LinerLotNo] FROM [AMS_DATA].[dbo].[ComCylinderNo]" +
                             " WHERE [CylinderNo] = @CylinderNo";
                         cmd = new SqlCommand(selectCmd, conn);
                         cmd.Parameters.AddWithValue("@CylinderNo", CylinderNumbers);
@@ -6485,7 +6484,7 @@ namespace LM2ReadandList
                         {
                             if (reader.Read())
                             {
-                                BuildUp = reader.GetString(reader.GetOrdinal("BuildUp"));
+                                BuildUp = reader.GetString(reader.GetOrdinal("LinerLotNo"));
                             }
                         }
                     }
@@ -6509,15 +6508,15 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：115 無對應內膽("+ BuildUp + ")拉伸資料，請聯繫品保\n";
+                                    Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\n";
                                 }
                             }
 
                             selectCmd = "SELECT  * FROM [PPT_Burst]" +
                                 " WHERE [ManufacturingNo] = @LotNo" +
                                 " AND [FinalResult] ='PASS' order by AcceptanceNo desc";
-                            cmd.Parameters.AddWithValue("@LotNo", BuildUp);
                             cmd = new SqlCommand(selectCmd, conn);
+                            cmd.Parameters.AddWithValue("@LotNo", BuildUp);
                             using (reader = cmd.ExecuteReader())
                             {
                                 if (reader.HasRows)
@@ -6526,7 +6525,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：116 無對應內膽("+ BuildUp + ")爆破資料，請聯繫品保\n";
+                                    Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\n";
                                 }
                             }
                         }
@@ -7658,17 +7657,19 @@ namespace LM2ReadandList
                 //找出對應內膽批號
                 string BuildUp = "";
 
-                using (conn = new SqlConnection(myConnectionString))
+                using (conn = new SqlConnection(AMS21_ConnectionString))
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT BuildUp FROM Manufacturing where Manufacturing_NO='" + LotNumber + "'";
+                    selectCmd = "SELECT [LinerLotNo] FROM [AMS_DATA].[dbo].[ComCylinderNo]" +
+                        " WHERE [CylinderNo] = @CylinderNo";
                     cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@CylinderNo", CylinderNO);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            BuildUp = reader.GetString(reader.GetOrdinal("BuildUp"));
+                            BuildUp = reader.GetString(reader.GetOrdinal("LinerLotNo"));
                         }
                     }
                 }
@@ -7679,34 +7680,37 @@ namespace LM2ReadandList
                     {
                         conn.Open();
 
-                        for (int SubLiner = 0; SubLiner < BuildUp.Split(',').Length; SubLiner++)
+                        selectCmd = "SELECT  * FROM [PPT_Tensile]" +
+                            " WHERE [ManufacturingNo] = @LotNo" +
+                            " AND FinalResult = 'PASS' ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.AddWithValue("@LotNo", BuildUp);
+                        using (reader = cmd.ExecuteReader())
                         {
-                            selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' ";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
+                            if (reader.HasRows)
                             {
-                                if (reader.HasRows)
-                                {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：115 無對應內膽拉伸資料，請聯繫品保\n";
-                                }
+                                ;
                             }
-
-                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + BuildUp.Split(',')[SubLiner] + "' and FinalResult='PASS' order by AcceptanceNo desc";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
+                            else
                             {
-                                if (reader.HasRows)
-                                {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：116 無對應內膽爆破資料，請聯繫品保\n";
-                                }
+                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\n";
+                            }
+                        }
+
+                        selectCmd = "SELECT  * FROM [PPT_Burst]" +
+                            " WHERE [ManufacturingNo] = @LotNo" +
+                            " AND [FinalResult] ='PASS' order by AcceptanceNo desc";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.AddWithValue("@LotNo", BuildUp);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\n";
                             }
                         }
                     }
