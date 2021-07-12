@@ -5912,7 +5912,7 @@ namespace LM2ReadandList
                 try
                 {
                     var v = (from p in DT.AsEnumerable()
-                             where p.Field<string>("CylinderNo") == CylinderNumbers
+                             where p.Field<string>("CylinderNo").Trim() == CylinderNumbers
                              select p).First();
 
                     LotNumber = v.Field<string>("vchManufacturingNo");
@@ -7088,7 +7088,7 @@ namespace LM2ReadandList
             try
             {
                 var v = (from p in DT.AsEnumerable()
-                         where p.Field<string>("CylinderNo") == NoLMCylinderNOTextBox.Text
+                         where p.Field<string>("CylinderNo").Trim() == NoLMCylinderNOTextBox.Text
                          select p).First();
 
                 LotNumber = v.Field<string>("vchManufacturingNo");
