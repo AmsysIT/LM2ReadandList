@@ -6095,13 +6095,28 @@ namespace LM2ReadandList
                         cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate + "/01";
                         using (reader = cmd.ExecuteReader())
                         {
-                            if (reader.HasRows)
-                            {
-                                ;
-                            }
-                            else
+                            if (!reader.HasRows)
                             {
                                 Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                            }
+                        }
+                    }
+                }
+                else if (Product_L.Text.Contains("Aluminum") == true)
+                {
+                    using (conn = new SqlConnection(myConnectionString30))
+                    {
+                        conn.Open();
+
+                        selectCmd = "select ID from ProductPhotoCheck where [ManufacturingNo] = '" + LotNumber + "'" +
+                            " and HydrostaticTestDate = @HydrostaticTestDate ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate;
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                Error += "Code：124 沒有產品照片，請聯繫品保\n";
                             }
                         }
                     }
@@ -7279,13 +7294,28 @@ namespace LM2ReadandList
                     cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate + "/01";
                     using (reader = cmd.ExecuteReader())
                     {
-                        if (reader.HasRows)
-                        {
-                            ;
-                        }
-                        else
+                        if (!reader.HasRows)
                         {
                             Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                        }
+                    }
+                }
+            }
+            else if (Product_L.Text.Contains("Aluminum") == true)
+            {
+                using (conn = new SqlConnection(myConnectionString30))
+                {
+                    conn.Open();
+
+                    selectCmd = "select ID from ProductPhotoCheck where [ManufacturingNo] = '" + LotNumber + "'" +
+                        " and HydrostaticTestDate = @HydrostaticTestDate ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@HydrostaticTestDate", SqlDbType.VarChar).Value = HydrostaticTestDate;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            Error += "Code：124 沒有產品照片，請聯繫品保\n";
                         }
                     }
                 }
