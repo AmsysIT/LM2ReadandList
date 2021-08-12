@@ -5703,6 +5703,12 @@ namespace LM2ReadandList
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
+            else if (PackingMarks.Trim().CompareTo("Estratego-38ci 3000psi") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_38ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
             else if (PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi+Regulator") == 0)
             {
                 //該客戶要其自己的logo

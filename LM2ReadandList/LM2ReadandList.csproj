@@ -15,7 +15,7 @@
     <ManifestKeyFile>
     </ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <ApplicationIcon>LM2ReadandList.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>274</ApplicationRevision>
+    <ApplicationRevision>275</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -200,6 +200,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="LOGO_Estratego_26ci_Regulator.png" />
+    <Content Include="LOGO_Estratego_38ci 3000psi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LOGO_Estratego_48ci 3000psi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
