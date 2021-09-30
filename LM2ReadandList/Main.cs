@@ -5951,22 +5951,25 @@ namespace LM2ReadandList
                         }
                     }
 
-                    selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "' ";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            if (reader.GetValue(0).ToString() == "Y")
-                            {
-                                SpecialUses = "Y";
-                            }
-                        }
-                    }
+                    //20210930拿掉
+                    //selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "' ";
+                    //cmd = new SqlCommand(selectCmd, conn);
+                    //using (reader = cmd.ExecuteReader())
+                    //{
+                    //    if (reader.Read())
+                    //    {
+                    //        if (reader.GetValue(0).ToString() == "Y")
+                    //        {
+                    //            SpecialUses = "Y";
+                    //        }
+                    //    }
+                    //}
 
                     //判斷是否有成品檢驗報告
-                    selectCmd = "SELECT * FROM [QC_ProductAcceptanceHead] where ManufacturingNo='" + LotNumber + "' and QualifiedQuantity > 0 ";
+                    selectCmd = "SELECT * FROM [QC_ProductAcceptanceHead]" +
+                        " WHERE ManufacturingNo = @LotNo AND QualifiedQuantity > 0 ";
                     cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@LotNo", LotNumber);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -5976,8 +5979,9 @@ namespace LM2ReadandList
                     }
 
                     //報廢
-                    selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO]='" + CylinderNumbers + "'";
+                    selectCmd = "SELECT  * FROM [RePortScrapReason] where [ScrapCylinderNO] = @CylinderNo";
                     cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.AddWithValue("@CylinderNo", CylinderNumbers);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -5989,7 +5993,7 @@ namespace LM2ReadandList
                     //隔離
                     selectCmd = "SELECT [ID] FROM [ManufacturingIsolation] WHERE [CylinderNo] = @CylinderNo";
                     cmd = new SqlCommand(selectCmd, conn);
-                    cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                    cmd.Parameters.AddWithValue("@CylinderNo", CylinderNumbers);
                     using (reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -6006,7 +6010,8 @@ namespace LM2ReadandList
 
                         if (HydroLabelPass == true)
                         {
-                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN  order by id desc ";
+                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                " WHERE [SerialNo] = @SN  order by id desc ";
                             cmd1 = new SqlCommand(selectCmd1, conn1);
                             cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
                             using (reader1 = cmd1.ExecuteReader())
@@ -6017,13 +6022,18 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    //內膽不檢查水壓報告
+                                    if (!ProductNo.Contains("-L-"))
+                                    {
+                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
                                 }
                             }
                         }
                         else
                         {
-                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "' order by id desc ";
+                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                " WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "' order by id desc ";
                             cmd1 = new SqlCommand(selectCmd1, conn1);
                             cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
                             using (reader1 = cmd1.ExecuteReader())
@@ -6034,7 +6044,11 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    //內膽不檢查水壓報告
+                                    if (!ProductNo.Contains("-L-"))
+                                    {
+                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
                                 }
                             }
                         }
@@ -6103,7 +6117,10 @@ namespace LM2ReadandList
                         {
                             if (!reader.HasRows)
                             {
-                                Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                                if (!ProductNo.Contains("-L-"))
+                                {
+                                    Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                                }
                             }
                         }
                     }
@@ -6404,7 +6421,10 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：117 無循環資料，請聯繫品保\n";
+                                if (!ProductNo.Contains("-L-"))
+                                {
+                                    Error += "Code：117 無循環資料，請聯繫品保\n";
+                                }
                             }
                         }
 
@@ -7224,7 +7244,11 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                //內膽不檢查水壓報告
+                                if (!ProductNo.Contains("-L-"))
+                                {
+                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                }
                             }
                         }
                     }
@@ -7244,7 +7268,11 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                //內膽不檢查水壓報告
+                                if (!ProductNo.Contains("-L-"))
+                                {
+                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                }
                             }
                         }
                     }
@@ -7302,7 +7330,10 @@ namespace LM2ReadandList
                     {
                         if (!reader.HasRows)
                         {
-                            Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                            if (!ProductNo.Contains("-L-"))
+                            {
+                                Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                            }
                         }
                     }
                 }
@@ -7321,7 +7352,10 @@ namespace LM2ReadandList
                     {
                         if (!reader.HasRows)
                         {
-                            Error += "Code：124 沒有產品照片，請聯繫品保\n";
+                            if (!ProductNo.Contains("-L-"))
+                            {
+                                Error += "Code：124 沒有產品照片，請聯繫品保\n";
+                            }
                         }
                     }
                 }
@@ -7603,7 +7637,10 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：117 無循環資料，請聯繫品保\n";
+                            if (!ProductNo.Contains("-L-"))
+                            {
+                                Error += "Code：117 無循環資料，請聯繫品保\n";
+                            }
                         }
                     }
 
@@ -9505,6 +9542,11 @@ namespace LM2ReadandList
 
         private void WhereBox_LB_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (WhereBox_LB.SelectedItem == null)
+            {
+                return;
+            }
+
             //載入入箱狀況的圖片
             LoadPictrue();
 
