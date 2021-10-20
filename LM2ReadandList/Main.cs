@@ -6622,7 +6622,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：122 品保未確認客戶序號";
+                                    //Error += "Code：122 品保未確認客戶序號";
                                 }
                             }
 
@@ -6637,7 +6637,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：123 生產未確認客戶序號";
+                                    //Error += "Code：123 生產未確認客戶序號";
                                 }
                             }
                         }
@@ -7068,7 +7068,7 @@ namespace LM2ReadandList
 
         private bool CheckCylinderNOTextBox()
         {
-            if (NoLMCylinderNOTextBox.Text.Length < 6 || NoLMCylinderNOTextBox.Text.Length > 10)
+            if (NoLMCylinderNOTextBox.Text.Length < 6 || NoLMCylinderNOTextBox.Text.Length > 12)
             {
                 MessageBox.Show("所輸入之氣瓶序號長度錯誤，請重新輸入!", "提示");
                 return false;
@@ -7839,7 +7839,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：122 品保未確認客戶序號";
+                                //Error += "Code：122 品保未確認客戶序號";
                             }
                         }
 
@@ -7854,7 +7854,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：123 生產未確認客戶序號";
+                                //Error += "Code：123 生產未確認客戶序號";
                             }
                         }
                     }

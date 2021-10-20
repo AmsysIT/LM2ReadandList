@@ -1247,7 +1247,7 @@
             this.NoLMCylinderNOTextBox.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.NoLMCylinderNOTextBox.Location = new System.Drawing.Point(16, 71);
             this.NoLMCylinderNOTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.NoLMCylinderNOTextBox.MaxLength = 10;
+            this.NoLMCylinderNOTextBox.MaxLength = 12;
             this.NoLMCylinderNOTextBox.Name = "NoLMCylinderNOTextBox";
             this.NoLMCylinderNOTextBox.Size = new System.Drawing.Size(333, 67);
             this.NoLMCylinderNOTextBox.TabIndex = 1;
