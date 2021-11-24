@@ -30204,7 +30204,6 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2Readan
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.application
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.exe
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.pdb
-C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csprojAssemblyReference.cache
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.ResolveComReference.cache
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.AutoAccumulate.resources
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.CustomerBarCode.resources
@@ -30215,7 +30214,6 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2Readan
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CoreCompileInputs.cache
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe.manifest
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.application
-C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CopyComplete
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.pdb
 E:\AMSYS\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\CleanedForOxygenService.png
@@ -30718,3 +30716,4 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\6\6.jpg
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOut6.xlsx
 C:\Users\MIS\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estratego_38ci 3000psi.png
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estratego_38ci 3000psi.png
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.AssemblyReference.cache

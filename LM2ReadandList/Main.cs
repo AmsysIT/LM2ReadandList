@@ -124,7 +124,7 @@ namespace LM2ReadandList
             //20200420 
             DT = new DataTable();
             selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
-                "  where Package = '0' and vchHydrostaticTestDate > '2016/01' ";
+                "  where Package = '0' ";
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(DT);
 
@@ -6712,7 +6712,7 @@ namespace LM2ReadandList
                     }
                 }
 
-                int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
+                int InsertSB = 0, UpdateLP = 0, UpdateMsn = 0;
 
                 using (TransactionScope scope = new TransactionScope())
                 {
@@ -6754,14 +6754,14 @@ namespace LM2ReadandList
                         cmd.Parameters.Add("@WorkType", SqlDbType.VarChar).Value = worktype;
                         cmd.Parameters.Add("@ProcessNO", SqlDbType.VarChar).Value = ProcessNo;
 
-                        InsertWP = cmd.ExecuteNonQuery();
+                        //cmd.ExecuteNonQuery();
 
                         selectCmd = "update [MSNBody] set [Package]='1' where [CylinderNo]='" + CylinderNumbers + "'";
                         cmd = new SqlCommand(selectCmd, conn);
                         UpdateMsn = cmd.ExecuteNonQuery();
                     }
 
-                    if (InsertSB != 0 && UpdateLP != 0 && InsertWP != 0 && UpdateMsn != 0)
+                    if (InsertSB != 0 && UpdateLP != 0 && UpdateMsn != 0)
                     {
                         scope.Complete();
                     }
@@ -7914,7 +7914,7 @@ namespace LM2ReadandList
                 }
             }
 
-            int InsertSB = 0, UpdateLP = 0, InsertWP = 0, UpdateMsn = 0;
+            int InsertSB = 0, UpdateLP = 0, UpdateMsn = 0;
 
             using (TransactionScope scope = new TransactionScope())
             {
@@ -7955,14 +7955,14 @@ namespace LM2ReadandList
                     cmd.Parameters.Add("@WorkType", SqlDbType.VarChar).Value = worktype;
                     cmd.Parameters.Add("@ProcessNO", SqlDbType.VarChar).Value = ProcessNo;
 
-                    InsertWP = cmd.ExecuteNonQuery();
+                    //cmd.ExecuteNonQuery();
 
                     selectCmd = "update [MSNBody] set [Package]= '1' where [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     UpdateMsn = cmd.ExecuteNonQuery();
                 }
 
-                if (InsertSB != 0 && UpdateLP != 0 && InsertWP != 0 && UpdateMsn != 0)
+                if (InsertSB != 0 && UpdateLP != 0 && UpdateMsn != 0)
                 {
                     scope.Complete();
                 }
