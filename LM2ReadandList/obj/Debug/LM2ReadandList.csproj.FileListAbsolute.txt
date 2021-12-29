@@ -30684,7 +30684,6 @@ C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\LM2Readand
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.application
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.exe
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\LM2ReadandList_Customized.pdb
-C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csprojAssemblyReference.cache
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.ResolveComReference.cache
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.AutoAccumulate.resources
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.CustomerBarCode.resources
@@ -30695,7 +30694,6 @@ C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2Readand
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CoreCompileInputs.cache
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe.manifest
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.application
-C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CopyComplete
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.exe
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList_Customized.pdb
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\bin\Debug\6\0.jpg
@@ -30717,3 +30715,4 @@ C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\NewListOu
 C:\Users\MIS\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estratego_38ci 3000psi.png
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estratego_38ci 3000psi.png
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.AssemblyReference.cache
+C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.AssemblyReference.cache

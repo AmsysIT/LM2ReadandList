@@ -14,7 +14,7 @@
     <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="LM2ReadandList_Customized.exe.manifest" size="185700">
+    <dependentAssembly dependencyType="install" codebase="Application Files\LM2ReadandList_Customized_2_0_0_282\LM2ReadandList_Customized.exe.manifest" size="185700">
       <assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.282" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>

@@ -4969,6 +4969,11 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
+                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
+                    {
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
                 }
 
 
