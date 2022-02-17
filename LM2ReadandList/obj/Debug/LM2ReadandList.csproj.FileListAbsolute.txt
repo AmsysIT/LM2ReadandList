@@ -30716,3 +30716,4 @@ C:\Users\MIS\Documents\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estra
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\bin\Debug\LOGO_Estratego_38ci 3000psi.png
 C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.AssemblyReference.cache
 C:\Users\mis\Documents\github\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.AssemblyReference.cache
+C:\Users\A00570\Desktop\GitHub\LM2ReadandList\LM2ReadandList\obj\Debug\LM2ReadandList.csproj.CopyComplete

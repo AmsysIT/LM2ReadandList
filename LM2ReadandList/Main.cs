@@ -5853,7 +5853,6 @@ namespace LM2ReadandList
                 DateTime ResrictionDate = new DateTime();
                 DateTime HydroDate = new DateTime();
 
-                //bool HydrostaticPass = false;
                 bool ProductAcceptance = false;
 
                 string SpecialUses = "N";
@@ -5955,20 +5954,6 @@ namespace LM2ReadandList
                             ProductNo = reader.GetString(0);
                         }
                     }
-
-                    //20210930拿掉
-                    //selectCmd = "SELECT isnull([H_SpecialUses],'N') FROM [Manufacturing] where [Manufacturing_NO]='" + LotNumber + "' ";
-                    //cmd = new SqlCommand(selectCmd, conn);
-                    //using (reader = cmd.ExecuteReader())
-                    //{
-                    //    if (reader.Read())
-                    //    {
-                    //        if (reader.GetValue(0).ToString() == "Y")
-                    //        {
-                    //            SpecialUses = "Y";
-                    //        }
-                    //    }
-                    //}
 
                     //判斷是否有成品檢驗報告
                     selectCmd = "SELECT * FROM [QC_ProductAcceptanceHead]" +
@@ -6148,59 +6133,6 @@ namespace LM2ReadandList
                             }
                         }
                     }
-                }
-
-                if (SpecialUses == "N")
-                {/*
-                    using (conn = new SqlConnection(myConnectionString))
-                    {
-                        conn.Open();
-
-                        selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + LotNumber + "' and [CylinderNo]='" + CylinderNumbers + "' and [HydrostaticPass]='Y'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                HydrostaticPass = true;
-                            }
-                        }
-
-                        if (HydrostaticPass == false)
-                        {
-                            //找對應的舊序號，若有序號則依此序號查是否有做過水壓
-                            string OriCNo = "", OriMNO = "";
-
-                            selectCmd = "SELECT  OriCylinderNo, OriManufacturingNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + LotNumber + "' and [NewCylinderNo]='" + CylinderNumbers + "' ";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                {
-                                    OriCNo = reader.GetString(reader.GetOrdinal("OriCylinderNo"));
-                                    OriMNO = reader.GetString(reader.GetOrdinal("OriManufacturingNo"));
-                                }
-                            }
-
-                            if (OriCNo != "")
-                            {
-                                selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
-                                cmd = new SqlCommand(selectCmd, conn);
-                                using (reader = cmd.ExecuteReader())
-                                {
-                                    if (reader.Read())
-                                    {
-                                        HydrostaticPass = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (HydrostaticPass == false)
-                    {
-                        Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
-                    }*/
                 }
 
                 //判別是否有做過成品檢驗
@@ -6726,8 +6658,8 @@ namespace LM2ReadandList
                         conn.Open();
 
                         //雷刻掃描完確認瓶身瓶底相同後載入資料
-                        selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time, LotNumber )" +
-                            "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time, @LotNumber )";
+                        selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time )" +
+                            "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time )";
                         cmd = new SqlCommand(selectCmd, conn);
 
                         cmd.Parameters.Add("@ListDate", SqlDbType.VarChar).Value = ListDate_LB.SelectedItem;
@@ -6737,7 +6669,6 @@ namespace LM2ReadandList
                         cmd.Parameters.Add("@WhereSeat", SqlDbType.VarChar).Value = Convert.ToInt32(NowSeat) + 1;
                         cmd.Parameters.Add("@vchUser", SqlDbType.VarChar).Value = User_LB.Text.Remove(0, 7);
                         cmd.Parameters.Add("@Time", SqlDbType.VarChar).Value = DateTime.Now.ToLocalTime().ToString();
-                        cmd.Parameters.Add("@LotNumber", SqlDbType.VarChar).Value = LotNumber;
 
                         InsertSB = cmd.ExecuteNonQuery();
 
@@ -7366,59 +7297,6 @@ namespace LM2ReadandList
                 }
             }
 
-            if (SpecialUses == false)
-            {/*
-                using (conn = new SqlConnection(myConnectionString))
-                {
-                    conn.Open();
-
-                    selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + LotNumber + "' and [CylinderNo]='" + NoLMCylinderNOTextBox.Text + "' and [HydrostaticPass]='Y'";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            HydrostaticPass = true;
-                        }
-                    }
-
-                    if (HydrostaticPass == false)
-                    {
-                        //找對應的舊序號，若有序號則依此序號查是否有做過水壓
-                        string OriCNo = "", OriMNO = "";
-
-                        selectCmd = "SELECT  OriCylinderNo, OriManufacturingNo FROM [ChangeCylinderNo] where [NewManufacturingNo]='" + LotNumber + "' and [NewCylinderNo]='" + NoLMCylinderNOTextBox.Text + "' ";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                OriCNo = reader.GetString(reader.GetOrdinal("OriCylinderNo"));
-                                OriMNO = reader.GetString(reader.GetOrdinal("OriManufacturingNo"));
-                            }
-                        }
-
-                        if (OriCNo != "")
-                        {
-                            selectCmd = "SELECT  * FROM [HydrostaticPass] where [ManufacturingNo]='" + OriMNO + "' and [CylinderNo]='" + OriCNo + "' and [HydrostaticPass]='Y'";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                {
-                                    HydrostaticPass = true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (HydrostaticPass == false)
-                {
-                    Error += "Code：107 此序號查詢不到水壓測試資料，請聯繫品保\n";
-                }*/
-            }
-
             //判別是否有做過成品檢驗
             //研發瓶轉正式出貨產品時，有可能之前的研發瓶試認證瓶所以沒有成品檢驗，因此要有成品檢驗的記錄
             if (ProductAcceptance == false)
@@ -7928,8 +7806,8 @@ namespace LM2ReadandList
                     conn.Open();
 
                     //雷刻掃描完確認瓶身瓶底相同後載入資料
-                    selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time, LotNumber ) " +
-                        "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time, @LotNumber )";
+                    selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time ) " +
+                        "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time )";
                     cmd = new SqlCommand(selectCmd, conn);
 
                     cmd.Parameters.Add("@ListDate", SqlDbType.VarChar).Value = ListDate_LB.SelectedItem;
@@ -7939,7 +7817,6 @@ namespace LM2ReadandList
                     cmd.Parameters.Add("@WhereSeat", SqlDbType.VarChar).Value = Convert.ToInt32(NowSeat) + 1;
                     cmd.Parameters.Add("@vchUser", SqlDbType.VarChar).Value = User_LB.Text.Remove(0, 7);
                     cmd.Parameters.Add("@Time", SqlDbType.VarChar).Value = DateTime.Now.ToLocalTime().ToString();
-                    cmd.Parameters.Add("@LotNumber", SqlDbType.VarChar).Value = LotNumber;
 
                     InsertSB = cmd.ExecuteNonQuery();
 
