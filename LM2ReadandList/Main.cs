@@ -40,6 +40,7 @@ namespace LM2ReadandList
         //資料庫宣告
         string myConnectionString, myConnectionString21, myConnectionString30, myConnectionString21_AMS_check;
         string AMS21_ConnectionString = "Server = 192.168.0.21; DataBase = AMS; uid = sa; pwd = dsc;";
+        string AMS3_ConnectionString = "Server=192.168.0.30;Database = AMS3;uid=sa;pwd=Ams.sql;";
         string selectCmd, selectCmd1;
         SqlConnection conn, conn1;
         SqlCommand cmd, cmd1;
@@ -5887,6 +5888,83 @@ namespace LM2ReadandList
 
                 CylinderNumbers = Bottle;
 
+
+
+                //20220527 檢查數量(不能超過需求單設定數量)，樣品不檢查
+
+                //抓取需求單 [DemandNo]、[DemandSerialNo]
+                string DemandNo = string.Empty;
+                string DemandSerialNo = string.Empty;
+                Decimal DemandNo_QTY = 0;
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "select [DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@vchBoxs", SqlDbType.VarChar).Value = WhereBox_LB.SelectedItem;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DemandNo = reader.GetString(reader.GetOrdinal("DemandNo"));
+                            DemandSerialNo = reader.GetString(reader.GetOrdinal("DemandSerialNo"));
+                        }
+                    }
+                }
+
+                //抓取需求單所設定之數量，樣品不檢查，沒序號的也不檢查(舊資料)
+                if (DemandNo.Contains("樣品") && DemandSerialNo != "NULL")
+                {
+                    using (conn = new SqlConnection(AMS3_ConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo, TD053 QTY " +
+                            "FROM [AMS3].[dbo].[ERP_COPTD] " +
+                            "left join INVMC ON MC001 = TD004 " +
+                            "where (TD001+'-'+TD002 = @DemandNo) and TD003 = @TD003 " +
+                            "and isnull(INVMC.MC019,'') <> '' and TD041 <> 'Y' and [ERP_COPTD].STOP_DATE is null and INVMC.STOP_DATE is null ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.Add("@DemandNo", SqlDbType.VarChar).Value = DemandNo;
+                        cmd.Parameters.Add("@TD003", SqlDbType.VarChar).Value = DemandSerialNo;
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                DemandNo_QTY = reader.GetDecimal(reader.GetOrdinal("QTY"));
+                            }
+                        }
+                    }
+
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "SELECT [ShippingHead].DemandNo,[ShippingHead].DemandSerialNo, count(cylindernumbers) QTY " +
+                            "FROM [amsys].[dbo].[ShippingHead] " +
+                            "left join ShippingBody on vchBoxs = [WhereBox] " +
+                            "where [ShippingHead].DemandNo = @DemandNo and DemandSerialNo = @DemandSerialNo " +
+                            "group by [ShippingHead].[DemandNo], [ShippingHead].[DemandSerialNo] ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.Add("@DemandNo", SqlDbType.VarChar).Value = DemandNo;
+                        cmd.Parameters.Add("@DemandSerialNo", SqlDbType.VarChar).Value = DemandSerialNo;
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (Convert.ToDecimal(reader.GetInt32(reader.GetOrdinal("QTY"))) >= DemandNo_QTY)
+                                {
+                                    MessageBox.Show("此需求單已達上限!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
                 //判斷是否滿箱
                 using (conn = new SqlConnection(myConnectionString))
                 {
@@ -6581,6 +6659,10 @@ namespace LM2ReadandList
                     }
                 }
 
+
+
+
+
                 if (Error.Any())
                 {
                     BottomTextBox.Text = "";
@@ -7031,6 +7113,82 @@ namespace LM2ReadandList
             bool ProductAcceptance = false;
             bool SpecialUses = false;
             bool HydroLabelPass = false;
+
+
+            //20220527 檢查數量(不能超過需求單設定數量)，樣品不檢查
+
+            //抓取需求單 [DemandNo]、[DemandSerialNo]
+            string DemandNo = string.Empty;
+            string DemandSerialNo = string.Empty;
+            Decimal DemandNo_QTY = 0;
+            using (conn = new SqlConnection(myConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "select [DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
+                cmd = new SqlCommand(selectCmd, conn);
+                cmd.Parameters.Add("@vchBoxs", SqlDbType.VarChar).Value = WhereBox_LB.SelectedItem;
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        DemandNo = reader.GetString(reader.GetOrdinal("DemandNo"));
+                        DemandSerialNo = reader.GetString(reader.GetOrdinal("DemandSerialNo"));
+                    }
+                }
+            }
+
+            //抓取需求單所設定之數量，樣品不檢查，沒序號的也不檢查(舊資料)
+            if (DemandNo.Contains("樣品") && DemandSerialNo != "NULL")
+            {
+                using (conn = new SqlConnection(AMS3_ConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo, TD053 QTY " +
+                        "FROM [AMS3].[dbo].[ERP_COPTD] " +
+                        "left join INVMC ON MC001 = TD004 " +
+                        "where (TD001+'-'+TD002 = @DemandNo) and TD003 = @TD003 " +
+                        "and isnull(INVMC.MC019,'') <> '' and TD041 <> 'Y' and [ERP_COPTD].STOP_DATE is null and INVMC.STOP_DATE is null ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@DemandNo", SqlDbType.VarChar).Value = DemandNo;
+                    cmd.Parameters.Add("@TD003", SqlDbType.VarChar).Value = DemandSerialNo;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DemandNo_QTY = reader.GetDecimal(reader.GetOrdinal("QTY"));
+                        }
+                    }
+                }
+
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT [ShippingHead].DemandNo,[ShippingHead].DemandSerialNo, count(cylindernumbers) QTY " +
+                        "FROM [amsys].[dbo].[ShippingHead] " +
+                        "left join ShippingBody on vchBoxs = [WhereBox] " +
+                        "where [ShippingHead].DemandNo = @DemandNo and DemandSerialNo = @DemandSerialNo " +
+                        "group by [ShippingHead].[DemandNo], [ShippingHead].[DemandSerialNo] ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@DemandNo", SqlDbType.VarChar).Value = DemandNo;
+                    cmd.Parameters.Add("@DemandSerialNo", SqlDbType.VarChar).Value = DemandSerialNo;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (Convert.ToDecimal(reader.GetInt32(reader.GetOrdinal("QTY"))) >= DemandNo_QTY)
+                            {
+                                MessageBox.Show("此需求單已達上限!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                }
+
+            }
+
 
             //判斷是否滿箱
             using (conn = new SqlConnection(myConnectionString))
@@ -7750,7 +7908,6 @@ namespace LM2ReadandList
                 MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
 
             //20200617 新增客戶序號確認
             using (conn = new SqlConnection(myConnectionString))

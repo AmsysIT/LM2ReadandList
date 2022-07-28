@@ -24,7 +24,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <PublishUrl>\\192.168.0.2\ams\Software\99_AMS\LM2ReadandList_Customized\</PublishUrl>
+    <PublishUrl>\\192.168.0.3\amsys\Software\99_AMS\LM2ReadandList_Customized\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>285</ApplicationRevision>
+    <ApplicationRevision>287</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

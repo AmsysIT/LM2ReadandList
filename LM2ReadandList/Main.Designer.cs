@@ -1103,6 +1103,7 @@
             this.Column2.DataPropertyName = "嘜頭箱號";
             this.Column2.FillWeight = 95.43147F;
             this.Column2.HeaderText = "嘜頭箱號";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             this.Column2.Width = 70;
@@ -1112,6 +1113,7 @@
             this.Column3.DataPropertyName = "嘜頭位置";
             this.Column3.FillWeight = 113.7056F;
             this.Column3.HeaderText = "嘜頭位置";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             this.Column3.Width = 70;
@@ -1121,6 +1123,7 @@
             this.Column4.DataPropertyName = "氣瓶序號";
             this.Column4.FillWeight = 95.43147F;
             this.Column4.HeaderText = "氣瓶序號";
+            this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.Width = 150;
@@ -1130,6 +1133,7 @@
             this.Column1.DataPropertyName = "客戶BarCode";
             this.Column1.FillWeight = 95.43147F;
             this.Column1.HeaderText = "客戶Bar Code";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Width = 121;
@@ -1138,8 +1142,10 @@
             // 
             this.Column5.DataPropertyName = "氣瓶重量";
             this.Column5.HeaderText = "氣瓶重量";
+            this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
+            this.Column5.Width = 125;
             // 
             // PrintButton
             // 
@@ -1191,13 +1197,13 @@
             // 
             // NoLMGroupBox
             // 
+            this.NoLMGroupBox.Controls.Add(this.NoLMCylinderLabel);
             this.NoLMGroupBox.Controls.Add(this.checkBox1);
             this.NoLMGroupBox.Controls.Add(this.WhereSeatLabel);
             this.NoLMGroupBox.Controls.Add(this.label3);
             this.NoLMGroupBox.Controls.Add(this.NoLMCylinderNOTextBox);
-            this.NoLMGroupBox.Controls.Add(this.NoLMCylinderLabel);
             this.NoLMGroupBox.Enabled = false;
-            this.NoLMGroupBox.Location = new System.Drawing.Point(596, 328);
+            this.NoLMGroupBox.Location = new System.Drawing.Point(596, 327);
             this.NoLMGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMGroupBox.Name = "NoLMGroupBox";
             this.NoLMGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1213,7 +1219,7 @@
             this.checkBox1.Font = new System.Drawing.Font("新細明體", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.checkBox1.Location = new System.Drawing.Point(356, 90);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(115, 42);
+            this.checkBox1.Size = new System.Drawing.Size(113, 41);
             this.checkBox1.TabIndex = 55;
             this.checkBox1.Text = "鎖閥";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -1282,10 +1288,10 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 886);
+            this.statusStrip.Location = new System.Drawing.Point(0, 885);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1074, 24);
+            this.statusStrip.Size = new System.Drawing.Size(1074, 25);
             this.statusStrip.TabIndex = 50;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -1340,6 +1346,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1609, 910);
+            this.Controls.Add(this.NoLMGroupBox);
             this.Controls.Add(this.BarCodePictureBox);
             this.Controls.Add(this.TodayDataButton);
             this.Controls.Add(this.statusStrip);
@@ -1351,7 +1358,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ReadyGroupBox);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.NoLMGroupBox);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.KeyInGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
