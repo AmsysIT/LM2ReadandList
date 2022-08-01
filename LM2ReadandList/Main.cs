@@ -1265,7 +1265,7 @@ namespace LM2ReadandList
             {
                 srcFileName = Application.StartupPath + @".\NewListOut8.xlsx";//EXCEL檔案路徑
             }
-            else if (Aboxof == "10")
+            else if (Aboxof == "10" || Aboxof == "9")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut10.xlsx";//EXCEL檔案路徑
             }
@@ -9598,7 +9598,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT isnull([CustomerPO],''),[vchPrint],[vchAssembly],isnull(PackingMarks,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT isnull([CustomerPO],'') [CustomerPO], isnull([vchPrint],'') [vchPrint], isnull([vchAssembly],'') [vchAssembly], isnull(PackingMarks,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
