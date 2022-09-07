@@ -7348,7 +7348,8 @@ namespace LM2ReadandList
                     }
                     else
                     {
-                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "' order by id desc";
+                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN " +
+                            "and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(2).ToString("yyyy-MM-dd") + "' order by id desc";
                         cmd1 = new SqlCommand(selectCmd1, conn1);
                         cmd1.Parameters.AddWithValue("@SN", CylinderNO);
                         using (reader1 = cmd1.ExecuteReader())
@@ -9893,6 +9894,7 @@ namespace LM2ReadandList
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
+            /* 20220907 取消自動登出
             if (time > 0)
             {
                 time = time - 1;
@@ -9918,6 +9920,7 @@ namespace LM2ReadandList
                 }
                 this.Close();
             }
+            */
         }
     }
 }
