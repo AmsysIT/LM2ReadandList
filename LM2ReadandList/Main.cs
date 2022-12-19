@@ -6074,48 +6074,55 @@ namespace LM2ReadandList
                     {
                         conn1.Open();
 
-                        DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
-
-                        if (HydroLabelPass == true)
+                        if (HydrostaticTestDate == "")
                         {
-                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
-                                " WHERE [SerialNo] = @SN  order by id desc ";
-                            cmd1 = new SqlCommand(selectCmd1, conn1);
-                            cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
-                            using (reader1 = cmd1.ExecuteReader())
-                            {
-                                if (reader1.Read())
-                                {
-                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
-                                }
-                                else
-                                {
-                                    //內膽不檢查水壓報告
-                                    if (!ProductNo.Contains("-L-"))
-                                    {
-                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
-                                    }
-                                }
-                            }
+                            Error += "Code：107 無設定定義水壓日期，請聯繫生管\n";
                         }
                         else
                         {
-                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
-                                " WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc ";
-                            cmd1 = new SqlCommand(selectCmd1, conn1);
-                            cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
-                            using (reader1 = cmd1.ExecuteReader())
+                            DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+
+                            if (HydroLabelPass == true)
                             {
-                                if (reader1.Read())
+                                selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                    " WHERE [SerialNo] = @SN  order by id desc ";
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
+                                using (reader1 = cmd1.ExecuteReader())
                                 {
-                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
-                                }
-                                else
-                                {
-                                    //內膽不檢查水壓報告
-                                    if (!ProductNo.Contains("-L-"))
+                                    if (reader1.Read())
                                     {
-                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                        HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                    }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                    " WHERE [SerialNo] = @SN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc ";
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                cmd1.Parameters.AddWithValue("@SN", CylinderNumbers);
+                                using (reader1 = cmd1.ExecuteReader())
+                                {
+                                    if (reader1.Read())
+                                    {
+                                        HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                    }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                        }
                                     }
                                 }
                             }
@@ -7320,53 +7327,60 @@ namespace LM2ReadandList
                 {
                     conn1.Open();
 
-                    DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
-
-                    if (HydroLabelPass == true)
+                    if (HydrostaticTestDate == "")
                     {
-                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN order by id desc";
-                        cmd1 = new SqlCommand(selectCmd1, conn1);
-                        cmd1.Parameters.AddWithValue("@SN", CylinderNO);
-                        using (reader1 = cmd1.ExecuteReader())
-                        {
-                            if (reader1.HasRows)
-                            {
-                                if (reader1.Read())
-                                {
-                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
-                                }
-                            }
-                            else
-                            {
-                                //內膽不檢查水壓報告
-                                if (!ProductNo.Contains("-L-"))
-                                {
-                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
-                                }
-                            }
-                        }
+                        Error += "Code：107 無設定定義水壓日期，請聯繫生管\n";
                     }
                     else
                     {
-                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN " +
-                            "and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc";
-                        cmd1 = new SqlCommand(selectCmd1, conn1);
-                        cmd1.Parameters.AddWithValue("@SN", CylinderNO);
-                        using (reader1 = cmd1.ExecuteReader())
+                        DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+
+                        if (HydroLabelPass == true)
                         {
-                            if (reader1.HasRows)
+                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN order by id desc";
+                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                            cmd1.Parameters.AddWithValue("@SN", CylinderNO);
+                            using (reader1 = cmd1.ExecuteReader())
                             {
-                                if (reader1.Read())
+                                if (reader1.HasRows)
                                 {
-                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                    if (reader1.Read())
+                                    {
+                                        HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                    }
+                                }
+                                else
+                                {
+                                    //內膽不檢查水壓報告
+                                    if (!ProductNo.Contains("-L-"))
+                                    {
+                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
                                 }
                             }
-                            else
+                        }
+                        else
+                        {
+                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details] WHERE [SerialNo] = @SN " +
+                                "and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc";
+                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                            cmd1.Parameters.AddWithValue("@SN", CylinderNO);
+                            using (reader1 = cmd1.ExecuteReader())
                             {
-                                //內膽不檢查水壓報告
-                                if (!ProductNo.Contains("-L-"))
+                                if (reader1.HasRows)
                                 {
-                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    if (reader1.Read())
+                                    {
+                                        HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                    }
+                                }
+                                else
+                                {
+                                    //內膽不檢查水壓報告
+                                    if (!ProductNo.Contains("-L-"))
+                                    {
+                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
                                 }
                             }
                         }
