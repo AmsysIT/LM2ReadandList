@@ -115,11 +115,11 @@
             this.HistoryListBox = new System.Windows.Forms.ListBox();
             this.AutoLoadPictureTimer = new System.Windows.Forms.Timer(this.components);
             this.NoLMGroupBox = new System.Windows.Forms.GroupBox();
+            this.NoLMCylinderLabel = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.WhereSeatLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.NoLMCylinderNOTextBox = new System.Windows.Forms.TextBox();
-            this.NoLMCylinderLabel = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -879,7 +879,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(493, 559);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(579, 320);
+            this.pictureBox1.Size = new System.Drawing.Size(625, 320);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
@@ -902,7 +902,7 @@
             this.ListINFOGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ListINFOGroupBox.Name = "ListINFOGroupBox";
             this.ListINFOGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ListINFOGroupBox.Size = new System.Drawing.Size(472, 318);
+            this.ListINFOGroupBox.Size = new System.Drawing.Size(523, 318);
             this.ListINFOGroupBox.TabIndex = 21;
             this.ListINFOGroupBox.TabStop = false;
             this.ListINFOGroupBox.Text = "嘜頭資訊";
@@ -911,7 +911,7 @@
             // 
             this.PalletNoLabel.AutoSize = true;
             this.PalletNoLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.PalletNoLabel.Location = new System.Drawing.Point(292, 106);
+            this.PalletNoLabel.Location = new System.Drawing.Point(274, 106);
             this.PalletNoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PalletNoLabel.Name = "PalletNoLabel";
             this.PalletNoLabel.Size = new System.Drawing.Size(120, 27);
@@ -978,7 +978,7 @@
             // 
             this.JumpBoxLabel.AutoSize = true;
             this.JumpBoxLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.JumpBoxLabel.Location = new System.Drawing.Point(292, 22);
+            this.JumpBoxLabel.Location = new System.Drawing.Point(274, 22);
             this.JumpBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.JumpBoxLabel.Name = "JumpBoxLabel";
             this.JumpBoxLabel.Size = new System.Drawing.Size(147, 27);
@@ -1080,7 +1080,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dataGridView1.Location = new System.Drawing.Point(1074, 0);
+            this.dataGridView1.Location = new System.Drawing.Point(1118, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -1094,7 +1094,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(535, 910);
+            this.dataGridView1.Size = new System.Drawing.Size(535, 907);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.TabStop = false;
             // 
@@ -1207,11 +1207,22 @@
             this.NoLMGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMGroupBox.Name = "NoLMGroupBox";
             this.NoLMGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.NoLMGroupBox.Size = new System.Drawing.Size(472, 196);
+            this.NoLMGroupBox.Size = new System.Drawing.Size(522, 196);
             this.NoLMGroupBox.TabIndex = 48;
             this.NoLMGroupBox.TabStop = false;
             this.NoLMGroupBox.Text = "EnterKeyIn";
             this.NoLMGroupBox.Visible = false;
+            // 
+            // NoLMCylinderLabel
+            // 
+            this.NoLMCylinderLabel.AutoSize = true;
+            this.NoLMCylinderLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NoLMCylinderLabel.Location = new System.Drawing.Point(8, 26);
+            this.NoLMCylinderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.NoLMCylinderLabel.Name = "NoLMCylinderLabel";
+            this.NoLMCylinderLabel.Size = new System.Drawing.Size(403, 40);
+            this.NoLMCylinderLabel.TabIndex = 2;
+            this.NoLMCylinderLabel.Text = "氣瓶序號(含打字碼)：";
             // 
             // checkBox1
             // 
@@ -1260,17 +1271,6 @@
             this.NoLMCylinderNOTextBox.TabStop = false;
             this.NoLMCylinderNOTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NoLMCylinderNOTextBox_KeyDown);
             // 
-            // NoLMCylinderLabel
-            // 
-            this.NoLMCylinderLabel.AutoSize = true;
-            this.NoLMCylinderLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.NoLMCylinderLabel.Location = new System.Drawing.Point(8, 26);
-            this.NoLMCylinderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.NoLMCylinderLabel.Name = "NoLMCylinderLabel";
-            this.NoLMCylinderLabel.Size = new System.Drawing.Size(403, 40);
-            this.NoLMCylinderLabel.TabIndex = 2;
-            this.NoLMCylinderLabel.Text = "氣瓶序號(含打字碼)：";
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(581, 562);
@@ -1288,17 +1288,17 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 885);
+            this.statusStrip.Location = new System.Drawing.Point(0, 882);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1074, 25);
+            this.statusStrip.Size = new System.Drawing.Size(1118, 25);
             this.statusStrip.TabIndex = 50;
             this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(786, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(830, 19);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel2
