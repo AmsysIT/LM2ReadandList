@@ -5895,12 +5895,14 @@ namespace LM2ReadandList
                 //抓取需求單 [DemandNo]、[DemandSerialNo]
                 string DemandNo = string.Empty;
                 string DemandSerialNo = string.Empty;
+                string DemandPartNo = string.Empty;
+                string BoxPartNo = string.Empty;
                 Decimal DemandNo_QTY = 0;
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
-                    selectCmd = "select [DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
+                    selectCmd = "select ProductNo, [DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.Parameters.Add("@vchBoxs", SqlDbType.VarChar).Value = WhereBox_LB.SelectedItem;
                     using (reader = cmd.ExecuteReader())
@@ -5909,18 +5911,20 @@ namespace LM2ReadandList
                         {
                             DemandNo = reader.GetString(reader.GetOrdinal("DemandNo"));
                             DemandSerialNo = reader.GetString(reader.GetOrdinal("DemandSerialNo"));
+                            BoxPartNo = reader.GetString(reader.GetOrdinal("ProductNo"));
                         }
                     }
                 }
 
+                //20230112 檢查嘜頭品號是否與訂單品號相符
                 //抓取需求單所設定之數量，樣品不檢查，沒序號的也不檢查(舊資料)
-                if (DemandNo.Contains("樣品") && DemandSerialNo != "NULL")
+                if (DemandNo.Contains("樣品") == false && DemandSerialNo != "NULL")
                 {
                     using (conn = new SqlConnection(AMS3_ConnectionString))
                     {
                         conn.Open();
 
-                        selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo, TD053 QTY " +
+                        selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo,TD004, TD053 QTY " +
                             "FROM [AMS3].[dbo].[ERP_COPTD] " +
                             "left join INVMC ON MC001 = TD004 " +
                             "where (TD001+'-'+TD002 = @DemandNo) and TD003 = @TD003 " +
@@ -5933,9 +5937,20 @@ namespace LM2ReadandList
                             if (reader.Read())
                             {
                                 DemandNo_QTY = reader.GetDecimal(reader.GetOrdinal("QTY"));
+                                DemandPartNo = reader.GetString(reader.GetOrdinal("TD004"));
                             }
                         }
                     }
+
+                    /*20230112 先不改
+                    if (DemandPartNo != BoxPartNo)
+                    {
+                        MessageBox.Show("  嘜頭品號 : " + BoxPartNo + Environment.NewLine +
+                                        "需求單品號 : " + DemandPartNo + Environment.NewLine +
+                                        "嘜頭品號與需求單品號不相符，請聯繫生管確認!"
+                                        , "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }*/
 
                     using (conn = new SqlConnection(myConnectionString))
                     {
@@ -7120,6 +7135,7 @@ namespace LM2ReadandList
             bool ProductAcceptance = false;
             bool SpecialUses = false;
             bool HydroLabelPass = false;
+                        
 
 
             //20220527 檢查數量(不能超過需求單設定數量)，樣品不檢查
@@ -7127,12 +7143,14 @@ namespace LM2ReadandList
             //抓取需求單 [DemandNo]、[DemandSerialNo]
             string DemandNo = string.Empty;
             string DemandSerialNo = string.Empty;
+            string DemandPartNo = string.Empty;
+            string BoxPartNo = string.Empty;
             Decimal DemandNo_QTY = 0;
             using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
-                selectCmd = "select [DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
+                selectCmd = "select ProductNo,[DemandNo], isnull([DemandSerialNo],'NULL') [DemandSerialNo] from [ShippingHead] where vchBoxs = @vchBoxs ";
                 cmd = new SqlCommand(selectCmd, conn);
                 cmd.Parameters.Add("@vchBoxs", SqlDbType.VarChar).Value = WhereBox_LB.SelectedItem;
                 using (reader = cmd.ExecuteReader())
@@ -7141,18 +7159,20 @@ namespace LM2ReadandList
                     {
                         DemandNo = reader.GetString(reader.GetOrdinal("DemandNo"));
                         DemandSerialNo = reader.GetString(reader.GetOrdinal("DemandSerialNo"));
+                        BoxPartNo = reader.GetString(reader.GetOrdinal("ProductNo"));
                     }
                 }
             }
 
+            //20230112 檢查嘜頭品號是否與訂單品號相符            
             //抓取需求單所設定之數量，樣品不檢查，沒序號的也不檢查(舊資料)
-            if (DemandNo.Contains("樣品") && DemandSerialNo != "NULL")
+            if (DemandNo.Contains("樣品") == false && DemandSerialNo != "NULL")
             {
                 using (conn = new SqlConnection(AMS3_ConnectionString))
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo, TD053 QTY " +
+                    selectCmd = "SELECT TD001+'-'+TD002 DemandNo, TD003 DemandSerialNo,TD004, TD053 QTY " +
                         "FROM [AMS3].[dbo].[ERP_COPTD] " +
                         "left join INVMC ON MC001 = TD004 " +
                         "where (TD001+'-'+TD002 = @DemandNo) and TD003 = @TD003 " +
@@ -7165,9 +7185,19 @@ namespace LM2ReadandList
                         if (reader.Read())
                         {
                             DemandNo_QTY = reader.GetDecimal(reader.GetOrdinal("QTY"));
+                            DemandPartNo = reader.GetString(reader.GetOrdinal("TD004"));
                         }
                     }
                 }
+                /*20230112 先不改
+                if(DemandPartNo != BoxPartNo)
+                {
+                    MessageBox.Show("  嘜頭品號 : " + BoxPartNo + Environment.NewLine +
+                                    "需求單品號 : " + DemandPartNo + Environment.NewLine +
+                                    "嘜頭品號與需求單品號不相符，請聯繫生管確認!"
+                                    , "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }*/
 
                 using (conn = new SqlConnection(myConnectionString))
                 {
