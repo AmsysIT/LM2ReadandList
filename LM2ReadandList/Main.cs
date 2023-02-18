@@ -5970,6 +5970,7 @@ namespace LM2ReadandList
                             {
                                 if (Convert.ToDecimal(reader.GetInt32(reader.GetOrdinal("QTY"))) >= DemandNo_QTY)
                                 {
+                                    BottomTextBox.Text = "";
                                     MessageBox.Show("此需求單已達上限!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }

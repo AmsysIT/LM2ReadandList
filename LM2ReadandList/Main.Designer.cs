@@ -1203,7 +1203,7 @@
             this.NoLMGroupBox.Controls.Add(this.label3);
             this.NoLMGroupBox.Controls.Add(this.NoLMCylinderNOTextBox);
             this.NoLMGroupBox.Enabled = false;
-            this.NoLMGroupBox.Location = new System.Drawing.Point(596, 327);
+            this.NoLMGroupBox.Location = new System.Drawing.Point(595, 325);
             this.NoLMGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMGroupBox.Name = "NoLMGroupBox";
             this.NoLMGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1347,9 +1347,9 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1609, 910);
             this.Controls.Add(this.NoLMGroupBox);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.BarCodePictureBox);
             this.Controls.Add(this.TodayDataButton);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.HistoryListBox);
             this.Controls.Add(this.RefreshhButton);
             this.Controls.Add(this.PrintButton);
