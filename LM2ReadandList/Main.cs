@@ -1245,6 +1245,10 @@ namespace LM2ReadandList
             {
                 srcFileName = Application.StartupPath + @".\NewListOut40.xlsx";//EXCEL檔案路徑
             }
+            else if (Aboxof == "35")
+            {
+                srcFileName = Application.StartupPath + @".\NewListOut35.xlsx";//EXCEL檔案路徑
+            }
             else if (Aboxof == "36")
             {
                 srcFileName = Application.StartupPath + @".\NewListOut36.xlsx";//EXCEL檔案路徑
@@ -1377,7 +1381,7 @@ namespace LM2ReadandList
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                     }
-                    else if (Aboxof == "40" || Aboxof == "38")
+                    else if (Aboxof == "40" || Aboxof == "38" || Aboxof == "35")
                     {
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
@@ -1932,7 +1936,7 @@ namespace LM2ReadandList
                     }
                 }
             }
-            else if (Aboxof == "40" || Aboxof == "38")
+            else if (Aboxof == "40" || Aboxof == "38" || Aboxof == "35")
             {
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))

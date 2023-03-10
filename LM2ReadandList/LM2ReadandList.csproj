@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>296</ApplicationRevision>
+    <ApplicationRevision>298</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -301,6 +301,9 @@
     </Content>
     <Content Include="NewListOut6.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NewListOut35.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
