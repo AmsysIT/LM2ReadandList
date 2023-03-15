@@ -122,12 +122,14 @@ namespace LM2ReadandList
                 }
             }
 
-            //20200420 
+            /*
+            //20200420
             DT = new DataTable();
             selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
                 "  where Package = '0' ";
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(DT);
+            */
 
             SDT = new DataTable();
             selectCmd = "SELECT vchBoxs FROM ShippingHead where [DemandNo] = '2201-20200409001' and ( [ProductNo] = '4C8208226188138030' or [ProductNo] = '4C7208226188100030' ) ";
@@ -6016,9 +6018,37 @@ namespace LM2ReadandList
                     }
                 }
 
-                //20200420
+                //20230315
                 try
                 {
+                    //抓取序號資訊
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
+                            " where Package = '0' and [CylinderNoCheck_Q] = '0' and CylinderNO = @CylinderNo ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                LotNumber = reader.GetString(reader.GetOrdinal("vchManufacturingNo"));
+                                MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
+                                HydrostaticTestDate = reader.GetString(reader.GetOrdinal("vchHydrostaticTestDate"));
+                                CustomerName = reader.GetString(reader.GetOrdinal("ClientName"));
+                                HydroLabelPass = reader.GetBoolean(reader.GetOrdinal("HydroLabelPass"));
+                            }
+                            else
+                            {
+                                BottomTextBox.Text = "";
+                                MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                    /*
                     var v = (from p in DT.AsEnumerable()
                              where p.Field<string>("CylinderNo").Trim() == CylinderNumbers
                              select p).First();
@@ -6028,6 +6058,7 @@ namespace LM2ReadandList
                     CustomerName = v.Field<string>("ClientName");
                     MarkingType = v.Field<string>("vchMarkingType");
                     HydroLabelPass = v.Field<bool>("HydroLabelPass");
+                    */
                 }
                 catch (Exception)
                 {
@@ -7264,6 +7295,35 @@ namespace LM2ReadandList
 
             try
             {
+                CylinderNO = NoLMCylinderNOTextBox.Text;
+
+                //抓取序號資訊
+                using (conn = new SqlConnection(myConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
+                        " where Package = '0' and [CylinderNoCheck_Q] = '0' and CylinderNO = @CylinderNo ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            LotNumber = reader.GetString(reader.GetOrdinal("vchManufacturingNo"));
+                            MarkingType = reader.GetString(reader.GetOrdinal("vchMarkingType"));
+                            HydrostaticTestDate = reader.GetString(reader.GetOrdinal("vchHydrostaticTestDate"));
+                            CustomerName = reader.GetString(reader.GetOrdinal("ClientName"));
+                            HydroLabelPass = reader.GetBoolean(reader.GetOrdinal("HydroLabelPass"));
+                        }
+                        else
+                        {
+                            MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }                
+                /*
                 var v = (from p in DT.AsEnumerable()
                          where p.Field<string>("CylinderNo").Trim() == NoLMCylinderNOTextBox.Text
                          select p).First();
@@ -7274,6 +7334,7 @@ namespace LM2ReadandList
                 CustomerName = v.Field<string>("ClientName");
                 CylinderNO = NoLMCylinderNOTextBox.Text;
                 HydroLabelPass = v.Field<bool>("HydroLabelPass");
+                */
             }
             catch (Exception)
             {
