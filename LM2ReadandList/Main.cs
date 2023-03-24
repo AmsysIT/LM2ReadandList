@@ -5486,7 +5486,7 @@ namespace LM2ReadandList
                 //插入1維條碼
                 //預設位子在X:255,Y:412
                 //預設1維條碼圖片大小170*35            
-                int oneX = 255, oneY = 411;
+                int oneX = 268, oneY = 412;
                 string oneadd = @"C:\Code\";
                 int serialnooneX = 308, serialnooneY = 128;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -5595,7 +5595,7 @@ namespace LM2ReadandList
                     //預設QRCODE圖片大小190*190
 
                     //插入二維條碼
-                    int picX = 444, picY = 228;
+                    int picX = 448, picY = 228;
                     string picadd = @"C:\QRCode\";
 
                     selectCmd = "SELECT ListDate, ProductName, vchBoxs FROM [ShippingHead] " +
