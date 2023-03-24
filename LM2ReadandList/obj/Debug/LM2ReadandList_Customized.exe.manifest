@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.299" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LM2ReadandList_Customized.exe" version="2.0.0.300" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="LM2ReadandList.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QQoptLcc2arsxp5HJLFPftOo0/H2gtdEL0JiEbpdkc8=</dsig:DigestValue>
+        <dsig:DigestValue>7bO3w5j7Y+U+3JiwcaSHRZzckwA4j3yxUmIiHYqDR2s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -4407,13 +4407,13 @@
       <dsig:DigestValue>isJxNGLFv/xOkz7vo2lqwx5Agjfkc0mAbifqwAUNAsw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="SGAForm_1.xlsx" size="11023">
+  <file name="SGAForm_1.xlsx" size="11018">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>O6UQOIIsQwI6046LsEx1N/K86vy/qbem7rXFF+N/9Wc=</dsig:DigestValue>
+      <dsig:DigestValue>NEckfrtpDGp7zSqXvS4f4wPgQ0yxedAvLTJMV21x6CU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="TodayPackageData.xlsx" size="8948">
