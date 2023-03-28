@@ -6026,7 +6026,7 @@ namespace LM2ReadandList
                     {
                         conn.Open();
 
-                        selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
+                        selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],isnull([ClientName],'') ClientName ,HydroLabelPass FROM [MSNBody] " +
                             " where Package = '0' and [CylinderNoCheck_Q] = '0' and CylinderNO = @CylinderNo ";
                         cmd = new SqlCommand(selectCmd, conn);
                         cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNumbers;
@@ -7302,7 +7302,7 @@ namespace LM2ReadandList
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],[ClientName],HydroLabelPass FROM [MSNBody] " +
+                    selectCmd = "SELECT [vchManufacturingNo],[vchMarkingType],[CylinderNo],[vchHydrostaticTestDate],isnull([ClientName],'') ClientName ,HydroLabelPass FROM [MSNBody] " +
                         " where Package = '0' and [CylinderNoCheck_Q] = '0' and CylinderNO = @CylinderNo ";
                     cmd = new SqlCommand(selectCmd, conn);
                     cmd.Parameters.Add("@CylinderNo", SqlDbType.VarChar).Value = CylinderNO;
