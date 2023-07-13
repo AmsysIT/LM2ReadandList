@@ -17,7 +17,7 @@
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
     <ApplicationIcon>LM2ReadandList.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>302</ApplicationRevision>
+    <ApplicationRevision>303</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -182,6 +182,12 @@
     <None Include="LM2ReadandList_5_TemporaryKey.pfx" />
     <None Include="LM2ReadandList_6_TemporaryKey.pfx" />
     <None Include="LM2ReadandList_TemporaryKey.pfx" />
+    <Content Include="LOGO_Estratego_Totem_Air_UL_Tank_0.8L.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LOGO_Estratego_Totem_Air_UL_Tank_1.5L.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LOGO-ENAIRGY_Wicked Sportz.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -222,7 +228,9 @@
     <Content Include="LOGO_Estratego_BL-xx-13.png" />
     <Content Include="LOGO_Estratego_Nipple.png" />
     <Content Include="LOGO_Estratego_Regulator Gauge.png" />
-    <Content Include="LOGO_Estratego_Totem_Air_UL_Tank.png" />
+    <Content Include="LOGO_Estratego_Totem_Air_UL_Tank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LOGO_HATSAN.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

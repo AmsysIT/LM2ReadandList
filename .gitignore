@@ -20,3 +20,5 @@ LM2ReadandList/obj/Debug/LM2ReadandList_Customized.application
 LM2ReadandList/obj/Debug/LM2ReadandList_Customized.exe
 LM2ReadandList/obj/Debug/LM2ReadandList_Customized.exe.manifest
 LM2ReadandList/obj/Debug/LM2ReadandList_Customized.pdb
+LM2ReadandList/obj/Debug/*
+.vs/*

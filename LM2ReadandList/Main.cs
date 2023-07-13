@@ -5799,6 +5799,18 @@ namespace LM2ReadandList
                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
             }
+            else if (PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank_0.8L") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank_0.8L.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
+            else if (PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank_1.5L") == 0)
+            {
+                //該客戶要其自己的logo
+                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank_1.5L.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
+            }
 
             Excel.Sheets excelSheets = oWB.Worksheets;
             //顯示EXCEL
