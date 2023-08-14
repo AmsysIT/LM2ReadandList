@@ -6528,13 +6528,18 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if (ResinLotNo != "" && CarbonLotNo != "" && GlassLotNo != "")
+                    //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
+                    using (conn = new SqlConnection(myConnectionString30))
                     {
-                        using (conn = new SqlConnection(myConnectionString30))
-                        {
-                            conn.Open();
+                        conn.Open();
 
-                            //碳纖
+                        //碳纖
+                        if (ResinLotNo == "")
+                        {
+                            Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                        }
+                        else
+                        {
                             selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
@@ -6548,8 +6553,18 @@ namespace LM2ReadandList
                                     Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
                                 }
                             }
+                        }
 
-                            //玻纖
+                        //玻纖
+                        if (!ProductNo.StartsWith("9-H"))
+                        {
+                            if (CarbonLotNo == "")
+                            {
+                                Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                            }
+                        }
+                        else
+                        {
                             selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
@@ -6563,23 +6578,16 @@ namespace LM2ReadandList
                                     Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
                                 }
                             }
+                        }
 
-                            //樹酯
+                        //樹酯
+                        if (GlassLotNo == "")
+                        {
+                            Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
+                        }
+                        else
+                        {
                             selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                                }
-                            }
-
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
@@ -6594,6 +6602,7 @@ namespace LM2ReadandList
                             }
                         }
                     }
+                                 
 
                     //對應內膽  拉伸、爆破
                     //找出對應內膽批號
@@ -7823,13 +7832,18 @@ namespace LM2ReadandList
                     }
                 }
 
-                if (ResinLotNo != "" && CarbonLotNo != "" && GlassLotNo != "")
+                //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
+                using (conn = new SqlConnection(myConnectionString30))
                 {
-                    using (conn = new SqlConnection(myConnectionString30))
-                    {
-                        conn.Open();
+                    conn.Open();
 
-                        //碳纖
+                    //碳纖
+                    if (ResinLotNo == "")
+                    {
+                        Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                    }
+                    else
+                    {
                         selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
@@ -7843,38 +7857,41 @@ namespace LM2ReadandList
                                 Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
                             }
                         }
+                    }
 
-                        //玻纖
-                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
+                    //玻纖                    
+                    if (!ProductNo.StartsWith("9-H"))
+                    {
+                        if (CarbonLotNo == "")
                         {
-                            if (reader.Read())
+                            Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                        }
+                        else
+                        {
+                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
                             {
-                                ;
-                            }
-                            else
-                            {
-                                Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                if (reader.Read())
+                                {
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                }
                             }
                         }
+                    }
 
-                        //樹酯
+                    //樹酯
+                    if (GlassLotNo == "")
+                    {
+                        Error += "Code：120 無樹脂檢驗資料，請聯繫品保\nn";
+                    }
+                    else
+                    {
                         selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                ;
-                            }
-                            else
-                            {
-                                Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                            }
-                        }
-
-                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -7889,6 +7906,7 @@ namespace LM2ReadandList
                         }
                     }
                 }
+                
 
                 //對應內膽  拉伸、爆破
                 //找出對應內膽批號
