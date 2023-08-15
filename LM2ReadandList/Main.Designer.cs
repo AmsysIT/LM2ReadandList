@@ -1231,7 +1231,7 @@
             this.checkBox1.Location = new System.Drawing.Point(356, 90);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 41);
+            this.checkBox1.Size = new System.Drawing.Size(115, 42);
             this.checkBox1.TabIndex = 55;
             this.checkBox1.Text = "鎖閥";
             this.checkBox1.UseVisualStyleBackColor = true;
