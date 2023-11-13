@@ -6380,7 +6380,7 @@ namespace LM2ReadandList
                                 }
 
                                 //爆破
-                                selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                                selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                                 cmd = new SqlCommand(selectCmd, conn);
                                 using (reader = cmd.ExecuteReader())
                                 {
@@ -6439,7 +6439,7 @@ namespace LM2ReadandList
                                 conn.Open();
 
                                 //爆破
-                                selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                                selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                                 cmd = new SqlCommand(selectCmd, conn);
                                 using (reader = cmd.ExecuteReader())
                                 {
@@ -6481,7 +6481,7 @@ namespace LM2ReadandList
                         }
 
                         //爆破
-                        selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                        selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
@@ -6655,7 +6655,7 @@ namespace LM2ReadandList
                                 }
                             }
 
-                            selectCmd = "SELECT  * FROM [PPT_Burst]" +
+                            selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst]" +
                                 " WHERE [ManufacturingNo] = @LotNo" +
                                 " AND [FinalResult] ='PASS' order by AcceptanceNo desc";
                             cmd = new SqlCommand(selectCmd, conn);
@@ -7692,7 +7692,7 @@ namespace LM2ReadandList
                             }
 
                             //爆破
-                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                            selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
@@ -7751,7 +7751,7 @@ namespace LM2ReadandList
                             conn.Open();
 
                             //爆破
-                            selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                            selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
@@ -7793,7 +7793,7 @@ namespace LM2ReadandList
                     }
 
                     //爆破
-                    selectCmd = "SELECT  * FROM [PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
+                    selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' order by AcceptanceNo desc";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -7902,7 +7902,7 @@ namespace LM2ReadandList
                     {
                         if (ResinLotNo == "")
                         {
-                            Error += "Code：120 無樹脂檢驗資料，請聯繫品保\nn";
+                            Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
                         }
                         else
                         {
@@ -7968,7 +7968,7 @@ namespace LM2ReadandList
                             }
                         }
 
-                        selectCmd = "SELECT  * FROM [PPT_Burst]" +
+                        selectCmd = "SELECT  * FROM [192.168.0.21].[QCReport].[dbo].[PPT_Burst]" +
                             " WHERE [ManufacturingNo] = @LotNo" +
                             " AND [FinalResult] ='PASS' order by AcceptanceNo desc";
                         cmd = new SqlCommand(selectCmd, conn);
