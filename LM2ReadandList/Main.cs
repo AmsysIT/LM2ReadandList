@@ -6537,7 +6537,7 @@ namespace LM2ReadandList
                         //碳纖
                         if (CarbonLotNo == "")
                         {
-                            Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                            Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\n";
                         }
                         else
                         {
@@ -6551,7 +6551,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                                    Error += "Code：118 無碳纖進料報告，請聯繫品保\n";
                                 }
                             }
                         }
@@ -6561,7 +6561,7 @@ namespace LM2ReadandList
                         {
                             if (GlassLotNo == "")
                             {
-                                Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\n";
                             }
                         }
                         else
@@ -6576,39 +6576,34 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\n";
                                 }
                             }
                         }
 
                         //樹酯
-                        if (ResinSpec.Contains("AMSP03"))
+
+                        if (ResinLotNo == "")
                         {
-                            ; //20230815 若氣瓶批號對應樹酯規格為AMSP03，不查AMSP03樹酯進料檢驗資料
+                            Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\n";
                         }
-                        else //其餘都要
+                        else
                         {
-                            if (ResinLotNo == "")
+                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
                             {
-                                Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                            }
-                            else
-                            {
-                                selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                                cmd = new SqlCommand(selectCmd, conn);
-                                using (reader = cmd.ExecuteReader())
+                                if (reader.Read())
                                 {
-                                    if (reader.Read())
-                                    {
-                                        ;
-                                    }
-                                    else
-                                    {
-                                        Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                                    }
+                                    ;
+                                }
+                                else
+                                {
+                                    Error += "Code：120 無樹脂測試資料，請聯繫品保\n";
                                 }
                             }
                         }
+                        
                     }
 
 
@@ -7849,7 +7844,7 @@ namespace LM2ReadandList
                     //碳纖
                     if (CarbonLotNo == "")
                     {
-                        Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                        Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\n";
                     }
                     else
                     {
@@ -7863,7 +7858,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：118 無碳纖檢驗資料，請聯繫品保\n";
+                                Error += "Code：118 無碳纖進料報告，請聯繫品保\n";
                             }
                         }
                     }
@@ -7873,7 +7868,7 @@ namespace LM2ReadandList
                     {
                         if (GlassLotNo == "")
                         {
-                            Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                            Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\n";
                         }
                         else
                         {
@@ -7887,40 +7882,34 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖檢驗資料，請聯繫品保\n";
+                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\n";
                                 }
                             }
                         }
                     }
 
                     //樹酯
-                    if (ResinSpec.Contains("AMSP03"))
+                    if (ResinLotNo == "")
                     {
-                        ;//20230815 若氣瓶批號對應樹酯規格為AMSP03，不查AMSP03樹酯進料檢驗資料
+                        Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\n";
                     }
-                    else//其餘則要
+                    else
                     {
-                        if (ResinLotNo == "")
+                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
                         {
-                            Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
+                            if (reader.Read())
                             {
-                                if (reader.Read())
-                                {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：120 無樹脂檢驗資料，請聯繫品保\n";
-                                }
+                                ;
+                            }
+                            else
+                            {
+                                Error += "Code：120 無樹脂測試資料，請聯繫品保\n";
                             }
                         }
                     }
+                    
                 }
 
 
