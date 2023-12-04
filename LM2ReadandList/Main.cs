@@ -6144,6 +6144,7 @@ namespace LM2ReadandList
                         else
                         {
                             DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+                            bool HydroDate_Temp = false;
 
                             if (HydroLabelPass == true)
                             {
@@ -6156,7 +6157,8 @@ namespace LM2ReadandList
                                     if (reader1.Read())
                                     {
                                         HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
-                                    }
+                                        HydroDate_Temp = true;
+                                    }/*
                                     else
                                     {
                                         //內膽不檢查水壓報告
@@ -6164,8 +6166,43 @@ namespace LM2ReadandList
                                         {
                                             Error += "Code：103 無水壓報告資料，請聯繫品保\n";
                                         }
+                                    }*/
+                                }
+                                if (HydroDate_Temp == false)
+                                {
+                                    //檢查原始序號有無水壓資料 20231123
+                                    selectCmd = "Select OriCylinderNO From [ChangeCylinderNo] " +
+                                        "where [NewCylinderNo] = @SN ";
+                                    cmd = new SqlCommand(selectCmd, conn);
+                                    cmd.Parameters.AddWithValue("@SN", CylinderNumbers);
+                                    using (reader = cmd.ExecuteReader())
+                                    {
+                                        if (reader.Read())
+                                        {
+                                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                                        " WHERE [SerialNo] = @OldSN  order by id desc ";
+                                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                                            cmd1.Parameters.AddWithValue("@OldSN", reader.GetString(reader.GetOrdinal("OriCylinderNO")));
+                                            using (reader1 = cmd1.ExecuteReader())
+                                            {
+                                                if (reader1.Read())
+                                                {
+                                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                                    HydroDate_Temp = true;
+                                                }
+                                                else
+                                                {
+                                                    //內膽不檢查水壓報告
+                                                    if (!ProductNo.Contains("-L-"))
+                                                    {
+                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
+
                             }
                             else
                             {
@@ -6178,7 +6215,8 @@ namespace LM2ReadandList
                                     if (reader1.Read())
                                     {
                                         HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
-                                    }
+                                        HydroDate_Temp = true;
+                                    }/*
                                     else
                                     {
                                         //內膽不檢查水壓報告
@@ -6186,9 +6224,47 @@ namespace LM2ReadandList
                                         {
                                             Error += "Code：103 無水壓報告資料，請聯繫品保\n";
                                         }
+                                    }*/
+                                }
+
+                                if (HydroDate_Temp == false)
+                                {
+                                    //檢查原始序號有無水壓資料 20231123
+                                    selectCmd = "Select OriCylinderNO From [ChangeCylinderNo] " +
+                                        "where [NewCylinderNo] = @SN ";
+                                    cmd = new SqlCommand(selectCmd, conn);
+                                    cmd.Parameters.AddWithValue("@SN", CylinderNumbers);
+                                    using (reader = cmd.ExecuteReader())
+                                    {
+                                        if (reader.Read())
+                                        {
+                                            selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                                        " WHERE [SerialNo] = @OldSN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc ";
+                                            cmd1 = new SqlCommand(selectCmd1, conn1);
+                                            cmd1.Parameters.AddWithValue("@OldSN", reader.GetString(reader.GetOrdinal("OriCylinderNO")));
+                                            using (reader1 = cmd1.ExecuteReader())
+                                            {
+                                                if (reader1.Read())
+                                                {
+                                                    HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                                    HydroDate_Temp = true;
+                                                }
+                                                else
+                                                {
+                                                    //內膽不檢查水壓報告
+                                                    if (!ProductNo.Contains("-L-"))
+                                                    {
+                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
+
+                            
+
                         }
                     }
 
@@ -7454,6 +7530,7 @@ namespace LM2ReadandList
                     else
                     {
                         DateTime HydrostaticDate = Convert.ToDateTime(HydrostaticTestDate);
+                        bool HydroDate_Temp = false;
 
                         if (HydroLabelPass == true)
                         {
@@ -7467,14 +7544,49 @@ namespace LM2ReadandList
                                     if (reader1.Read())
                                     {
                                         HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                        HydroDate_Temp = true;
                                     }
-                                }
+                                }/*
                                 else
                                 {
                                     //內膽不檢查水壓報告
                                     if (!ProductNo.Contains("-L-"))
                                     {
                                         Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
+                                }*/
+                            }
+                            if (HydroDate_Temp == false)
+                            {
+                                //檢查原始序號有無水壓資料 20231123
+                                selectCmd = "Select OriCylinderNO From [ChangeCylinderNo] " +
+                                    "where [NewCylinderNo] = @SN ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                cmd.Parameters.AddWithValue("@SN", CylinderNO);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                                    " WHERE [SerialNo] = @OldSN  order by id desc ";
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        cmd1.Parameters.AddWithValue("@OldSN", reader.GetString(reader.GetOrdinal("OriCylinderNO")));
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                                HydroDate_Temp = true;
+                                            }
+                                            else
+                                            {
+                                                //內膽不檢查水壓報告
+                                                if (!ProductNo.Contains("-L-"))
+                                                {
+                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -7492,14 +7604,49 @@ namespace LM2ReadandList
                                     if (reader1.Read())
                                     {
                                         HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                        HydroDate_Temp = true;
                                     }
-                                }
+                                }/*
                                 else
                                 {
                                     //內膽不檢查水壓報告
                                     if (!ProductNo.Contains("-L-"))
                                     {
                                         Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                    }
+                                }*/
+                            }
+                            if (HydroDate_Temp == false)
+                            {
+                                //檢查原始序號有無水壓資料 20231123
+                                selectCmd = "Select OriCylinderNO From [ChangeCylinderNo] " +
+                                    "where [NewCylinderNo] = @SN ";
+                                cmd = new SqlCommand(selectCmd, conn);
+                                cmd.Parameters.AddWithValue("@SN", CylinderNO);
+                                using (reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        selectCmd1 = "SELECT [TestDate] FROM [PPT_Hydro_Details]" +
+                                                    " WHERE [SerialNo] = @OldSN and [TestDate] between '" + HydrostaticDate.ToString("yyyy-MM-dd") + "' and '" + HydrostaticDate.AddMonths(3).AddDays(-1).ToString("yyyy-MM-dd") + "' order by id desc ";
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        cmd1.Parameters.AddWithValue("@OldSN", reader.GetString(reader.GetOrdinal("OriCylinderNO")));
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                HydroDate = reader1.GetDateTime(reader1.GetOrdinal("TestDate"));
+                                                HydroDate_Temp = true;
+                                            }
+                                            else
+                                            {
+                                                //內膽不檢查水壓報告
+                                                if (!ProductNo.Contains("-L-"))
+                                                {
+                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
