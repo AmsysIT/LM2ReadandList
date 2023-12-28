@@ -1094,7 +1094,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(535, 907);
+            this.dataGridView1.Size = new System.Drawing.Size(836, 889);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.TabStop = false;
             // 
@@ -1231,7 +1231,7 @@
             this.checkBox1.Location = new System.Drawing.Point(356, 90);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(115, 42);
+            this.checkBox1.Size = new System.Drawing.Size(113, 41);
             this.checkBox1.TabIndex = 55;
             this.checkBox1.Text = "鎖閥";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -1289,7 +1289,7 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 882);
+            this.statusStrip.Location = new System.Drawing.Point(0, 864);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip.Size = new System.Drawing.Size(1118, 25);
@@ -1347,6 +1347,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1609, 910);
+            this.Controls.Add(this.KeyInGroupBox);
             this.Controls.Add(this.NoLMGroupBox);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.BarCodePictureBox);
@@ -1360,7 +1361,6 @@
             this.Controls.Add(this.ReadyGroupBox);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.KeyInGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";

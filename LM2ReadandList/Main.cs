@@ -1473,6 +1473,7 @@ namespace LM2ReadandList
                 string HowMuch = "";
                 int Cumulative = 0;
                 int Total = 0;
+                string PartNo_temp = string.Empty;//20231228，HK客製化嘜頭
 
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))
@@ -1508,6 +1509,7 @@ namespace LM2ReadandList
 
                             //載入客戶產品型號
                             oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
+                            PartNo_temp = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
 
                             //載入一箱幾隻
                             oSheet.Cells[4, 7] = Getcount;
@@ -1726,6 +1728,74 @@ namespace LM2ReadandList
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                             Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+
+                    //20231228 HK客製化嘜頭
+                    else if (Client.Contains("HK Army"))
+                    {
+                        string ProductName = "";
+                        string path = "";
+                        string LogoCode = PartNo_temp.Substring(9, 2);
+
+                        //該客戶要其自己的logo  PartNo   Part Description
+                        selectCmd = "SELECT  Product_Name FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ProductName = reader.GetValue(0).ToString();
+                            }
+                        }
+
+                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                            "where [ProductNo]+[BottleType] ='" + ProductName + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "' " +
+                            "and [LogoCode] = '" + LogoCode + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                //載入客戶產品名稱
+                                oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("ProductDescription"));
+
+                                //載入客戶產品型號
+                                oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
+                            }
+                        }
+
+                        selectCmd = "Select [base64],[packingmarks] From [192.168.0.21].[AMSSystem].[dbo].[PackingMarks] where packingmarks = @packingmarks and STOP_DATE IS NULL ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.Parameters.AddWithValue("@packingmarks", (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()));
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Image image = null;
+                                if (reader.GetString(0).Any())
+                                {
+                                    // Convert Base64 String to byte[]
+                                    byte[] Buffer = Convert.FromBase64String(reader.GetString(0));
+
+                                    using (MemoryStream memoryStream = new MemoryStream(Buffer))
+                                    {
+                                        //設定資料流位置
+                                        memoryStream.Position = 0;
+                                        image = Image.FromStream(memoryStream);
+
+                                        PictureBox box = new PictureBox();
+                                        box.Image = image;
+
+                                        path = Application.StartupPath + @"\" + reader.GetString(1) + ".png";
+                                        box.Image.Save(path); //set image
+                                    }
+                                    
+                                    //LOGO
+                                    oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse,
+                                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                }
+                            }
+                        }
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -8740,7 +8810,51 @@ namespace LM2ReadandList
                         }
                     }
 
-                    if (QRClient.Contains("Praxair") == false)
+
+                    if (QRClient.Contains("HK Army") == true)
+                    {
+                        string ProductName = "";
+                        string LogoCode = "";
+
+                        //20231228 HK 客製化嘜頭
+                        selectCmd = "SELECT isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ProductName = reader.GetString(reader.GetOrdinal("CustomerProductNo")).Substring(0,4);
+                                LogoCode = reader.GetString(reader.GetOrdinal("CustomerProductNo")).Substring(9,2);
+                            }
+                        }
+
+                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                            "where [ProductNo] ='" + ProductName + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "' " +
+                            "and [LogoCode] = '" + LogoCode + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("ProductDescription")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("ProductCode")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                            }
+                        }
+
+                        if(QRcodDetail1 == "")
+                        {
+                            //AMS Default data
+                            selectCmd = "SELECT isnull( CustomerProductName ,'') CustomerProductName,isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                                }
+                            }
+                        }
+                    }
+                    else if (QRClient.Contains("Praxair") == false)
                     {
                         //AMS Default data
                         selectCmd = "SELECT isnull( CustomerProductName ,'') CustomerProductName,isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
@@ -8753,14 +8867,13 @@ namespace LM2ReadandList
                                 if (DemandNo == "2201-20200820001")
                                 {
                                     QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName"))
-                                        + "\r\nPart No. " + reader.GetString(reader.GetOrdinal("CustomerProductNo"))
-                                        + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + WhereBox_LB.SelectedItem
-                                        + "\r\nBatch No./Serial No.\r\n";
+                                        + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("CustomerProductNo"))
+                                        + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem
+                                        + "\r\nBatch No./Serial No:\r\n";
                                 }
                                 else
                                 {
-
-                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No. " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO. " + WhereBox_LB.SelectedItem + "\r\nSerial No.\r\n";
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
                                 }
 
                             }
