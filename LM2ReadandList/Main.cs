@@ -1377,11 +1377,21 @@ namespace LM2ReadandList
                     }
                     else if (Aboxof == "20")
                     {
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 30;
+                        float Top = (float)((double)oRange.Top) + 4;
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
+                        Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        //Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
                         //PalletNoString
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 20;
+                        float Top2 = (float)((double)oRange2.Top) + 4;
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                        Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        //Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                     }
                     else if (Aboxof == "40" || Aboxof == "38" || Aboxof == "35")
                     {
@@ -1568,94 +1578,122 @@ namespace LM2ReadandList
                         {
                             serialnooneX = 3; serialnooneY = 203;
 
+                            Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(reader.GetOrdinal("WhereSeat")))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
                                     FirstCNO = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
 
                                 case "16":
                                     oSheet.Cells[9, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[9, 1];
                                     break;
 
                                 case "17":
                                     oSheet.Cells[9, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[9, 3];
                                     break;
 
                                 case "18":
                                     oSheet.Cells[9, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[9, 5];
                                     break;
 
                                 case "19":
                                     oSheet.Cells[9, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[9, 7];
                                     break;
 
                                 case "20":
                                     oSheet.Cells[9, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
+                                    oRange = (Excel.Range)oSheet.Cells[9, 9];
                                     break;
                             }
 
                             serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 4) % 5) * 145;
                             serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) - 1) / 5) * 56;
+
+                            float Left = (float)((double)oRange.Left) + 1; //20240125
+                            float Top = (float)((double)oRange.Top) + 3;
                             oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);// 130, 22);
+                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 44, 44);// 130, 22); //QRCode
+
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            //Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);// 130, 22); //QRCode
                         }
                     }
 
@@ -1815,7 +1853,11 @@ namespace LM2ReadandList
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
 
-                                oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+                                Excel.Range oRange = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float Left = (float)((double)oRange.Left);
+                                float Top = (float)((double)oRange.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
 
                                 if (picX == 885)
                                 {
