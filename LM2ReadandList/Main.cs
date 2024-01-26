@@ -1773,7 +1773,16 @@ namespace LM2ReadandList
                     {
                         string ProductName = "";
                         string path = "";
-                        string LogoCode = PartNo_temp.Substring(9, 2);
+                        string LogoCode = "";
+
+                        if (PartNo_temp.StartsWith("C"))
+                        {
+                            LogoCode = PartNo_temp.Substring(9, 2);
+                        }
+                        else if (PartNo_temp.StartsWith("MPA")) //塗裝+網印編號
+                        {
+                            LogoCode = PartNo_temp.Substring(6, 2) + PartNo_temp.Substring(12, 2);
+                        }
 
                         //該客戶要其自己的logo  PartNo   Part Description
                         selectCmd = "SELECT  Product_Name FROM MSNBody,Manufacturing where [CylinderNo]='" + FirstCNO + "' and vchManufacturingNo=  Manufacturing_NO";
@@ -8858,6 +8867,8 @@ namespace LM2ReadandList
                         string ProductName = "";
                         string LogoCode = "";
 
+                        string PartNo_Temp = "";
+
                         //20231228 HK 客製化嘜頭
                         selectCmd = "SELECT isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
                         cmd = new SqlCommand(selectCmd, conn);
@@ -8865,8 +8876,33 @@ namespace LM2ReadandList
                         {
                             if (reader.Read())
                             {
-                                ProductName = reader.GetString(reader.GetOrdinal("CustomerProductNo")).Substring(0,4);
-                                LogoCode = reader.GetString(reader.GetOrdinal("CustomerProductNo")).Substring(9,2);
+                                PartNo_Temp = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
+                            }
+
+                        }
+
+
+                        if (PartNo_Temp.StartsWith("C"))
+                        {
+                            ProductName = PartNo_Temp.Substring(0, 4);
+                            LogoCode = PartNo_Temp.Substring(9, 2);
+                        }
+                        else if (PartNo_Temp.StartsWith("MPA"))
+                        {
+
+                            //抓第一支序號的批號型號
+                            selectCmd1 = "SELECT top(1) [Manufacturing_NO],substring([Product_Name],0,5) [Product_Name]  FROM [ShippingBody] " +
+                                "left join MSNBody on CylinderNumbers = CylinderNo " +
+                                "left join [Manufacturing] on [vchManufacturingNo] = [Manufacturing_NO]  " +
+                                "where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' ORDER BY convert(int,[WhereSeat]) asc ";
+                            cmd1 = new SqlCommand(selectCmd1, conn);
+                            using (reader1 = cmd1.ExecuteReader())
+                            {
+                                if (reader1.Read())
+                                {
+                                    ProductName = reader1.GetString(reader1.GetOrdinal("Product_Name"));
+                                    LogoCode = PartNo_Temp.Substring(6, 2) + PartNo_Temp.Substring(12, 2);
+                                }
                             }
                         }
 

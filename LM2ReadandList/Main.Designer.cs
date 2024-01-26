@@ -1094,7 +1094,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(836, 907);
+            this.dataGridView1.Size = new System.Drawing.Size(836, 889);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.TabStop = false;
             // 
@@ -1289,7 +1289,7 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 882);
+            this.statusStrip.Location = new System.Drawing.Point(0, 864);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip.Size = new System.Drawing.Size(1118, 25);
