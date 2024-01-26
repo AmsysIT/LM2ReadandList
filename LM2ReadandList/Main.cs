@@ -1423,10 +1423,21 @@ namespace LM2ReadandList
                     }
                     else if (Aboxof == "15")
                     {
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[9, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 30;
+                        float Top = (float)((double)oRange.Top) + 4;
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
+                        Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        //Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[9, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 20;
+                        float Top2 = (float)((double)oRange2.Top) + 4;
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                        Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        //Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                     }
                     else if (Aboxof == "12")
                     {
@@ -2447,73 +2458,97 @@ namespace LM2ReadandList
                         while (reader.Read())
                         {
                             serialnooneX = 3; serialnooneY = 211;
+
+                            Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(3);
+                                    oRange = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
                             }
                             serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 4) % 5) * 145;
                             serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 75;
+
+                            float Left = (float)((double)oRange.Left) + 1; //20240125
+                            float Top = (float)((double)oRange.Top) + 12;
                             oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);//, 130, 25);
+                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 44, 44);
+
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            //Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);//, 130, 25);
                         }
                     }
 
@@ -2615,8 +2650,15 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
+
+                                Excel.Range oRange = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float Left = (float)((double)oRange.Left);
+                                float Top = (float)((double)oRange.Top) + 20;
                                 oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+                                Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 250, 250);
+
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                //Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
                                 if (picX == 885)
                                 {
                                     picY += 70;
