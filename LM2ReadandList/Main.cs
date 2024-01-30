@@ -78,6 +78,9 @@ namespace LM2ReadandList
         public string worktype;
         public string ProcessNo = null;
 
+        int smallFont = 11, bigFont = 16; //20240130
+        bool isEnglish = false;
+
         public Main()
         {
             //資料庫路徑與位子
@@ -904,19 +907,32 @@ namespace LM2ReadandList
 
             if (ProductName_CB.Text == "")
             {
-                Product_L.Text = "產品名稱：";
+                if (isEnglish) Product_L.Text = "Product name:";
+                else Product_L.Text = "產品名稱：";
             }
 
             if (WhereBox_LB.SelectedIndex == -1)
             {
-                NowBoxsLabel.Text = "目前箱號：";
-                ABoxofLabel.Text = "一箱幾隻：";
-                PrintLabel.Text = "塗裝漆別";
-                AssemblyLabel.Text = "氣瓶配件";
-                StorageLabel.Text = "嘜頭狀態：";
-                CustomerPO_L.Text = "PO：";
-                PalletNoLabel.Text = "棧板號：";
-
+                if (isEnglish)
+                {
+                    NowBoxsLabel.Text = "Current box number:";
+                    ABoxofLabel.Text = "Qty per box:";
+                    PrintLabel.Text = "Paint type:";
+                    AssemblyLabel.Text = "Gas cylinder accessories:";
+                    StorageLabel.Text = "Mark status:";
+                    CustomerPO_L.Text = "PO：";
+                    PalletNoLabel.Text = "Pallet \r\nnumber:";
+                }
+                else
+                {
+                    NowBoxsLabel.Text = "目前箱號：";
+                    ABoxofLabel.Text = "一箱幾隻：";
+                    PrintLabel.Text = "塗裝漆別";
+                    AssemblyLabel.Text = "氣瓶配件";
+                    StorageLabel.Text = "嘜頭狀態：";
+                    CustomerPO_L.Text = "PO：";
+                    PalletNoLabel.Text = "棧板號：";
+                }
                 pictureBox1.Image = null;
             }
 
@@ -980,22 +996,22 @@ namespace LM2ReadandList
         {
             if (User_LB.Text == "")
             {
-                MessageBox.Show("尚未選擇測試人員", "警告");
+                MessageBox.Show("尚未選擇測試人員. No testers selected yet", "警告 Warning");
                 return;
             }
             else if (ListDate_LB.SelectedIndex == -1)
             {
-                MessageBox.Show("尚未選擇嘜頭日期", "警告");
+                MessageBox.Show("尚未選擇嘜頭日期. No mark date selected yet", "警告 Warning");
                 return;
             }
             else if (ProductName_CB.Text == "")
             {
-                MessageBox.Show("尚未選擇嘜頭名稱", "警告");
+                MessageBox.Show("尚未選擇嘜頭名稱. No mark name selected yet", "警告 Warning");
                 return;
             }
             else if (WhereBox_LB.SelectedIndex == -1)
             {
-                MessageBox.Show("尚未選擇嘜頭箱號", "警告");
+                MessageBox.Show("尚未選擇嘜頭箱號. No shipping mark box number has been selected yet", "警告 Warning");
                 return;
             }
 
@@ -1130,7 +1146,7 @@ namespace LM2ReadandList
         {
             if (WhereBox_LB.SelectedIndex == -1)
             {
-                MessageBox.Show("請選擇箱號.Select the box number.");
+                MessageBox.Show("請選擇箱號. Select the box number.");
                 return;
             }
             //20200921 取消PO限制
@@ -1322,7 +1338,7 @@ namespace LM2ReadandList
             }
             catch
             {
-                MessageBox.Show(@"找不到EXCEL檔案！", "Warning");
+                MessageBox.Show(@"找不到EXCEL檔案！ EXCEL file not found!", "Warning");
                 return;
             }
 
@@ -5596,7 +5612,7 @@ namespace LM2ReadandList
         {
             if (Aboxof != "1")
             {
-                MessageBox.Show("客製化需求未定義裝箱數為" + Aboxof + "之嘜頭表格");
+                MessageBox.Show("客製化需求未定義裝箱數為" + Aboxof + "之嘜頭表格. Customized requirements do not define the shipping mark table with the packing number of " + Aboxof);
                 return;
             }
             //客戶SGA需求嘜頭表格
@@ -5622,7 +5638,7 @@ namespace LM2ReadandList
             }
             catch
             {
-                MessageBox.Show(@"找不到EXCEL檔案！", "Warning");
+                MessageBox.Show(@"找不到EXCEL檔案！ EXCEL file not found!", "Warning");
                 return;
             }
 
@@ -5839,7 +5855,7 @@ namespace LM2ReadandList
             }
             catch
             {
-                MessageBox.Show(@"找不到EXCEL檔案！", "Warning");
+                MessageBox.Show(@"找不到EXCEL檔案！ EXCEL file not found!", "Warning");
                 return;
             }
 
@@ -6116,7 +6132,7 @@ namespace LM2ReadandList
                         MessageBox.Show("  嘜頭品號 : " + BoxPartNo + Environment.NewLine +
                                         "需求單品號 : " + DemandPartNo + Environment.NewLine +
                                         "嘜頭品號與需求單品號不相符，請聯繫生管確認!"
-                                        , "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        , "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }*/
 
@@ -6139,7 +6155,7 @@ namespace LM2ReadandList
                                 if (Convert.ToDecimal(reader.GetInt32(reader.GetOrdinal("QTY"))) >= DemandNo_QTY)
                                 {
                                     BottomTextBox.Text = "";
-                                    MessageBox.Show("此需求單已達上限!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("此需求單已達上限! This demand order has reached the upper limit!", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -6168,7 +6184,7 @@ namespace LM2ReadandList
                                 if (NowSeat == Aboxof())
                                 {
                                     BottomTextBox.Text = "";
-                                    MessageBox.Show("此嘜頭已滿箱", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("此嘜頭已滿箱. This mark is already in the box", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -6205,7 +6221,7 @@ namespace LM2ReadandList
                             else
                             {
                                 BottomTextBox.Text = "";
-                                MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("查無序號，請聯繫MIS. If there is no serial number, please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
                         }
@@ -6225,7 +6241,7 @@ namespace LM2ReadandList
                 catch (Exception)
                 {
                     BottomTextBox.Text = "";
-                    MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("查無序號，請聯繫MIS. If there is no serial number, please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -6267,7 +6283,7 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\n";
+                            Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\nThe gas cylinder with this serial number is a scrap gas cylinder and is not allowed to be added";
                         }
                     }
 
@@ -6279,7 +6295,7 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\n";
+                            Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\nThe cylinder has been isolated and is not allowed to be added. Please contact Quality Assurance";
                         }
                     }
 
@@ -6289,7 +6305,7 @@ namespace LM2ReadandList
 
                         if (HydrostaticTestDate == "")
                         {
-                            Error += "Code：107 無設定定義水壓日期，請聯繫生管\n";
+                            Error += "Code：107 無設定定義水壓日期，請聯繫生管\nThere is no setting to define the hydrotest date, please contact the production management";
                         }
                         else
                         {
@@ -6345,7 +6361,7 @@ namespace LM2ReadandList
                                                     //內膽不檢查水壓報告
                                                     if (!ProductNo.Contains("-L-"))
                                                     {
-                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                     }
                                                 }
                                             }
@@ -6404,7 +6420,7 @@ namespace LM2ReadandList
                                                     //內膽不檢查水壓報告
                                                     if (!ProductNo.Contains("-L-"))
                                                     {
-                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                        Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                     }
                                                 }
                                             }
@@ -6432,7 +6448,7 @@ namespace LM2ReadandList
 
                                 if (HydroDate < ResrictionDate)
                                 {
-                                    Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\n";
+                                    Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\nThe hydrotest year and month of this serial number is not within the specified range, please contact the production management";
                                 }
                             }
                         }
@@ -6445,7 +6461,7 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
-                            Error += "Code：102 此序號已入嘜\n";
+                            Error += "Code：102 此序號已入嘜\nThis serial number has been marked";
                         }
                     }
 
@@ -6462,7 +6478,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\n";
+                            Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\nThe marking of the gas cylinder does not match the order, please contact the production management";
                         }
                     }
                 }
@@ -6483,7 +6499,7 @@ namespace LM2ReadandList
                             {
                                 if (!ProductNo.Contains("-L-"))
                                 {
-                                    Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                                    Error += "Code：106 沒有客戶產品照片，請聯繫品保\nThere are no customer product photos, please contact quality assurance";
                                 }
                             }
                         }
@@ -6503,7 +6519,7 @@ namespace LM2ReadandList
                         {
                             if (!reader.HasRows)
                             {
-                                Error += "Code：124 沒有產品照片，請聯繫品保\n";
+                                Error += "Code：124 沒有產品照片，請聯繫品保\nThere are no product photos, please contact quality assurance";
                             }
                         }
                     }
@@ -6545,7 +6561,7 @@ namespace LM2ReadandList
 
                     if (ProductAcceptance == false)
                     {
-                        Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\n";
+                        Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\nThe finished product inspection data cannot be found for this serial number, please contact quality assurance";
                     }
                 }
 
@@ -6571,7 +6587,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\n";
+                                        Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\nNo bending or flattening information, please contact quality assurance";
                                     }
                                 }
 
@@ -6586,7 +6602,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                        Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
                                     }
                                 }
 
@@ -6601,7 +6617,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：112 無硬度資料，請聯繫品保\n";
+                                        Error += "Code：112 無硬度資料，請聯繫品保\nNo hardness data available, please contact quality assurance";
                                     }
                                 }
 
@@ -6616,7 +6632,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                        Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                                     }
                                 }
                             }
@@ -6638,7 +6654,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                        Error += "Code：111 無拉伸資料，請聯繫品保\nNo tensile information, please contact quality assurance";
                                     }
                                 }
 
@@ -6653,7 +6669,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：110 無壓扁資料，請聯繫品保\n";
+                                        Error += "Code：110 無壓扁資料，請聯繫品保\nNo flattening information, please contact quality assurance";
                                     }
                                 }
                             }
@@ -6675,7 +6691,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                        Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                                     }
                                 }
                             }
@@ -6702,7 +6718,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：114 無出貨檢驗資料，請聯繫品保\n";
+                                Error += "Code：114 無出貨檢驗資料，請聯繫品保\nThere is no shipping inspection data, please contact quality assurance";
                             }
                         }
 
@@ -6717,7 +6733,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                             }
                         }
 
@@ -6734,7 +6750,7 @@ namespace LM2ReadandList
                             {
                                 if (!ProductNo.Contains("-L-"))
                                 {
-                                    Error += "Code：117 無循環資料，請聯繫品保\n";
+                                    Error += "Code：117 無循環資料，請聯繫品保\nNo cycling data, please contact quality assurance";
                                 }
                             }
                         }
@@ -6763,7 +6779,7 @@ namespace LM2ReadandList
                         //碳纖
                         if (CarbonLotNo == "")
                         {
-                            Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\n";
+                            Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
                         }
                         else
                         {
@@ -6777,7 +6793,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：118 無碳纖進料報告，請聯繫品保\n";
+                                    Error += "Code：118 無碳纖進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
                                 }
                             }
                         }
@@ -6787,7 +6803,7 @@ namespace LM2ReadandList
                         {
                             if (GlassLotNo == "")
                             {
-                                Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\n";
+                                Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
                             }
                         }
                         else
@@ -6802,7 +6818,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\n";
+                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
                                 }
                             }
                         }
@@ -6811,7 +6827,7 @@ namespace LM2ReadandList
 
                         if (ResinLotNo == "")
                         {
-                            Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\n";
+                            Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
                         }
                         else
                         {
@@ -6825,7 +6841,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：120 無樹脂測試資料，請聯繫品保\n";
+                                    Error += "Code：120 無樹脂測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
                                 }
                             }
                         }
@@ -6872,7 +6888,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\n";
+                                    Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + "), please contact quality assurance";
                                 }
                             }
 
@@ -6889,7 +6905,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\n";
+                                    Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data, please contact quality assurance";
                                 }
                             }
                         }
@@ -6925,7 +6941,7 @@ namespace LM2ReadandList
                             {
                                 if (reader.GetInt32(reader.GetOrdinal("count")) > 1)
                                 {
-                                    Error += "Code：121 此客戶序號以重複";
+                                    Error += "Code：121 此客戶序號以重複\nThis customer serial number is repeated";
                                 }
                             }
                         }
@@ -6976,7 +6992,7 @@ namespace LM2ReadandList
                     BottomTextBox.Text = "";
                     Message = true;
 
-                    DialogResult result = MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show(Error, "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     if (result == DialogResult.OK)
                     {
@@ -7000,7 +7016,7 @@ namespace LM2ReadandList
                         {
                             if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "")
                             {
-                                DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                                DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) + Environment.NewLine + "Please confirm the customer serial number:" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認 Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
                                 if (result == DialogResult.Cancel)
                                 {
@@ -7027,7 +7043,7 @@ namespace LM2ReadandList
                             {
                                 Message = true;
 
-                                DialogResult result = MessageBox.Show("請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                DialogResult result = MessageBox.Show("請聯繫MIS. Please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                                 if (result == DialogResult.OK)
                                 {
@@ -7093,7 +7109,7 @@ namespace LM2ReadandList
                     }
                     else
                     {
-                        MessageBox.Show("新增失敗，請重新新增", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("新增失敗，請重新新增. Failed to add, please add again", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 
@@ -7120,7 +7136,7 @@ namespace LM2ReadandList
                             if ((Convert.ToInt32(BoxsListBoxIndex) >= (WhereBox_LB.Items.Count - 1)) && WhereBox_LB.Items.Count != 1 && NowSeat2 == Aboxof())
                             {
                                 //ABoxofLabel
-                                MessageBox.Show("此日期嘜頭已經完全結束", "提示");
+                                MessageBox.Show("此日期嘜頭已經完全結束. This date mark has completely ended", "提示 Hint");
                                 BottleTextBox.Focus();
                                 return;
                             }
@@ -7301,7 +7317,7 @@ namespace LM2ReadandList
                 //NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.TrimEnd(' ');
                 if (NoLMCylinderNOTextBox.Text == "")
                 {
-                    MessageBox.Show("請輸入第一隻氣瓶序號！", "警告W-004");
+                    MessageBox.Show("請輸入第一隻氣瓶序號！ Please enter the serial number of the first cylinder!", "警告 Warning W-004");
                     return;
                 }
                 else
@@ -7330,7 +7346,7 @@ namespace LM2ReadandList
                 //NoLMCylinderNOTextBox.Text = NoLMCylinderNOTextBox.Text.TrimEnd(' ');
                 if (NoLMCylinderNOTextBox.Text == "")
                 {
-                    MessageBox.Show("請輸入第一隻氣瓶序號！", "警告W-004");
+                    MessageBox.Show("請輸入第一隻氣瓶序號！ Please enter the serial number of the first cylinder!", "警告 Warning W-004");
                     return;
                 }
                 else
@@ -7382,7 +7398,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            MessageBox.Show("該序號歸屬" + reader.GetString(reader.GetOrdinal("City")));
+                            MessageBox.Show("該序號歸屬" + reader.GetString(reader.GetOrdinal("City")) + Environment.NewLine + "The serial number belongs to" + reader.GetString(reader.GetOrdinal("City")));
                             return false;
                         }
                     }
@@ -7396,7 +7412,7 @@ namespace LM2ReadandList
         {
             if (NoLMCylinderNOTextBox.Text.Length < 6 || NoLMCylinderNOTextBox.Text.Length > 12)
             {
-                MessageBox.Show("所輸入之氣瓶序號長度錯誤，請重新輸入!", "提示");
+                MessageBox.Show("所輸入之氣瓶序號長度錯誤，請重新輸入! The length of the entered gas cylinder serial number is wrong, please re-enter!", "提示 Hint");
                 return false;
             }
 
@@ -7481,7 +7497,7 @@ namespace LM2ReadandList
                     MessageBox.Show("  嘜頭品號 : " + BoxPartNo + Environment.NewLine +
                                     "需求單品號 : " + DemandPartNo + Environment.NewLine +
                                     "嘜頭品號與需求單品號不相符，請聯繫生管確認!"
-                                    , "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    , "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }*/
 
@@ -7503,7 +7519,7 @@ namespace LM2ReadandList
                         {
                             if (Convert.ToDecimal(reader.GetInt32(reader.GetOrdinal("QTY"))) >= DemandNo_QTY)
                             {
-                                MessageBox.Show("此需求單已達上限!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("此需求單已達上限! This demand order has reached the upper limit!", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
                         }
@@ -7531,7 +7547,7 @@ namespace LM2ReadandList
 
                             if (NowSeat == Aboxof())
                             {
-                                MessageBox.Show("此嘜頭已滿箱", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("此嘜頭已滿箱. This mark is already in the box", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
                         }
@@ -7568,7 +7584,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("查無序號，請聯繫MIS. If there is no serial number, please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -7588,7 +7604,7 @@ namespace LM2ReadandList
             }
             catch (Exception)
             {
-                MessageBox.Show("查無序號，請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("查無序號，請聯繫MIS. If there is no serial number, please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -7641,7 +7657,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\n";
+                        Error += "Code：101 此序號之氣瓶為報廢氣瓶，不允許加入\nThe gas cylinder with this serial number is a scrap gas cylinder and is not allowed to be added.";
                     }
                 }
 
@@ -7653,7 +7669,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\n";
+                        Error += "Code：201 氣瓶已被隔離，不允許加入，請聯絡品保\nThe cylinder has been isolated and is not allowed to be added. Please contact Quality Assurance.";
                     }
                 }
 
@@ -7664,7 +7680,7 @@ namespace LM2ReadandList
                 {
                     if (reader.Read())
                     {
-                        Error += "Code：102 此序號已入嘜\n";
+                        Error += "Code：102 此序號已入嘜\nThis serial number has been marked";
                     }
                 }
 
@@ -7675,7 +7691,7 @@ namespace LM2ReadandList
 
                     if (HydrostaticTestDate == "")
                     {
-                        Error += "Code：107 無設定定義水壓日期，請聯繫生管\n";
+                        Error += "Code：107 無設定定義水壓日期，請聯繫生管\nThere is no setting to define the hydrotest date, please contact the production management";
                     }
                     else
                     {
@@ -7733,7 +7749,7 @@ namespace LM2ReadandList
                                                 //內膽不檢查水壓報告
                                                 if (!ProductNo.Contains("-L-"))
                                                 {
-                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                 }
                                             }
                                         }
@@ -7793,7 +7809,7 @@ namespace LM2ReadandList
                                                 //內膽不檢查水壓報告
                                                 if (!ProductNo.Contains("-L-"))
                                                 {
-                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\n";
+                                                    Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                 }
                                             }
                                         }
@@ -7818,7 +7834,7 @@ namespace LM2ReadandList
 
                             if (HydroDate < ResrictionDate)
                             {
-                                Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\n";
+                                Error += "Code：104 此序號水壓年月不在規定範圍內，請聯繫生管\nThe hydrotest year and month of this serial number is not within the specified range, please contact the production management";
                             }
                         }
                     }
@@ -7837,7 +7853,7 @@ namespace LM2ReadandList
                     }
                     else
                     {
-                        Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\n";
+                        Error += "Code：105 氣瓶打印形式與訂單不符，請聯繫生管\nThe marking of the gas cylinder does not match the order, please contact the production management";
                     }
                 }
             }
@@ -7858,7 +7874,7 @@ namespace LM2ReadandList
                         {
                             if (!ProductNo.Contains("-L-"))
                             {
-                                Error += "Code：106 沒有客戶產品照片，請聯繫品保\n";
+                                Error += "Code：106 沒有客戶產品照片，請聯繫品保\nThere are no customer product photos, please contact quality assurance";
                             }
                         }
                     }
@@ -7880,7 +7896,7 @@ namespace LM2ReadandList
                         {
                             if (!ProductNo.Contains("-L-"))
                             {
-                                Error += "Code：124 沒有產品照片，請聯繫品保\n";
+                                Error += "Code：124 沒有產品照片，請聯繫品保\nThere are no product photos, please contact quality assurance";
                             }
                         }
                     }
@@ -7923,7 +7939,7 @@ namespace LM2ReadandList
 
                 if (ProductAcceptance == false)
                 {
-                    Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\n";
+                    Error += "Code：108 此序號查詢不到成品檢驗資料，請聯繫品保\nThe finished product inspection data cannot be found for this serial number, please contact quality assurance.";
                 }
             }
 
@@ -7949,7 +7965,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\n";
+                                    Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\nNo bending or flattening information, please contact quality assurance";
                                 }
                             }
 
@@ -7964,7 +7980,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
                                 }
                             }
 
@@ -7979,7 +7995,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：112 無硬度資料，請聯繫品保\n";
+                                    Error += "Code：112 無硬度資料，請聯繫品保\nNo hardness data available, please contact quality assurance";
                                 }
                             }
 
@@ -7994,7 +8010,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                                 }
                             }
                         }
@@ -8016,7 +8032,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\n";
+                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
                                 }
                             }
 
@@ -8031,7 +8047,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：110 無壓扁資料，請聯繫品保\n";
+                                    Error += "Code：110 無壓扁資料，請聯繫品保\nNo flattening information, please contact quality assurance";
                                 }
                             }
                         }
@@ -8053,7 +8069,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\n";
+                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                                 }
                             }
                         }
@@ -8080,7 +8096,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：114 無出貨檢驗資料，請聯繫品保\n";
+                            Error += "Code：114 無出貨檢驗資料，請聯繫品保\nThere is no shipping inspection data, please contact quality assurance";
                         }
                     }
 
@@ -8095,7 +8111,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：113 無爆破資料，請聯繫品保\n";
+                            Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
                         }
                     }
 
@@ -8112,7 +8128,7 @@ namespace LM2ReadandList
                         {
                             if (!ProductNo.Contains("-L-"))
                             {
-                                Error += "Code：117 無循環資料，請聯繫品保\n";
+                                Error += "Code：117 無循環資料，請聯繫品保\nNo cycling test data, please contact quality assurance";
                             }
                         }
                     }
@@ -8141,7 +8157,7 @@ namespace LM2ReadandList
                     //碳纖
                     if (CarbonLotNo == "")
                     {
-                        Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\n";
+                        Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
                     }
                     else
                     {
@@ -8155,7 +8171,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：118 無碳纖進料報告，請聯繫品保\n";
+                                Error += "Code：118 無碳纖進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
                             }
                         }
                     }
@@ -8165,7 +8181,7 @@ namespace LM2ReadandList
                     {
                         if (GlassLotNo == "")
                         {
-                            Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\n";
+                            Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
                         }
                         else
                         {
@@ -8179,7 +8195,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\n";
+                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
                                 }
                             }
                         }
@@ -8188,7 +8204,7 @@ namespace LM2ReadandList
                     //樹酯
                     if (ResinLotNo == "")
                     {
-                        Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\n";
+                        Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
                     }
                     else
                     {
@@ -8202,7 +8218,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：120 無樹脂測試資料，請聯繫品保\n";
+                                Error += "Code：120 無樹脂測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
                             }
                         }
                     }
@@ -8250,7 +8266,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\n";
+                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + "), please contact quality assurance";
                             }
                         }
 
@@ -8267,7 +8283,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\n";
+                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data, please contact quality assurance";
                             }
                         }
                     }
@@ -8303,7 +8319,7 @@ namespace LM2ReadandList
                         {
                             if (reader.GetInt32(reader.GetOrdinal("count")) > 1)
                             {
-                                Error += "Code：121 此客戶序號以重複";
+                                Error += "Code：121 此客戶序號以重複 This customer serial number is repeated";
                             }
                         }
                     }
@@ -8348,7 +8364,7 @@ namespace LM2ReadandList
             if (Error.Any())
             {
                 BottomTextBox.Text = "";
-                MessageBox.Show(Error, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Error, "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -8366,7 +8382,7 @@ namespace LM2ReadandList
                     {
                         if (reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "N" && reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) != "")
                         {
-                            DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                            DialogResult result = MessageBox.Show("請確認客戶序號：" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")) + Environment.NewLine + "Please confirm the customer serial number:" + reader.GetString(reader.GetOrdinal("CustomerCylinderNo")), "確認 Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
                             if (result == DialogResult.Cancel)
                             {
@@ -8390,7 +8406,7 @@ namespace LM2ReadandList
                     {
                         if (LotNumber != reader.GetString(reader.GetOrdinal("vchManufacturingNo")))
                         {
-                            MessageBox.Show("請聯繫MIS", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("請聯繫MIS. Please contact MIS", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -8450,7 +8466,7 @@ namespace LM2ReadandList
                 }
                 else
                 {
-                    MessageBox.Show("新增失敗，請重新新增", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("新增失敗，請重新新增. Failed to add, please add again", "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
@@ -8591,7 +8607,7 @@ namespace LM2ReadandList
             }
             catch
             {
-                MessageBox.Show(@"找不到EXCEL檔案！", "Warning");
+                MessageBox.Show(@"找不到EXCEL檔案！ EXCEL file not found!", "Warning");
                 return;
             }
             //設定工作表
@@ -8683,7 +8699,7 @@ namespace LM2ReadandList
                         //如果箱號已經超過最大箱數則不自動跳箱
                         if ((Convert.ToInt32(BoxsListBoxIndex) >= (WhereBox_LB.Items.Count - 1)) && WhereBox_LB.Items.Count != 1 && NowSeat2 == Aboxof())
                         {
-                            MessageBox.Show("此日期嘜頭已經完全結束", "提示");
+                            MessageBox.Show("此日期嘜頭已經完全結束. This date mark has completely ended", "提示 Hint");
                             return;
                         }
 
@@ -8721,7 +8737,7 @@ namespace LM2ReadandList
             //<關鍵片段>            
             if (QRcodDetail1.Trim() == "")
             {
-                MessageBox.Show("無QR Code 資訊，請確認是否有包裝氣瓶或聯繫MIS建立該產品型號之打字資訊");
+                MessageBox.Show("無QR Code 資訊，請確認是否有包裝氣瓶或聯繫MIS建立該產品型號之打字資訊" + Environment.NewLine + "No QR Code information, please confirm whether there is a packaged gas cylinder or contact MIS to create the typing information of the product model");
                 return;
             }
             matrix1 = writer.encode(QRcodDetail1, BarcodeFormat.QR_CODE, size, size, null);
@@ -9020,7 +9036,8 @@ namespace LM2ReadandList
 
                 if (Convert.ToInt32(BoxsCountArray[i + 1]) > Convert.ToInt32(BoxsCountArray[i]))
                 {
-                    JumpBoxLabel.Text = "跳箱箱號：" + BoxsArray[i];
+                    if(isEnglish) JumpBoxLabel.Text = "Jump box \r\nnumber:" + BoxsArray[i];
+                    else JumpBoxLabel.Text = "跳箱箱號：" + BoxsArray[i];
                 }
             }
         }
@@ -9852,7 +9869,7 @@ namespace LM2ReadandList
 
             if (CylinderNumbersList.Count == 0)
             {
-                MessageBox.Show("無產品名稱:" + ProductName_CB.SelectedItem.ToString() + "、嘜頭日期:" + ListDate_LB.SelectedItem.ToString() + "於今天包裝之資料。");
+                MessageBox.Show("無產品名稱:" + ProductName_CB.SelectedItem.ToString() + "、嘜頭日期:" + ListDate_LB.SelectedItem.ToString() + "於今天包裝之資料。" + Environment.NewLine + "No product name: " + ProductName_CB.SelectedItem.ToString() + ", Mark date: " + ListDate_LB.SelectedItem.ToString() + " data packaged today.");
                 return;
             }
 
@@ -9872,7 +9889,7 @@ namespace LM2ReadandList
             }
             catch
             {
-                MessageBox.Show(@"找不到TodayPackageData.xlsx檔案！", "Warning");
+                MessageBox.Show(@"找不到TodayPackageData.xlsx檔案！ TodayPackageData.xlsx file not found!", "警告 Warning");
                 return;
             }
             oXL.Visible = false;
@@ -10172,17 +10189,34 @@ namespace LM2ReadandList
             //檢查跳箱的
             Match();
 
-            if (PalletNoLabel.Text.ToString().CompareTo("棧板號：") == 0)
+            if (isEnglish)
             {
-            }
-            else if (PalletNoLabel.Text.ToString().Split('：')[1].Trim().CompareTo(APalletof()) != 0)
-            {
-                MessageBox.Show("請注意棧板編號變更為 " + APalletof() + "\nThe Pallet No. is change.");
-            }
+                if (PalletNoLabel.Text.ToString().CompareTo("Pallet \r\nnumber:") == 0)
+                {
+                }
+                else if (PalletNoLabel.Text.ToString().Split(':')[1].Trim().CompareTo(APalletof()) != 0)
+                {
+                    MessageBox.Show("請注意棧板編號變更為 " + APalletof() + "\nThe Pallet No. is changed.");
+                }
 
-            NowBoxsLabel.Text = "目前箱號：" + WhereBox_LB.SelectedItem;
-            ABoxofLabel.Text = "一箱幾隻：" + Aboxof();
-            PalletNoLabel.Text = "棧板號：" + APalletof();
+                NowBoxsLabel.Text = "Current box number:" + WhereBox_LB.SelectedItem;
+                ABoxofLabel.Text = "Qty per box:" + Aboxof();
+                PalletNoLabel.Text = "Pallet \r\nnumber:" + APalletof();
+            }
+            else
+            {
+                if (PalletNoLabel.Text.ToString().CompareTo("棧板號：") == 0)
+                {
+                }
+                else if (PalletNoLabel.Text.ToString().Split('：')[1].Trim().CompareTo(APalletof()) != 0)
+                {
+                    MessageBox.Show("請注意棧板編號變更為 " + APalletof() + "\nThe Pallet No. is changed.");
+                }
+
+                NowBoxsLabel.Text = "目前箱號：" + WhereBox_LB.SelectedItem;
+                ABoxofLabel.Text = "一箱幾隻：" + Aboxof();
+                PalletNoLabel.Text = "棧板號：" + APalletof();
+            }
         }
 
         private void User_LB_SelectedIndexChanged(object sender, EventArgs e)
@@ -10191,7 +10225,7 @@ namespace LM2ReadandList
             User = User_LB.SelectedItem.ToString().Remove(0, 7);
 
             //身分確認
-            DialogResult result = MessageBox.Show("工號   " + ID + "\n" + "操作員 " + User, "操作員確認", MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show("工號：" + ID + "，操作員：" + User + Environment.NewLine + "Work number: " + ID + ", Operator: " + User, "操作員確認 Operator confirmation", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 ProductName_CB.Enabled = true;
@@ -10296,7 +10330,7 @@ namespace LM2ReadandList
         {
             if (time > 0)
             {
-                DialogResult dr = MessageBox.Show("是否確定要關閉程式? \n Do you really want to exit?", "關閉程式  Exit", MessageBoxButtons.YesNo);
+                DialogResult dr = MessageBox.Show("是否確定要關閉程式? Do you really want to exit?", "關閉程式  Exit", MessageBoxButtons.YesNo);
 
                 if (dr == DialogResult.Yes)
                 {
@@ -10360,6 +10394,18 @@ namespace LM2ReadandList
             this.FirstPrinterComboBox.SelectedIndex = this.FirstPrinterComboBox.FindString(sDefaultPrinter);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            isEnglish = true;
+            ShowEnglish();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            isEnglish = false;
+            ShowChinese();
+        }
+
         private void SecondPrintButton_Click(object sender, EventArgs e)
         {
             if (NoLMCylinderNOTextBox.Text != "")
@@ -10373,7 +10419,7 @@ namespace LM2ReadandList
             }
             else
             {
-                MessageBox.Show("請輸入氣瓶序號");
+                MessageBox.Show("請輸入氣瓶序號. Please enter the gas cylinder serial number");
             }
         }
 
@@ -10502,6 +10548,180 @@ namespace LM2ReadandList
             }
             return path_temp;
         }
+        private void ShowEnglish()
+        {
+            //right side
+            ListINFOGroupBox.Text = ListINFOGroupBox.Text.Replace("嘜頭資訊", "Mark information");
+            UserLabel.Text = UserLabel.Text.Replace("操作人員：", "Operator:");
+            ListDateLabel.Text = ListDateLabel.Text.Replace("嘜頭日期：", "Mark date:");
+            Product_L.Text = Product_L.Text.Replace("產品名稱：", "Product name:");
+            NowBoxsLabel.Text = NowBoxsLabel.Text.Replace("目前箱號：", "Current box number:");
+            NowBoxsLabel.Font = new Font("PMingLiU", smallFont);
 
+            ABoxofLabel.Text = ABoxofLabel.Text.Replace("一箱幾隻：", "Qty per box:");
+            PrintLabel.Text = PrintLabel.Text.Replace("塗裝漆別：", "Paint type:");
+            AssemblyLabel.Text = AssemblyLabel.Text.Replace("氣瓶配件：", "Gas cylinder accessories:");
+            StorageLabel.Text = StorageLabel.Text.Replace("嘜頭狀態：", "Mark status:");
+            ComplexLabel.Text = ComplexLabel.Text.Replace("嘜頭標籤：", "Mark label:");
+            JumpBoxLabel.Text = JumpBoxLabel.Text.Replace("跳箱箱號：", "Jump box \r\nnumber:");
+            PalletNoLabel.Text = PalletNoLabel.Text.Replace("棧板號：", "Pallet \r\nnumber:");
+
+            //left middle panel
+            tabPage1.Text = tabPage1.Text.Replace("基本項目", "Basic items");
+            tabPage3.Text = tabPage3.Text.Replace("Regulator(閥門)", "Regulator");
+            tabPage2.Text = tabPage2.Text.Replace("列印控制", "Print control");
+
+            //tab1
+            NoLMCheckBox.Text = NoLMCheckBox.Text.Replace("不雷刻的瓶子", "Unengraved bottle");
+            NoLMCheckBox.Font = new Font("PMingLiU", smallFont);
+            AutoPrintCheckBox.Text = AutoPrintCheckBox.Text.Replace("直接列印不瀏覽", "Print without browsing");
+            AutoPrintCheckBox.Font = new Font("PMingLiU", smallFont);
+            PrintCheckBox.Text = PrintCheckBox.Text.Replace("自動列印(Auto.Print)", "PrintAuto print");
+            PrintCheckBox.Font = new Font("PMingLiU", smallFont);
+            LinkLMCheckBox.Text = LinkLMCheckBox.Text.Replace("與雷刻程式連線", "Connect with the laser program");
+            LinkLMCheckBox.Font = new Font("PMingLiU", smallFont);
+            CustomerBarCodeCheckBox.Text = CustomerBarCodeCheckBox.Text.Replace("輸入客戶Bar Code", "Enter customer Bar Code");
+            CustomerBarCodeCheckBox.Font = new Font("PMingLiU", smallFont);
+            WeightCheckBox.Text = WeightCheckBox.Text.Replace("氣瓶秤重", "Gas cylinder weighing");
+            WeightCheckBox.Font = new Font("PMingLiU", smallFont);
+            ComplexQRCodeCheckBox.Text = ComplexQRCodeCheckBox.Text.Replace("複合瓶條碼辨識", "Composite bottle barcode identification");
+            ComplexQRCodeCheckBox.Font = new Font("PMingLiU", smallFont);
+            //label4.Location = new Point(496, 47);
+
+            //tab2
+            label8.Text = label8.Text.Replace("SC ROBALL/Estratego客製化需求\r\n僅閥門出貨外箱貼紙", "SC ROBALL/Estratego customized requirements\r\nOnly valve shipping outer box sticker");
+            RegulatorPrintButton.Text = RegulatorPrintButton.Text.Replace("閥門貼紙列印", "Valve sticker printing");
+            label9.Text = label9.Text.Replace("是否瀏覽於基本項目中控制", "Whether to browse is controlled in the basic project");
+
+            //tab3
+            label5.Text = label5.Text.Replace("嘜頭貼紙印表機", "Mark sticker printer");
+            label6.Text = label6.Text.Replace("標籤貼紙印表機", "Label sticker printer");
+            SecondPrintCheckBox.Text = SecondPrintCheckBox.Text.Replace("列印標籤貼紙", "Print label stickers");
+            label7.Text = label7.Text.Replace("嘜頭貼紙印表機預設為TSC TTP-2410 MV", "The mark sticker printer is preset to TSC TTP-2410 MV");
+            PrinterButton.Text = PrinterButton.Text.Replace("設定", "Settings");
+            SecondPrintButton.Text = SecondPrintButton.Text.Replace("標籤貼紙列印", "Label sticker printing");
+            SecondPrintButton.Font = new Font("PMingLiU", smallFont);
+            PrinterRefreshButton.Text = PrinterRefreshButton.Text.Replace("刷新", "Refresh");
+
+            //below left panel buttons
+            RefreshhButton.Text = RefreshhButton.Text.Replace("更新嘜頭日期", "Update mark date");
+            RefreshhButton.Font = new Font("PMingLiU", smallFont);
+            LuckButton.Text = LuckButton.Text.Replace("鎖定", "Lock");
+            TodayDataButton.Text = TodayDataButton.Text.Replace("當天包裝資訊", "Packaging information of the day");
+            TodayDataButton.Font = new Font("PMingLiU", smallFont);
+            PrintButton.Text = PrintButton.Text.Replace("列印", "Print");
+
+            //middle panel
+            KeyInGroupBox.Text = KeyInGroupBox.Text.Replace("讀取資訊", "Read information");
+            label1.Text = label1.Text.Replace("瓶身：", "Bottle\r\nbody:");
+            label2.Text = label2.Text.Replace("瓶底：", "Bottle\r\nbottom:");
+            SQLBodyButton.Text = SQLBodyButton.Text.Replace("身", "body");
+            SQLBottomButton4.Text = SQLBottomButton4.Text.Replace("底", "bottom");
+            TipTextLabel.Text = TipTextLabel.Text.Replace("此序號已入嘜頭", "This serial number has been marked");
+            TipTextLabel.Font = new Font("PMingLiU", bigFont);
+
+            //middle panel-2
+            NoLMCylinderLabel.Text = NoLMCylinderLabel.Text.Replace("氣瓶序號(含打字碼)：", "Gas cylinder serial number (including typing code):");
+            NoLMCylinderLabel.Font = new Font("PMingLiU", smallFont);
+            checkBox1.Text = checkBox1.Text.Replace("鎖閥", "Lock valve");
+            checkBox1.Font = new Font("PMingLiU", smallFont);
+            label3.Text = label3.Text.Replace("裝入箱位：", "Loading box location:");
+            label3.Font = new Font("PMingLiU", smallFont);
+
+            //datagridview
+            dataGridView1.Columns["Column2"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("嘜頭箱號", "Marking box number");
+            dataGridView1.Columns["Column3"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("嘜頭位置", "Mark location");
+            dataGridView1.Columns["Column4"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("氣瓶序號", "Gas cylinder serial number");
+            dataGridView1.Columns["Column1"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("客戶Bar Code", "Customer Bar Code");
+            dataGridView1.Columns["Column5"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("氣瓶重量", "Cylinder weight");
+        }
+
+        private void ShowChinese()
+        {
+            //right side
+            ListINFOGroupBox.Text = ListINFOGroupBox.Text.Replace("Mark information", "嘜頭資訊");
+            UserLabel.Text = UserLabel.Text.Replace("Operator:", "操作人員：");
+            ListDateLabel.Text = ListDateLabel.Text.Replace("Mark date:", "嘜頭日期：");
+            Product_L.Text = Product_L.Text.Replace("Product name:", "產品名稱：");
+            NowBoxsLabel.Text = NowBoxsLabel.Text.Replace("Current box number:", "目前箱號：");
+            NowBoxsLabel.Font = new Font("PMingLiU", bigFont);
+
+            ABoxofLabel.Text = ABoxofLabel.Text.Replace("Qty per box:", "一箱幾隻：");
+            PrintLabel.Text = PrintLabel.Text.Replace("Paint type:", "塗裝漆別：");
+            AssemblyLabel.Text = AssemblyLabel.Text.Replace("Gas cylinder accessories:", "氣瓶配件：");
+            StorageLabel.Text = StorageLabel.Text.Replace("Mark status:", "嘜頭狀態：");
+            ComplexLabel.Text = ComplexLabel.Text.Replace("Mark label:", "嘜頭標籤：");
+            JumpBoxLabel.Text = JumpBoxLabel.Text.Replace("Jump box \r\nnumber:", "跳箱箱號：");
+            PalletNoLabel.Text = PalletNoLabel.Text.Replace("Pallet \r\nnumber:", "棧板號：");
+
+            //left middle panel
+            tabPage1.Text = tabPage1.Text.Replace("Basic items", "基本項目");
+            tabPage3.Text = tabPage3.Text.Replace("Regulator", "Regulator(閥門)");
+            tabPage2.Text = tabPage2.Text.Replace("Print control", "列印控制");
+
+            //tab1
+            NoLMCheckBox.Text = NoLMCheckBox.Text.Replace("Unengraved bottle", "不雷刻的瓶子");
+            NoLMCheckBox.Font = new Font("PMingLiU", bigFont);
+            AutoPrintCheckBox.Text = AutoPrintCheckBox.Text.Replace("Print without browsing", "直接列印不瀏覽");
+            AutoPrintCheckBox.Font = new Font("PMingLiU", bigFont);
+            PrintCheckBox.Text = PrintCheckBox.Text.Replace("PrintAuto print", "自動列印(Auto.Print)");
+            PrintCheckBox.Font = new Font("PMingLiU", bigFont);
+            LinkLMCheckBox.Text = LinkLMCheckBox.Text.Replace("Connect with the laser program", "與雷刻程式連線");
+            LinkLMCheckBox.Font = new Font("PMingLiU", bigFont);
+            CustomerBarCodeCheckBox.Text = CustomerBarCodeCheckBox.Text.Replace("Enter customer Bar Code", "輸入客戶Bar Code");
+            CustomerBarCodeCheckBox.Font = new Font("PMingLiU", bigFont);
+            WeightCheckBox.Text = WeightCheckBox.Text.Replace("Gas cylinder weighing", "氣瓶秤重");
+            WeightCheckBox.Font = new Font("PMingLiU", bigFont);
+            ComplexQRCodeCheckBox.Text = ComplexQRCodeCheckBox.Text.Replace("Composite bottle barcode identification", "複合瓶條碼辨識");
+            ComplexQRCodeCheckBox.Font = new Font("PMingLiU", bigFont);
+            //label4.Location = new Point(404, 75);
+
+            //tab2
+            label8.Text = label8.Text.Replace("SC ROBALL/Estratego customized requirements\r\nOnly valve shipping outer box sticker", "SC ROBALL/Estratego客製化需求\r\n僅閥門出貨外箱貼紙");
+            RegulatorPrintButton.Text = RegulatorPrintButton.Text.Replace("Valve sticker printing", "閥門貼紙列印");
+            label9.Text = label9.Text.Replace("Whether to browse is controlled in the basic project", "是否瀏覽於基本項目中控制");
+
+            //tab3
+            label5.Text = label5.Text.Replace("Mark sticker printer", "嘜頭貼紙印表機");
+            label6.Text = label6.Text.Replace("Label sticker printer", "標籤貼紙印表機");
+            SecondPrintCheckBox.Text = SecondPrintCheckBox.Text.Replace("Print label stickers", "列印標籤貼紙");
+            label7.Text = label7.Text.Replace("The mark sticker printer is preset to TSC TTP-2410 MV", "嘜頭貼紙印表機預設為TSC TTP-2410 MV");
+            PrinterButton.Text = PrinterButton.Text.Replace("Settings", "設定");
+            SecondPrintButton.Text = SecondPrintButton.Text.Replace("Label sticker printing", "標籤貼紙列印");
+            SecondPrintButton.Font = new Font("PMingLiU", bigFont);
+            PrinterRefreshButton.Text = PrinterRefreshButton.Text.Replace("Refresh", "刷新");
+
+            //below left panel buttons
+            RefreshhButton.Text = RefreshhButton.Text.Replace("Update mark date", "更新嘜頭日期");
+            RefreshhButton.Font = new Font("PMingLiU", smallFont);
+            LuckButton.Text = LuckButton.Text.Replace("Lock", "鎖定");
+            TodayDataButton.Text = TodayDataButton.Text.Replace("Packaging information of the day", "當天包裝資訊");
+            TodayDataButton.Font = new Font("PMingLiU", bigFont);
+            PrintButton.Text = PrintButton.Text.Replace("Print", "列印");
+
+            //middle panel
+            KeyInGroupBox.Text = KeyInGroupBox.Text.Replace("Read information", "讀取資訊");
+            label1.Text = label1.Text.Replace("Bottle\r\nbody:", "瓶身：");
+            label2.Text = label2.Text.Replace("Bottle\r\nbottom:", "瓶底：");
+            SQLBodyButton.Text = SQLBodyButton.Text.Replace("body", "身");
+            SQLBottomButton4.Text = SQLBottomButton4.Text.Replace("bottom", "底");
+            TipTextLabel.Text = TipTextLabel.Text.Replace("This serial number has been marked", "此序號已入嘜頭");
+            TipTextLabel.Font = new Font("PMingLiU", smallFont);
+
+            //middle panel-2
+            NoLMCylinderLabel.Text = NoLMCylinderLabel.Text.Replace("Gas cylinder serial number (including typing code):", "氣瓶序號(含打字碼)：");
+            NoLMCylinderLabel.Font = new Font("PMingLiU", bigFont);
+            checkBox1.Text = checkBox1.Text.Replace("Lock valve", "鎖閥");
+            checkBox1.Font = new Font("PMingLiU", bigFont);
+            label3.Text = label3.Text.Replace("Loading box location:", "裝入箱位：");
+            label3.Font = new Font("PMingLiU", bigFont);
+
+            //datagridview
+            dataGridView1.Columns["Column2"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("Marking box number", "嘜頭箱號");
+            dataGridView1.Columns["Column3"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("Mark location", "嘜頭位置");
+            dataGridView1.Columns["Column4"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("Gas cylinder serial number", "氣瓶序號");
+            dataGridView1.Columns["Column1"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("Customer Bar Code", "客戶Bar Code");
+            dataGridView1.Columns["Column5"].HeaderText = dataGridView1.Columns["Column2"].HeaderText.Replace("Cylinder weight", "氣瓶重量");
+        }
     }
 }

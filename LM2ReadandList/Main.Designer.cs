@@ -44,16 +44,18 @@
             this.SQLBodyButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ReadyGroupBox = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.StepLabel5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.ListDate_LB = new System.Windows.Forms.ListBox();
             this.ColorListBox = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
             this.BoxRangeLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.LinkLMCheckBox = new System.Windows.Forms.CheckBox();
             this.CustomerBarCodeCheckBox = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.WeightCheckBox = new System.Windows.Forms.CheckBox();
             this.ComPortcomboBox = new System.Windows.Forms.ComboBox();
             this.NoLMCheckBox = new System.Windows.Forms.CheckBox();
@@ -158,7 +160,7 @@
             this.KeyInGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.KeyInGroupBox.Name = "KeyInGroupBox";
             this.KeyInGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.KeyInGroupBox.Size = new System.Drawing.Size(472, 225);
+            this.KeyInGroupBox.Size = new System.Drawing.Size(518, 225);
             this.KeyInGroupBox.TabIndex = 13;
             this.KeyInGroupBox.TabStop = false;
             this.KeyInGroupBox.Text = "讀取資訊";
@@ -230,7 +232,7 @@
             this.SQLBottomButton4.Location = new System.Drawing.Point(413, 102);
             this.SQLBottomButton4.Margin = new System.Windows.Forms.Padding(4);
             this.SQLBottomButton4.Name = "SQLBottomButton4";
-            this.SQLBottomButton4.Size = new System.Drawing.Size(53, 44);
+            this.SQLBottomButton4.Size = new System.Drawing.Size(97, 44);
             this.SQLBottomButton4.TabIndex = 45;
             this.SQLBottomButton4.TabStop = false;
             this.SQLBottomButton4.Text = "底";
@@ -241,7 +243,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("PMingLiU", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(8, 109);
+            this.label2.Location = new System.Drawing.Point(9, 89);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 34);
@@ -254,7 +256,7 @@
             this.SQLBodyButton.Location = new System.Drawing.Point(413, 26);
             this.SQLBodyButton.Margin = new System.Windows.Forms.Padding(4);
             this.SQLBodyButton.Name = "SQLBodyButton";
-            this.SQLBodyButton.Size = new System.Drawing.Size(53, 44);
+            this.SQLBodyButton.Size = new System.Drawing.Size(97, 44);
             this.SQLBodyButton.TabIndex = 44;
             this.SQLBodyButton.TabStop = false;
             this.SQLBodyButton.Text = "身";
@@ -265,7 +267,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("PMingLiU", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(8, 36);
+            this.label1.Location = new System.Drawing.Point(9, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 34);
@@ -274,7 +276,9 @@
             // 
             // ReadyGroupBox
             // 
+            this.ReadyGroupBox.Controls.Add(this.button2);
             this.ReadyGroupBox.Controls.Add(this.StepLabel5);
+            this.ReadyGroupBox.Controls.Add(this.button1);
             this.ReadyGroupBox.Controls.Add(this.ListDate_LB);
             this.ReadyGroupBox.Controls.Add(this.ColorListBox);
             this.ReadyGroupBox.Controls.Add(this.label10);
@@ -300,25 +304,45 @@
             this.ReadyGroupBox.TabIndex = 12;
             this.ReadyGroupBox.TabStop = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(89, 14);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 47;
+            this.button2.Text = "中文";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // StepLabel5
             // 
             this.StepLabel5.AutoSize = true;
             this.StepLabel5.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel5.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel5.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel5.Location = new System.Drawing.Point(549, 84);
+            this.StepLabel5.Location = new System.Drawing.Point(549, 110);
             this.StepLabel5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel5.Name = "StepLabel5";
             this.StepLabel5.Size = new System.Drawing.Size(25, 27);
             this.StepLabel5.TabIndex = 48;
             this.StepLabel5.Text = "5";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 46;
+            this.button1.Text = "English";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ListDate_LB
             // 
             this.ListDate_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ListDate_LB.FormattingEnabled = true;
             this.ListDate_LB.ItemHeight = 26;
-            this.ListDate_LB.Location = new System.Drawing.Point(228, 111);
+            this.ListDate_LB.Location = new System.Drawing.Point(228, 135);
             this.ListDate_LB.Margin = new System.Windows.Forms.Padding(4);
             this.ListDate_LB.Name = "ListDate_LB";
             this.ListDate_LB.Size = new System.Drawing.Size(177, 212);
@@ -331,7 +355,7 @@
             this.ColorListBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ColorListBox.FormattingEnabled = true;
             this.ColorListBox.ItemHeight = 26;
-            this.ColorListBox.Location = new System.Drawing.Point(8, 111);
+            this.ColorListBox.Location = new System.Drawing.Point(8, 135);
             this.ColorListBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorListBox.Name = "ColorListBox";
             this.ColorListBox.Size = new System.Drawing.Size(209, 212);
@@ -343,7 +367,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(12, 86);
+            this.label10.Location = new System.Drawing.Point(12, 110);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(61, 24);
@@ -355,7 +379,7 @@
             this.BoxRangeLabel.AutoSize = true;
             this.BoxRangeLabel.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BoxRangeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BoxRangeLabel.Location = new System.Drawing.Point(419, 112);
+            this.BoxRangeLabel.Location = new System.Drawing.Point(419, 136);
             this.BoxRangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BoxRangeLabel.Name = "BoxRangeLabel";
             this.BoxRangeLabel.Size = new System.Drawing.Size(101, 20);
@@ -377,9 +401,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.LinkLMCheckBox);
             this.tabPage1.Controls.Add(this.CustomerBarCodeCheckBox);
-            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.WeightCheckBox);
             this.tabPage1.Controls.Add(this.ComPortcomboBox);
             this.tabPage1.Controls.Add(this.NoLMCheckBox);
@@ -394,6 +418,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基本項目";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(499, 52);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 15);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "COM Port";
             // 
             // LinkLMCheckBox
             // 
@@ -420,16 +454,6 @@
             this.CustomerBarCodeCheckBox.TabIndex = 45;
             this.CustomerBarCodeCheckBox.Text = "輸入客戶Bar Code";
             this.CustomerBarCodeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(404, 75);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 15);
-            this.label4.TabIndex = 48;
-            this.label4.Text = "COM Port";
             // 
             // WeightCheckBox
             // 
@@ -613,10 +637,10 @@
             // 
             this.PrinterRefreshButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PrinterRefreshButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.PrinterRefreshButton.Location = new System.Drawing.Point(452, 9);
+            this.PrinterRefreshButton.Location = new System.Drawing.Point(437, 9);
             this.PrinterRefreshButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrinterRefreshButton.Name = "PrinterRefreshButton";
-            this.PrinterRefreshButton.Size = new System.Drawing.Size(64, 36);
+            this.PrinterRefreshButton.Size = new System.Drawing.Size(76, 36);
             this.PrinterRefreshButton.TabIndex = 6;
             this.PrinterRefreshButton.Text = "刷新";
             this.PrinterRefreshButton.UseVisualStyleBackColor = false;
@@ -640,7 +664,7 @@
             // 
             this.PrinterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.PrinterButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.PrinterButton.Location = new System.Drawing.Point(352, 9);
+            this.PrinterButton.Location = new System.Drawing.Point(357, 8);
             this.PrinterButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrinterButton.Name = "PrinterButton";
             this.PrinterButton.Size = new System.Drawing.Size(77, 36);
@@ -705,7 +729,7 @@
             // 
             // SelectListBoxTextBox
             // 
-            this.SelectListBoxTextBox.Location = new System.Drawing.Point(415, 135);
+            this.SelectListBoxTextBox.Location = new System.Drawing.Point(415, 159);
             this.SelectListBoxTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.SelectListBoxTextBox.Name = "SelectListBoxTextBox";
             this.SelectListBoxTextBox.Size = new System.Drawing.Size(160, 25);
@@ -718,7 +742,7 @@
             this.StepLabel4.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel4.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel4.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel4.Location = new System.Drawing.Point(376, 84);
+            this.StepLabel4.Location = new System.Drawing.Point(376, 108);
             this.StepLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel4.Name = "StepLabel4";
             this.StepLabel4.Size = new System.Drawing.Size(25, 27);
@@ -731,7 +755,7 @@
             this.StepLabel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel3.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel3.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel3.Location = new System.Drawing.Point(187, 84);
+            this.StepLabel3.Location = new System.Drawing.Point(187, 108);
             this.StepLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel3.Name = "StepLabel3";
             this.StepLabel3.Size = new System.Drawing.Size(25, 27);
@@ -744,7 +768,7 @@
             this.StepLabel2.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel2.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel2.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel2.Location = new System.Drawing.Point(549, 16);
+            this.StepLabel2.Location = new System.Drawing.Point(549, 40);
             this.StepLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel2.Name = "StepLabel2";
             this.StepLabel2.Size = new System.Drawing.Size(25, 27);
@@ -757,7 +781,7 @@
             this.StepLabel1.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel1.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel1.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel1.Location = new System.Drawing.Point(187, 16);
+            this.StepLabel1.Location = new System.Drawing.Point(187, 40);
             this.StepLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel1.Name = "StepLabel1";
             this.StepLabel1.Size = new System.Drawing.Size(25, 27);
@@ -768,7 +792,7 @@
             // 
             this.BoxsLabel.AutoSize = true;
             this.BoxsLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.BoxsLabel.Location = new System.Drawing.Point(417, 86);
+            this.BoxsLabel.Location = new System.Drawing.Point(417, 110);
             this.BoxsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BoxsLabel.Name = "BoxsLabel";
             this.BoxsLabel.Size = new System.Drawing.Size(55, 27);
@@ -780,7 +804,7 @@
             this.WhereBox_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WhereBox_LB.FormattingEnabled = true;
             this.WhereBox_LB.ItemHeight = 26;
-            this.WhereBox_LB.Location = new System.Drawing.Point(415, 164);
+            this.WhereBox_LB.Location = new System.Drawing.Point(415, 188);
             this.WhereBox_LB.Margin = new System.Windows.Forms.Padding(4);
             this.WhereBox_LB.Name = "WhereBox_LB";
             this.WhereBox_LB.Size = new System.Drawing.Size(160, 160);
@@ -792,7 +816,7 @@
             // 
             this.ProductLabel.AutoSize = true;
             this.ProductLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ProductLabel.Location = new System.Drawing.Point(232, 16);
+            this.ProductLabel.Location = new System.Drawing.Point(232, 40);
             this.ProductLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ProductLabel.Name = "ProductLabel";
             this.ProductLabel.Size = new System.Drawing.Size(158, 27);
@@ -805,7 +829,7 @@
             this.ProductName_CB.Enabled = false;
             this.ProductName_CB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ProductName_CB.FormattingEnabled = true;
-            this.ProductName_CB.Location = new System.Drawing.Point(228, 45);
+            this.ProductName_CB.Location = new System.Drawing.Point(228, 69);
             this.ProductName_CB.Margin = new System.Windows.Forms.Padding(4);
             this.ProductName_CB.Name = "ProductName_CB";
             this.ProductName_CB.Size = new System.Drawing.Size(351, 34);
@@ -817,7 +841,7 @@
             // 
             this.ListLabel.AutoSize = true;
             this.ListLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ListLabel.Location = new System.Drawing.Point(232, 86);
+            this.ListLabel.Location = new System.Drawing.Point(232, 110);
             this.ListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ListLabel.Name = "ListLabel";
             this.ListLabel.Size = new System.Drawing.Size(59, 27);
@@ -828,7 +852,7 @@
             // 
             this.UserListLabel.AutoSize = true;
             this.UserListLabel.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.UserListLabel.Location = new System.Drawing.Point(12, 16);
+            this.UserListLabel.Location = new System.Drawing.Point(12, 40);
             this.UserListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.UserListLabel.Name = "UserListLabel";
             this.UserListLabel.Size = new System.Drawing.Size(90, 24);
@@ -853,7 +877,7 @@
             "譚易澄",
             "黎惠珍",
             "雷那杜"});
-            this.User_LB.Location = new System.Drawing.Point(8, 45);
+            this.User_LB.Location = new System.Drawing.Point(8, 69);
             this.User_LB.Margin = new System.Windows.Forms.Padding(4);
             this.User_LB.Name = "User_LB";
             this.User_LB.Size = new System.Drawing.Size(209, 34);
@@ -1056,6 +1080,9 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1079,8 +1106,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dataGridView1.Location = new System.Drawing.Point(1118, 0);
+            this.dataGridView1.Location = new System.Drawing.Point(1126, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -1094,7 +1120,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(836, 889);
+            this.dataGridView1.Size = new System.Drawing.Size(483, 885);
             this.dataGridView1.TabIndex = 41;
             this.dataGridView1.TabStop = false;
             // 
@@ -1150,10 +1176,10 @@
             // PrintButton
             // 
             this.PrintButton.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.PrintButton.Location = new System.Drawing.Point(369, 505);
+            this.PrintButton.Location = new System.Drawing.Point(487, 505);
             this.PrintButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(120, 50);
+            this.PrintButton.Size = new System.Drawing.Size(100, 50);
             this.PrintButton.TabIndex = 42;
             this.PrintButton.TabStop = false;
             this.PrintButton.Text = "列印";
@@ -1186,7 +1212,7 @@
             this.HistoryListBox.Location = new System.Drawing.Point(4, 559);
             this.HistoryListBox.Margin = new System.Windows.Forms.Padding(4);
             this.HistoryListBox.Name = "HistoryListBox";
-            this.HistoryListBox.Size = new System.Drawing.Size(484, 290);
+            this.HistoryListBox.Size = new System.Drawing.Size(484, 316);
             this.HistoryListBox.TabIndex = 46;
             this.HistoryListBox.SelectedIndexChanged += new System.EventHandler(this.HistoryListBox_SelectedIndexChanged);
             // 
@@ -1289,17 +1315,17 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 864);
+            this.statusStrip.Location = new System.Drawing.Point(0, 885);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1118, 25);
+            this.statusStrip.Size = new System.Drawing.Size(1609, 25);
             this.statusStrip.TabIndex = 50;
             this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(830, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1321, 19);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel2
@@ -1316,7 +1342,7 @@
             this.TodayDataButton.Location = new System.Drawing.Point(256, 505);
             this.TodayDataButton.Margin = new System.Windows.Forms.Padding(4);
             this.TodayDataButton.Name = "TodayDataButton";
-            this.TodayDataButton.Size = new System.Drawing.Size(105, 50);
+            this.TodayDataButton.Size = new System.Drawing.Size(224, 50);
             this.TodayDataButton.TabIndex = 51;
             this.TodayDataButton.Text = "當天包裝資訊";
             this.TodayDataButton.UseVisualStyleBackColor = true;
@@ -1490,6 +1516,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
