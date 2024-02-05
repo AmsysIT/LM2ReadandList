@@ -44,9 +44,7 @@
             this.SQLBodyButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ReadyGroupBox = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.StepLabel5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.ListDate_LB = new System.Windows.Forms.ListBox();
             this.ColorListBox = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -88,9 +86,12 @@
             this.ListLabel = new System.Windows.Forms.Label();
             this.UserListLabel = new System.Windows.Forms.Label();
             this.User_LB = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.LuckButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ListINFOGroupBox = new System.Windows.Forms.GroupBox();
+            this.labelClient = new System.Windows.Forms.Label();
             this.PalletNoLabel = new System.Windows.Forms.Label();
             this.ComplexLabel = new System.Windows.Forms.Label();
             this.StorageLabel = new System.Windows.Forms.Label();
@@ -117,11 +118,11 @@
             this.HistoryListBox = new System.Windows.Forms.ListBox();
             this.AutoLoadPictureTimer = new System.Windows.Forms.Timer(this.components);
             this.NoLMGroupBox = new System.Windows.Forms.GroupBox();
-            this.NoLMCylinderLabel = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.WhereSeatLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.NoLMCylinderNOTextBox = new System.Windows.Forms.TextBox();
+            this.NoLMCylinderLabel = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -129,6 +130,11 @@
             this.TodayDataButton = new System.Windows.Forms.Button();
             this.BarCodePictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBoxSerialNo = new System.Windows.Forms.GroupBox();
+            this.labelMessage = new System.Windows.Forms.Label();
+            this.textBoxSerialNoScan = new System.Windows.Forms.TextBox();
+            this.textBoxSerialNoType = new System.Windows.Forms.TextBox();
+            this.labelSerialNoCode = new System.Windows.Forms.Label();
             this.KeyInGroupBox.SuspendLayout();
             this.ReadyGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -142,6 +148,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BarCodePictureBox)).BeginInit();
+            this.groupBoxSerialNo.SuspendLayout();
             this.SuspendLayout();
             // 
             // KeyInGroupBox
@@ -276,9 +283,7 @@
             // 
             // ReadyGroupBox
             // 
-            this.ReadyGroupBox.Controls.Add(this.button2);
             this.ReadyGroupBox.Controls.Add(this.StepLabel5);
-            this.ReadyGroupBox.Controls.Add(this.button1);
             this.ReadyGroupBox.Controls.Add(this.ListDate_LB);
             this.ReadyGroupBox.Controls.Add(this.ColorListBox);
             this.ReadyGroupBox.Controls.Add(this.label10);
@@ -296,23 +301,13 @@
             this.ReadyGroupBox.Controls.Add(this.ListLabel);
             this.ReadyGroupBox.Controls.Add(this.UserListLabel);
             this.ReadyGroupBox.Controls.Add(this.User_LB);
-            this.ReadyGroupBox.Location = new System.Drawing.Point(0, 2);
+            this.ReadyGroupBox.Location = new System.Drawing.Point(4, 23);
             this.ReadyGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ReadyGroupBox.Name = "ReadyGroupBox";
             this.ReadyGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ReadyGroupBox.Size = new System.Drawing.Size(588, 500);
+            this.ReadyGroupBox.Size = new System.Drawing.Size(588, 479);
             this.ReadyGroupBox.TabIndex = 12;
             this.ReadyGroupBox.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(89, 14);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 47;
-            this.button2.Text = "中文";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // StepLabel5
             // 
@@ -320,29 +315,19 @@
             this.StepLabel5.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel5.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel5.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel5.Location = new System.Drawing.Point(549, 110);
+            this.StepLabel5.Location = new System.Drawing.Point(549, 86);
             this.StepLabel5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel5.Name = "StepLabel5";
             this.StepLabel5.Size = new System.Drawing.Size(25, 27);
             this.StepLabel5.TabIndex = 48;
             this.StepLabel5.Text = "5";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(8, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 46;
-            this.button1.Text = "English";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ListDate_LB
             // 
             this.ListDate_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ListDate_LB.FormattingEnabled = true;
             this.ListDate_LB.ItemHeight = 26;
-            this.ListDate_LB.Location = new System.Drawing.Point(228, 135);
+            this.ListDate_LB.Location = new System.Drawing.Point(228, 111);
             this.ListDate_LB.Margin = new System.Windows.Forms.Padding(4);
             this.ListDate_LB.Name = "ListDate_LB";
             this.ListDate_LB.Size = new System.Drawing.Size(177, 212);
@@ -355,7 +340,7 @@
             this.ColorListBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ColorListBox.FormattingEnabled = true;
             this.ColorListBox.ItemHeight = 26;
-            this.ColorListBox.Location = new System.Drawing.Point(8, 135);
+            this.ColorListBox.Location = new System.Drawing.Point(8, 111);
             this.ColorListBox.Margin = new System.Windows.Forms.Padding(4);
             this.ColorListBox.Name = "ColorListBox";
             this.ColorListBox.Size = new System.Drawing.Size(209, 212);
@@ -367,7 +352,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(12, 110);
+            this.label10.Location = new System.Drawing.Point(12, 86);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(61, 24);
@@ -379,7 +364,7 @@
             this.BoxRangeLabel.AutoSize = true;
             this.BoxRangeLabel.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BoxRangeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BoxRangeLabel.Location = new System.Drawing.Point(419, 136);
+            this.BoxRangeLabel.Location = new System.Drawing.Point(419, 112);
             this.BoxRangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BoxRangeLabel.Name = "BoxRangeLabel";
             this.BoxRangeLabel.Size = new System.Drawing.Size(101, 20);
@@ -391,7 +376,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(4, 355);
+            this.tabControl1.Location = new System.Drawing.Point(8, 330);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -729,7 +714,7 @@
             // 
             // SelectListBoxTextBox
             // 
-            this.SelectListBoxTextBox.Location = new System.Drawing.Point(415, 159);
+            this.SelectListBoxTextBox.Location = new System.Drawing.Point(415, 135);
             this.SelectListBoxTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.SelectListBoxTextBox.Name = "SelectListBoxTextBox";
             this.SelectListBoxTextBox.Size = new System.Drawing.Size(160, 25);
@@ -742,7 +727,7 @@
             this.StepLabel4.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel4.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel4.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel4.Location = new System.Drawing.Point(376, 108);
+            this.StepLabel4.Location = new System.Drawing.Point(376, 84);
             this.StepLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel4.Name = "StepLabel4";
             this.StepLabel4.Size = new System.Drawing.Size(25, 27);
@@ -755,7 +740,7 @@
             this.StepLabel3.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel3.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel3.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel3.Location = new System.Drawing.Point(187, 108);
+            this.StepLabel3.Location = new System.Drawing.Point(187, 84);
             this.StepLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel3.Name = "StepLabel3";
             this.StepLabel3.Size = new System.Drawing.Size(25, 27);
@@ -768,7 +753,7 @@
             this.StepLabel2.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel2.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel2.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel2.Location = new System.Drawing.Point(549, 40);
+            this.StepLabel2.Location = new System.Drawing.Point(549, 16);
             this.StepLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel2.Name = "StepLabel2";
             this.StepLabel2.Size = new System.Drawing.Size(25, 27);
@@ -781,7 +766,7 @@
             this.StepLabel1.BackColor = System.Drawing.Color.MediumTurquoise;
             this.StepLabel1.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel1.ForeColor = System.Drawing.Color.Yellow;
-            this.StepLabel1.Location = new System.Drawing.Point(187, 40);
+            this.StepLabel1.Location = new System.Drawing.Point(187, 16);
             this.StepLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StepLabel1.Name = "StepLabel1";
             this.StepLabel1.Size = new System.Drawing.Size(25, 27);
@@ -792,7 +777,7 @@
             // 
             this.BoxsLabel.AutoSize = true;
             this.BoxsLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.BoxsLabel.Location = new System.Drawing.Point(417, 110);
+            this.BoxsLabel.Location = new System.Drawing.Point(417, 86);
             this.BoxsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BoxsLabel.Name = "BoxsLabel";
             this.BoxsLabel.Size = new System.Drawing.Size(55, 27);
@@ -804,7 +789,7 @@
             this.WhereBox_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WhereBox_LB.FormattingEnabled = true;
             this.WhereBox_LB.ItemHeight = 26;
-            this.WhereBox_LB.Location = new System.Drawing.Point(415, 188);
+            this.WhereBox_LB.Location = new System.Drawing.Point(415, 164);
             this.WhereBox_LB.Margin = new System.Windows.Forms.Padding(4);
             this.WhereBox_LB.Name = "WhereBox_LB";
             this.WhereBox_LB.Size = new System.Drawing.Size(160, 160);
@@ -816,7 +801,7 @@
             // 
             this.ProductLabel.AutoSize = true;
             this.ProductLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ProductLabel.Location = new System.Drawing.Point(232, 40);
+            this.ProductLabel.Location = new System.Drawing.Point(232, 16);
             this.ProductLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ProductLabel.Name = "ProductLabel";
             this.ProductLabel.Size = new System.Drawing.Size(158, 27);
@@ -829,7 +814,7 @@
             this.ProductName_CB.Enabled = false;
             this.ProductName_CB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ProductName_CB.FormattingEnabled = true;
-            this.ProductName_CB.Location = new System.Drawing.Point(228, 69);
+            this.ProductName_CB.Location = new System.Drawing.Point(228, 45);
             this.ProductName_CB.Margin = new System.Windows.Forms.Padding(4);
             this.ProductName_CB.Name = "ProductName_CB";
             this.ProductName_CB.Size = new System.Drawing.Size(351, 34);
@@ -841,7 +826,7 @@
             // 
             this.ListLabel.AutoSize = true;
             this.ListLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ListLabel.Location = new System.Drawing.Point(232, 110);
+            this.ListLabel.Location = new System.Drawing.Point(232, 86);
             this.ListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ListLabel.Name = "ListLabel";
             this.ListLabel.Size = new System.Drawing.Size(59, 27);
@@ -852,7 +837,7 @@
             // 
             this.UserListLabel.AutoSize = true;
             this.UserListLabel.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.UserListLabel.Location = new System.Drawing.Point(12, 40);
+            this.UserListLabel.Location = new System.Drawing.Point(12, 16);
             this.UserListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.UserListLabel.Name = "UserListLabel";
             this.UserListLabel.Size = new System.Drawing.Size(90, 24);
@@ -877,13 +862,33 @@
             "譚易澄",
             "黎惠珍",
             "雷那杜"});
-            this.User_LB.Location = new System.Drawing.Point(8, 69);
+            this.User_LB.Location = new System.Drawing.Point(8, 45);
             this.User_LB.Margin = new System.Windows.Forms.Padding(4);
             this.User_LB.Name = "User_LB";
             this.User_LB.Size = new System.Drawing.Size(209, 34);
             this.User_LB.TabIndex = 7;
             this.User_LB.TabStop = false;
             this.User_LB.SelectedIndexChanged += new System.EventHandler(this.User_LB_SelectedIndexChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(92, 1);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 47;
+            this.button2.Text = "中文";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(11, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 46;
+            this.button1.Text = "English";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // LuckButton
             // 
@@ -910,6 +915,7 @@
             // 
             // ListINFOGroupBox
             // 
+            this.ListINFOGroupBox.Controls.Add(this.labelClient);
             this.ListINFOGroupBox.Controls.Add(this.PalletNoLabel);
             this.ListINFOGroupBox.Controls.Add(this.ComplexLabel);
             this.ListINFOGroupBox.Controls.Add(this.StorageLabel);
@@ -930,6 +936,18 @@
             this.ListINFOGroupBox.TabIndex = 21;
             this.ListINFOGroupBox.TabStop = false;
             this.ListINFOGroupBox.Text = "嘜頭資訊";
+            // 
+            // labelClient
+            // 
+            this.labelClient.AutoSize = true;
+            this.labelClient.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelClient.Location = new System.Drawing.Point(275, 166);
+            this.labelClient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelClient.Name = "labelClient";
+            this.labelClient.Size = new System.Drawing.Size(74, 27);
+            this.labelClient.TabIndex = 15;
+            this.labelClient.Text = "Client";
+            this.labelClient.Visible = false;
             // 
             // PalletNoLabel
             // 
@@ -1223,11 +1241,11 @@
             // 
             // NoLMGroupBox
             // 
-            this.NoLMGroupBox.Controls.Add(this.NoLMCylinderLabel);
             this.NoLMGroupBox.Controls.Add(this.checkBox1);
             this.NoLMGroupBox.Controls.Add(this.WhereSeatLabel);
             this.NoLMGroupBox.Controls.Add(this.label3);
             this.NoLMGroupBox.Controls.Add(this.NoLMCylinderNOTextBox);
+            this.NoLMGroupBox.Controls.Add(this.NoLMCylinderLabel);
             this.NoLMGroupBox.Enabled = false;
             this.NoLMGroupBox.Location = new System.Drawing.Point(595, 325);
             this.NoLMGroupBox.Margin = new System.Windows.Forms.Padding(4);
@@ -1238,17 +1256,6 @@
             this.NoLMGroupBox.TabStop = false;
             this.NoLMGroupBox.Text = "EnterKeyIn";
             this.NoLMGroupBox.Visible = false;
-            // 
-            // NoLMCylinderLabel
-            // 
-            this.NoLMCylinderLabel.AutoSize = true;
-            this.NoLMCylinderLabel.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.NoLMCylinderLabel.Location = new System.Drawing.Point(8, 26);
-            this.NoLMCylinderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.NoLMCylinderLabel.Name = "NoLMCylinderLabel";
-            this.NoLMCylinderLabel.Size = new System.Drawing.Size(403, 40);
-            this.NoLMCylinderLabel.TabIndex = 2;
-            this.NoLMCylinderLabel.Text = "氣瓶序號(含打字碼)：";
             // 
             // checkBox1
             // 
@@ -1297,6 +1304,17 @@
             this.NoLMCylinderNOTextBox.TabIndex = 1;
             this.NoLMCylinderNOTextBox.TabStop = false;
             this.NoLMCylinderNOTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NoLMCylinderNOTextBox_KeyDown);
+            // 
+            // NoLMCylinderLabel
+            // 
+            this.NoLMCylinderLabel.AutoSize = true;
+            this.NoLMCylinderLabel.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NoLMCylinderLabel.Location = new System.Drawing.Point(8, 26);
+            this.NoLMCylinderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.NoLMCylinderLabel.Name = "NoLMCylinderLabel";
+            this.NoLMCylinderLabel.Size = new System.Drawing.Size(403, 40);
+            this.NoLMCylinderLabel.TabIndex = 2;
+            this.NoLMCylinderLabel.Text = "氣瓶序號(含打字碼)：";
             // 
             // pictureBox2
             // 
@@ -1367,14 +1385,79 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
+            // groupBoxSerialNo
+            // 
+            this.groupBoxSerialNo.Controls.Add(this.labelMessage);
+            this.groupBoxSerialNo.Controls.Add(this.textBoxSerialNoScan);
+            this.groupBoxSerialNo.Controls.Add(this.textBoxSerialNoType);
+            this.groupBoxSerialNo.Controls.Add(this.labelSerialNoCode);
+            this.groupBoxSerialNo.Enabled = false;
+            this.groupBoxSerialNo.Location = new System.Drawing.Point(596, 325);
+            this.groupBoxSerialNo.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBoxSerialNo.Name = "groupBoxSerialNo";
+            this.groupBoxSerialNo.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxSerialNo.Size = new System.Drawing.Size(514, 225);
+            this.groupBoxSerialNo.TabIndex = 46;
+            this.groupBoxSerialNo.TabStop = false;
+            this.groupBoxSerialNo.Text = "序號";
+            // 
+            // labelMessage
+            // 
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.BackColor = System.Drawing.Color.Lime;
+            this.labelMessage.Font = new System.Drawing.Font("PMingLiU", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelMessage.Location = new System.Drawing.Point(8, 160);
+            this.labelMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(325, 60);
+            this.labelMessage.TabIndex = 19;
+            this.labelMessage.Text = "序號不相同";
+            // 
+            // textBoxSerialNoScan
+            // 
+            this.textBoxSerialNoScan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBoxSerialNoScan.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxSerialNoScan.Location = new System.Drawing.Point(15, 89);
+            this.textBoxSerialNoScan.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSerialNoScan.MaxLength = 8;
+            this.textBoxSerialNoScan.Name = "textBoxSerialNoScan";
+            this.textBoxSerialNoScan.Size = new System.Drawing.Size(356, 67);
+            this.textBoxSerialNoScan.TabIndex = 2;
+            this.textBoxSerialNoScan.TabStop = false;
+            this.textBoxSerialNoScan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSerialNoScan_KeyDown);
+            // 
+            // textBoxSerialNoType
+            // 
+            this.textBoxSerialNoType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBoxSerialNoType.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxSerialNoType.Location = new System.Drawing.Point(116, 16);
+            this.textBoxSerialNoType.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSerialNoType.MaxLength = 8;
+            this.textBoxSerialNoType.Name = "textBoxSerialNoType";
+            this.textBoxSerialNoType.Size = new System.Drawing.Size(255, 67);
+            this.textBoxSerialNoType.TabIndex = 1;
+            this.textBoxSerialNoType.TabStop = false;
+            this.textBoxSerialNoType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSerialNoType_KeyDown);
+            // 
+            // labelSerialNoCode
+            // 
+            this.labelSerialNoCode.AutoSize = true;
+            this.labelSerialNoCode.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelSerialNoCode.Location = new System.Drawing.Point(9, 17);
+            this.labelSerialNoCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSerialNoCode.Name = "labelSerialNoCode";
+            this.labelSerialNoCode.Size = new System.Drawing.Size(90, 50);
+            this.labelSerialNoCode.TabIndex = 2;
+            this.labelSerialNoCode.Text = "AA";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1609, 910);
-            this.Controls.Add(this.KeyInGroupBox);
-            this.Controls.Add(this.NoLMGroupBox);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.BarCodePictureBox);
             this.Controls.Add(this.TodayDataButton);
@@ -1387,6 +1470,9 @@
             this.Controls.Add(this.ReadyGroupBox);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.groupBoxSerialNo);
+            this.Controls.Add(this.NoLMGroupBox);
+            this.Controls.Add(this.KeyInGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
@@ -1415,6 +1501,8 @@
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BarCodePictureBox)).EndInit();
+            this.groupBoxSerialNo.ResumeLayout(false);
+            this.groupBoxSerialNo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1518,6 +1606,12 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBoxSerialNo;
+        private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.TextBox textBoxSerialNoScan;
+        private System.Windows.Forms.TextBox textBoxSerialNoType;
+        private System.Windows.Forms.Label labelSerialNoCode;
+        private System.Windows.Forms.Label labelClient;
     }
 }
 
