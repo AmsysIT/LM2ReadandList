@@ -10057,7 +10057,7 @@ namespace LM2ReadandList
                         if (PartNo_Temp.StartsWith("C"))
                         {
                             ProductName = PartNo_Temp.Substring(0, 4);
-                            LogoCode = PartNo_Temp.Substring(9, 2);
+                            LogoCode = PartNo_Temp.Substring(6, 2) + PartNo_Temp.Substring(9, 2);
                         }
                         else if (PartNo_Temp.StartsWith("MPA"))
                         {
@@ -11638,9 +11638,9 @@ namespace LM2ReadandList
         private string HK_LogoCode(string PartNo_temp)
         {
             string LogoCode_temp = "";
-            if (PartNo_temp.StartsWith("C"))
+            if (PartNo_temp.StartsWith("C")) //噴色漆+貼LOGO
             {
-                LogoCode_temp = PartNo_temp.Substring(9, 2);
+                LogoCode_temp = PartNo_temp.Substring(6, 2) + PartNo_temp.Substring(9, 2);
             }
             else if (PartNo_temp.StartsWith("MPA")) //塗裝+網印編號
             {
