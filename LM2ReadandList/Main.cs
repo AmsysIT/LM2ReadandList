@@ -8930,7 +8930,7 @@ namespace LM2ReadandList
                         if (PartNo_Temp.StartsWith("C"))
                         {
                             ProductName = PartNo_Temp.Substring(0, 4);
-                            LogoCode = PartNo_Temp.Substring(9, 2);
+                            LogoCode = PartNo_Temp.Substring(6, 2) + PartNo_Temp.Substring(9, 2);
                         }
                         else if (PartNo_Temp.StartsWith("MPA"))
                         {
