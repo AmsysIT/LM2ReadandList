@@ -1133,7 +1133,7 @@ namespace LM2ReadandList
                 dataGridView1.CurrentCell = dataGridView1.Rows[(dataGridView1.Rows.Count - 1)].Cells[0];
             }
             //20240204
-            labelSerialNoCode.Text = "";
+            //labelSerialNoCode.Text = "";
 
             using (conn = new SqlConnection(myConnectionString))
             {
@@ -1148,7 +1148,7 @@ namespace LM2ReadandList
                     if (reader.Read())
                     {
                         string serialNoCode = reader.IsDBNull(reader.GetOrdinal("氣瓶序號")) == true ? "" : reader.GetString(reader.GetOrdinal("氣瓶序號")).Substring(0, 2);
-                        labelSerialNoCode.Text = serialNoCode;
+                        //labelSerialNoCode.Text = serialNoCode;
                         textBoxSerialNoType.Text = "";
                         textBoxSerialNoScan.Text = "";
                         labelMessage.Text = "";
@@ -11591,6 +11591,7 @@ namespace LM2ReadandList
                 if (labelSerialNoCode.Text.Trim() + textBoxSerialNoType.Text.Trim() == textBoxSerialNoScan.Text.Trim() && labelMessage.Text.Trim() == "")
                 {
                     AutoAccumulateCDI();
+                    textBoxSerialNoType.Focus(); //20240207
                 }
             }
         }
