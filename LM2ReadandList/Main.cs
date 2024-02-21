@@ -9964,9 +9964,10 @@ namespace LM2ReadandList
             GetThisBoxMaxCount();
             bool HasSpecial = false;
 
-            if ((QRClient.ToUpper().Trim().StartsWith("SGA") || QRClient.ToUpper().Trim().StartsWith("AIRTANKS")
-                || PackingMarks.Trim().StartsWith("Scientific Gas Australia Pty Ltd")
-                || PackingMarks.Trim().StartsWith("Airtanks Limited")) && Aboxof == "1")
+            if ((PackingMarks.ToUpper().Trim().StartsWith("SGA")
+                || QRClient.Trim().StartsWith("Scientific Gas Australia Pty Ltd")
+                || QRClient.ToUpper().Trim().StartsWith("AIRTANKS"))
+                && Aboxof == "1")
             {
                 string CylinderNO = "";
                 //find SGA Marking //CustomerQRCode
@@ -10091,6 +10092,51 @@ namespace LM2ReadandList
                         }
 
                         if(QRcodDetail1 == "")
+                        {
+                            //AMS Default data
+                            selectCmd = "SELECT isnull( CustomerProductName ,'') CustomerProductName,isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("CustomerProductName")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("CustomerProductNo")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                                }
+                            }
+                        }
+                    }
+                    //20240221 修正SGA客製化時QR資訊
+                    else if (QRClient.Contains("Scientific Gas Australia Pty Ltd") || PackingMarks.ToUpper().Trim().StartsWith("SGA"))
+                    {
+                        string ProductNO = "";
+
+                        //該客戶要其自己的logo  PartNo   Part Description
+                        //抓第一支序號的批號型號
+                        selectCmd1 = "SELECT top(1) [Product_NO] FROM [ShippingBody] " +
+                            "left join MSNBody on CylinderNumbers = CylinderNo " +
+                            "left join [Manufacturing] on [vchManufacturingNo] = [Manufacturing_NO]  " +
+                            "where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [WhereBox]='" + WhereBox_LB.SelectedItem + "' ORDER BY convert(int,[WhereSeat]) asc ";
+                        cmd1 = new SqlCommand(selectCmd1, conn);
+                        using (reader1 = cmd1.ExecuteReader())
+                        {
+                            if (reader1.Read())
+                            {
+                                ProductNO = reader1.GetString(reader1.GetOrdinal("Product_NO"));
+                            }
+                        }
+
+                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                            "where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("ProductDescription")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("ProductCode")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                            }
+                        }
+
+                        if (QRcodDetail1 == "")
                         {
                             //AMS Default data
                             selectCmd = "SELECT isnull( CustomerProductName ,'') CustomerProductName,isnull([CustomerProductNo],'') CustomerProductNo FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "' ";
