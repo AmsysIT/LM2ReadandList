@@ -5693,14 +5693,19 @@ namespace LM2ReadandList
                 //插入1維條碼
                 //預設位子在X:255,Y:412
                 //預設1維條碼圖片大小170*35            
-                int oneX = 275, oneY = 412;
+                //int oneX = 275, oneY = 412;
                 string oneadd = @"C:\Code\";
-                int serialnooneX = 308, serialnooneY = 128;
+                //int serialnooneX = 308, serialnooneY = 128;
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string CylinderNo = "", HydrostaticTestDate = "", ProductNO = "";
 
+                Excel.Range oRange = (Excel.Range)oSheet.Cells[9, 4]; //20240312
+                float Left = (float)((double)oRange.Left) + 30;
+                float Top = (float)((double)oRange.Top) + 12;
                 oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, oneX, oneY, 170, 35);
+                                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 170, 35);
+                //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                //                    Microsoft.Office.Core.MsoTriState.msoTrue, oneX, oneY, 170, 35);
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))
                 {
@@ -5743,8 +5748,14 @@ namespace LM2ReadandList
                                     oSheet.Cells[2, 4] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
                                     CylinderNo = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
                                     MarkSerialNoBarCode(CylinderNo);
+
+                                    Excel.Range oRange2 = (Excel.Range)oSheet.Cells[4, 5]; //20240312
+                                    float Left2 = (float)((double)oRange2.Left);
+                                    float Top2 = (float)((double)oRange2.Top) - 8;
                                     oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 255, 44);
+                                   Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 255, 44);
+                                    //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                    //Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 255, 44);
                                     break;
                             }
                         }
@@ -5812,46 +5823,71 @@ namespace LM2ReadandList
                     {
                         if (reader.Read())
                         {
+                            Excel.Range oRange3 = (Excel.Range)oSheet.Cells[6, 7]; //20240312
+                            float Left3 = (float)((double)oRange3.Left);
+                            float Top3 = (float)((double)oRange3.Top);
                             oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 190, 190);
+                            Microsoft.Office.Core.MsoTriState.msoTrue, Left3, Top3, 190, 190);
+
+                            //oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                            //Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 190, 190);
                         }
                     }
                 }
+
+                Excel.Range oRange5 = (Excel.Range)oSheet.Cells[1, 1]; //20240312
+                float Left5 = (float)((double)oRange5.Left) + 8;
+                float Top5 = (float)((double)oRange5.Top) + 4;
+
+                Excel.Range oRange4 = (Excel.Range)oSheet.Cells[1, 1]; //20240312
+                float Left4 = (float)((double)oRange4.Left) + 8;
+                float Top4 = (float)((double)oRange4.Top) + 30;
 
                 if (PackingMarks.Trim().CompareTo("SGA-SHOOTAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Shootair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, 24, 5, 194, (float)168.9);
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left5, Top5, 194, (float)168.9);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Shootair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,Microsoft.Office.Core.MsoTriState.msoTrue, 24, 5, 194, (float)168.9);
                 }
                 else if (PackingMarks.Trim().CompareTo("SGA-BREATHEAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Breatheair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, 17, 5, (float)205.4, (float)167.9);
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left5, Top5, (float)205.4, (float)167.9);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_Breatheair.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    //                Microsoft.Office.Core.MsoTriState.msoTrue, 17, 5, (float)205.4, (float)167.9);
                 }
                 else if (PackingMarks.Trim().CompareTo("SGA-SCUBAIR") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SCUBAIR.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, 26, 3, (float)180.5, (float)172.3);
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left5, Top5, (float)180.5, (float)172.3);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SCUBAIR.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    //                Microsoft.Office.Core.MsoTriState.msoTrue, 26, 3, (float)180.5, (float)172.3);
                 }
                 else if (PackingMarks.Trim().CompareTo("SGA-SPIROTEK") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SPIROTEK.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left4, Top4, 219, (float)133.9);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SPIROTEK.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    //                Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
                 else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
                 {
                     //該客戶要其自己的logo
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left4, Top4, 219, (float)133.9);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    //                Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
                 else if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                 {
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                        Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
+                                        Microsoft.Office.Core.MsoTriState.msoTrue, Left5, Top5, 219, (float)133.9);
+                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                    //                    Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
             }
 
