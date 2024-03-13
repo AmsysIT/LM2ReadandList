@@ -1343,15 +1343,15 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1321, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1426, 19);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(268, 19);
-            this.toolStripStatusLabel2.Text = "LM2ReadandList_V2.0.0.7_20240312";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(124, 19);
+            this.toolStripStatusLabel2.Text = "20240314 01:06";
             // 
             // TodayDataButton
             // 
@@ -1446,9 +1446,9 @@
             this.labelSerialNoCode.Location = new System.Drawing.Point(27, 23);
             this.labelSerialNoCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSerialNoCode.Name = "labelSerialNoCode";
-            this.labelSerialNoCode.Size = new System.Drawing.Size(114, 50);
+            this.labelSerialNoCode.Size = new System.Drawing.Size(90, 50);
             this.labelSerialNoCode.TabIndex = 2;
-            this.labelSerialNoCode.Text = "6300";
+            this.labelSerialNoCode.Text = "AA";
             // 
             // Main
             // 
@@ -1476,7 +1476,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
-            this.Text = "出貨嘜頭裝箱系統_20190213";
+            this.Text = "出貨嘜頭裝箱系統";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

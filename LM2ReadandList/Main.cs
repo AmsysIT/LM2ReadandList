@@ -1406,83 +1406,139 @@ namespace LM2ReadandList
                     Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
                     if (Aboxof == "8")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 50;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "6")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 50;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "16")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 252, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 60;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "10")
                     {
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 222, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                          Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 222, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 60;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "20")
                     {
                         Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
                         float Left = (float)((double)oRange.Left) + 30;
-                        float Top = (float)((double)oRange.Top) + 4;
+                        float Top = (float)((double)oRange.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
-                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        //Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 265, oneY, 200, 30);
                         //PalletNoString
                         Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 11]; //20240125
                         float Left2 = (float)((double)oRange2.Left) + 20;
-                        float Top2 = (float)((double)oRange2.Top) + 4;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
-                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        //Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                     }
                     else if (Aboxof == "40" || Aboxof == "38" || Aboxof == "35")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[14, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 220, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[14, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 55;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "36")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 240, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 774, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[12, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 30; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 240, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[12, 13]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 30;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 774, oneY, 200, 30);
                     }
                     else if (Aboxof == "25")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 268, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[11, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 30; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 268, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[11, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 20;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 754, oneY, 200, 30);
                     }
                     else if (Aboxof == "30")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 268, 431, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 754, 430, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[12, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 30; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 268, 431, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[12, 11]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 25;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 754, 430, 200, 30);
                     }
                     else if (Aboxof == "15")
                     {
                         Excel.Range oRange = (Excel.Range)oSheet.Cells[9, 4]; //20240125
                         float Left = (float)((double)oRange.Left) + 30;
-                        float Top = (float)((double)oRange.Top) + 4;
+                        float Top = (float)((double)oRange.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
                         //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -1490,7 +1546,7 @@ namespace LM2ReadandList
 
                         Excel.Range oRange2 = (Excel.Range)oSheet.Cells[9, 11]; //20240125
                         float Left2 = (float)((double)oRange2.Left) + 20;
-                        float Top2 = (float)((double)oRange2.Top) + 4;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
                         oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                         Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
                         //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
@@ -1498,53 +1554,98 @@ namespace LM2ReadandList
                     }
                     else if (Aboxof == "12")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[12, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 260, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[12, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 60;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "117")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[19, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[19, 15]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 20;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 130, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
                     }
                     else if (Aboxof == "111")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[19, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 200, 587, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[19, 15]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 20;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 130, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 620, 587, 130, 30);
                     }
                     else if (Aboxof == "4" || Aboxof == "3")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                       Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 50;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "2")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
-                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                      Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 5; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+
+                        Excel.Range oRange2 = (Excel.Range)oSheet.Cells[10, 9]; //20240125
+                        float Left2 = (float)((double)oRange2.Left) + 55;
+                        float Top2 = (float)((double)oRange2.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left2, Top2, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + PalletNoString + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 704, oneY, 200, 30);
                     }
                     else if (Aboxof == "1")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[10, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
                     }
                     else if (Aboxof == "5")
                     {
-                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
+                        Excel.Range oRange = (Excel.Range)oSheet.Cells[9, 4]; //20240125
+                        float Left = (float)((double)oRange.Left) + 15; //20240312
+                        float Top = (float)((double)oRange.Top) + 5;
+                        oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 200, 30);
+                        //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 256, oneY, 200, 30);
                     }
                 }
-            }
+            } 
 
             string Client = "";
+
+            Excel.Range oRangeLogo = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+            float LeftLogo = (float)((double)oRangeLogo.Left) + 5; //20240312
+            float TopLogo = (float)((double)oRangeLogo.Top) + 5;
 
             if (Aboxof == "20")
             {
@@ -1607,29 +1708,29 @@ namespace LM2ReadandList
                             //該客戶要其自己的logo
                             if (reader.GetString(reader.GetOrdinal("Client")).Trim().CompareTo("Wicked Sportz") == 0)
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             if (reader.GetString(reader.GetOrdinal("Client")).Trim().CompareTo("達成數位") == 0)
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 7, serialnooneY = 205;
+                //int serialnooneX = 7, serialnooneY = 205;
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string FirstCNO = "";
 
@@ -1644,126 +1745,127 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 203;
+                            //serialnooneX = 3; serialnooneY = 203;
 
-                            Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
 
                             switch (reader.GetString(reader.GetOrdinal("WhereSeat")))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
                                     FirstCNO = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[6, 1]; //20240125
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[6, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[6, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[6, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[6, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[7, 1];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[7, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[7, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[7, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[7, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[8, 1];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[8, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[8, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[8, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[8, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
 
                                 case "16":
                                     oSheet.Cells[9, 1] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[9, 1];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 1];
                                     break;
 
                                 case "17":
                                     oSheet.Cells[9, 3] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[9, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 3];
                                     break;
 
                                 case "18":
                                     oSheet.Cells[9, 5] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[9, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 5];
                                     break;
 
                                 case "19":
                                     oSheet.Cells[9, 7] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[9, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 7];
                                     break;
 
                                 case "20":
                                     oSheet.Cells[9, 9] = reader.GetString(reader.GetOrdinal("CylinderNumbers"));
-                                    oRange = (Excel.Range)oSheet.Cells[9, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 9];
                                     break;
                             }
 
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 4) % 5) * 145;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) - 1) / 5) * 56;
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) + 4) % 5) * 145;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(reader.GetOrdinal("WhereSeat"))) - 1) / 5) * 56;
 
-                            float Left = (float)((double)oRange.Left) + 1; //20240125
-                            float Top = (float)((double)oRange.Top) + 3;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 44, 44);// 130, 22); //QRCode
-
-                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            //Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);// 130, 22); //QRCode
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 3;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 44, 44);// 130, 22); //QRCode
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);// 130, 22); //QRCode
                         }
                     }
+
+                    Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+                    float Left = (float)((double)oRange.Left) + 5; //20240312
+                    float Top = (float)((double)oRange.Top) + 5;
 
                     if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client.Contains("Airtanks")) && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                     {
@@ -1796,24 +1898,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().Contains("ADRENALICIA S.L."))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("AIR TEC") == true)
                     {
@@ -1833,7 +1935,9 @@ namespace LM2ReadandList
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
+                        //                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     //20240126 HK客製化嘜頭 fix
                     else if (Client.Contains("HK Army"))
@@ -1842,7 +1946,7 @@ namespace LM2ReadandList
                         string path = "";
                         string LogoCode = "";
 
-                        ProductName = HK_ProdcuName(FirstCNO);                        
+                        ProductName = HK_ProdcuName(FirstCNO);
                         LogoCode = HK_LogoCode(PartNo_temp);
                         path = HK_path(PackingMarks);
 
@@ -1863,8 +1967,8 @@ namespace LM2ReadandList
                             }
                         }
 
-                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -1873,7 +1977,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 730, picY = 185;
+                        //int picX = 730, picY = 185;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT ListDate, ProductName, vchBoxs FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -1884,25 +1988,26 @@ namespace LM2ReadandList
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
 
-                                Excel.Range oRange = (Excel.Range)oSheet.Cells[5, 11]; //20240125
-                                float Left = (float)((double)oRange.Left);
-                                float Top = (float)((double)oRange.Top) + 20;
-                                oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 250, 250);
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+
+                                oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
                                 //oSheet.Shapes.AddPicture(picadd + reader.GetString(reader.GetOrdinal("ListDate")) + reader.GetString(reader.GetOrdinal("ProductName")) + reader.GetString(reader.GetOrdinal("vchBoxs")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
 
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
-                }
+                } 
             }
             else if (Aboxof == "36")
             {
@@ -1942,32 +2047,32 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
 
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -2029,24 +2134,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -2055,7 +2160,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入二維條碼
-                        int picX = 750, picY = 179;
+                        //int picX = 750, picY = 179;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -2065,17 +2170,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 13]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -2119,31 +2229,31 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -2358,24 +2468,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 15, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 15, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -2384,7 +2494,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入二維條碼
-                        int picX = 680, picY = 180;
+                        //int picX = 680, picY = 180;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -2394,17 +2504,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -2468,37 +2583,37 @@ namespace LM2ReadandList
                             if (reader.GetString(reader.GetOrdinal("Client")).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 7, serialnooneY = 209;
+                //int serialnooneX = 7, serialnooneY = 209;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -2514,95 +2629,95 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 211;
+                            //serialnooneX = 3; serialnooneY = 211;
 
-                            Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
 
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[6, 1]; //20240125
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[6, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[6, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[6, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[6, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[7, 1];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[7, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[7, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[7, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[7, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[8, 1];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[8, 3];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[8, 5];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[8, 7];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(3);
-                                    oRange = (Excel.Range)oSheet.Cells[8, 9];
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 4) % 5) * 145;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 75;
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 4) % 5) * 145;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 75;
 
-                            float Left = (float)((double)oRange.Left) + 1; //20240125
-                            float Top = (float)((double)oRange.Top) + 12;
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 12;
                             oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 44, 44);
+                            Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 44, 44);
 
                             //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                             //Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);//, 130, 25);
@@ -2640,24 +2755,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     //20240126 HK客製化嘜頭 fix
                     else if (Client.Contains("HK Army"))
@@ -2687,8 +2802,8 @@ namespace LM2ReadandList
                             }
                         }
 
-                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                        Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -2697,7 +2812,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 732, picY = 187;
+                        //int picX = 732, picY = 187;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -2708,23 +2823,24 @@ namespace LM2ReadandList
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
 
-                                Excel.Range oRange = (Excel.Range)oSheet.Cells[5, 11]; //20240125
-                                float Left = (float)((double)oRange.Left);
-                                float Top = (float)((double)oRange.Top) + 20;
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                
                                 oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 250, 250);
-
+                                Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
                                 //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
                                 //Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -2795,38 +2911,37 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-
-                int serialnooneX = 10, serialnooneY = 212;
+                //int serialnooneX = 10, serialnooneY = 212;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -2842,7 +2957,10 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 212;
+                            //serialnooneX = 3; serialnooneY = 212;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
@@ -2856,6 +2974,7 @@ namespace LM2ReadandList
                                         oSheet.Cells[6, 1] = reader.GetString(3);
                                     }
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
@@ -2868,6 +2987,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[6, 3] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
@@ -2880,6 +3000,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[6, 5] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
@@ -2892,6 +3013,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[6, 7] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
@@ -2904,6 +3026,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[8, 1] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "6":
@@ -2916,6 +3039,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[8, 3] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "7":
@@ -2928,6 +3052,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[8, 5] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "8":
@@ -2940,6 +3065,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[8, 7] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "9":
@@ -2952,6 +3078,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[10, 1] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 1];
                                     break;
 
                                 case "10":
@@ -2964,6 +3091,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[10, 3] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 3];
                                     break;
 
                                 case "11":
@@ -2976,6 +3104,7 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[10, 5] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 5];
                                     break;
 
                                 case "12":
@@ -2988,12 +3117,16 @@ namespace LM2ReadandList
                                     {
                                         oSheet.Cells[10, 7] = reader.GetString(3);
                                     }
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 7];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 157;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 75;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 43, 43);//, 130, 25);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 157;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 75;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 20;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 43, 43);//, 130, 25);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 43, 43);//, 130, 25);
                         }
                     }
 
@@ -3027,24 +3160,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -3053,7 +3186,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 185;
+                        //int picX = 680, picY = 185;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -3063,17 +3196,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -3135,37 +3273,37 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo  //Wicked Sportz
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo  //Wicked Sportz
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 309;
+                //int serialnooneX = 10, serialnooneY = 309;
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string FirstCNO = "";
 
@@ -3180,38 +3318,50 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 49; serialnooneY = 215;
+                            //serialnooneX = 49; serialnooneY = 215;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 3) * 215;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 3) * 111;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 3) * 215;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 3) * 111;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 60; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 3;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 60, 60);//, 130, 25);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);
                         }
                     }
 
@@ -3245,25 +3395,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -3273,7 +3423,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 182;
+                        //int picX = 680, picY = 182;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -3283,17 +3433,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -3355,37 +3510,37 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo  //Wicked Sportz
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo  //Wicked Sportz
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 239;
+                //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string FirstCNO = "";
 
@@ -3400,46 +3555,60 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 49; serialnooneY = 215;
+                            //serialnooneX = 49; serialnooneY = 215;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 159;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 111;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 159;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 111;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 30; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 12;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 60, 60);//, 130, 25);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 130, 25);
                         }
                     }
 
@@ -3473,25 +3642,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -3501,7 +3670,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 182;
+                        //int picX = 680, picY = 182;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -3511,17 +3680,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -3583,38 +3757,38 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
 
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 239;
+                //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -3630,79 +3804,101 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            //serialnooneX = 10; serialnooneY = 239;
-                            serialnooneX = 1; serialnooneY = 207;
+                            ////serialnooneX = 10; serialnooneY = 239;
+                            //serialnooneX = 1; serialnooneY = 207;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[7, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[9, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 1];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[9, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 3];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[9, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 5];
                                     break;
 
                                 case "16":
                                     oSheet.Cells[9, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 7];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 156;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 56;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 37, 37);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 4) * 156;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 4) * 56;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 15; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 3;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 37, 37);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 37, 37);
                         }
                     }
 
@@ -3735,25 +3931,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -3763,7 +3959,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 185;
+                        //int picX = 680, picY = 185;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -3773,17 +3969,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -3846,38 +4047,39 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
                                 oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
 
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 239;
+                //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -3893,56 +4095,72 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 35; serialnooneY = 219;
+                            //serialnooneX = 35; serialnooneY = 219;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[8, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
                             }
-                            int i = Convert.ToInt32(reader.GetString(5));
-                            i = i > 5 ? i - 5 : i;
-                            serialnooneX = 35 + (i - 1) * 127;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 111;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 110, 25);
+                            //int i = Convert.ToInt32(reader.GetString(5));
+                            //i = i > 5 ? i - 5 : i;
+                            //serialnooneX = 35 + (i - 1) * 127;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 111;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 30; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 12;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 60, 60);//, 110, 25);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 60, 60);//, 110, 25);
                         }
                     }
 
@@ -3976,25 +4194,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -4003,7 +4221,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 185;
+                        //int picX = 680, picY = 185;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -4013,17 +4231,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -4067,39 +4290,38 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
 
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-
-                int serialnooneX = 8, serialnooneY = 192;
+                //int serialnooneX = 8, serialnooneY = 192;
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string FirstCNO = "";
 
@@ -4114,114 +4336,145 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 189;
+                            //serialnooneX = 3; serialnooneY = 189;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
 
                                 case "16":
                                     oSheet.Cells[9, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 1];
                                     break;
 
                                 case "17":
                                     oSheet.Cells[9, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 3];
                                     break;
 
                                 case "18":
                                     oSheet.Cells[9, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 5];
                                     break;
 
                                 case "19":
                                     oSheet.Cells[9, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 7];
                                     break;
 
                                 case "20":
                                     oSheet.Cells[9, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[9, 9];
                                     break;
 
                                 case "21":
                                     oSheet.Cells[10, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 1];
                                     break;
 
                                 case "22":
                                     oSheet.Cells[10, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 3];
                                     break;
 
                                 case "23":
                                     oSheet.Cells[10, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 5];
                                     break;
 
                                 case "24":
                                     oSheet.Cells[10, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 7];
                                     break;
 
                                 case "25":
                                     oSheet.Cells[10, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[10, 9];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 5) * 144;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 47;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 40, 40);//, 130, 20);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 5) * 144;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 47;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 3;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 40, 40);//, 130, 20);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 40, 40);//, 130, 20);
                         }
                     }
 
@@ -4255,25 +4508,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -4283,7 +4536,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入二維條碼
-                        int picX = 730, picY = 179;
+                        //int picX = 730, picY = 179;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -4293,17 +4546,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -4347,31 +4605,31 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -4441,19 +4699,19 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -4462,7 +4720,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入二維條碼
-                        int picX = 730, picY = 179;
+                        //int picX = 730, picY = 179;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -4472,17 +4730,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -4524,26 +4787,26 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -4603,19 +4866,19 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
 
@@ -4682,27 +4945,27 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
 
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -4772,19 +5035,19 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
             }
@@ -4844,37 +5107,37 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 7, serialnooneY = 209;
+                //int serialnooneX = 7, serialnooneY = 209;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -4890,74 +5153,95 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 211;
+                            //serialnooneX = 3; serialnooneY = 211;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 3];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[6, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 7];
                                     break;
 
                                 case "5":
                                     oSheet.Cells[6, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 9];
                                     break;
 
                                 case "6":
                                     oSheet.Cells[7, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 1];
                                     break;
 
                                 case "7":
                                     oSheet.Cells[7, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 3];
                                     break;
 
                                 case "8":
                                     oSheet.Cells[7, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 5];
                                     break;
 
                                 case "9":
                                     oSheet.Cells[7, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 7];
                                     break;
 
                                 case "10":
                                     oSheet.Cells[7, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[7, 9];
                                     break;
 
                                 case "11":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "12":
                                     oSheet.Cells[8, 3] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 3];
                                     break;
 
                                 case "13":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                                 case "14":
                                     oSheet.Cells[8, 7] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 7];
                                     break;
 
                                 case "15":
                                     oSheet.Cells[8, 9] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 9];
                                     break;
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 4) % 5) * 145;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 75;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);//, 130, 25);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 4) % 5) * 145;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 5) * 75;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 12;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 44, 44);//, 130, 25);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);//, 130, 25);
                         }
                     }
 
@@ -4992,24 +5276,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -5018,7 +5302,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 732, picY = 187;
+                        //int picX = 732, picY = 187;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -5028,17 +5312,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 11]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left);
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -5088,26 +5377,26 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
@@ -5169,24 +5458,24 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                 }
 
@@ -5279,32 +5568,32 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 239;
+                //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -5320,31 +5609,41 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 209;
+                            //serialnooneX = 3; serialnooneY = 209;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
 
                                 case "2":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                                 case "3":
                                     oSheet.Cells[8, 1] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 1];
                                     break;
 
                                 case "4":
                                     oSheet.Cells[8, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[8, 5];
                                     break;
 
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 2) * 315;
-                            serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 2) * 111;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 90, 90);//, 150, 30);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 2) * 315;
+                            //serialnooneY = serialnooneY + ((Convert.ToInt32(reader.GetString(5)) - 1) / 2) * 111;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 12;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 90, 90);//, 150, 30);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 90, 90);//, 150, 30);
                         }
                     }
 
@@ -5378,19 +5677,19 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -5400,7 +5699,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 185;
+                        //int picX = 680, picY = 185;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -5410,17 +5709,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -5482,32 +5786,32 @@ namespace LM2ReadandList
                             if (reader.GetString(0).Trim().CompareTo("Wicked Sportz") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             if (reader.GetString(0).Trim().CompareTo("達成數位") == 0)
                             {
                                 //該客戶要其自己的logo
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                                 // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
                             }
                             else if (reader.GetString(reader.GetOrdinal("Client")).Trim().Contains("ADRENALICIA S.L."))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                             else if (Client.ToUpper().StartsWith("EMB"))
                             {
-                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                                //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                             }
                         }
                     }
                 }
 
-                int serialnooneX = 10, serialnooneY = 239;
+                //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
                 string FirstCNO = "";
@@ -5523,22 +5827,30 @@ namespace LM2ReadandList
                     {
                         while (reader.Read())
                         {
-                            serialnooneX = 3; serialnooneY = 270;
+                            //serialnooneX = 3; serialnooneY = 270;
+
+                            Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
                             switch (reader.GetString(5))
                             {
                                 case "1":
                                     oSheet.Cells[6, 1] = reader.GetString(3);
                                     FirstCNO = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 1]; //20240125
                                     break;
                                 case "2":
                                     oSheet.Cells[6, 5] = reader.GetString(3);
+                                    oRangeQR = (Excel.Range)oSheet.Cells[6, 5];
                                     break;
 
                             }
-                            serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 2) * 315;
-                            serialnooneY = serialnooneY;// +((Convert.ToInt32(reader.GetString(5))) / 2) * 1111;
-                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 90, 90);//, 150, 30);
+                            //serialnooneX = serialnooneX + ((Convert.ToInt32(reader.GetString(5)) + 3) % 2) * 315;
+                            //serialnooneY = serialnooneY;// +((Convert.ToInt32(reader.GetString(5))) / 2) * 1111;
+
+                            float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
+                            float TopQR = (float)((double)oRangeQR.Top) + 60;
+                            oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 90, 90);//, 150, 30);
+                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(3) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 90, 90);//, 150, 30);
                         }
                     }
 
@@ -5572,25 +5884,25 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
                     }
 
                     else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
                     {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
@@ -5599,7 +5911,7 @@ namespace LM2ReadandList
                         //預設QRCODE圖片大小250*250
 
                         //插入圖片
-                        int picX = 680, picY = 183;
+                        //int picX = 680, picY = 183;
                         string picadd = @"C:\QRCode\";
 
                         selectCmd = "SELECT  * FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.Text + "' and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
@@ -5609,17 +5921,22 @@ namespace LM2ReadandList
                             while (reader.Read())
                             {
                                 Excel.Worksheet xSheet = (Excel.Worksheet)oWB.Sheets[1];
-                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
-                                if (picX == 885)
-                                {
-                                    picY += 70;
-                                    picX = 125;
-                                }
-                                else
-                                {
-                                    picX += 190;
-                                }
+                                
+                                Excel.Range oRangeBig = (Excel.Range)oSheet.Cells[5, 9]; //20240125
+                                float LeftBig = (float)((double)oRangeBig.Left) + 30;
+                                float TopBig = (float)((double)oRangeBig.Top) + 20;
+                                oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
+                                //oSheet.Shapes.AddPicture(picadd + (reader.GetString(0) + reader.GetString(1) + reader.GetString(3)) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, picX, picY, 250, 250);
+
+                                //if (picX == 885)
+                                //{
+                                //    picY += 70;
+                                //    picX = 125;
+                                //}
+                                //else
+                                //{
+                                //    picX += 190;
+                                //}
                             }
                         }
                     }
@@ -5699,13 +6016,12 @@ namespace LM2ReadandList
                 string serialnooneadd = @"C:\SerialNoCode\";
                 string CylinderNo = "", HydrostaticTestDate = "", ProductNO = "";
 
-                Excel.Range oRange = (Excel.Range)oSheet.Cells[9, 4]; //20240312
-                float Left = (float)((double)oRange.Left) + 30;
-                float Top = (float)((double)oRange.Top) + 12;
-                oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                                    Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 170, 35);
-                //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                //                    Microsoft.Office.Core.MsoTriState.msoTrue, oneX, oneY, 170, 35);
+                Excel.Range oRangeQR = (Excel.Range)oSheet.Cells[9, 4]; //20240312
+                float LeftQR = (float)((double)oRangeQR.Left) + 30;
+                float TopQR = (float)((double)oRangeQR.Top) + 12;
+                oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 170, 35);
+                //oSheet.Shapes.AddPicture(oneadd + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, oneX, oneY, 170, 35);
+
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))
                 {
@@ -5837,10 +6153,10 @@ namespace LM2ReadandList
 
                 Excel.Range oRange5 = (Excel.Range)oSheet.Cells[1, 1]; //20240312
                 float Left5 = (float)((double)oRange5.Left) + 8;
-                float Top5 = (float)((double)oRange5.Top) + 4;
+                float Top5 = (float)((double)oRange5.Top) + 5;
 
                 Excel.Range oRange4 = (Excel.Range)oSheet.Cells[1, 1]; //20240312
-                float Left4 = (float)((double)oRange4.Left) + 8;
+                float Left4 = (float)((double)oRange4.Left); //8
                 float Top4 = (float)((double)oRange4.Top) + 30;
 
                 if (PackingMarks.Trim().CompareTo("SGA-SHOOTAIR") == 0)
