@@ -6759,6 +6759,14 @@ namespace LM2ReadandList
                                                 }
                                             }
                                         }
+                                        else
+                                        {
+                                            //內膽不檢查水壓報告
+                                            if (!ProductNo.Contains("-L-"))
+                                            {
+                                                Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
+                                            }
+                                        }
                                     }
                                 }
 
@@ -6816,6 +6824,14 @@ namespace LM2ReadandList
                                                         Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                     }
                                                 }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //內膽不檢查水壓報告
+                                            if (!ProductNo.Contains("-L-"))
+                                            {
+                                                Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                             }
                                         }
                                     }
@@ -8159,6 +8175,14 @@ namespace LM2ReadandList
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -8187,6 +8211,7 @@ namespace LM2ReadandList
                                     }
                                 }*/
                             }
+
                             if (HydroDate_Temp == false)
                             {
                                 //檢查原始序號有無水壓資料 20231123
@@ -8217,6 +8242,14 @@ namespace LM2ReadandList
                                                     Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                 }
                                             }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                         }
                                     }
                                 }
@@ -9241,6 +9274,14 @@ namespace LM2ReadandList
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -9291,6 +9332,14 @@ namespace LM2ReadandList
                                                     Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                                 }
                                             }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //內膽不檢查水壓報告
+                                        if (!ProductNo.Contains("-L-"))
+                                        {
+                                            Error += "Code：103 無水壓報告資料，請聯繫品保\nNo hydrotest report information, please contact quality assurance";
                                         }
                                     }
                                 }
