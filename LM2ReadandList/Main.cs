@@ -6996,10 +6996,10 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\nNo bending or flattening information, please contact quality assurance";
+                                        Error += "Code：109 無彎曲或壓扁資料或報告不合格，請聯繫品保\nNo bending or flattening information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
-
+ 
                                 //拉伸
                                 selectCmd = "SELECT  * FROM [PPT_Tensile] WHERE [ManufacturingNo] = '" + LotNumber + "' and FinalResult='PASS' ";
                                 cmd = new SqlCommand(selectCmd, conn);
@@ -7011,7 +7011,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
+                                        Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo stretch information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
 
@@ -7041,7 +7041,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                        Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
                             }
@@ -7063,7 +7063,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：111 無拉伸資料，請聯繫品保\nNo tensile information, please contact quality assurance";
+                                        Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo tensile information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
 
@@ -7078,7 +7078,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：110 無壓扁資料，請聯繫品保\nNo flattening information, please contact quality assurance";
+                                        Error += "Code：110 無壓扁資料或報告不合格，請聯繫品保\nNo flattening information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
                             }
@@ -7100,7 +7100,7 @@ namespace LM2ReadandList
                                     }
                                     else
                                     {
-                                        Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                        Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                     }
                                 }
                             }
@@ -7142,7 +7142,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                             }
                         }
 
@@ -7159,7 +7159,7 @@ namespace LM2ReadandList
                             {
                                 if (!ProductNo.Contains("-L-"))
                                 {
-                                    Error += "Code：117 無循環資料，請聯繫品保\nNo cycling data, please contact quality assurance";
+                                    Error += "Code：117 無循環資料或報告不合格，請聯繫品保\nNo cycling data or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -7297,7 +7297,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + "), please contact quality assurance";
+                                    Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料或報告不合格，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + ") or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -7314,7 +7314,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data, please contact quality assurance";
+                                    Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料或報告不合格，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -8403,7 +8403,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\nNo bending or flattening information, please contact quality assurance";
+                                    Error += "Code：109 無彎曲或壓扁資料或報告不合格，請聯繫品保\nNo bending or flattening information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -8418,7 +8418,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
+                                    Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo stretch information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -8448,7 +8448,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                    Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -8470,7 +8470,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
+                                    Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo stretch information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -8485,7 +8485,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：110 無壓扁資料，請聯繫品保\nNo flattening information, please contact quality assurance";
+                                    Error += "Code：110 無壓扁資料或報告不合格，請聯繫品保\nNo flattening information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -8507,7 +8507,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                    Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -8549,7 +8549,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                            Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                         }
                     }
 
@@ -8566,7 +8566,7 @@ namespace LM2ReadandList
                         {
                             if (!ProductNo.Contains("-L-"))
                             {
-                                Error += "Code：117 無循環資料，請聯繫品保\nNo cycling test data, please contact quality assurance";
+                                Error += "Code：117 無循環資料或報告不合格，請聯繫品保\nNo cycling test data or report status is FAIL, please contact quality assurance";
                             }
                         }
                     }
@@ -8704,7 +8704,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + "), please contact quality assurance";
+                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料或報告不合格，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + ") or report status is FAIL, please contact quality assurance";
                             }
                         }
 
@@ -8721,7 +8721,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data, please contact quality assurance";
+                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料或報告不合格，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data or report status is FAIL, please contact quality assurance";
                             }
                         }
                     }
@@ -9493,7 +9493,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：109 無彎曲或壓扁資料，請聯繫品保\nNo bending or flattening information, please contact quality assurance";
+                                    Error += "Code：109 無彎曲或壓扁資料或報告不合格，請聯繫品保\nNo bending or flattening information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -9508,7 +9508,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
+                                    Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo stretch information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -9538,7 +9538,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                    Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -9560,7 +9560,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：111 無拉伸資料，請聯繫品保\nNo stretch information, please contact quality assurance";
+                                    Error += "Code：111 無拉伸資料或報告不合格，請聯繫品保\nNo stretch information or report status is FAIL, please contact quality assurance";
                                 }
                             }
 
@@ -9575,7 +9575,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：110 無壓扁資料，請聯繫品保\nNo flattening information, please contact quality assurance";
+                                    Error += "Code：110 無壓扁資料或報告不合格，請聯繫品保\nNo flattening information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -9597,7 +9597,7 @@ namespace LM2ReadandList
                                 }
                                 else
                                 {
-                                    Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                                    Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                                 }
                             }
                         }
@@ -9639,7 +9639,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            Error += "Code：113 無爆破資料，請聯繫品保\nNo burst test information, please contact quality assurance";
+                            Error += "Code：113 無爆破資料或報告不合格，請聯繫品保\nNo burst test information or report status is FAIL, please contact quality assurance";
                         }
                     }
 
@@ -9656,7 +9656,7 @@ namespace LM2ReadandList
                         {
                             if (!ProductNo.Contains("-L-"))
                             {
-                                Error += "Code：117 無循環資料，請聯繫品保\nNo cycling test data, please contact quality assurance";
+                                Error += "Code：117 無循環資料或報告不合格，請聯繫品保\nNo cycling test data or report status is FAIL, please contact quality assurance";
                             }
                         }
                     }
@@ -9794,7 +9794,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + "), please contact quality assurance";
+                                Error += "Code：115 無對應內膽(" + BuildUp + ")拉伸資料或報告不合格，請聯繫品保\nThere is no corresponding stretch data for the liner (" + BuildUp + ") or report status is FAIL, please contact quality assurance";
                             }
                         }
 
@@ -9811,7 +9811,7 @@ namespace LM2ReadandList
                             }
                             else
                             {
-                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data, please contact quality assurance";
+                                Error += "Code：116 無對應內膽(" + BuildUp + ")爆破資料或報告不合格，請聯繫品保\nThere is no corresponding liner (" + BuildUp + ") burst test data or report status is FAIL, please contact quality assurance";
                             }
                         }
                     }
