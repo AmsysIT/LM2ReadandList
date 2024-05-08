@@ -2193,12 +2193,14 @@ namespace LM2ReadandList
             }
             else if (Aboxof == "40" || Aboxof == "38" || Aboxof == "35")
             {
+                string PartNo_temp = string.Empty;//20240508，HK客製化嘜頭
+
                 //載入嘜頭資料
                 using (conn = new SqlConnection(myConnectionString))
                 {
                     conn.Open();
 
-                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],''),[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
+                    selectCmd = "SELECT  [Client],(vchPrint + ' ' + ProductName + ' ' + Marking) PartDescription,isnull([CustomerProductName],''),isnull([CustomerProductNo],'') CustomerProductNo ,[vchBoxs],isnull(PalletNo,'') FROM [ShippingHead] where [ListDate]='" + ListDate_LB.SelectedItem + "' and [ProductName]='" + ProductName_CB.SelectedItem + "'and [vchBoxs]='" + WhereBox_LB.SelectedItem + "'";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
@@ -2206,10 +2208,11 @@ namespace LM2ReadandList
                         {
                             Client = reader.GetString(0).Trim(); //40 38 35
                             //載入客戶產品名稱
-                            oSheet.Cells[1, 8] = reader.GetString(2);
+                            oSheet.Cells[1, 8] = reader.GetString(reader.GetOrdinal("PartDescription"));
 
                             //載入客戶產品型號
-                            oSheet.Cells[2, 8] = reader.GetString(3);
+                            oSheet.Cells[2, 8] = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
+                            PartNo_temp = reader.GetString(reader.GetOrdinal("CustomerProductNo"));
 
                             //載入一箱幾隻
                             oSheet.Cells[4, 8] = Getcount;
@@ -2486,6 +2489,37 @@ namespace LM2ReadandList
                     {
                         oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
                         //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                    }
+                    //20240508 HK客製化嘜頭 
+                    else if (Client.Contains("HK Army"))
+                    {
+                        string ProductName = "";
+                        string path = "";
+                        string LogoCode = "";
+
+                        ProductName = HK_ProdcuName(FirstCNO);
+                        LogoCode = HK_LogoCode(PartNo_temp);
+                        path = HK_path(PackingMarks);
+
+
+                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                            "where [ProductNo]+[BottleType] ='" + ProductName + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "' " +
+                            "and [LogoCode] = '" + LogoCode + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                //載入客戶產品名稱
+                                oSheet.Cells[1, 8] = reader.GetString(reader.GetOrdinal("ProductDescription"));
+
+                                //載入客戶產品型號
+                                oSheet.Cells[2, 8] = reader.GetString(reader.GetOrdinal("ProductCode"));
+                            }
+                        }
+
+                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //if (StorageStatus == "N")//20190212
