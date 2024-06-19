@@ -7444,7 +7444,6 @@ namespace LM2ReadandList
                     }
                 }
 
-
                 //20200617 新增客戶序號確認
                 using (conn = new SqlConnection(myConnectionString))
                 {
@@ -7468,6 +7467,14 @@ namespace LM2ReadandList
                             }
                         }
                     }
+                }
+
+
+                //20240619 研發測試檢查(不入嘜)
+                if(InsertcheckBox.Checked)
+                {
+                    MessageBox.Show("資料齊全可入嘜頭!");
+                    return;
                 }
 
 
@@ -8865,6 +8872,13 @@ namespace LM2ReadandList
                 }
             }
 
+            //20240619 研發測試檢查(不入嘜)
+            if (InsertcheckBox.Checked)
+            {
+                MessageBox.Show("資料齊全可入嘜頭!");
+                return;
+            }
+
             using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
@@ -9953,6 +9967,13 @@ namespace LM2ReadandList
                         }
                     }
                 }
+            }
+
+            //20240619 研發測試檢查(不入嘜)
+            if (InsertcheckBox.Checked)
+            {
+                MessageBox.Show("資料齊全可入嘜頭!");
+                return;
             }
 
             using (conn = new SqlConnection(myConnectionString))
