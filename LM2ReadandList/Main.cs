@@ -1866,8 +1866,8 @@ namespace LM2ReadandList
                     Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
                     float Left = (float)((double)oRange.Left) + 5; //20240312
                     float Top = (float)((double)oRange.Top) + 5;
-
-                    if ((Client.Contains("Scientific Gas Australia Pty Ltd") || Client.Contains("Airtanks")) && PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                                       
+                    if (Client.Contains("Scientific Gas Australia Pty Ltd") || Client.Contains("Airtanks") )
                     {
                         string ProductNO = "";
 
@@ -1882,24 +1882,48 @@ namespace LM2ReadandList
                             }
                         }
 
-                        selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
-                            "where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                         {
-                            if (reader.Read())
+
+                            selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                                "where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
                             {
-                                //載入客戶產品名稱
-                                oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("ProductDescription"));
+                                if (reader.Read())
+                                {
+                                    //載入客戶產品名稱
+                                    oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("ProductDescription"));
 
-                                //載入客戶產品型號
-                                oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
+                                    //載入客戶產品型號
+                                    oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
+                                }
                             }
-                        }
 
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                            //LOGO
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+
+                            selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
+                                "where ProductNo='" + ProductNO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    //載入客戶產品名稱
+                                    oSheet.Cells[1, 7] = reader.GetString(reader.GetOrdinal("ProductDescription"));
+
+                                    //載入客戶產品型號
+                                    oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
+                                }
+                            }
+
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
+                                    Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
