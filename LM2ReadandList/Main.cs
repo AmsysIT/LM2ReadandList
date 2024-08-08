@@ -8923,6 +8923,46 @@ namespace LM2ReadandList
                 }
             }
 
+            //20240808先抓秤重值
+            decimal CylinderNo_Weight = 0;
+            if (WeightCheckBox.Checked == true && ComPortcomboBox.SelectedIndex != -1)
+            {
+                //20200903 扣底做重
+                bool HaveBase = false;
+
+                var v = (from p in SDT.AsEnumerable()
+                         where p.Field<string>("vchBoxs").Contains(WhereBox_LB.SelectedItem.ToString())
+                         select p.Field<string>("vchBoxs")).FirstOrDefault();
+
+                if (v == null)
+                {
+                    HaveBase = false;
+                }
+                else
+                {
+                    HaveBase = true;
+                }
+
+                CylinderNoWeight CNW = new CylinderNoWeight();
+                CNW.ComPort = ComPortcomboBox.SelectedItem.ToString();
+                CNW.ListDate = ListDate_LB.SelectedItem.ToString();
+                CNW.Boxs = WhereBox_LB.SelectedItem.ToString();
+                CNW.CylinderNo = NoLMCylinderNOTextBox.Text.ToString();
+                CNW.check = checkBox1.Checked.ToString();
+                CNW.HaveBase = HaveBase;
+
+                CNW.ShowDialog();
+
+                if(CNW.stop)
+                {
+                    MessageBox.Show("取消秤重，請重新新增." , "警告 Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                CylinderNo_Weight = Convert.ToDecimal(CNW.WeightTextBox.Text.ToString());
+            }
+
+
             int InsertSB = 0, UpdateLP = 0, UpdateMsn = 0;
 
             using (TransactionScope scope = new TransactionScope())
@@ -8932,8 +8972,8 @@ namespace LM2ReadandList
                     conn.Open();
 
                     //雷刻掃描完確認瓶身瓶底相同後載入資料
-                    selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time, LotNumber ) " +
-                        "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time, @LotNumber )"; //AutoAccumulate
+                    selectCmd = "INSERT INTO [ShippingBody] ( ListDate, ProductName, CylinderNumbers, WhereBox, WhereSeat, vchUser, Time, LotNumber, CylinderWeight ) " +
+                        "VALUES ( @ListDate, @ProductName, @CylinderNumbers, @WhereBox, @WhereSeat, @vchUser, @Time, @LotNumber, @CylinderWeight )"; //AutoAccumulate
                     cmd = new SqlCommand(selectCmd, conn);
 
                     cmd.Parameters.Add("@ListDate", SqlDbType.VarChar).Value = ListDate_LB.SelectedItem;
@@ -8944,6 +8984,7 @@ namespace LM2ReadandList
                     cmd.Parameters.Add("@vchUser", SqlDbType.VarChar).Value = User_LB.Text.Remove(0, 7);
                     cmd.Parameters.Add("@Time", SqlDbType.VarChar).Value = DateTime.Now.ToLocalTime().ToString();
                     cmd.Parameters.Add("@LotNumber", SqlDbType.VarChar).Value = LotNumber; //20240204
+                    cmd.Parameters.Add("@CylinderWeight", SqlDbType.Decimal).Value = CylinderNo_Weight; //20240808
 
                     InsertSB = cmd.ExecuteNonQuery();
 
@@ -8993,34 +9034,6 @@ namespace LM2ReadandList
                 CBC.ShowDialog();
             }
 
-            if (WeightCheckBox.Checked == true && ComPortcomboBox.SelectedIndex != -1)
-            {
-                //20200903 扣底做重
-                bool HaveBase = false;
-
-                var v = (from p in SDT.AsEnumerable()
-                         where p.Field<string>("vchBoxs").Contains(WhereBox_LB.SelectedItem.ToString())
-                         select p.Field<string>("vchBoxs")).FirstOrDefault();
-
-                if (v == null)
-                {
-                    HaveBase = false;
-                }
-                else
-                {
-                    HaveBase = true;
-                }
-
-                CylinderNoWeight CNW = new CylinderNoWeight();
-                CNW.ComPort = ComPortcomboBox.SelectedItem.ToString();
-                CNW.ListDate = ListDate_LB.SelectedItem.ToString();
-                CNW.Boxs = WhereBox_LB.SelectedItem.ToString();
-                CNW.CylinderNo = NoLMCylinderNOTextBox.Text.ToString();
-                CNW.check = checkBox1.Checked.ToString();
-                CNW.HaveBase = HaveBase;
-
-                CNW.ShowDialog();
-            }
 
             if (SecondPrintCheckBox.CheckState == CheckState.Checked)
             {

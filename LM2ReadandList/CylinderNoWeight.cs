@@ -23,6 +23,7 @@ namespace LM2ReadandList
         public bool HaveBase;
         string ReadWeight = "";
         int i = 0;
+        public bool stop = false;
 
         public CylinderNoWeight()
         {
@@ -159,6 +160,18 @@ namespace LM2ReadandList
             }
         }
 
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("取消序號:" + CylinderNoLabel.Text + " 重量量測，是否繼續？", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            stop = true;
+            this.Close();
+        }
+
         private void ReLoadButton_Click(object sender, EventArgs e)
         {
             try
@@ -207,6 +220,8 @@ namespace LM2ReadandList
                 MessageBox.Show("無該氣瓶之重量");
                 return;
             }
+
+            /*
             //判別該序號中是否已有資料
             conn = new SqlConnection(myConnectionString);
             conn.Open();
@@ -233,6 +248,7 @@ namespace LM2ReadandList
             cmd.ExecuteNonQuery();
             conn.Close();
 
+            */
 
             this.Close();
         }
