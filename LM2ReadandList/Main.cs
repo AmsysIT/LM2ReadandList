@@ -2864,8 +2864,6 @@ namespace LM2ReadandList
                 }
 
 
-
-
                 //int serialnooneX = 10, serialnooneY = 212;
                 string serialnooneadd = @"C:\SerialNoCode\";
 
@@ -9635,7 +9633,7 @@ namespace LM2ReadandList
             oWB = null;
             oSheet = null;
         }
-
+        
         private void NextNumber()
         {
             char[] b = new char[12];
@@ -9965,6 +9963,23 @@ namespace LM2ReadandList
                                 }
                             }
                         }
+
+                        //20240907 如果品號有設定嘜頭描述與品號，則改成之設定
+                        using (conn = new SqlConnection(AMS3_ConnectionString))
+                        {
+                            conn.Open();
+
+                            selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null " +
+                                "and (isnull(MC027,'') <> '' or isnull(MC028,'') <> '') ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("MC028")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("MC027")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                                }
+                            }
+                        }
                     }
                     //20240221 修正SGA客製化時QR資訊
                     else if (QRClient.Contains("Scientific Gas Australia Pty Ltd") || PackingMarks.ToUpper().Trim().StartsWith("SGA"))
@@ -10010,6 +10025,23 @@ namespace LM2ReadandList
                                 }
                             }
                         }
+
+                        //20240907 如果品號有設定嘜頭描述與品號，則改成之設定
+                        using (conn = new SqlConnection(AMS3_ConnectionString))
+                        {
+                            conn.Open();
+
+                            selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null " +
+                                "and (isnull(MC027,'') <> '' or isnull(MC028,'') <> '') ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("MC028")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("MC027")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                                }
+                            }
+                        }
                     }
                     else if (QRClient.Contains("Praxair") == false)
                     {
@@ -10035,25 +10067,25 @@ namespace LM2ReadandList
 
                             }
                         }
-                    }
-                }
 
-
-                //20240907 如果品號有設定嘜頭描述與品號，則改成之設定
-                using (conn = new SqlConnection(AMS3_ConnectionString))
-                {
-                    conn.Open();
-
-                    selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null ";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
+                        //20240907 如果品號有設定嘜頭描述與品號，則改成之設定
+                        using (conn = new SqlConnection(AMS3_ConnectionString))
                         {
-                            QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("MC028")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("MC027")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                            conn.Open();
+
+                            selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null " +
+                                "and (isnull(MC027,'') <> '' or isnull(MC028,'') <> '') ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    QRcodDetail1 = "Part Description:" + reader.GetString(reader.GetOrdinal("MC028")) + "\r\nPart No: " + reader.GetString(reader.GetOrdinal("MC027")) + "\r\nQuantity: " + Getcount + " pieces\r\nC/NO: " + WhereBox_LB.SelectedItem + "\r\nSerial No:\r\n";
+                                }
+                            }
                         }
                     }
-                }
+                }                
 
                 for (int i = 0; i < SerialNoArray.Count; i++)
                 {
