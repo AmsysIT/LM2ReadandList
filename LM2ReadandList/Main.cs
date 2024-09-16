@@ -4865,7 +4865,6 @@ namespace LM2ReadandList
             }
             else if (Aboxof == "1")
             {
-                Client = reader.GetString(0).Trim(); //1
                                                      //載入客戶產品名稱
                 oSheet.Cells[1, 7] = PartDescription;
 
