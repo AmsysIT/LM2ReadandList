@@ -124,7 +124,7 @@ namespace LM2ReadandList
 
                 if (ReadWeight.Substring(0, 1) == "+")
                 {
-                    //20200903 扣底座重
+                    //20200903 扣底座重，20240918扣鎖閥重抓平均130
                     if (check == "True") 
                     {
                         if (HaveBase == true)
@@ -134,7 +134,7 @@ namespace LM2ReadandList
                         }
                         else
                         {
-                            WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 125).ToString();
+                            WeightTextBox.Text = (Convert.ToDouble(ReadWeight.Substring(1, ReadWeight.Length - 1)) - 130).ToString();
                         }
                     }
                     else

@@ -5629,6 +5629,34 @@ namespace LM2ReadandList
                     //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse,
                     //                    Microsoft.Office.Core.MsoTriState.msoTrue, 8, 20, 219, (float)133.9);
                 }
+
+                //20240907 檢查有無設定客製嘜頭
+                string MC027 = "", MC028 = "";
+                using (conn = new SqlConnection(AMS3_ConnectionString))
+                {
+                    conn.Open();
+
+                    selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            MC027 = reader.GetString(reader.GetOrdinal("MC027"));
+                            MC028 = reader.GetString(reader.GetOrdinal("MC028"));
+                        }
+                    }
+                }
+
+                if (MC027 != "")
+                {
+                    oSheet.Cells[5, 3] = MC027;
+                }
+                if (MC028 != "")
+                {
+                    oSheet.Cells[6, 3] = MC028;
+                }
+
             }
 
             Excel.Sheets excelSheets = oWB.Worksheets;
