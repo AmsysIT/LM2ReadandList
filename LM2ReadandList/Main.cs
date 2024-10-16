@@ -5648,13 +5648,13 @@ namespace LM2ReadandList
                     }
                 }
 
-                if (MC027 != "")
+                if (MC027 != "")//品號
                 {
-                    oSheet.Cells[5, 3] = MC027;
+                    oSheet.Cells[6, 3] = MC027;
                 }
-                if (MC028 != "")
+                if (MC028 != "")//描述
                 {
-                    oSheet.Cells[6, 3] = MC028;
+                    oSheet.Cells[5, 3] = MC028;
                 }
 
             }
