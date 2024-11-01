@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Transactions;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LM2ReadandList
@@ -1644,9 +1645,9 @@ namespace LM2ReadandList
             string Client = "", PartDescription = "", CustomerProductNo = "", PalletNo = "", ProductNo = "", ProductName = "";
 
             Excel.Range oRangeLogo = (Excel.Range)oSheet.Cells[1, 1]; //20240125
+
             float LeftLogo = (float)((double)oRangeLogo.Left) + 5; //20240312
             float TopLogo = (float)((double)oRangeLogo.Top) + 5;
-
 
             //20240907 載入嘜頭資料統一先抓
             using(conn = new SqlConnection(myConnectionString))
@@ -1670,22 +1671,89 @@ namespace LM2ReadandList
                 }
             }
             //20240907 檢查有無設定客製嘜頭
-            string MC027 = "",MC028 = "";
+            string MC027 = "", MC028 = "";
+            string PhotoString = "", PhotoLogo = "";
             using (conn = new SqlConnection(AMS3_ConnectionString))
             {
                 conn.Open();
 
-                selectCmd = "SELECT isnull(MC027,'') [MC027], isnull(MC028,'') [MC028] FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null ";
+                selectCmd = "Select Z.成品品號類別,Z.品號,Z.描述,Z.C外箱嘜頭,Z.M外箱嘜頭 ,isnull(C14.MB015_Logo,'') C虛擬嘜頭建立程式LOGO ,isnull(M09.MB015_Logo,'') M虛擬嘜頭建立程式LOGO " +
+                    "from " +
+                    "( " +
+                    "   SELECT CASE when (len(MC001) >= 26 and SUBSTRING(MC001,1,3) = 'MPA') then '業務鋁瓶商品' when (len(MC001) >= 26 and (SUBSTRING(MC001,1,1) = 'C'or SUBSTRING(MC001,1,1) = 'H' or SUBSTRING(MC001,1,1) = 'T') ) then '業務複合瓶商品' else '' end 成品品號類別 " +
+                    "   ,isnull(MC027,'') 品號, isnull(MC028,'') 描述, substring(MC001,23,2) C外箱嘜頭,substring(MC001,21,2) M外箱嘜頭 " +
+                    "    FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null " +
+                    ") Z " +
+                    "left join INVMB as C14 ON C14.MB002 = '外箱嘜頭' and C14.MB003 = Z.C外箱嘜頭 and C14.MB001 = Z.成品品號類別 and C14.STOP_DATE is null and C14.MB001 = '業務複合瓶商品' " +
+                    "left join INVMB as M09 ON M09.MB002 = '外箱嘜頭' and M09.MB003 = Z.M外箱嘜頭 and M09.MB001 = Z.成品品號類別 and M09.STOP_DATE is null and M09.MB001 = '業務鋁瓶商品' ";
                 cmd = new SqlCommand(selectCmd, conn);
                 using (reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        MC027 = reader.GetString(reader.GetOrdinal("MC027"));
-                        MC028 = reader.GetString(reader.GetOrdinal("MC028"));                        
+                        MC027 = reader.GetString(reader.GetOrdinal("品號"));
+                        MC028 = reader.GetString(reader.GetOrdinal("描述"));
+                        if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務鋁瓶商品")
+                        {
+                            PhotoLogo = reader.GetString(reader.GetOrdinal("M虛擬嘜頭建立程式LOGO"));
+                        }
+                        else if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務複合瓶商品")
+                        {
+                            PhotoLogo = reader.GetString(reader.GetOrdinal("C虛擬嘜頭建立程式LOGO"));
+                        }
+                    }
+                    else
+                    {
+                        MC027 = string.Empty;
+                        MC028 = string.Empty;
+                        PhotoLogo = string.Empty;
                     }
                 }
             }
+
+            //20241031 嘜頭Logo更新寫法
+            PhotoString = string.Empty;
+            using (conn = new SqlConnection(AMS21_ConnectionString))
+            {
+                conn.Open();
+                selectCmd = "SELECT [packingmarks] packingmarks,[base64] base64 " +
+                    "FROM [AMSSystem].[dbo].[PackingMarks] " +
+                    "where [packingmarks] = '" + PhotoLogo + "' and STOP_DATE is null ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            PhotoString = reader.GetString(reader.GetOrdinal("base64"));
+                        }
+                    }
+                    else
+                    {
+                        PhotoString = string.Empty;
+                    }
+                }
+            }
+            // Convert Base64 String to byte[]
+            byte[] imageBytes = Convert.FromBase64String(PhotoString);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+            // Convert byte[] to Image
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = Image.FromStream(ms, true);
+
+            PictureBox box = new PictureBox();
+            box.Image = image;
+
+            string PhotoTemp = Application.StartupPath + @"\PhotoTemp.png";
+            box.Image.Save(PhotoTemp);
+
+            oSheet.Shapes.AddPicture(PhotoTemp, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 215, 125);
+
+            //DELETE PICTURE FILE
+            if (File.Exists(PhotoTemp))
+                File.Delete(PhotoTemp);
 
             if (Aboxof == "20")
             {
@@ -1712,28 +1780,6 @@ namespace LM2ReadandList
 
                 //20200410 加入PO
                 oSheet.Cells[5, 11] = CustomerPO_L.Text;
-
-                //該客戶要其自己的logo
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 7, serialnooneY = 205;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -1864,13 +1910,8 @@ namespace LM2ReadandList
                             float LeftQR = (float)((double)oRangeQR.Left) + 1; //20240125
                             float TopQR = (float)((double)oRangeQR.Top) + 3;
                             oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftQR, TopQR, 44, 44);// 130, 22); //QRCode
-                            //oSheet.Shapes.AddPicture(serialnooneadd + reader.GetString(reader.GetOrdinal("CylinderNumbers")) + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, serialnooneX, serialnooneY, 44, 44);// 130, 22); //QRCode
                         }
                     }
-
-                    Excel.Range oRange = (Excel.Range)oSheet.Cells[1, 1]; //20240125
-                    float Left = (float)((double)oRange.Left) + 5; //20240312
-                    float Top = (float)((double)oRange.Top) + 5;
 
                     if (Client.Contains("Scientific Gas Australia Pty Ltd") || Client.Contains("Airtanks"))
                     {
@@ -1889,7 +1930,6 @@ namespace LM2ReadandList
 
                         if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
                         {
-
                             selectCmd = "SELECT  ProductCode, ProductDescription FROM CustomerPackingMark " +
                                 "where ProductNo='" + Product_NO + "' and LogoType='" + (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()) + "'";
                             cmd = new SqlCommand(selectCmd, conn);
@@ -1904,9 +1944,6 @@ namespace LM2ReadandList
                                     oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
                                 }
                             }
-
-                            //LOGO
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
                         }
                         else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
                         {
@@ -1925,26 +1962,7 @@ namespace LM2ReadandList
                                     oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
                                 }
                             }
-
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                    Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
                         }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().Contains("ADRENALICIA S.L."))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if (Client.ToUpper().StartsWith("AIR TEC") == true)
                     {
@@ -1959,13 +1977,6 @@ namespace LM2ReadandList
                         excelRange.Borders.get_Item(Excel.XlBordersIndex.xlInsideVertical).Weight = Excel.XlBorderWeight.xlMedium;
                         excelRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeLeft).Weight = Excel.XlBorderWeight.xlMedium;
                         excelRange.Borders.get_Item(Excel.XlBordersIndex.xlEdgeRight).Weight = Excel.XlBorderWeight.xlMedium;
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                            Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                        //                    Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     //20240126 HK客製化嘜頭 fix
                     else if (Client.Contains("HK Army"))
@@ -1994,9 +2005,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
                             }
                         }
-
-                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, Left, Top, 212, 125);
-                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -2136,7 +2144,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                         //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
@@ -2180,7 +2195,6 @@ namespace LM2ReadandList
                     float LeftBig = (float)((double)oRangeBig.Left);
                     float TopBig = (float)((double)oRangeBig.Top) + 20;
                     oSheet.Shapes.AddPicture(picadd + ListDate_LB.SelectedItem + ProductName + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
-
 
                 }
             }
@@ -2453,8 +2467,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 15, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
@@ -2730,8 +2750,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -2987,8 +3013,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }                        
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -3181,8 +3213,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -3279,8 +3317,6 @@ namespace LM2ReadandList
                     oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
                     //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                 }
-
-
 
 
                 //int serialnooneX = 10, serialnooneY = 239;
@@ -3385,8 +3421,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -3629,8 +3671,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
@@ -3844,8 +3892,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
@@ -4131,8 +4185,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
@@ -4294,8 +4354,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -4817,8 +4883,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -4965,8 +5037,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -5160,8 +5238,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
                     {
@@ -5321,8 +5405,14 @@ namespace LM2ReadandList
                         }
 
                         //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
+                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
+                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
+                        {
+                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
+                        }
                     }
                     else if (Client.ToUpper().StartsWith("EMB"))
                     {
