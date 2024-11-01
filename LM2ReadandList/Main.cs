@@ -84,6 +84,12 @@ namespace LM2ReadandList
         string CDI = "CDI", ControlDevicesLLC = "CONTROL DEVICES, LLC"; //20240204
         string connectionQCReport = "";
 
+        //20241101 
+        string MC027 = "";//品號
+        string MC028 = "";//描述
+        string PhotoTemp = "";//嘜頭LOGO圖片
+
+
         public Main()
         {
             //資料庫路徑與位子
@@ -1669,87 +1675,12 @@ namespace LM2ReadandList
                         ProductName = reader.GetString(reader.GetOrdinal("ProductName")).Trim();
                     }
                 }
-            }
-            //20240907 檢查有無設定客製嘜頭
-            string MC027 = "", MC028 = "";
-            string PhotoString = "", PhotoLogo = "";
-            using (conn = new SqlConnection(AMS3_ConnectionString))
-            {
-                conn.Open();
+            }            
 
-                selectCmd = "Select Z.成品品號類別,Z.品號,Z.描述,Z.C外箱嘜頭,Z.M外箱嘜頭 ,isnull(C14.MB015_Logo,'') C虛擬嘜頭建立程式LOGO ,isnull(M09.MB015_Logo,'') M虛擬嘜頭建立程式LOGO " +
-                    "from " +
-                    "( " +
-                    "   SELECT CASE when (len(MC001) >= 26 and SUBSTRING(MC001,1,3) = 'MPA') then '業務鋁瓶商品' when (len(MC001) >= 26 and (SUBSTRING(MC001,1,1) = 'C'or SUBSTRING(MC001,1,1) = 'H' or SUBSTRING(MC001,1,1) = 'T') ) then '業務複合瓶商品' else '' end 成品品號類別 " +
-                    "   ,isnull(MC027,'') 品號, isnull(MC028,'') 描述, substring(MC001,23,2) C外箱嘜頭,substring(MC001,21,2) M外箱嘜頭 " +
-                    "    FROM [INVMC] where MC001 = '" + ProductNo_L.Text + "' and STOP_DATE is null " +
-                    ") Z " +
-                    "left join INVMB as C14 ON C14.MB002 = '外箱嘜頭' and C14.MB003 = Z.C外箱嘜頭 and C14.MB001 = Z.成品品號類別 and C14.STOP_DATE is null and C14.MB001 = '業務複合瓶商品' " +
-                    "left join INVMB as M09 ON M09.MB002 = '外箱嘜頭' and M09.MB003 = Z.M外箱嘜頭 and M09.MB001 = Z.成品品號類別 and M09.STOP_DATE is null and M09.MB001 = '業務鋁瓶商品' ";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        MC027 = reader.GetString(reader.GetOrdinal("品號"));
-                        MC028 = reader.GetString(reader.GetOrdinal("描述"));
-                        if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務鋁瓶商品")
-                        {
-                            PhotoLogo = reader.GetString(reader.GetOrdinal("M虛擬嘜頭建立程式LOGO"));
-                        }
-                        else if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務複合瓶商品")
-                        {
-                            PhotoLogo = reader.GetString(reader.GetOrdinal("C虛擬嘜頭建立程式LOGO"));
-                        }
-                    }
-                    else
-                    {
-                        MC027 = string.Empty;
-                        MC028 = string.Empty;
-                        PhotoLogo = string.Empty;
-                    }
-                }
-            }
+            //20241101_嘜頭LOGO抓品號設定
+            informationcheck(ProductNo_L.Text);
 
-            //20241031 嘜頭Logo更新寫法
-            PhotoString = string.Empty;
-            using (conn = new SqlConnection(AMS21_ConnectionString))
-            {
-                conn.Open();
-                selectCmd = "SELECT [packingmarks] packingmarks,[base64] base64 " +
-                    "FROM [AMSSystem].[dbo].[PackingMarks] " +
-                    "where [packingmarks] = '" + PhotoLogo + "' and STOP_DATE is null ";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            PhotoString = reader.GetString(reader.GetOrdinal("base64"));
-                        }
-                    }
-                    else
-                    {
-                        PhotoString = string.Empty;
-                    }
-                }
-            }
-            // Convert Base64 String to byte[]
-            byte[] imageBytes = Convert.FromBase64String(PhotoString);
-            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
-
-            // Convert byte[] to Image
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = Image.FromStream(ms, true);
-
-            PictureBox box = new PictureBox();
-            box.Image = image;
-
-            string PhotoTemp = Application.StartupPath + @"\PhotoTemp.png";
-            box.Image.Save(PhotoTemp);
-
-            oSheet.Shapes.AddPicture(PhotoTemp, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 215, 125);
+            oSheet.Shapes.AddPicture(PhotoTemp, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 200, 135);
 
             //DELETE PICTURE FILE
             if (File.Exists(PhotoTemp))
@@ -2056,37 +1987,7 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[12, 11] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 16, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-
+                
 
                 string FirstCNO = "";
 
@@ -2142,33 +2043,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 8] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -2224,39 +2098,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[14, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 18, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-
-
-
 
                 string FirstCNO = "";
 
@@ -2465,32 +2306,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 8] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     //20240508 HK客製化嘜頭 
                     else if (Client.Contains("HK Army"))
@@ -2519,9 +2334,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 8] = reader.GetString(reader.GetOrdinal("ProductCode"));
                             }
                         }
-
-                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -2576,37 +2388,6 @@ namespace LM2ReadandList
 
                 //棧板號
                 oSheet.Cells[9, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-
 
                 //int serialnooneX = 7, serialnooneY = 209;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -2748,32 +2529,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
                     //20240126 HK客製化嘜頭 fix
                     else if (Client.Contains("HK Army"))
@@ -2802,9 +2557,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(reader.GetOrdinal("ProductCode"));
                             }
                         }
-
-                        oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(path, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -2858,37 +2610,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[12, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-
 
                 //int serialnooneX = 10, serialnooneY = 212;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -3010,33 +2731,7 @@ namespace LM2ReadandList
                                 //載入客戶產品型號
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
-                        }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }                        
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
+                        }                    
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -3064,8 +2759,6 @@ namespace LM2ReadandList
                     float LeftBig = (float)((double)oRangeBig.Left) + 30;
                     float TopBig = (float)((double)oRangeBig.Top) + 20;
                     oSheet.Shapes.AddPicture(picadd + ListDate_LB.SelectedItem + ProductName + WhereBox_LB.SelectedItem + ".png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftBig, TopBig, 250, 250);
-
-
                 }
             }
             else if (Aboxof == "6")
@@ -3090,36 +2783,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo  //Wicked Sportz
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo  //Wicked Sportz
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 10, serialnooneY = 309;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -3211,33 +2874,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -3287,37 +2923,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo  //Wicked Sportz
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo  //Wicked Sportz
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-
 
                 //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -3419,32 +3024,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse,Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -3497,36 +3076,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -3669,32 +3218,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -3745,37 +3268,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 19, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -3890,32 +3382,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 8] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -3967,36 +3433,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[11, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 8, serialnooneY = 192;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -4183,32 +3619,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -4259,36 +3669,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[12, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 string FirstCNO = "";
 
@@ -4352,27 +3732,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -4424,31 +3783,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[19, 11] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 string FirstCNO = "";
 
@@ -4502,21 +3836,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 9] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -4576,31 +3895,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[19, 11] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 string FirstCNO = "";
 
@@ -4664,21 +3958,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 9] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -4714,36 +3993,6 @@ namespace LM2ReadandList
 
                 //棧板號
                 oSheet.Cells[9, 10] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 7, serialnooneY = 209;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -4881,32 +4130,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -4955,31 +4178,6 @@ namespace LM2ReadandList
 
                 //20200410 加入PO
                 oSheet.Cells[10, 8] = CustomerPO_L.Text;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 string FirstCNO = "";
 
@@ -5035,34 +4233,7 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
                     }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse,Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-
                     //20240907 品號設定嘜頭資訊
                     if (MC027 != "")
                     {
@@ -5128,31 +4299,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -5236,27 +4382,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 3, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -5306,31 +4431,6 @@ namespace LM2ReadandList
 
                 //載入棧板號
                 oSheet.Cells[10, 8] = PalletNo;
-
-                if (Client.Trim().CompareTo("Wicked Sportz") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                if (Client.Trim().CompareTo("達成數位") == 0)
-                {
-                    //該客戶要其自己的logo
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_DCT.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    // Application.StartupPath + @".\LOGO-ENAIRGY_Wicked Sportz.jpg"
-                }
-                else if (Client.Trim().Contains("ADRENALICIA S.L."))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_RogerSports.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
-                else if (Client.ToUpper().StartsWith("EMB"))
-                {
-                    oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                    //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                }
 
                 //int serialnooneX = 10, serialnooneY = 239;
                 string serialnooneadd = @"C:\SerialNoCode\";
@@ -5403,32 +4503,6 @@ namespace LM2ReadandList
                                 oSheet.Cells[2, 7] = reader.GetString(0);
                             }
                         }
-
-                        //LOGO
-                        if (PackingMarks.Trim().CompareTo("SGA-GLADIATAIR") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_GLADIATAIR.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                        else if (PackingMarks.Trim().CompareTo("SGA-SGA") == 0)
-                        {
-                            oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_SGA_SGA.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        }
-                    }
-                    else if (Client.ToUpper().StartsWith("EMB"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_EMB.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
-                    }
-                    else if ((Client.ToUpper().StartsWith("HATSAN") == true) && PackingMarks.Trim().CompareTo("HATSAN") == 0)
-                    {
-                        //LOGO
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_HATSAN.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 12, 17, 212, 125);
-                    }
-                    else if (Client.ToUpper().StartsWith("PAINTBALL SPORTS"))
-                    {
-                        oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 212, 125);
-                        //oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Paintball Sports GmbH.png", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, 2, 17, 212, 125);
                     }
 
                     //20240907 品號設定嘜頭資訊
@@ -5797,121 +4871,17 @@ namespace LM2ReadandList
             //設定工作表
             oSheet = (Excel.Worksheet)oWB.ActiveSheet;
 
-            //7*3.5
-            if (PackingMarks.Trim().CompareTo("Regulator 3000psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Regulator 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi+Regulator") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-48ci 3000psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_48ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-38ci 3000psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_38ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi+Regulator") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-13ci 3000psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_13ci 3000psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-12oz") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_12oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-20oz") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_20oz.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-68ci(Assault) 4500psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Assault) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-68ci(Snow White) 4500psi") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci(Snow White) 4500psi.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego_68ci_UL") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_68ci_UL.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-26ci 3000psi_Regulator") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_26ci_Regulator.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-BL-xx-10_1.8K") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_BL-xx-10.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-BL-xx-13_5K") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_BL-xx-13.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-Nipple") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Nipple.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-Regulator Gauge") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Regulator Gauge.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank_0.8L") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank_0.8L.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
-            else if (PackingMarks.Trim().CompareTo("Estratego-Totem_Air_UL_Tank_1.5L") == 0)
-            {
-                //該客戶要其自己的logo
-                oSheet.Shapes.AddPicture(Application.StartupPath + @".\LOGO_Estratego_Totem_Air_UL_Tank_1.5L.png", Microsoft.Office.Core.MsoTriState.msoFalse,
-                                Microsoft.Office.Core.MsoTriState.msoTrue, 0, 0, 545, 450);
-            }
+            Excel.Range oRangeLogo = (Excel.Range)oSheet.Cells[1, 1]; 
+            float LeftLogo = (float)((double)oRangeLogo.Left) + 5;
+            float TopLogo = (float)((double)oRangeLogo.Top) + 5;
+
+            informationcheck(ProductNo_L.Text);
+
+            oSheet.Shapes.AddPicture(PhotoTemp, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoTrue, LeftLogo, TopLogo, 545, 450);
+
+            //DELETE PICTURE FILE
+            if (File.Exists(PhotoTemp))
+                File.Delete(PhotoTemp);
 
             Excel.Sheets excelSheets = oWB.Worksheets;
             //顯示EXCEL
@@ -11976,6 +10946,90 @@ namespace LM2ReadandList
             }
 
             labelMessage.Text = result;
+        }
+
+        private void informationcheck(string MC001_F)
+        {
+            string PhotoLogo_Temp = string.Empty;
+            string PhotoString = string.Empty;
+
+            using (conn = new SqlConnection(AMS3_ConnectionString))
+            {
+                conn.Open();
+
+                selectCmd = "Select Z.成品品號類別,Z.品號,Z.描述,Z.C外箱嘜頭,Z.M外箱嘜頭 ,isnull(C14.MB015_Logo,'') C虛擬嘜頭建立程式LOGO ,isnull(M09.MB015_Logo,'') M虛擬嘜頭建立程式LOGO " +
+                    "from " +
+                    "( " +
+                    "   SELECT CASE when (len(MC001) >= 26 and SUBSTRING(MC001,1,3) = 'MPA') then '業務鋁瓶商品' when (len(MC001) >= 26 and (SUBSTRING(MC001,1,1) = 'C'or SUBSTRING(MC001,1,1) = 'H' or SUBSTRING(MC001,1,1) = 'T') ) then '業務複合瓶商品' else '' end 成品品號類別 " +
+                    "   ,isnull(MC027,'') 品號, isnull(MC028,'') 描述, substring(MC001,23,2) C外箱嘜頭,substring(MC001,21,2) M外箱嘜頭 " +
+                    "    FROM [INVMC] where MC001 = '" + MC001_F + "' and STOP_DATE is null " +
+                    ") Z " +
+                    "left join INVMB as C14 ON C14.MB002 = '外箱嘜頭' and C14.MB003 = Z.C外箱嘜頭 and C14.MB001 = Z.成品品號類別 and C14.STOP_DATE is null and C14.MB001 = '業務複合瓶商品' " +
+                    "left join INVMB as M09 ON M09.MB002 = '外箱嘜頭' and M09.MB003 = Z.M外箱嘜頭 and M09.MB001 = Z.成品品號類別 and M09.STOP_DATE is null and M09.MB001 = '業務鋁瓶商品' ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        MC027 = reader.GetString(reader.GetOrdinal("品號"));
+                        MC028 = reader.GetString(reader.GetOrdinal("描述"));
+                        if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務鋁瓶商品")
+                        {
+                            PhotoLogo_Temp = reader.GetString(reader.GetOrdinal("M虛擬嘜頭建立程式LOGO"));
+                        }
+                        else if (reader.GetString(reader.GetOrdinal("成品品號類別")) == "業務複合瓶商品")
+                        {
+                            PhotoLogo_Temp = reader.GetString(reader.GetOrdinal("C虛擬嘜頭建立程式LOGO"));
+                        }
+                    }
+                    else
+                    {
+                        MC027 = string.Empty;
+                        MC028 = string.Empty;
+                        PhotoLogo_Temp = "AMS";
+                    }
+                }
+            }
+
+            //20241031 嘜頭Logo更新寫法
+            using (conn = new SqlConnection(AMS21_ConnectionString))
+            {
+                conn.Open();
+                selectCmd = "SELECT [packingmarks] packingmarks,[base64] base64 " +
+                    "FROM [AMSSystem].[dbo].[PackingMarks] " +
+                    "where [packingmarks] = '" + PhotoLogo_Temp + "' and STOP_DATE is null ";
+                cmd = new SqlCommand(selectCmd, conn);
+                using (reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            PhotoString = reader.GetString(reader.GetOrdinal("base64"));
+                        }
+                    }
+                    else
+                    {
+                        PhotoString = string.Empty;
+                    }
+                }
+            }
+
+            // Convert Base64 String to byte[]
+            byte[] imageBytes = Convert.FromBase64String(PhotoString);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+            // Convert byte[] to Image
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = Image.FromStream(ms, true);
+
+            PictureBox box = new PictureBox();
+            box.Image = image;
+
+            PhotoTemp = Application.StartupPath + @"\PhotoTemp.png";
+            box.Image.Save(PhotoTemp);
+
+            return;
         }
     }
 }
