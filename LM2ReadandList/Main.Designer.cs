@@ -87,12 +87,12 @@
             this.ProductName_CB = new System.Windows.Forms.ComboBox();
             this.ListLabel = new System.Windows.Forms.Label();
             this.UserListLabel = new System.Windows.Forms.Label();
-            this.User_LB = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.LuckButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ListINFOGroupBox = new System.Windows.Forms.GroupBox();
+            this.ProductNo_L = new System.Windows.Forms.Label();
             this.labelClient = new System.Windows.Forms.Label();
             this.PalletNoLabel = new System.Windows.Forms.Label();
             this.ComplexLabel = new System.Windows.Forms.Label();
@@ -137,7 +137,7 @@
             this.textBoxSerialNoScan = new System.Windows.Forms.TextBox();
             this.textBoxSerialNoType = new System.Windows.Forms.TextBox();
             this.labelSerialNoCode = new System.Windows.Forms.Label();
-            this.ProductNo_L = new System.Windows.Forms.Label();
+            this.User_LB = new System.Windows.Forms.Label();
             this.KeyInGroupBox.SuspendLayout();
             this.ReadyGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -180,7 +180,7 @@
             // 
             this.TipTextLabel.AutoSize = true;
             this.TipTextLabel.BackColor = System.Drawing.Color.Lime;
-            this.TipTextLabel.Font = new System.Drawing.Font("新細明體", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TipTextLabel.Font = new System.Drawing.Font("PMingLiU", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TipTextLabel.Location = new System.Drawing.Point(5, 160);
             this.TipTextLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.TipTextLabel.Name = "TipTextLabel";
@@ -192,7 +192,7 @@
             // BottomLabel
             // 
             this.BottomLabel.BackColor = System.Drawing.Color.DarkOrange;
-            this.BottomLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BottomLabel.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BottomLabel.Location = new System.Drawing.Point(377, 106);
             this.BottomLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BottomLabel.Name = "BottomLabel";
@@ -202,7 +202,7 @@
             // BottleLabel
             // 
             this.BottleLabel.BackColor = System.Drawing.Color.DarkOrange;
-            this.BottleLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BottleLabel.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BottleLabel.Location = new System.Drawing.Point(377, 34);
             this.BottleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BottleLabel.Name = "BottleLabel";
@@ -211,7 +211,7 @@
             // 
             // BottomTextBox
             // 
-            this.BottomTextBox.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BottomTextBox.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BottomTextBox.Location = new System.Drawing.Point(116, 89);
             this.BottomTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.BottomTextBox.MaxLength = 8;
@@ -225,7 +225,7 @@
             // 
             // BottleTextBox
             // 
-            this.BottleTextBox.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BottleTextBox.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BottleTextBox.Location = new System.Drawing.Point(116, 16);
             this.BottleTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.BottleTextBox.MaxLength = 8;
@@ -239,7 +239,7 @@
             // 
             // SQLBottomButton4
             // 
-            this.SQLBottomButton4.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.SQLBottomButton4.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.SQLBottomButton4.Location = new System.Drawing.Point(413, 102);
             this.SQLBottomButton4.Margin = new System.Windows.Forms.Padding(4);
             this.SQLBottomButton4.Name = "SQLBottomButton4";
@@ -253,7 +253,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Font = new System.Drawing.Font("PMingLiU", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(9, 89);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -263,7 +263,7 @@
             // 
             // SQLBodyButton
             // 
-            this.SQLBodyButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.SQLBodyButton.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.SQLBodyButton.Location = new System.Drawing.Point(413, 26);
             this.SQLBodyButton.Margin = new System.Windows.Forms.Padding(4);
             this.SQLBodyButton.Name = "SQLBodyButton";
@@ -277,7 +277,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Font = new System.Drawing.Font("PMingLiU", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(9, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -287,6 +287,7 @@
             // 
             // ReadyGroupBox
             // 
+            this.ReadyGroupBox.Controls.Add(this.User_LB);
             this.ReadyGroupBox.Controls.Add(this.StepLabel5);
             this.ReadyGroupBox.Controls.Add(this.ListDate_LB);
             this.ReadyGroupBox.Controls.Add(this.ColorListBox);
@@ -304,7 +305,6 @@
             this.ReadyGroupBox.Controls.Add(this.ProductName_CB);
             this.ReadyGroupBox.Controls.Add(this.ListLabel);
             this.ReadyGroupBox.Controls.Add(this.UserListLabel);
-            this.ReadyGroupBox.Controls.Add(this.User_LB);
             this.ReadyGroupBox.Location = new System.Drawing.Point(4, 22);
             this.ReadyGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ReadyGroupBox.Name = "ReadyGroupBox";
@@ -317,7 +317,7 @@
             // 
             this.StepLabel5.AutoSize = true;
             this.StepLabel5.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.StepLabel5.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StepLabel5.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel5.ForeColor = System.Drawing.Color.Yellow;
             this.StepLabel5.Location = new System.Drawing.Point(549, 86);
             this.StepLabel5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -328,7 +328,7 @@
             // 
             // ListDate_LB
             // 
-            this.ListDate_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ListDate_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ListDate_LB.FormattingEnabled = true;
             this.ListDate_LB.ItemHeight = 26;
             this.ListDate_LB.Location = new System.Drawing.Point(228, 111);
@@ -341,7 +341,7 @@
             // 
             // ColorListBox
             // 
-            this.ColorListBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ColorListBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ColorListBox.FormattingEnabled = true;
             this.ColorListBox.ItemHeight = 26;
             this.ColorListBox.Location = new System.Drawing.Point(8, 111);
@@ -355,7 +355,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label10.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label10.Location = new System.Drawing.Point(12, 86);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
@@ -366,7 +366,7 @@
             // BoxRangeLabel
             // 
             this.BoxRangeLabel.AutoSize = true;
-            this.BoxRangeLabel.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BoxRangeLabel.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BoxRangeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BoxRangeLabel.Location = new System.Drawing.Point(419, 112);
             this.BoxRangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -424,7 +424,7 @@
             this.LinkLMCheckBox.AutoSize = true;
             this.LinkLMCheckBox.Checked = true;
             this.LinkLMCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.LinkLMCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.LinkLMCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LinkLMCheckBox.Location = new System.Drawing.Point(259, 5);
             this.LinkLMCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.LinkLMCheckBox.Name = "LinkLMCheckBox";
@@ -436,7 +436,7 @@
             // CustomerBarCodeCheckBox
             // 
             this.CustomerBarCodeCheckBox.AutoSize = true;
-            this.CustomerBarCodeCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerBarCodeCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.CustomerBarCodeCheckBox.Location = new System.Drawing.Point(259, 35);
             this.CustomerBarCodeCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CustomerBarCodeCheckBox.Name = "CustomerBarCodeCheckBox";
@@ -448,7 +448,7 @@
             // WeightCheckBox
             // 
             this.WeightCheckBox.AutoSize = true;
-            this.WeightCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.WeightCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WeightCheckBox.Location = new System.Drawing.Point(259, 66);
             this.WeightCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.WeightCheckBox.Name = "WeightCheckBox";
@@ -474,7 +474,7 @@
             // NoLMCheckBox
             // 
             this.NoLMCheckBox.AutoSize = true;
-            this.NoLMCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NoLMCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.NoLMCheckBox.Location = new System.Drawing.Point(5, 5);
             this.NoLMCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMCheckBox.Name = "NoLMCheckBox";
@@ -488,7 +488,7 @@
             // 
             this.ComplexQRCodeCheckBox.AutoSize = true;
             this.ComplexQRCodeCheckBox.Enabled = false;
-            this.ComplexQRCodeCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ComplexQRCodeCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ComplexQRCodeCheckBox.Location = new System.Drawing.Point(275, 98);
             this.ComplexQRCodeCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.ComplexQRCodeCheckBox.Name = "ComplexQRCodeCheckBox";
@@ -504,7 +504,7 @@
             this.AutoPrintCheckBox.AutoSize = true;
             this.AutoPrintCheckBox.Checked = true;
             this.AutoPrintCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoPrintCheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.AutoPrintCheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.AutoPrintCheckBox.Location = new System.Drawing.Point(5, 36);
             this.AutoPrintCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoPrintCheckBox.Name = "AutoPrintCheckBox";
@@ -518,7 +518,7 @@
             this.PrintCheckBox.AutoSize = true;
             this.PrintCheckBox.Checked = true;
             this.PrintCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PrintCheckBox.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PrintCheckBox.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PrintCheckBox.Location = new System.Drawing.Point(5, 69);
             this.PrintCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.PrintCheckBox.Name = "PrintCheckBox";
@@ -543,7 +543,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label9.Font = new System.Drawing.Font("PMingLiU", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label9.Location = new System.Drawing.Point(199, 69);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
@@ -555,7 +555,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label8.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label8.Location = new System.Drawing.Point(15, 8);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
@@ -566,7 +566,7 @@
             // RegulatorPrintButton
             // 
             this.RegulatorPrintButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.RegulatorPrintButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.RegulatorPrintButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.RegulatorPrintButton.Location = new System.Drawing.Point(35, 51);
             this.RegulatorPrintButton.Margin = new System.Windows.Forms.Padding(4);
             this.RegulatorPrintButton.Name = "RegulatorPrintButton";
@@ -599,7 +599,7 @@
             // SecondPrintCheckBox
             // 
             this.SecondPrintCheckBox.AutoSize = true;
-            this.SecondPrintCheckBox.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.SecondPrintCheckBox.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.SecondPrintCheckBox.Location = new System.Drawing.Point(15, 71);
             this.SecondPrintCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.SecondPrintCheckBox.Name = "SecondPrintCheckBox";
@@ -612,7 +612,7 @@
             // SecondPrintButton
             // 
             this.SecondPrintButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.SecondPrintButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.SecondPrintButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.SecondPrintButton.Location = new System.Drawing.Point(357, 45);
             this.SecondPrintButton.Margin = new System.Windows.Forms.Padding(4);
             this.SecondPrintButton.Name = "SecondPrintButton";
@@ -626,7 +626,7 @@
             // PrinterRefreshButton
             // 
             this.PrinterRefreshButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.PrinterRefreshButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PrinterRefreshButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PrinterRefreshButton.Location = new System.Drawing.Point(437, 9);
             this.PrinterRefreshButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrinterRefreshButton.Name = "PrinterRefreshButton";
@@ -640,7 +640,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.Font = new System.Drawing.Font("PMingLiU", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label7.ForeColor = System.Drawing.Color.Red;
             this.label7.Location = new System.Drawing.Point(199, 85);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -653,7 +653,7 @@
             // PrinterButton
             // 
             this.PrinterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.PrinterButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PrinterButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PrinterButton.Location = new System.Drawing.Point(357, 8);
             this.PrinterButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrinterButton.Name = "PrinterButton";
@@ -669,7 +669,7 @@
             this.SecondPrinterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.SecondPrinterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.SecondPrinterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SecondPrinterComboBox.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.SecondPrinterComboBox.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.SecondPrinterComboBox.FormattingEnabled = true;
             this.SecondPrinterComboBox.Location = new System.Drawing.Point(169, 36);
             this.SecondPrinterComboBox.Margin = new System.Windows.Forms.Padding(4);
@@ -681,7 +681,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.Location = new System.Drawing.Point(7, 40);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -695,7 +695,7 @@
             this.FirstPrinterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.FirstPrinterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.FirstPrinterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FirstPrinterComboBox.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.FirstPrinterComboBox.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FirstPrinterComboBox.FormattingEnabled = true;
             this.FirstPrinterComboBox.Location = new System.Drawing.Point(169, 4);
             this.FirstPrinterComboBox.Margin = new System.Windows.Forms.Padding(4);
@@ -708,7 +708,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.Location = new System.Drawing.Point(7, 9);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -732,7 +732,7 @@
             // InsertcheckBox
             // 
             this.InsertcheckBox.AutoSize = true;
-            this.InsertcheckBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.InsertcheckBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.InsertcheckBox.Location = new System.Drawing.Point(21, 16);
             this.InsertcheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.InsertcheckBox.Name = "InsertcheckBox";
@@ -754,7 +754,7 @@
             // 
             this.StepLabel4.AutoSize = true;
             this.StepLabel4.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.StepLabel4.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StepLabel4.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel4.ForeColor = System.Drawing.Color.Yellow;
             this.StepLabel4.Location = new System.Drawing.Point(376, 84);
             this.StepLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -767,7 +767,7 @@
             // 
             this.StepLabel3.AutoSize = true;
             this.StepLabel3.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.StepLabel3.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StepLabel3.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel3.ForeColor = System.Drawing.Color.Yellow;
             this.StepLabel3.Location = new System.Drawing.Point(187, 84);
             this.StepLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -780,7 +780,7 @@
             // 
             this.StepLabel2.AutoSize = true;
             this.StepLabel2.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.StepLabel2.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StepLabel2.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel2.ForeColor = System.Drawing.Color.Yellow;
             this.StepLabel2.Location = new System.Drawing.Point(549, 16);
             this.StepLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -793,7 +793,7 @@
             // 
             this.StepLabel1.AutoSize = true;
             this.StepLabel1.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.StepLabel1.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StepLabel1.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StepLabel1.ForeColor = System.Drawing.Color.Yellow;
             this.StepLabel1.Location = new System.Drawing.Point(187, 16);
             this.StepLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -805,7 +805,7 @@
             // BoxsLabel
             // 
             this.BoxsLabel.AutoSize = true;
-            this.BoxsLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.BoxsLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.BoxsLabel.Location = new System.Drawing.Point(417, 86);
             this.BoxsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BoxsLabel.Name = "BoxsLabel";
@@ -815,7 +815,7 @@
             // 
             // WhereBox_LB
             // 
-            this.WhereBox_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.WhereBox_LB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WhereBox_LB.FormattingEnabled = true;
             this.WhereBox_LB.ItemHeight = 26;
             this.WhereBox_LB.Location = new System.Drawing.Point(415, 164);
@@ -829,7 +829,7 @@
             // ProductLabel
             // 
             this.ProductLabel.AutoSize = true;
-            this.ProductLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ProductLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ProductLabel.Location = new System.Drawing.Point(232, 16);
             this.ProductLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ProductLabel.Name = "ProductLabel";
@@ -841,7 +841,7 @@
             // 
             this.ProductName_CB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ProductName_CB.Enabled = false;
-            this.ProductName_CB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ProductName_CB.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ProductName_CB.FormattingEnabled = true;
             this.ProductName_CB.Location = new System.Drawing.Point(228, 45);
             this.ProductName_CB.Margin = new System.Windows.Forms.Padding(4);
@@ -854,7 +854,7 @@
             // ListLabel
             // 
             this.ListLabel.AutoSize = true;
-            this.ListLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ListLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ListLabel.Location = new System.Drawing.Point(232, 86);
             this.ListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ListLabel.Name = "ListLabel";
@@ -865,39 +865,13 @@
             // UserListLabel
             // 
             this.UserListLabel.AutoSize = true;
-            this.UserListLabel.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.UserListLabel.Font = new System.Drawing.Font("PMingLiU", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.UserListLabel.Location = new System.Drawing.Point(12, 16);
             this.UserListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.UserListLabel.Name = "UserListLabel";
             this.UserListLabel.Size = new System.Drawing.Size(90, 24);
             this.UserListLabel.TabIndex = 8;
             this.UserListLabel.Text = "Operator";
-            // 
-            // User_LB
-            // 
-            this.User_LB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.User_LB.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.User_LB.FormattingEnabled = true;
-            this.User_LB.Items.AddRange(new object[] {
-            "TESTER",
-            "劉曉芬",
-            "邱美奇",
-            "江雪雲",
-            "潘仙娥",
-            "蔡鳳鎂",
-            "黃麗禎",
-            "江雪娥",
-            "樂慈旻",
-            "譚易澄",
-            "黎惠珍",
-            "雷那杜"});
-            this.User_LB.Location = new System.Drawing.Point(8, 45);
-            this.User_LB.Margin = new System.Windows.Forms.Padding(4);
-            this.User_LB.Name = "User_LB";
-            this.User_LB.Size = new System.Drawing.Size(209, 34);
-            this.User_LB.TabIndex = 7;
-            this.User_LB.TabStop = false;
-            this.User_LB.SelectedIndexChanged += new System.EventHandler(this.User_LB_SelectedIndexChanged);
             // 
             // button2
             // 
@@ -923,7 +897,7 @@
             // 
             // LuckButton
             // 
-            this.LuckButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.LuckButton.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LuckButton.Location = new System.Drawing.Point(111, 505);
             this.LuckButton.Margin = new System.Windows.Forms.Padding(4);
             this.LuckButton.Name = "LuckButton";
@@ -969,10 +943,22 @@
             this.ListINFOGroupBox.TabStop = false;
             this.ListINFOGroupBox.Text = "嘜頭資訊";
             // 
+            // ProductNo_L
+            // 
+            this.ProductNo_L.AutoSize = true;
+            this.ProductNo_L.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ProductNo_L.Location = new System.Drawing.Point(275, 244);
+            this.ProductNo_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ProductNo_L.Name = "ProductNo_L";
+            this.ProductNo_L.Size = new System.Drawing.Size(122, 27);
+            this.ProductNo_L.TabIndex = 16;
+            this.ProductNo_L.Text = "ProductNo";
+            this.ProductNo_L.Visible = false;
+            // 
             // labelClient
             // 
             this.labelClient.AutoSize = true;
-            this.labelClient.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelClient.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelClient.Location = new System.Drawing.Point(275, 166);
             this.labelClient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelClient.Name = "labelClient";
@@ -984,7 +970,7 @@
             // PalletNoLabel
             // 
             this.PalletNoLabel.AutoSize = true;
-            this.PalletNoLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PalletNoLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PalletNoLabel.Location = new System.Drawing.Point(275, 106);
             this.PalletNoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PalletNoLabel.Name = "PalletNoLabel";
@@ -995,7 +981,7 @@
             // ComplexLabel
             // 
             this.ComplexLabel.AutoSize = true;
-            this.ComplexLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ComplexLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ComplexLabel.Location = new System.Drawing.Point(7, 286);
             this.ComplexLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ComplexLabel.Name = "ComplexLabel";
@@ -1006,7 +992,7 @@
             // StorageLabel
             // 
             this.StorageLabel.AutoSize = true;
-            this.StorageLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.StorageLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.StorageLabel.Location = new System.Drawing.Point(7, 256);
             this.StorageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StorageLabel.Name = "StorageLabel";
@@ -1017,7 +1003,7 @@
             // PrintLabel
             // 
             this.PrintLabel.AutoSize = true;
-            this.PrintLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PrintLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PrintLabel.ForeColor = System.Drawing.Color.Navy;
             this.PrintLabel.Location = new System.Drawing.Point(7, 196);
             this.PrintLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -1029,7 +1015,7 @@
             // AssemblyLabel
             // 
             this.AssemblyLabel.AutoSize = true;
-            this.AssemblyLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.AssemblyLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.AssemblyLabel.Location = new System.Drawing.Point(7, 226);
             this.AssemblyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.AssemblyLabel.Name = "AssemblyLabel";
@@ -1040,7 +1026,7 @@
             // CustomerPO_L
             // 
             this.CustomerPO_L.AutoSize = true;
-            this.CustomerPO_L.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.CustomerPO_L.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.CustomerPO_L.Location = new System.Drawing.Point(85, 166);
             this.CustomerPO_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CustomerPO_L.Name = "CustomerPO_L";
@@ -1051,7 +1037,7 @@
             // JumpBoxLabel
             // 
             this.JumpBoxLabel.AutoSize = true;
-            this.JumpBoxLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.JumpBoxLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.JumpBoxLabel.Location = new System.Drawing.Point(275, 22);
             this.JumpBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.JumpBoxLabel.Name = "JumpBoxLabel";
@@ -1063,7 +1049,7 @@
             // ABoxofLabel
             // 
             this.ABoxofLabel.AutoSize = true;
-            this.ABoxofLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ABoxofLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ABoxofLabel.Location = new System.Drawing.Point(7, 136);
             this.ABoxofLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ABoxofLabel.Name = "ABoxofLabel";
@@ -1074,7 +1060,7 @@
             // NowBoxsLabel
             // 
             this.NowBoxsLabel.AutoSize = true;
-            this.NowBoxsLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NowBoxsLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.NowBoxsLabel.Location = new System.Drawing.Point(7, 106);
             this.NowBoxsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.NowBoxsLabel.Name = "NowBoxsLabel";
@@ -1085,7 +1071,7 @@
             // Product_L
             // 
             this.Product_L.AutoSize = true;
-            this.Product_L.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Product_L.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Product_L.ForeColor = System.Drawing.Color.Navy;
             this.Product_L.Location = new System.Drawing.Point(7, 76);
             this.Product_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -1097,7 +1083,7 @@
             // ListDateLabel
             // 
             this.ListDateLabel.AutoSize = true;
-            this.ListDateLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ListDateLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ListDateLabel.Location = new System.Drawing.Point(7, 46);
             this.ListDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ListDateLabel.Name = "ListDateLabel";
@@ -1108,7 +1094,7 @@
             // UserLabel
             // 
             this.UserLabel.AutoSize = true;
-            this.UserLabel.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.UserLabel.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.UserLabel.Location = new System.Drawing.Point(7, 16);
             this.UserLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.UserLabel.Name = "UserLabel";
@@ -1162,7 +1148,7 @@
             this.dataGridView1.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1225,7 +1211,7 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.PrintButton.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.PrintButton.Location = new System.Drawing.Point(487, 505);
             this.PrintButton.Margin = new System.Windows.Forms.Padding(4);
             this.PrintButton.Name = "PrintButton";
@@ -1238,7 +1224,7 @@
             // 
             // RefreshhButton
             // 
-            this.RefreshhButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.RefreshhButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.RefreshhButton.Location = new System.Drawing.Point(5, 505);
             this.RefreshhButton.Margin = new System.Windows.Forms.Padding(4);
             this.RefreshhButton.Name = "RefreshhButton";
@@ -1256,7 +1242,7 @@
             // 
             // HistoryListBox
             // 
-            this.HistoryListBox.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.HistoryListBox.Font = new System.Drawing.Font("PMingLiU", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.HistoryListBox.FormattingEnabled = true;
             this.HistoryListBox.ItemHeight = 26;
             this.HistoryListBox.Location = new System.Drawing.Point(4, 559);
@@ -1292,7 +1278,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("新細明體", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.checkBox1.Font = new System.Drawing.Font("PMingLiU", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.checkBox1.Location = new System.Drawing.Point(356, 90);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
@@ -1305,7 +1291,7 @@
             // WhereSeatLabel
             // 
             this.WhereSeatLabel.AutoSize = true;
-            this.WhereSeatLabel.Font = new System.Drawing.Font("新細明體", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.WhereSeatLabel.Font = new System.Drawing.Font("PMingLiU", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.WhereSeatLabel.Location = new System.Drawing.Point(201, 149);
             this.WhereSeatLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.WhereSeatLabel.Name = "WhereSeatLabel";
@@ -1316,7 +1302,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("新細明體", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Font = new System.Drawing.Font("PMingLiU", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label3.Location = new System.Drawing.Point(7, 149);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -1327,7 +1313,7 @@
             // NoLMCylinderNOTextBox
             // 
             this.NoLMCylinderNOTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.NoLMCylinderNOTextBox.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NoLMCylinderNOTextBox.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.NoLMCylinderNOTextBox.Location = new System.Drawing.Point(16, 71);
             this.NoLMCylinderNOTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoLMCylinderNOTextBox.MaxLength = 12;
@@ -1340,7 +1326,7 @@
             // NoLMCylinderLabel
             // 
             this.NoLMCylinderLabel.AutoSize = true;
-            this.NoLMCylinderLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.NoLMCylinderLabel.Font = new System.Drawing.Font("PMingLiU", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.NoLMCylinderLabel.Location = new System.Drawing.Point(8, 26);
             this.NoLMCylinderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.NoLMCylinderLabel.Name = "NoLMCylinderLabel";
@@ -1375,7 +1361,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1465, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(1426, 19);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel2
@@ -1383,12 +1369,12 @@
             this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(124, 19);
-            this.toolStripStatusLabel2.Text = "20240502 11:25";
+            this.toolStripStatusLabel2.Text = "20241106 09:36";
             // 
             // TodayDataButton
             // 
             this.TodayDataButton.Enabled = false;
-            this.TodayDataButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TodayDataButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TodayDataButton.Location = new System.Drawing.Point(256, 505);
             this.TodayDataButton.Margin = new System.Windows.Forms.Padding(4);
             this.TodayDataButton.Name = "TodayDataButton";
@@ -1437,7 +1423,7 @@
             // 
             this.labelMessage.AutoSize = true;
             this.labelMessage.BackColor = System.Drawing.Color.Lime;
-            this.labelMessage.Font = new System.Drawing.Font("新細明體", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelMessage.Font = new System.Drawing.Font("PMingLiU", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelMessage.Location = new System.Drawing.Point(8, 160);
             this.labelMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMessage.Name = "labelMessage";
@@ -1448,7 +1434,7 @@
             // textBoxSerialNoScan
             // 
             this.textBoxSerialNoScan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBoxSerialNoScan.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxSerialNoScan.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.textBoxSerialNoScan.Location = new System.Drawing.Point(15, 89);
             this.textBoxSerialNoScan.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSerialNoScan.MaxLength = 10;
@@ -1461,7 +1447,7 @@
             // textBoxSerialNoType
             // 
             this.textBoxSerialNoType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBoxSerialNoType.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxSerialNoType.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.textBoxSerialNoType.Location = new System.Drawing.Point(139, 15);
             this.textBoxSerialNoType.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSerialNoType.MaxLength = 8;
@@ -1475,7 +1461,7 @@
             // 
             this.labelSerialNoCode.AccessibleDescription = "CDI目前固定63加序號前兩碼00";
             this.labelSerialNoCode.AutoSize = true;
-            this.labelSerialNoCode.Font = new System.Drawing.Font("新細明體", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelSerialNoCode.Font = new System.Drawing.Font("PMingLiU", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelSerialNoCode.Location = new System.Drawing.Point(17, 28);
             this.labelSerialNoCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSerialNoCode.Name = "labelSerialNoCode";
@@ -1483,17 +1469,16 @@
             this.labelSerialNoCode.TabIndex = 2;
             this.labelSerialNoCode.Text = "6300";
             // 
-            // ProductNo_L
+            // User_LB
             // 
-            this.ProductNo_L.AutoSize = true;
-            this.ProductNo_L.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ProductNo_L.Location = new System.Drawing.Point(275, 244);
-            this.ProductNo_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ProductNo_L.Name = "ProductNo_L";
-            this.ProductNo_L.Size = new System.Drawing.Size(122, 27);
-            this.ProductNo_L.TabIndex = 16;
-            this.ProductNo_L.Text = "ProductNo";
-            this.ProductNo_L.Visible = false;
+            this.User_LB.AutoSize = true;
+            this.User_LB.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.User_LB.Font = new System.Drawing.Font("PMingLiU", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.User_LB.Location = new System.Drawing.Point(16, 49);
+            this.User_LB.Name = "User_LB";
+            this.User_LB.Size = new System.Drawing.Size(91, 30);
+            this.User_LB.TabIndex = 51;
+            this.User_LB.Text = "label11";
             // 
             // Main
             // 
@@ -1597,7 +1582,6 @@
         private System.Windows.Forms.GroupBox NoLMGroupBox;
         private System.Windows.Forms.TextBox NoLMCylinderNOTextBox;
         private System.Windows.Forms.Label NoLMCylinderLabel;
-        internal System.Windows.Forms.ComboBox User_LB;
         internal System.Windows.Forms.ListBox ListDate_LB;
         internal System.Windows.Forms.ComboBox ProductName_CB;
         internal System.Windows.Forms.ListBox WhereBox_LB;
@@ -1662,6 +1646,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox InsertcheckBox;
         private System.Windows.Forms.Label ProductNo_L;
+        public System.Windows.Forms.Label User_LB;
     }
 }
 

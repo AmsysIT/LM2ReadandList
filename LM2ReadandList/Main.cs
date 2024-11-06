@@ -84,6 +84,10 @@ namespace LM2ReadandList
         string CDI = "CDI", ControlDevicesLLC = "CONTROL DEVICES, LLC"; //20240204
         string connectionQCReport = "";
 
+        //員工資訊 /20241031
+        public string EmpName;
+        public string EmpNo;
+
         //20241101 
         string MC027 = "";//品號
         string MC028 = "";//描述
@@ -115,23 +119,25 @@ namespace LM2ReadandList
         {
             IsChangePrinter = false;
 
-            User_LB.Items.Clear();
+            //User_LB.Items.Clear(); //20241031
             ProductName_CB.Items.Clear();
+
+            User_LB.Text = EmpNo + " " + EmpName; //20241031
 
             using (conn = new SqlConnection(myConnectionString))
             {
                 conn.Open();
 
-                //載入員工
-                selectCmd = "SELECT vchTestersNo,vchTestersName FROM [LaserMarkTesters]  ORDER BY vchTestersNo";
-                cmd = new SqlCommand(selectCmd, conn);
-                using (reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        User_LB.Items.Add(reader.GetString(reader.GetOrdinal("vchTestersNo")) + " " + reader.GetString(reader.GetOrdinal("vchTestersName")));
-                    }
-                }
+                ////載入員工 //20241031
+                //selectCmd = "SELECT vchTestersNo,vchTestersName FROM [LaserMarkTesters]  ORDER BY vchTestersNo";
+                //cmd = new SqlCommand(selectCmd, conn);
+                //using (reader = cmd.ExecuteReader())
+                //{
+                //    while (reader.Read())
+                //    {
+                //        User_LB.Items.Add(reader.GetString(reader.GetOrdinal("vchTestersNo")) + " " + reader.GetString(reader.GetOrdinal("vchTestersName")));
+                //    }
+                //}
 
                 //載入產品名稱
                 selectCmd = "SELECT DISTINCT [ProductName] FROM [ShippingHead]  order by [ProductName] ";
@@ -158,6 +164,84 @@ namespace LM2ReadandList
             selectCmd = "SELECT vchBoxs FROM ShippingHead where [DemandNo] = '2201-20200409001' and ( [ProductNo] = '4C8208226188138030' or [ProductNo] = '4C7208226188100030' ) ";
             sqlAdapter = new SqlDataAdapter(selectCmd, myConnectionString);
             sqlAdapter.Fill(SDT);
+
+
+
+
+            //20241031 //from SelectedIndexChanged
+            ID = User_LB.Text.Remove(6);
+            User = User_LB.Text.Remove(0, 7);
+
+            //身分確認
+            DialogResult result = MessageBox.Show("工號：" + ID + "，操作員：" + User + Environment.NewLine + "Work number: " + ID + ", Operator: " + User, "操作員確認 Operator confirmation", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                ProductName_CB.Enabled = true;
+                User_LB.Enabled = false;
+
+                UserLabel.Text = "操作人員：" + EmpNo + " " + EmpName;
+
+                try
+                {
+                    //抓班表
+                    using (conn = new SqlConnection(myConnectionString21))
+                    {
+                        conn.Open();
+
+                        selectCmd = "SELECT C.WorkBeginTime,C.WorkEndTime FROM [HRMDB].[dbo].[AttendanceEmpRank] AS A LEFT JOIN [HRMDB].[dbo].[Employee] AS B ON A.EmployeeId=B.EmployeeId LEFT JOIN [HRMDB].[dbo].[AttendanceRank] AS C ON A.AttendanceRankId=C.AttendanceRankId WHERE A.Date = '" + DateTime.Now.ToString("yyyy-MM-dd 00:00:00.000") + "' and B.Code = '" + ID + "'";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (int.Parse(DateTime.Now.ToString("HHmm").ToString()) >= int.Parse(reader.GetString(0).Replace(":", "")) && int.Parse(DateTime.Now.ToString("HHmm")) <= int.Parse(reader.GetString(1).Replace(":", "")))
+                                {
+                                    worktype = "生產";
+                                }
+                                else
+                                {
+                                    worktype = "加班";
+                                }
+                            }
+                            else
+                            {
+                                worktype = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "當日查無班表";
+                            }
+                        }
+                    }
+
+                    //初始化登錄登出時間
+                    using (conn = new SqlConnection(myConnectionString))
+                    {
+                        conn.Open();
+
+                        selectCmd = "INSERT INTO [LoginPackage] ([OperatorId],[Operator],[LoginTime],[LogoutTime],[Date]) VALUES('" + ID + "','" + User + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.ToString("yyyyMMdd") + "')";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        cmd.ExecuteNonQuery();
+
+                        selectCmd = "SELECT TOP(1) [ID] FROM [LoginPackage] WHERE [OperatorId] = '" + ID + "' ORDER BY [ID] desc";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                toolStripStatusLabel1.Text = reader.GetInt64(0).ToString();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("" + ex);
+                }
+
+                return;
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                ProductName_CB.Enabled = false;
+                return;
+            }
         }
 
         private void LoadListDate()
@@ -10396,7 +10480,7 @@ namespace LM2ReadandList
                 PalletNoLabel.Text = "棧板號：" + APalletof();
             }
         }
-
+        /*//20241031
         private void User_LB_SelectedIndexChanged(object sender, EventArgs e)
         {
             ID = User_LB.SelectedItem.ToString().Remove(6);
@@ -10473,7 +10557,7 @@ namespace LM2ReadandList
                 return;
             }
         }
-
+        */
         private void FirstPrinterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             IsChangePrinter = true;

@@ -14,7 +14,7 @@ namespace LM2ReadandList
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new Form_Login());
             //Application.Run(new CylinderNoWeight());
         }
     }

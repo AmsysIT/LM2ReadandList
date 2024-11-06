@@ -36,7 +36,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>包裝程式</ProductName>
     <PublisherName>AMSYS</PublisherName>
-    <ApplicationRevision>350</ApplicationRevision>
+    <ApplicationRevision>351</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -96,6 +96,12 @@
     <Compile Include="CylinderNoWeight.Designer.cs">
       <DependentUpon>CylinderNoWeight.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Login.designer.cs">
+      <DependentUpon>Form_Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="GetBOM.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -116,6 +122,9 @@
     <EmbeddedResource Include="CylinderNoWeight.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CylinderNoWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Login.resx">
+      <DependentUpon>Form_Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <SubType>Designer</SubType>
