@@ -5705,8 +5705,8 @@ namespace LM2ReadandList
                 }
                 else if (ProductType.Contains("Composite"))
                 {
-                    string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
-                    string CarbonSpec = "", GlassSpec = "", ResinSpec = "";
+                    string ResinLotNo = "", Resin2LotNo = "", CarbonLotNo = "", GlassLotNo = "";
+                    string ResinSpec = "", Resin2Spec = "", CarbonSpec = "", GlassSpec = "";
 
                     using (conn = new SqlConnection(myConnectionString30))
                     {
@@ -5760,99 +5760,207 @@ namespace LM2ReadandList
                             }
                         }
 
-                        selectCmd = "SELECT ResinLotNo, CarbonLotNo, GlassLotNo, CarbonSpec, GlassSpec, ResinSpec FROM [FilamentWinding] WHERE [LotNo] = '" + LotNumber + "' order by id desc";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                ResinLotNo = reader.GetString(0);
-                                CarbonLotNo = reader.GetString(1);
-                                GlassLotNo = reader.GetString(2);
-                                CarbonSpec = reader.GetString(3);
-                                GlassSpec = reader.GetString(4);
-                                ResinSpec = reader.GetString(5);
-                            }
-                        }
-                    }
+                        //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
 
-                    //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
-                    using (conn = new SqlConnection(myConnectionString30))
-                    {
-                        conn.Open();
-
-                        //碳纖
-                        if (CarbonLotNo == "")
+                        //20241112 修正樹脂報告檢查判斷，批號全部皆須檢查
+                        /*
+                        1. AMS-P03 廠內樹脂 (濕繞，玻) -> 檢查樹脂+玻纖
+                        2. AMS-TP01 Towpreg (乾繞，碳) -> 檢查樹脂+碳纖
+                        3. AMS-TB01 Towpreg (乾繞，玻) -> 檢查樹脂+玻纖
+                        */
+                        using (conn1 = new SqlConnection(myConnectionString30))
                         {
-                            Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                            conn1.Open();
+                            //碳纖
+                            selectCmd = "SELECT [CarbonLotNo], [CarbonSpec] FROM [FilamentWinding] " +
+                            "WHERE [LotNo] = '" + LotNumber + "' group by [CarbonLotNo], [CarbonSpec] ";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
-                                if (reader.Read())
+                                while (reader.Read())
                                 {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：118 無碳纖進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
-                                }
-                            }
-                        }
+                                    CarbonLotNo = reader.GetString(0);
+                                    CarbonSpec = reader.GetString(1);
 
-                        //玻纖
-                        if (!ProductNo.StartsWith("9-H"))
-                        {
-                            if (GlassLotNo == "")
-                            {
-                                Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
+                                    if (CarbonLotNo == "")
+                                    {
+                                        Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
+                                    }
+                                    else
+                                    {
+                                        selectCmd1 = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+
+                            //玻纖
+                            selectCmd = "SELECT [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                                "WHERE [LotNo] = '" + LotNumber + "' group by [GlassLotNo], [GlassSpec] ";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
-                                if (reader.Read())
+                                while (reader.Read())
                                 {
-                                    ;
-                                }
-                                else
-                                {
-                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                    GlassLotNo = reader.GetString(0);
+                                    GlassSpec = reader.GetString(1);
+
+                                    if (GlassLotNo == "")
+                                    {
+                                        if (!ProductNo.StartsWith("9-H"))
+                                            Error += "Code：119 無玻纖批號:" + GlassLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
+                                    }
+                                    else
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                Error += "Code：119 無玻纖批號:" + GlassLotNo + " 測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
 
-                        //樹酯
-
-                        if (ResinLotNo == "")
-                        {
-                            Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
+                            //樹脂1
+                            selectCmd = "SELECT [ResinLotNo], [ResinSpec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                                "WHERE [LotNo] = '" + LotNumber + "' group by [ResinLotNo], [ResinSpec],[CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
                             cmd = new SqlCommand(selectCmd, conn);
                             using (reader = cmd.ExecuteReader())
                             {
-                                if (reader.Read())
+                                while (reader.Read())
                                 {
-                                    ;
+                                    ResinLotNo = reader.GetString(0);
+                                    ResinSpec = reader.GetString(1);
+                                    CarbonLotNo = reader.GetString(2);
+                                    CarbonSpec = reader.GetString(3);
+                                    GlassLotNo = reader.GetString(4);
+                                    GlassSpec = reader.GetString(5);
+
+
+                                    if (ResinLotNo == "")
+                                    {
+                                        Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                                    }
+                                    else
+                                    {
+                                        if (ResinSpec.Contains("AMS-TP01"))
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' " +
+                                            "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                        }
+                                        else if (ResinSpec.Contains("AMS-TB01"))
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                            "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                        }
+                                        else
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                            "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                        }
+
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                            }
+                                        }
+                                    }
                                 }
-                                else
+                            }
+
+                            //樹脂2
+                            selectCmd = "SELECT [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                                "WHERE [LotNo] = '" + LotNumber + "' group by [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
+                            cmd = new SqlCommand(selectCmd, conn);
+                            using (reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
                                 {
-                                    Error += "Code：120 無樹脂測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                    Resin2LotNo = reader.GetString(0);
+                                    Resin2Spec = reader.GetString(1);
+                                    CarbonLotNo = reader.GetString(2);
+                                    CarbonSpec = reader.GetString(3);
+                                    GlassLotNo = reader.GetString(4);
+                                    GlassSpec = reader.GetString(5);
+
+
+                                    if (Resin2LotNo == "")
+                                    {
+                                        Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                                    }
+                                    else
+                                    {
+                                        if (Resin2Spec.Contains("AMS-TP01"))
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='碳' " +
+                                            "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                        }
+                                        else if (Resin2Spec.Contains("AMS-TB01"))
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                            "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                        }
+                                        else
+                                        {
+                                            selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                            "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                            "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                            "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                        }
+
+                                        cmd1 = new SqlCommand(selectCmd1, conn1);
+                                        using (reader1 = cmd1.ExecuteReader())
+                                        {
+                                            if (reader1.Read())
+                                            {
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
-                        
-                    }
-
+                    }                 
 
                     //對應內膽  拉伸、爆破
                     //找出對應內膽批號
@@ -7119,8 +7227,8 @@ namespace LM2ReadandList
             }
             else if (ProductType.Contains("Composite"))
             {
-                string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
-                string CarbonSpec = "", GlassSpec = "", ResinSpec = "";
+                string ResinLotNo = "", Resin2LotNo = "", CarbonLotNo = "", GlassLotNo = "";
+                string ResinSpec = "", Resin2Spec = "", CarbonSpec = "", GlassSpec = "";
 
                 using (conn = new SqlConnection(myConnectionString30))
                 {
@@ -7174,96 +7282,209 @@ namespace LM2ReadandList
                         }
                     }
 
-                    selectCmd = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo, CarbonSpec, GlassSpec,ResinSpec FROM [FilamentWinding] WHERE [LotNo] = '" + LotNumber + "' order by id desc";
-                    cmd = new SqlCommand(selectCmd, conn);
-                    using (reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            ResinLotNo = reader.GetString(0);
-                            CarbonLotNo = reader.GetString(1);
-                            GlassLotNo = reader.GetString(2);
-                            CarbonSpec = reader.GetString(3);
-                            GlassSpec = reader.GetString(4);
-                            ResinSpec = reader.GetString(5);
-                        }
-                    }
-                }
+                    //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
 
-                //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
-                using (conn = new SqlConnection(myConnectionString30))
-                {
-                    conn.Open();
+                    //20241112 修正樹脂報告檢查判斷，批號全部皆須檢查
+                    /*
+                    1. AMS-P03 廠內樹脂 (濕繞，玻) -> 檢查樹脂+玻纖
+                    2. AMS-TP01 Towpreg (乾繞，碳) -> 檢查樹脂+碳纖
+                    3. AMS-TB01 Towpreg (乾繞，玻) -> 檢查樹脂+玻纖
+                    */
 
-                    //碳纖
-                    if (CarbonLotNo == "")
+                    using (conn1 = new SqlConnection(myConnectionString30))
                     {
-                        Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
-                    }
-                    else
-                    {
-                        selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                        conn1.Open();
+
+                        //碳纖
+                        selectCmd = "SELECT [CarbonLotNo], [CarbonSpec] FROM [FilamentWinding] " +
+                        "WHERE [LotNo] = '" + LotNumber + "' group by [CarbonLotNo], [CarbonSpec] ";
                         cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                ;
-                            }
-                            else
-                            {
-                                Error += "Code：118 無碳纖進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
-                            }
-                        }
-                    }
+                                CarbonLotNo = reader.GetString(0);
+                                CarbonSpec = reader.GetString(1);
 
-                    //玻纖                    
-                    if (!ProductNo.StartsWith("9-H"))
-                    {
-                        if (GlassLotNo == "")
-                        {
-                            Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
-                            {
-                                if (reader.Read())
+                                if (CarbonLotNo == "")
                                 {
-                                    ;
+                                    Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                    selectCmd1 = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    using (reader1 = cmd1.ExecuteReader())
+                                    {
+                                        if (reader1.Read())
+                                        {
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                        //玻纖
+                        selectCmd = "SELECT [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                            "WHERE [LotNo] = '" + LotNumber + "' group by [GlassLotNo], [GlassSpec] ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                GlassLotNo = reader.GetString(0);
+                                GlassSpec = reader.GetString(1);
+
+                                if (GlassLotNo == "")
+                                {
+                                    if (!ProductNo.StartsWith("9-H"))
+                                        Error += "Code：119 無玻纖批號:" + GlassLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
+                                }
+                                else
+                                {
+                                    selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    using (reader1 = cmd1.ExecuteReader())
+                                    {
+                                        if (reader1.Read())
+                                        {
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            Error += "Code：119 無玻纖批號:" + GlassLotNo + " 測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //樹脂1
+                        selectCmd = "SELECT [ResinLotNo], [ResinSpec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                            "WHERE [LotNo] = '" + LotNumber + "' group by [ResinLotNo], [ResinSpec],[CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ResinLotNo = reader.GetString(0);
+                                ResinSpec = reader.GetString(1);
+                                CarbonLotNo = reader.GetString(2);
+                                CarbonSpec = reader.GetString(3);
+                                GlassLotNo = reader.GetString(4);
+                                GlassSpec = reader.GetString(5);
+
+
+                                if (ResinLotNo == "")
+                                {
+                                    Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                                }
+                                else
+                                {
+                                    if (ResinSpec.Contains("AMS-TP01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' " +
+                                        "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                    }
+                                    else if (ResinSpec.Contains("AMS-TB01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+                                    else
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    using (reader1 = cmd1.ExecuteReader())
+                                    {
+                                        if (reader1.Read())
+                                        {
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //樹脂2
+                        selectCmd = "SELECT [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                            "WHERE [LotNo] = '" + LotNumber + "' group by [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
+                        cmd = new SqlCommand(selectCmd, conn);
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Resin2LotNo = reader.GetString(0);
+                                Resin2Spec = reader.GetString(1);
+                                CarbonLotNo = reader.GetString(2);
+                                CarbonSpec = reader.GetString(3);
+                                GlassLotNo = reader.GetString(4);
+                                GlassSpec = reader.GetString(5);
+
+
+                                if (Resin2LotNo == "")
+                                {
+                                    Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                                }
+                                else
+                                {
+                                    if (Resin2Spec.Contains("AMS-TP01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='碳' " +
+                                        "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                    }
+                                    else if (Resin2Spec.Contains("AMS-TB01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+                                    else
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    using (reader1 = cmd1.ExecuteReader())
+                                    {
+                                        if (reader1.Read())
+                                        {
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-
-                    //樹酯
-                    if (ResinLotNo == "")
-                    {
-                        Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
-                    }
-                    else
-                    {
-                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                ;
-                            }
-                            else
-                            {
-                                Error += "Code：120 無樹脂測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
-                            }
-                        }
-                    }
-                    
                 }
 
 
@@ -8229,8 +8450,8 @@ namespace LM2ReadandList
             }
             else if (ProductType.Contains("Composite"))
             {
-                string ResinLotNo = "", CarbonLotNo = "", GlassLotNo = "";
-                string CarbonSpec = "", GlassSpec = "", ResinSpec = "";
+                string ResinLotNo = "", Resin2LotNo = "", CarbonLotNo = "", GlassLotNo = "";
+                string ResinSpec = "", Resin2Spec = "", CarbonSpec = "", GlassSpec = "";
 
                 using (conn = new SqlConnection(myConnectionString30))
                 {
@@ -8284,98 +8505,208 @@ namespace LM2ReadandList
                         }
                     }
 
-                    selectCmd = "SELECT  ResinLotNo, CarbonLotNo, GlassLotNo, CarbonSpec, GlassSpec,ResinSpec FROM [FilamentWinding] WHERE [LotNo] = '" + LotNumber + "' order by id desc";
+
+                    //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
+
+                    //20241112 修正樹脂報告檢查判斷，批號全部皆須檢查
+                    /*
+                    1. AMS-P03 廠內樹脂 (濕繞，玻) -> 檢查樹脂+玻纖
+                    2. AMS-TP01 Towpreg (乾繞，碳) -> 檢查樹脂+碳纖
+                    3. AMS-TB01 Towpreg (乾繞，玻) -> 檢查樹脂+玻纖
+                    */
+
+                    using (conn1 = new SqlConnection(myConnectionString30))
+                    { conn1.Open(); 
+                        //碳纖
+                        selectCmd = "SELECT [CarbonLotNo], [CarbonSpec] FROM [FilamentWinding] " +
+                        "WHERE [LotNo] = '" + LotNumber + "' group by [CarbonLotNo], [CarbonSpec] ";
                     cmd = new SqlCommand(selectCmd, conn);
                     using (reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
-                            ResinLotNo = reader.GetString(0);
-                            CarbonLotNo = reader.GetString(1);
-                            GlassLotNo = reader.GetString(2);
-                            CarbonSpec = reader.GetString(3);
-                            GlassSpec = reader.GetString(4);
-                            ResinSpec = reader.GetString(5);
-                        }
-                    }
-                }
+                            CarbonLotNo = reader.GetString(0);
+                            CarbonSpec = reader.GetString(1);
 
-                //20230814_複合瓶 9-H系列無玻纖，其餘碳纖、玻纖、樹酯都要檢查
-                using (conn = new SqlConnection(myConnectionString30))
-                {
-                    conn.Open();
-
-                    //碳纖
-                    if (CarbonLotNo == "")
-                    {
-                        Error += "Code：118 無碳纖繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
-                    }
-                    else
-                    {
-                        selectCmd = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
-                        cmd = new SqlCommand(selectCmd, conn);
-                        using (reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
+                            if (CarbonLotNo == "")
                             {
-                                ;
+                                Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no carbon fiber winding record information, please contact the production management";
                             }
                             else
                             {
-                                Error += "Code：118 無碳纖進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
+                                selectCmd1 = "SELECT * FROM [IQC] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '碳纖' AND A.[LotNo] LIKE '%" + CarbonLotNo + "%'";
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                using (reader1 = cmd1.ExecuteReader())
+                                {
+                                    if (reader1.Read())
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：118 無碳纖批號:" + CarbonLotNo + " 進料報告，請聯繫品保\nNo carbon fiber feed report, please contact quality assurance";
+                                    }
+                                }
                             }
                         }
                     }
 
-                    //玻纖                    
-                    if (!ProductNo.StartsWith("9-H"))
+                    //玻纖
+                    selectCmd = "SELECT [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                        "WHERE [LotNo] = '" + LotNumber + "' group by [GlassLotNo], [GlassSpec] ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
                     {
-                        if (GlassLotNo == "")
+                        while (reader.Read())
                         {
-                            Error += "Code：119 無玻纖繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
-                        }
-                        else
-                        {
-                            selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
-                            cmd = new SqlCommand(selectCmd, conn);
-                            using (reader = cmd.ExecuteReader())
+                            GlassLotNo = reader.GetString(0);
+                            GlassSpec = reader.GetString(1);
+
+                            if (GlassLotNo == "")
                             {
-                                if (reader.Read())
+                                if (!ProductNo.StartsWith("9-H"))
+                                    Error += "Code：119 無玻纖批號:" + GlassLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no fiberglass winding record information, please contact the production management";
+                            }
+                            else
+                            {
+                                selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '玻纖' AND A.[LotNo] LIKE '%" + GlassLotNo + "%'";
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                using (reader1 = cmd1.ExecuteReader())
                                 {
-                                    ;
+                                    if (reader1.Read())
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：119 無玻纖批號:" + GlassLotNo + " 測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //樹脂1
+                    selectCmd = "SELECT [ResinLotNo], [ResinSpec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                        "WHERE [LotNo] = '" + LotNumber + "' group by [ResinLotNo], [ResinSpec],[CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
+                    cmd = new SqlCommand(selectCmd, conn);
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ResinLotNo = reader.GetString(0);
+                            ResinSpec = reader.GetString(1);
+                            CarbonLotNo = reader.GetString(2);
+                            CarbonSpec = reader.GetString(3);
+                            GlassLotNo = reader.GetString(4);
+                            GlassSpec = reader.GetString(5);
+
+
+                            if (ResinLotNo == "")
+                            {
+                                Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                            }
+                            else
+                            {
+                                if (ResinSpec.Contains("AMS-TP01"))
+                                {
+                                    selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                    "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                    "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='碳' " +
+                                    "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                }
+                                else if (ResinSpec.Contains("AMS-TB01"))
+                                {
+                                    selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                    "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                    "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                    "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
                                 }
                                 else
                                 {
-                                    Error += "Code：119 無玻纖測試資料，請聯繫品保\nThere is no fiberglass test data, please contact quality assurance";
+                                    selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                    "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                    "AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' " +
+                                    "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                }
+
+                                cmd1 = new SqlCommand(selectCmd1, conn1);
+                                using (reader1 = cmd1.ExecuteReader())
+                                {
+                                    if (reader1.Read())
+                                    {
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        Error += "Code：120 無樹脂(1)批號:" + ResinLotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                    }
                                 }
                             }
                         }
                     }
 
-                    //樹酯
-                    if (ResinLotNo == "")
-                    {
-                        Error += "Code：120 無樹脂繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
-                    }
-                    else
-                    {
-                        selectCmd = "SELECT * FROM [PPT] A, [Esign2] B WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' AND A.[LotNo] LIKE '%" + ResinLotNo + "%' and FiberType ='玻' and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";//20180912品保系統檢驗組組長 說只要規格一樣沒有對應批號也可以。當初為CE0086有問題
-                        cmd = new SqlCommand(selectCmd, conn);
+                    //樹脂2
+                    selectCmd = "SELECT [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] FROM [FilamentWinding] " +
+                        "WHERE [LotNo] = '" + LotNumber + "' group by [Resin2LotNo], [Resin2Spec], [CarbonLotNo], [CarbonSpec], [GlassLotNo], [GlassSpec] ";
+                    cmd = new SqlCommand(selectCmd, conn);
                         using (reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                ;
-                            }
-                            else
-                            {
-                                Error += "Code：120 無樹脂測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                Resin2LotNo = reader.GetString(0);
+                                Resin2Spec = reader.GetString(1);
+                                CarbonLotNo = reader.GetString(2);
+                                CarbonSpec = reader.GetString(3);
+                                GlassLotNo = reader.GetString(4);
+                                GlassSpec = reader.GetString(5);
+
+
+                                if (Resin2LotNo == "")
+                                {
+                                    Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
+                                }
+                                else
+                                {
+                                    if (Resin2Spec.Contains("AMS-TP01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='碳' " +
+                                        "and (FiberLotNo like '%" + CarbonLotNo + "%' or FiberSpec like '%" + CarbonSpec + "%')";
+                                    }
+                                    else if (Resin2Spec.Contains("AMS-TB01"))
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+                                    else
+                                    {
+                                        selectCmd1 = "SELECT * FROM [PPT] A, [Esign2] B " +
+                                        "WHERE A.[AcceptanceNo]=B.[AcceptanceNo] AND A.[Type] = '樹脂' " +
+                                        "AND A.[LotNo] LIKE '%" + Resin2LotNo + "%' and FiberType ='玻' " +
+                                        "and (FiberLotNo like '%" + GlassLotNo + "%' or FiberSpec like '%" + GlassSpec + "%')";
+                                    }
+
+                                    cmd1 = new SqlCommand(selectCmd1, conn1);
+                                    using (reader1 = cmd1.ExecuteReader())
+                                    {
+                                        if (reader1.Read())
+                                        {
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 測試資料，請聯繫品保\nNo resin test data available, please contact quality assurance";
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-
                 }
-
 
                 //對應內膽  拉伸、爆破
                 //找出對應內膽批號
