@@ -44,6 +44,7 @@
             this.SQLBodyButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ReadyGroupBox = new System.Windows.Forms.GroupBox();
+            this.User_LB = new System.Windows.Forms.Label();
             this.StepLabel5 = new System.Windows.Forms.Label();
             this.ListDate_LB = new System.Windows.Forms.ListBox();
             this.ColorListBox = new System.Windows.Forms.ListBox();
@@ -137,7 +138,6 @@
             this.textBoxSerialNoScan = new System.Windows.Forms.TextBox();
             this.textBoxSerialNoType = new System.Windows.Forms.TextBox();
             this.labelSerialNoCode = new System.Windows.Forms.Label();
-            this.User_LB = new System.Windows.Forms.Label();
             this.KeyInGroupBox.SuspendLayout();
             this.ReadyGroupBox.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -312,6 +312,17 @@
             this.ReadyGroupBox.Size = new System.Drawing.Size(588, 479);
             this.ReadyGroupBox.TabIndex = 12;
             this.ReadyGroupBox.TabStop = false;
+            // 
+            // User_LB
+            // 
+            this.User_LB.AutoSize = true;
+            this.User_LB.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.User_LB.Font = new System.Drawing.Font("PMingLiU", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.User_LB.Location = new System.Drawing.Point(16, 49);
+            this.User_LB.Name = "User_LB";
+            this.User_LB.Size = new System.Drawing.Size(91, 30);
+            this.User_LB.TabIndex = 51;
+            this.User_LB.Text = "label11";
             // 
             // StepLabel5
             // 
@@ -1369,7 +1380,7 @@
             this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(124, 19);
-            this.toolStripStatusLabel2.Text = "20241106 09:36";
+            this.toolStripStatusLabel2.Text = "20241122 10:41";
             // 
             // TodayDataButton
             // 
@@ -1468,17 +1479,6 @@
             this.labelSerialNoCode.Size = new System.Drawing.Size(114, 50);
             this.labelSerialNoCode.TabIndex = 2;
             this.labelSerialNoCode.Text = "6300";
-            // 
-            // User_LB
-            // 
-            this.User_LB.AutoSize = true;
-            this.User_LB.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.User_LB.Font = new System.Drawing.Font("PMingLiU", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.User_LB.Location = new System.Drawing.Point(16, 49);
-            this.User_LB.Name = "User_LB";
-            this.User_LB.Size = new System.Drawing.Size(91, 30);
-            this.User_LB.TabIndex = 51;
-            this.User_LB.Text = "label11";
             // 
             // Main
             // 
