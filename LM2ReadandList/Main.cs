@@ -5916,7 +5916,7 @@ namespace LM2ReadandList
                                     GlassSpec = reader.GetString(5);
 
 
-                                    if (Resin2LotNo != "" || Resin2LotNo != "-")
+                                    if (Resin2LotNo != "" && Resin2LotNo != "-")
                                     {                                        
                                         if (Resin2Spec.Contains("AMS-TP01"))
                                         {
@@ -7437,7 +7437,7 @@ namespace LM2ReadandList
                                 GlassSpec = reader.GetString(5);
 
 
-                                if (Resin2LotNo != "" || Resin2LotNo != "-")
+                                if (Resin2LotNo != "" && Resin2LotNo != "-")
                                 {                                    
                                     if (Resin2Spec.Contains("AMS-TP01"))
                                     {
@@ -8655,7 +8655,7 @@ namespace LM2ReadandList
                                 GlassSpec = reader.GetString(5);
 
 
-                                if (Resin2LotNo != "" || Resin2LotNo != "-")
+                                if (Resin2LotNo != "" && Resin2LotNo != "-")
                                 {
                                     Error += "Code：120 無樹脂(2)批號:" + Resin2LotNo + " 繞線紀錄資料，請聯繫生管\nThere is no resin winding record information, please contact the production management";
 
