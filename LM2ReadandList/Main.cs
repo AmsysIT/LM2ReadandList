@@ -2,6 +2,7 @@
 using com.google.zxing.common; // for ByteMatrix
 using com.google.zxing.qrcode; // for QRCode Engine
 using DataMatrix.net;
+using LM2ReadandList_Customized.API;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,9 +40,9 @@ namespace LM2ReadandList
         public int time = 420;
 
         //資料庫宣告
-        string myConnectionString, myConnectionString21, myConnectionString30, myConnectionString21_AMS_check, myConnectionString21_QCReport; //20240205
-        string AMS21_ConnectionString = "Server = 192.168.0.21; DataBase = AMS; uid = sa; pwd = dsc;";
-        string AMS3_ConnectionString = "Server=192.168.0.30;Database = AMS3;uid=sa;pwd=Ams.sql;";
+        public static string myConnectionString, myConnectionString21, myConnectionString30, myConnectionString21_AMS_check, myConnectionString21_QCReport; //20240205
+        public static string AMS21_ConnectionString{get;set;}
+        public static string AMS3_ConnectionString { get; set; }
         string selectCmd, selectCmd1;
         SqlConnection conn, conn1;
         SqlCommand cmd, cmd1;
@@ -96,27 +97,30 @@ namespace LM2ReadandList
 
         public Main()
         {
-            //資料庫路徑與位子
-            myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";
-            myConnectionString30 = "Server=192.168.0.30;database=AMS2;uid=sa;pwd=Ams.sql;";
-            myConnectionString21 = "Server=192.168.0.21;database=HRMDB;uid=sa;pwd=dsc;";
-            myConnectionString21_AMS_check = "Server=192.168.0.21;database=AMS_Check;uid=sa;pwd=dsc;";
-            myConnectionString21_QCReport = "Server=192.168.0.21;database=QCReport;uid=sa;pwd=dsc;"; //20240205
-            connectionQCReport = "[192.168.0.21].[QCReport].[dbo].";
-            /*
-            //20240205 test
-            myConnectionString = "Server=192.168.0.15;database=test;uid=sa;pwd=ams.sql;";
-            myConnectionString30 = "Server=192.168.0.30;database=AMS2Test;uid=sa;pwd=Ams.sql;";
-            myConnectionString21 = "Server=192.168.0.21;database=test;uid=sa;pwd=dsc;";
-            myConnectionString21_AMS_check = "Server=192.168.0.21;database=test;uid=sa;pwd=dsc;";
-            myConnectionString21_QCReport = "Server=192.168.0.21;database=test;uid=sa;pwd=dsc;"; //20240205
-            connectionQCReport = "[192.168.0.21].[test].[dbo].";
-            */
             InitializeComponent();
         }
 
+        public void Init_ConnectionString()
+        {
+            //TODO remove
+            myConnectionString = Api_Core.get_connectstring(db_name: "amsys", test_mode: Form_Login.azure_mode);
+            myConnectionString30 = Api_Core.get_connectstring(db_name: "AMS2", test_mode: Form_Login.azure_mode);
+            myConnectionString21 = Api_Core.get_connectstring(db_name: "HRMDB", test_mode: Form_Login.azure_mode);
+            myConnectionString21_AMS_check = Api_Core.get_connectstring(db_name: "AMS_Check", test_mode: Form_Login.azure_mode);
+            myConnectionString21_QCReport = Api_Core.get_connectstring(db_name: "QCReport", test_mode: Form_Login.azure_mode);
+            AMS21_ConnectionString = Api_Core.get_connectstring(db_name: "AMS", test_mode: Form_Login.azure_mode);
+            AMS3_ConnectionString = Api_Core.get_connectstring(db_name: "AMS3", test_mode: Form_Login.azure_mode);
+            connectionQCReport = (Form_Login.azure_mode ? "" : "[192.168.0.21].") + "[QCReport].[dbo].";
+            GetBOM.AMS3_ConnectionString = AMS3_ConnectionString;
+            Console.WriteLine(myConnectionString);
+            Console.WriteLine(connectionQCReport);
+        }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            Init_ConnectionString();
+
             IsChangePrinter = false;
 
             //User_LB.Items.Clear(); //20241031
@@ -11125,7 +11129,7 @@ namespace LM2ReadandList
             string path_temp = "";
 
 
-            selectCmd = "Select [base64],[packingmarks] From [192.168.0.21].[AMSSystem].[dbo].[PackingMarks] where packingmarks = @packingmarks and STOP_DATE IS NULL ";
+            selectCmd = "Select [base64],[packingmarks] From "+ (Form_Login.azure_mode ? "" : "[192.168.0.21].") + "[AMSSystem].[dbo].[PackingMarks] where packingmarks = @packingmarks and STOP_DATE IS NULL ";
             cmd = new SqlCommand(selectCmd, conn);
             cmd.Parameters.AddWithValue("@packingmarks", (PackingMarks.Trim().Contains("-") == true ? PackingMarks.Trim().Split('-')[1].Trim().ToUpper() : PackingMarks.Trim()));
             using (reader = cmd.ExecuteReader())

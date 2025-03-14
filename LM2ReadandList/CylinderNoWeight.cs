@@ -13,7 +13,7 @@ namespace LM2ReadandList
     public partial class CylinderNoWeight : Form
     {
         //資料庫宣告
-        string myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";
+        string myConnectionString { get; set; }
         string selectCmd;
         SqlConnection conn;
         SqlCommand cmd;
@@ -28,6 +28,7 @@ namespace LM2ReadandList
         public CylinderNoWeight()
         {
             InitializeComponent();
+            myConnectionString = Main.myConnectionString;
         }
 
         private void CylinderNoWeight_Load(object sender, EventArgs e)

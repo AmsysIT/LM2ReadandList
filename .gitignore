@@ -11,3 +11,4 @@ LM2ReadandList/bin/Debug/*
 LM2ReadandList/obj/Release/*
 LM2ReadandList/bin/Release/*
 .vs/*
+/packages

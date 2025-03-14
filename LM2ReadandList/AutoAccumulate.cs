@@ -31,7 +31,7 @@ namespace LM2ReadandList
         public AutoAccumulate()
         {
             InitializeComponent();
-            myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";       
+            myConnectionString = Main.myConnectionString;       
 
         }
 

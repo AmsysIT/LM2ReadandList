@@ -9,14 +9,8 @@ namespace LM2ReadandList
     {
 
         //SQL 參數
-        //private static string AMS15_ConnectionString = "Server = 192.168.0.15; DataBase = amsys; uid = sa; pwd = ams.sql;";
-        //private static string AMS30_ConnectionString = "Server = 192.168.0.30; DataBase = AMS2; uid = sa; pwd = Ams.sql;";
-        private static string AMS3_ConnectionString = "Server = 192.168.0.30; DataBase = AMS3; uid = sa; pwd = Ams.sql;";
-        //private static string AMSerp_ConnectionString = "Server=192.168.0.21;database=AMS;uid=sa;pwd=dsc;";
+        public static string AMS3_ConnectionString { get; set; }
         private static string SelectCmd;
-        //private static SqlConnection conn, conn2;
-        //private static SqlCommand cmd, cmd2;
-        //private static SqlDataReader reader, reader2;
         private static SqlDataAdapter sqlAdapter;
         private static DataTable Dt;
         private static DataTable Dt2;

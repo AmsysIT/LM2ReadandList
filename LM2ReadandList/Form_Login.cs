@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using LM2ReadandList_Customized.API;
 
 namespace LM2ReadandList
 {
@@ -16,13 +17,15 @@ namespace LM2ReadandList
         SqlConnection conn;
         SqlCommand cmd;
         SqlDataReader reader;
-        string AMS21_HR_ConnectionString = "Server = 192.168.0.21; DataBase = AMS_HR; uid = sa; pwd = dsc;";
+        string AMS21_HR_ConnectionString { get; set; }
         //string ESIGNmyConnectionString;
         string selectCmd;
 
         //員工資訊
         string EmpName;
         string EmpNo;
+
+        public static bool azure_mode { get; set; }
 
         public Form_Login()
         {
@@ -88,6 +91,37 @@ namespace LM2ReadandList
             MA.ShowDialog();
             this.Close(); //20241031
 
+        }
+
+        public void Init_ConnectionString()
+        {
+            //TODO remove
+            AMS21_HR_ConnectionString = Api_Core.get_connectstring(db_name: "AMS_HR", test_mode: azure_mode);
+            Console.WriteLine(this.AMS21_HR_ConnectionString);
+        }
+
+
+        private void Form_Login_Load(object sender, EventArgs e)
+        {
+#if DEBUG
+            //開發端自行選擇模式
+            var result = MessageBox.Show("是否使用雲端字串模式?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                azure_mode = true;
+            }
+            AccountTextBox.Text = "A00699";
+            Password_TextB.Text = "Yz54338923";
+#else
+            //用戶端則使用API取得模式
+            azure_mode = Api_Core.get_status();
+#endif
+            if (azure_mode)
+            {
+                Text += " - 雲端模式";
+            }
+
+            Init_ConnectionString();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace LM2ReadandList
             InitializeComponent();
 
             //資料庫路徑與位子
-            myConnectionString = "Server=192.168.0.15;database=amsys;uid=sa;pwd=ams.sql;";   
+            myConnectionString = Main.myConnectionString;
         }
 
         private void BarCodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
