@@ -111,7 +111,7 @@ namespace LM2ReadandList
                 azure_mode = true;
             }
             AccountTextBox.Text = "A00699";
-            Password_TextB.Text = "Yz54338923";
+            Password_TextB.Text = "";
 #else
             //用戶端則使用API取得模式
             azure_mode = Api_Core.get_status();
